@@ -55,10 +55,10 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=c1cms',
+			'connectionString' => 'mysql:host=localhost;dbname=c4test',
 			'emulatePrepare' => true,
-			'username' => 'c1mar',
-			'password' => '123',
+			'username' => 'c4test',
+			'password' => 'hasl0d)bAzy1!',
 			'charset' => 'utf8',
                         'enableProfiling' => true,
                         'enableParamLogging' => true,
