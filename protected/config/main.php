@@ -7,7 +7,9 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'name'=>'VideoCMS',
+        'language' => 'pl',
+        'defaultController' => 'VideoCMS',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -37,7 +39,7 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		// uncomment the following to enable URLs in path-format
-		/*
+		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
@@ -46,20 +48,22 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		*/
+		
 		'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),
 		// uncomment the following to use a MySQL database
-		/*
+		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+			'connectionString' => 'mysql:host=localhost;dbname=c1cms',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'c1mar',
+			'password' => '123',
 			'charset' => 'utf8',
+                        'enableProfiling' => true,
+                        'enableParamLogging' => true,
 		),
-		*/
+		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
@@ -79,12 +83,18 @@ return array(
 				*/
 			),
 		),
+            
+            'session'=>array(
+                    'class'=> 'CDbHttpSession',
+                    'connectionID' => 'db',
+                    'sessionTableName' => 'VideoCMS_sesja',
+            ),    
 	),
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'adminEmail'=>'redakcja@timeto.pl',
 	),
 );
