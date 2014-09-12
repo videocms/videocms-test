@@ -26,7 +26,7 @@ class CmsvideoUzytkownicy extends CFormModel
 
     public function LiczIleUzytkownikow()
     {
-        $WybierzUzytkownikow = Yii::app()->db->createCommand('SELECT count(uzytkownik_id) FROM videocms_users WHERE uzytkownik_login = :UzytkownikLogin AND uzytkownik_haslo = :UzytkownikHaslo');
+        $WybierzUzytkownikow = Yii::app()->db->createCommand('SELECT count(user_id) FROM videocms_users WHERE user_login = :UzytkownikLogin AND user_pass = :UzytkownikHaslo');
         $WybierzUzytkownikow->bindValue(':UzytkownikLogin', $this->uzytkownik_login, PDO::PARAM_STR);
         $WybierzUzytkownikow->bindValue(':UzytkownikHaslo', md5($this->uzytkownik_haslo), PDO::PARAM_STR);
         $DaneUzytkownicy = $WybierzUzytkownikow->queryScalar();
@@ -36,7 +36,7 @@ class CmsvideoUzytkownicy extends CFormModel
 
     public function WybierzUzytkownika()
     {
-        $WybierzUzytkownikow = Yii::app()->db->createCommand('SELECT * FROM videocms_users WHERE uzytkownik_login = :UzytkownikLogin AND uzytkownik_haslo = :UzytkownikHaslo');
+        $WybierzUzytkownikow = Yii::app()->db->createCommand('SELECT * FROM videocms_users WHERE user_login = :UzytkownikLogin AND user_pass = :UzytkownikHaslo');
         $WybierzUzytkownikow->bindValue(':UzytkownikLogin', $this->uzytkownik_login, PDO::PARAM_STR);
         $WybierzUzytkownikow->bindValue(':UzytkownikHaslo', md5($this->uzytkownik_haslo), PDO::PARAM_STR);
         $DaneUzytkownicy = $WybierzUzytkownikow->queryAll();
