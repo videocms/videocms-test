@@ -28,15 +28,27 @@
 	</div><!-- header -->
 
 	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
+		<?php if(Yii::app()->session['zalogowany'] == 'tak')
+                {
+                    $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				array('label'=>'Home', 'url'=>array('/videocms/index')),
+				array('label'=>'Wyloguj', 'url'=>array('/zaloguj/wyloguj')),
+                            array('label'=>'Wpisy', 'url'=>array('/admin/wpisy')),
+				array('label'=>'Kategorie', 'url'=>array('/admin/kategorie')),
+				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Zmień hasło', 'url'=>array('/admin/haslo')),
 			),
-		)); ?>
+                ));}
+                else
+                {
+                    $this->widget('zii.widgets.CMenu',array('items'=>array(
+                        array('label'=>'Strona główna', 'url'=>array('/videocms/index')),
+                        array('label'=>'Zaloguj', 'url'=>array('/zaloguj/index')),
+                    ),
+                  ));
+                }
+?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
