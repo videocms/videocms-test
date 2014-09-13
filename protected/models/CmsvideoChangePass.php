@@ -8,39 +8,39 @@
 
 class CmsvideoChangePass extends CFormModel
 {
-    public $uzytkownik_haslo;
-    public $uzytkownik_nowehaslo;
-    public $uzytkownik_nowehaslo2;
+    public $user_pass;
+    public $user_newpass;
+    public $user_newpass2;
     
     public function rules()
     {
         return array(
-            array('uzytkownik_haslo, uzytkownik_nowehaslo, uzytkownik_nowehaslo2', 'required'),
+            array('user_pass, user_newpass, user_newpass2', 'required'),
         );
     }
     
     public function attributeLabels() {
         return array(
-            'uzytkownik_haslo' => 'Stare Hasło',
-            'uzytkownik_nowehaslo' => 'Nowe hasło',
-            'uzytkownik_nowehaslo2' => 'Powtorz nowe hasło',
+            'user_pass' => 'Stare Hasło',
+            'user_newpass' => 'Nowe hasło',
+            'user_newpass2' => 'Powtorz nowe hasło',
         );
     }
     
-    public function WybierzUzytkownika($Id)
+    public function SelectUser($Id)
     {
-        $WybierzUzytkownikow = Yii::app()->db->createCommand('SELECT * FROM videocms_users WHERE uzytkownik_id =:UzytkownikId');
-        $WybierzUzytkownikow->bindValue(':UzytkownikId', $Id, PDO::PARAM_INT);
-        $DaneUzytkownicy = $WybierzUzytkownikow->queryAll();
+        $SelectUsers = Yii::app()->db->createCommand('SELECT * FROM videocms_users WHERE user_id =:UserId');
+        $SelectUsers->bindValue(':UserId', $Id, PDO::PARAM_INT);
+        $DataUsers = $SelectUsers->queryAll();
         
-        return $DaneUzytkownicy;
+        return $DataUsers;
     }
     
-    public function AktualizujHaslo($Id)
+    public function UpdatePass($Id)
     {
-        $AktualizujHaslo = Yii::app()->db->createCommand('UPDATE vidocms_users SET uzytkownik_haslo = :UzytkownikHaslo WHERE uzytkownik_id = :UzytkownikId');
-        $AktualizujHaslo->bindValue(':UzytkownikHaslo', md5($this->uzytkownik_nowehaslo), PDO::PARAM_STR);
-        $AktualizujHaslo->bindValue(':UzytkownikId', $Id, PDO::PARAM_INT);
-        $AktualizujHaslo->execute();
+        $UpdatePass = Yii::app()->db->createCommand('UPDATE vidocms_users SET user_pass = :UserPass WHERE user_id = :UserId');
+        $UpdatePass->bindValue(':UserPass', md5($this->user_newpass), PDO::PARAM_STR);
+        $UpdatePass->bindValue(':UserId', $Id, PDO::PARAM_INT);
+        $UpdatePass->execute();
     }
 }
