@@ -43,8 +43,8 @@
                 else
                 {
                     $this->widget('zii.widgets.CMenu',array('items'=>array(
-                        array('label'=>'Strona główna', 'url'=>array('/videocms/index')),
-                        array('label'=>'Zaloguj', 'url'=>array('/zaloguj/index')),
+                        array('label'=>'Strona główna', 'url'=>array('/index')),
+                        array('label'=>'Zaloguj', 'url'=>array('/zaloguj')),
                     ),
                   ));
                 }
