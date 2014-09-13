@@ -31,10 +31,10 @@ class CmsvideoVideo extends CFormModel
         );
     }
     
-    public function CountAllEntries()
+    public function CountAllVideo()
     {
-        $CountEntries = Yii::app()->db->createCommand('SELECT count(video_id) AS HowVideo FROM videocms_video');
-        $AmountVideo = $CountEntries->queryScalar();
+        $CountVideo = Yii::app()->db->createCommand('SELECT count(video_id) AS HowVideo FROM videocms_video');
+        $AmountVideo = $CountVideo->queryScalar();
         
         return $AmountVideo;
     }
