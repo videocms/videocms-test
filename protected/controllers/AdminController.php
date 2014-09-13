@@ -71,7 +71,11 @@ class AdminController extends Controller
     
     public function actionVideoUpdate($id)
     {
-        
+        $this->pageTitle = 'Edit Video';
+        if(Yii::app()->session['zalogowany'] != 'tak')
+        {
+            $this->redirect(array('login/index'));
+        }
     }
 }
 
