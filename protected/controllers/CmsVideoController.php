@@ -63,6 +63,18 @@ class CmsVideoController extends Controller
         {
             exit;
         }
+       
+        $ModelCategory = new CmsvideoCategories;
+        $DataCategory = $ModelCategory->DownloadCategories();
+        
+        $ModelVideo = new CmsvideoVideo;
+        $DataVideo = $ModelVideo->DownloadVideo($id);
+        
+        foreach($DataVideo as $Video)
+        {
+            $this->pageTitle = $Video['video_title'];
+        }
+        
     }
     
 }
