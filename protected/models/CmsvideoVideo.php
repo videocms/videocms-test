@@ -22,10 +22,10 @@ class CmsvideoVideo extends CFormModel
     public function attributeLabels() {
         return array(
             'video_id' => 'ID',
-            'video_title' => 'Tytuł',
-            'video_text' => 'Treść',
-            'video_category' => 'Kategoria',
-            'video_date' => 'Data',
+            'video_title' => 'Title',
+            'video_text' => 'Text',
+            'video_category' => 'Category',
+            'video_date' => 'Date',
             'video_480p' => '480p',
             'video_720p' => '720p',
         );

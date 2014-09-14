@@ -17,7 +17,7 @@ class CmsvideoCategories extends CFormModel
     public function attributeLabels() {
         return array(
             'category_id' => 'ID',
-            'category_name' => 'Nazwa',
+            'category_name' => 'Name',
         );
     }
     

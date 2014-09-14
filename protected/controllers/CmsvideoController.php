@@ -48,13 +48,10 @@ class CmsvideoController extends Controller
         $Site->pageSize=10;
         
         $DataVideo = $ModelVideo->SelectVideoCategory($id, $Site->pageSize, $Site->currentPage);
-        
-        $this->render('Category',
-                array(
+        $this->render('Category', array(
                     'DataVideo' => $DataVideo,
                     'Site' => $Site,
-                      )
-                   );
+                      ));
     }
     
     public function actionVideo($id)
@@ -74,6 +71,12 @@ class CmsvideoController extends Controller
         {
             $this->pageTitle = $Video['video_title'];
         }
+        
+        $this->render('video', array(
+            'DataCategory' => $DataCategory,
+            'DataVideo' => $DataVideo,
+            
+        ));
         
     }
     
