@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
+	<meta name="language" content="pl" />
         <div class=""
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
@@ -32,7 +32,7 @@
                 {
                     $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/videocms/index')),
+				array('label'=>'Home', 'url'=>array('/cmsvideo/index')),
 				array('label'=>'Wyloguj', 'url'=>array('/zaloguj/wyloguj')),
                             array('label'=>'Wpisy', 'url'=>array('/admin/wpisy')),
 				array('label'=>'Kategorie', 'url'=>array('/admin/kategorie')),
@@ -43,8 +43,8 @@
                 else
                 {
                     $this->widget('zii.widgets.CMenu',array('items'=>array(
-                        array('label'=>'Strona główna', 'url'=>array('/index')),
-                        array('label'=>'Zaloguj', 'url'=>array('/zaloguj')),
+                        array('label'=>'Strona główna', 'url'=>array('cmsvideo/index')),
+                        array('label'=>'Zaloguj', 'url'=>array('cmsvideo/zaloguj')),
                     ),
                   ));
                 }

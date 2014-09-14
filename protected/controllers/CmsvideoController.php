@@ -1,6 +1,6 @@
 <?php
 
-class CmsVideoController extends Controller
+class CmsvideoController extends Controller
 {
     public function actionIndex()
     {
