@@ -11,7 +11,10 @@ foreach($DataVideo as $ModelSite)
     echo '<p class="data">Data publikacji: '.$ModelSite['video_date'].'</p>';
     echo '<p class="tresc">'.substr($ModelSite['video_text'], 0, 400).'...</p>';
    ?> <!--echo '<p class="data">video: '.$ModelSite['video_480p'].'</p>'; -->
-   
+   <script>
+$.noConflict();
+// Code that uses other library's $ can follow here.
+</script>
    
    <video id="example-2" class="video-js vjs-default-skin" controls width="640" height="360" poster="http://video-js.zencoder.com/oceans-clip.png" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>
 		<source src="<?php echo ''.$ModelSite['video_480p'].'';?>" type="video/mp4" data-res="480" />
@@ -45,7 +48,15 @@ foreach($DataVideo as $ModelSite)
       url: 'http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=229&LR_SCHEMA=vast2'
     });
 	</script>
-   
+   <script type="text/javascript">
+		//var vid1 = videojs('example-2');
+
+    //vid1.ads();
+    //vid1.vast({
+    //  url: 'http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=229&LR_SCHEMA=vast2'
+   // });
+ 
+	</script>
    
    <?php
     if($Category[$ModelSite['video_category']] != '')

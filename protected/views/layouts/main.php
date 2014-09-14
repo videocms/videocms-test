@@ -36,11 +36,11 @@
     }
   </style>
   <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
-  
+  <!--
 <script>
 $.noConflict();
 // Code that uses other library's $ can follow here.
-</script>
+</script> -->
         
         <!-- koniec video js -->
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
