@@ -48,7 +48,7 @@ class CmsvideoController extends Controller
         $Site->pageSize=10;
         
         $DataVideo = $ModelVideo->SelectVideoCategory($id, $Site->pageSize, $Site->currentPage);
-        $this->render('Category', array(
+        $this->render('category', array(
                     'DataVideo' => $DataVideo,
                     'Site' => $Site,
                       ));
