@@ -57,9 +57,9 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=c4test',
+			'connectionString' => 'mysql:host=22389.m.tld.pl;dbname=baza89_cmsvideo',
 			'emulatePrepare' => true,
-			'username' => 'c4test',
+			'username' => 'admin89_cmsvideo',
 			'password' => 'hasl0d)bAzy1!',
 			'charset' => 'utf8',
                         'enableProfiling' => true,
@@ -99,4 +99,5 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'redakcja@timeto.pl',
 	),
+    
 );
