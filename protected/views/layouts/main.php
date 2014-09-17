@@ -60,7 +60,7 @@ $.noConflict();
                     $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/cmsvideo/index')),
-				array('label'=>'Wyloguj', 'url'=>array('/zaloguj/wyloguj')),
+				array('label'=>'Wyloguj', 'url'=>array('/login/logout')),
                             array('label'=>'Wpisy', 'url'=>array('/admin/wpisy')),
 				array('label'=>'Kategorie', 'url'=>array('/admin/category')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),

@@ -2,9 +2,9 @@
 
 class AdminController extends Controller
 {
-    public function actionVideo()
+    public function actionVideos()
     {
-        $this->pageTitle = 'Video';
+        $this->pageTitle = 'Videos';
         
         if (Yii::app()->session['zalogowany'] != 'tak')
         {
