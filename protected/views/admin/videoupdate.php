@@ -1,6 +1,7 @@
 <div class="form">
     <h2>Edycja wpisu</h2>
-    <?php $form->$this->beginWidget('CActiveForm', array(
+    <?php 
+    $form=$this->beginWidget('CActiveForm', array(
         'id'=>'videocms-videos-form',
         'enableAjaxValidation'=>false,
     ));

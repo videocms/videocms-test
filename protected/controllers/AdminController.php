@@ -67,7 +67,7 @@ class AdminController extends Controller
         $ModelVideo = new CmsvideoVideo;
         $ModelVideo->DeleteVideo($id);
         
-        $this->redirect(array('admin/video'));
+        $this->redirect(array('admin/videos'));
     }
     
     public function actionVideoUpdate($id)
@@ -97,6 +97,7 @@ class AdminController extends Controller
                 $ModelVideo->UpdateVideo($id);
                 $VideoUpdate = true;
             }
+            $this->redirect(array('admin/videos'));
         }
         else
         {
