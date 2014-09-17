@@ -32,6 +32,7 @@ class AdminController extends Controller
                 $ModelVideo->video_date = '';
                 $ModelVideo->video_480p = '';
                 $ModelVideo->video_720p = '';
+                $ModelVideo->video_1080p = '';
             }
         }
         
@@ -108,6 +109,7 @@ class AdminController extends Controller
                 $ModelVideo->video_category = $DataVideo['video_category'];
                 $ModelVideo->video_480p = $DataVideo['video_480p'];
                 $ModelVideo->video_720p = $DataVideo['video_720p'];
+                $ModelVideo->video_1080p = $DataVideo['video_1080p'];
             }
         }
         
