@@ -24,6 +24,7 @@ $.noConflict();
    <video id="example-2" class="video-js vjs-default-skin" controls width="640" height="360" poster="http://video-js.zencoder.com/oceans-clip.png" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>
 		<source src="<?php echo ''.$ModelSite['video_480p'].'';?>" type="video/mp4" data-res="480" />
 		<source src="<?php echo ''.$ModelSite['video_720p'].'';?>" type="video/mp4" data-res="720" />
+		<source src="<?php echo ''.$ModelSite['video_1080p'].'';?>" type="video/mp4" data-res="1080" />
 <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
 	</video>
 
