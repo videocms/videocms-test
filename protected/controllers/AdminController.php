@@ -143,7 +143,7 @@ class AdminController extends Controller
             }
         }
         
-        $DataCategory = $ModelCategory->DownloadCategories();
+        $DataCategory = $ModelCategories->DownloadCategories();
         
         $this->render('category', array(
             'Data' => $DataCategory,

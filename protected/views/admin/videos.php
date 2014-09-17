@@ -84,17 +84,17 @@ $this->widget('CLinkPager', array(
     </div>
      <div class="row">
         <?php echo $form->labelEx($ModelVideo, 'video_480p'); ?>
-        <?php echo $form->textArea($ModelVideo, 'video_480p'); ?>
+        <?php echo $form->textField($ModelVideo, 'video_480p'); ?>
         <?php echo $form->error($ModelVideo, 'video_480p'); ?>
     </div>
     <div class="row">
         <?php echo $form->labelEx($ModelVideo, 'video_720p'); ?>
-        <?php echo $form->textArea($ModelVideo, 'video_720p'); ?>
+        <?php echo $form->textField($ModelVideo, 'video_720p'); ?>
         <?php echo $form->error($ModelVideo, 'video_720p'); ?>
     </div>
     <div class="row">
         <?php echo $form->labelEx($ModelVideo, 'video_category'); ?>
-        <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData($ModelCategory->$DownloadCategory(), 'category_id', 'category_name'), array('style'=>'width: 400px;')
+        <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), array('style'=>'width: 400px;')
                 ); 
         ?>
         <?php echo $form->error($ModelVideo, 'video_category'); ?>
