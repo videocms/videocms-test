@@ -28,7 +28,7 @@ class CmsvideoUsers extends CFormModel
     {
         $SelectUsers = Yii::app()->db->createCommand('SELECT count(user_id) FROM videocms_users WHERE user_login = :UserLogin AND user_pass = :UserPass');
         $SelectUsers->bindValue(':UserLogin', $this->user_login, PDO::PARAM_STR);
-        $SelectUsers->bindValue(':UserkPass', md5($this->user_pass), PDO::PARAM_STR);
+        $SelectUsers->bindValue(':UserPass', md5($this->user_pass), PDO::PARAM_STR);
         $DataUsers = $SelectUsers->queryScalar();
 
         return $DataUsers;
