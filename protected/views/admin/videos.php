@@ -35,14 +35,14 @@ foreach($Data as $ModelVideosShow)
     
     echo CHtml::link(
             'Edytuj',
-            array('admin/videoupdate/', $ModelVideosShow['video_title'])
+            array('admin/videoupdate/',$ModelVideosShow['video_id'])
             );
     echo '</td>';
     echo '<td class="'.$RowClass.'">';
     
     echo CHtml::link(
             'Usuń',
-            array('admin/videodelete/', $ModelVideosShow['video_id']),
+            array('admin/videodelete/',$ModelVideosShow['video_id']),
             array('confirm' => 'Czy na pewno chcesz usunąć ten rekord?'));
     echo '</td>';
     echo '<tr>';

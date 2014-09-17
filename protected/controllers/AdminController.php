@@ -102,7 +102,7 @@ class AdminController extends Controller
         {
             $Data = $ModelVideo->DownloadVideo($id);
             
-            foreach ($Data as $DataVideo)
+            foreach($Data as $DataVideo)
             {
                 $ModelVideo->video_title = $DataVideo['video_title'];
                 $ModelVideo->video_text = $DataVideo['video_text'];
