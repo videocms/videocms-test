@@ -192,6 +192,7 @@ class AdminController extends Controller
                 $ModelCategory->SaveCategory($id);
                 $CategoryUpdate = true;
             }
+            $this->redirect(array('/admin/category'));
         }
         else
         {
