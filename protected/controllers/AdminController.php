@@ -40,7 +40,7 @@ class AdminController extends Controller
         $Site = new CPagination(intval($AmountVideo));
         $Site->pageSize = 10;
         
-        $Data = $ModelVideo($Site->pageSize, $Site->currentPage);
+        $Data = $ModelVideo->SelectVideo($Site->pageSize, $Site->currentPage);
         
         $this->render('videos', array(
             'Data' => $Data,
@@ -114,7 +114,7 @@ class AdminController extends Controller
         $this->render('videoupdate', array(
             'ModelVideo' => $ModelVideo,
             'VideoUpdate' => $VideoUpdate,
-            'ModelCategory' => $ModelCategories,
+            'ModelCategories' => $ModelCategories,
             
         ));
     }

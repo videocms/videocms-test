@@ -60,6 +60,7 @@ $this->widget('CLinkPager', array(
     ));
     ?>
     
+    
     <p class="note">Pola oznacone <span class="required">*</span> są wymagane.</p>
     
     <?php echo $form->errorSummary($ModelVideo); ?>
@@ -81,7 +82,16 @@ $this->widget('CLinkPager', array(
         <?php echo $form->textArea($ModelVideo, 'video_text', array('rows' => 25, 'cols' => 50)); ?>
         <?php echo $form->error($ModelVideo, 'video_text'); ?>
     </div>
-    
+     <div class="row">
+        <?php echo $form->labelEx($ModelVideo, 'video_480p'); ?>
+        <?php echo $form->textArea($ModelVideo, 'video_480p'); ?>
+        <?php echo $form->error($ModelVideo, 'video_480p'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelVideo, 'video_720p'); ?>
+        <?php echo $form->textArea($ModelVideo, 'video_720p'); ?>
+        <?php echo $form->error($ModelVideo, 'video_720p'); ?>
+    </div>
     <div class="row">
         <?php echo $form->labelEx($ModelVideo, 'video_category'); ?>
         <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData($ModelCategory->$DownloadCategory(), 'category_id', 'category_name'), array('style'=>'width: 400px;')
