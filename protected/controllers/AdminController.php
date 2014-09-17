@@ -42,7 +42,7 @@ class AdminController extends Controller
         
         $Data = $ModelVideo($Site->pageSize, $Site->currentPage);
         
-        $this->render('video', array(
+        $this->render('videos', array(
             'Data' => $Data,
             'Site' => $Site,
             'VideoAdd' => $VideoAdd,
