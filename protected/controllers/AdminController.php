@@ -129,17 +129,17 @@ class AdminController extends Controller
         
         $CategotyAdd = false;
         
-        $ModelCategory = new CmsvideoCategories;
+        $ModelCategories = new CmsvideoCategories;
         
         if(isset($_POST['CmsvideoCategories']))
         {
-            $ModelCategory->attributes=$_POST['CmsvideoCategories'];
+            $ModelCategories->attributes=$_POST['CmsvideoCategories'];
             
-            if($ModelCategory->validate())
+            if($ModelCategories->validate())
             {
-                $ModelCategory->AddCategory();
+                $ModelCategories->AddCategory();
                 $CategotyAdd = true;
-                $ModelCategory->category_name = '';
+                $ModelCategories->category_name = '';
             }
         }
         
@@ -148,7 +148,7 @@ class AdminController extends Controller
         $this->render('category', array(
             'Data' => $DataCategory,
             'CategoryAdd' => $CategotyAdd,
-            'ModelCategory' => $ModelCategory
+            'ModelCategory' => $ModelCategories
         ));
     }
     public function actionCategoryDelete($id)
