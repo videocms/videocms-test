@@ -1,15 +1,14 @@
 <?php
 
-class LoginController extends Controller
-{
+class LoginController extends Controller {
     public function actionIndex()
     {
         $this->pageTitle = 'Login';
         $ErrorData = false;
         $ModelUsers = new CmsvideoUsers;
-        if(isset($_POST['CmsVideoUsers']))
+        if(isset($_POST['CmsvideoUsers']))
         {
-            $ModelUsers->attributes = $_POST['CmsVideoUsers'];
+            $ModelUsers->attributes = $_POST['CmsvideoUsers'];
             if($ModelUsers->validate())
             {
                 $While = $ModelUsers->CountHowManyUsers();
@@ -23,7 +22,7 @@ class LoginController extends Controller
                         Yii::app()->session['root'] = $ResultsLine['user_id'];
                     }
                     
-                    $this->redirect(array('admin/video'));
+                    $this->redirect(array('/admin'));
                 }
                 
                 else
