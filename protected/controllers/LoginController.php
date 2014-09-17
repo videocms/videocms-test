@@ -7,9 +7,9 @@ class LoginController extends Controller
         $this->pageTitle = 'Login';
         $ErrorData = false;
         $ModelUsers = new CmsvideoUsers;
-        if(isset($_POST['CmsvideoUsers']))
+        if(isset($_POST['CmsVideoUsers']))
         {
-            $ModelUsers->attributes = $_POST['CmsvideoUsers'];
+            $ModelUsers->attributes = $_POST['CmsVideoUsers'];
             if($ModelUsers->validate())
             {
                 $While = $ModelUsers->CountHowManyUsers();
