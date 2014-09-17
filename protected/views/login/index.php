@@ -1,7 +1,7 @@
 <h1>Zaloguj się</h1>
 <div class="form">
     <?php
-    $form=$this->beginWidget('CActiveForm', array('id'=>'videocms-login-form','enableAjaxValidation'=>false,
+    $form=$this->beginWidget('CActiveForm', array('id'=>'cmsvideo-users-login-form','enableAjaxValidation'=>false,
       ));
 ?>
     <p class="note">Pola wypełnione <span class="required">*</span> są wymagane.</p>
