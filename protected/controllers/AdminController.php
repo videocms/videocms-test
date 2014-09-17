@@ -131,9 +131,9 @@ class AdminController extends Controller
         
         $ModelCategory = new CmsvideoCategories;
         
-        if(isset($_POST['CmsvideoCategory']))
+        if(isset($_POST['CmsvideoCategories']))
         {
-            $ModelCategory->attributes=$_POST['CmsvideoCategory'];
+            $ModelCategory->attributes=$_POST['CmsvideoCategories'];
             
             if($ModelCategory->validate())
             {
@@ -184,9 +184,9 @@ class AdminController extends Controller
         $CategoryUpdate = false;
         $ModelCategory = new CmsvideoCategories;
         
-        if(isset($_POST['CmsvideoCategory']))
+        if(isset($_POST['CmsvideoCategories']))
         {
-            $ModelCategory->attributes = $_POST['CmsvideoCategory'];
+            $ModelCategory->attributes = $_POST['CmsvideoCategories'];
             if($ModelCategory->validate())
             {
                 $ModelCategory->SaveCategory($id);
