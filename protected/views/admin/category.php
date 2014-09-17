@@ -58,7 +58,7 @@ echo '</table>';
     <p class="note"Pola oznaczone <span class="required">*</span> są wymagane.</p>
     <?php 
     echo $form->errorSummary($ModelCategory); 
-    if($CategoryAdd)
+    if($AddCategory)
     {
         echo '<div>Nowa ktegoria została dodana.</div>';
     }

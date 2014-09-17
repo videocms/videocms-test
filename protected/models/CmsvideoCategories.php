@@ -54,6 +54,8 @@ class CmsvideoCategories extends CFormModel
     public function SaveCategory($id)
     {
         $UpdateCategory = Yii::app()->db->createCommand('UPDATE videocms_category SET category_name = :CategoryName WHERE category_id = :CategoryId');
+        
+        $UpdateCategory->bindValue('CategoryName', $this->category_name,PDO::PARAM_STR);
         $UpdateCategory->bindValue(':CategoryId',$id,PDO::PARAM_INT);
         $UpdateCategory->execute();
     }
