@@ -62,7 +62,7 @@ $.noConflict();
 				array('label'=>'Home', 'url'=>array('/cmsvideo/index')),
 				array('label'=>'Wyloguj', 'url'=>array('/zaloguj/wyloguj')),
                             array('label'=>'Wpisy', 'url'=>array('/admin/wpisy')),
-				array('label'=>'Kategorie', 'url'=>array('/admin/kategorie')),
+				array('label'=>'Kategorie', 'url'=>array('/admin/category')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Zmień hasło', 'url'=>array('/admin/haslo')),
 			),
