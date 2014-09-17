@@ -71,7 +71,7 @@ $.noConflict();
                 {
                     $this->widget('zii.widgets.CMenu',array('items'=>array(
                         array('label'=>'Strona główna', 'url'=>array('/index')),
-                        array('label'=>'Zaloguj', 'url'=>array('login')),
+                        array('label'=>'Zaloguj', 'url'=>array('/login')),
                     ),
                   ));
                 }
