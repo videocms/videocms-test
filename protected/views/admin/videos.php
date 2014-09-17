@@ -4,9 +4,12 @@ echo '<table style="width: 850px;">';
 echo '<tr>';
 echo '<th>ID</th>';
 echo '<th>Tytuł</th>';
+echo '<th>Video 480p</th>';
+echo '<th>Video 720p</th>';
+echo '<th>Video 1080p</th>';
 echo '<th>Data</th>';
 echo '<th>Edytuj</th>';
-echo '<th>Usuh</th>';
+echo '<th>Usuń</th>';
 echo '<tr>';
 
 foreach($Data as $ModelVideosShow)
@@ -24,6 +27,9 @@ foreach($Data as $ModelVideosShow)
     echo '<tr>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_id'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_title'].'</td>';
+    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_480p'].'</td>';
+    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_720p'].'</td>';
+    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_1080p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
     echo '<td class="'.$RowClass.'">';
     
