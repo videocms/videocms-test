@@ -113,4 +113,8 @@ $this->widget('CLinkPager', array(
     </div>
     <?php $this->endWidget(); ?>
 </div>
-
+ <script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace( 'CmsvideoVideo[video_text]' );
+            </script>

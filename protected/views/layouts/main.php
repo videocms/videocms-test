@@ -44,7 +44,7 @@ $.noConflict();
 </script> -->
         
         <!-- koniec video js -->
-	
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/cke/ckeditor.js"></script>
 </head>
 
 <body>
