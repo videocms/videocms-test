@@ -240,7 +240,7 @@ class AdminController extends Controller
                 {
                     if($ModelPass->user_newpass == $ModelPass->user_newpass2)
                     {
-                        $ModelUpdate->UpdatePass(Yii::app()->session['root']);
+                        $ModelPass->UpdatePass(Yii::app()->session['root']);
                         $ModelPass->user_pass = '';
                         $ModelPass->user_newpass = '';
                         $ModelPass->user_newpass2 = '';

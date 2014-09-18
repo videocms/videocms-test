@@ -38,7 +38,7 @@ class CmsvideoChangePass extends CFormModel
     
     public function UpdatePass($Id)
     {
-        $UpdatePass = Yii::app()->db->createCommand('UPDATE vidocms_users SET user_pass = :UserPass WHERE user_id = :UserId');
+        $UpdatePass = Yii::app()->db->createCommand('UPDATE videocms_users SET user_pass = :UserPass WHERE user_id = :UserId');
         $UpdatePass->bindValue(':UserPass', md5($this->user_newpass), PDO::PARAM_STR);
         $UpdatePass->bindValue(':UserId', $Id, PDO::PARAM_INT);
         $UpdatePass->execute();

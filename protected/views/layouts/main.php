@@ -4,6 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="pl" />
+        <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <div class=""
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
@@ -43,7 +44,7 @@ $.noConflict();
 </script> -->
         
         <!-- koniec video js -->
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	
 </head>
 
 <body>
@@ -64,7 +65,7 @@ $.noConflict();
                             array('label'=>'Wideo', 'url'=>array('/admin/videos')),
 				array('label'=>'Kategorie', 'url'=>array('/admin/category')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Zmień hasło', 'url'=>array('/admin/haslo')),
+				array('label'=>'Zmień hasło', 'url'=>array('/admin/pass')),
 			),
                 ));}
                 else
