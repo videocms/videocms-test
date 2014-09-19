@@ -10,6 +10,7 @@ class CmsvideoVideo extends CFormModel
     public $video_480p;
     public $video_720p;
     public $video_1080p;
+    public $image;
 
 
     public function rules() {
@@ -17,6 +18,7 @@ class CmsvideoVideo extends CFormModel
             array('video_title, video_text, video_category, video_480p, video_720p, video_1080p', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_title', 'length', 'max'=>65),
+            array('image','file', 'allowEmpty' => true, 'safe'=>true, 'types' => 'jpg, jpeg, gif, png,pdf,doc,docx,txt,MP4'),
         );
     }
     
@@ -112,8 +114,6 @@ class CmsvideoVideo extends CFormModel
         $AddVideo->bindValue(':Video1080p', $this->video_1080p, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoId', $id, PDO::PARAM_INT);
         $AddVideo->execute();
-        
-        
-    }
+      }
 }
 ?>

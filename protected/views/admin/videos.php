@@ -60,6 +60,7 @@ $this->widget('CLinkPager', array(
     $form=$this->beginWidget('CActiveForm', array(
         'id'=>'videocms-video-form',
         'enableAjaxValidation'=>false,
+        'htmlOptions' => array('enctype' => 'multipart/form-data'),
     ));
     ?>
     
@@ -108,13 +109,24 @@ $this->widget('CLinkPager', array(
         <?php echo $form->error($ModelVideo, 'video_category'); ?>
     </div>
     
+    <?php        
+    if ($ImageAdd) {
+        echo '<div>Plik został wgrany na serwer</div>';
+    }
+    ?>
+    <div class="row">
+    <?php echo $form->labelEx($ModelVideo, 'image'); ?>
+    <?php echo $form->fileField($ModelVideo, 'image'); ?>
+    <?php echo $form->error($ModelVideo, 'image'); ?>
+    </div>
+    
     <div class="row buttons">
         <?php echo CHtml::submitButton('Dodaj'); ?>
     </div>
     <?php $this->endWidget(); ?>
 </div>
- <script>
+<script>
                 // Replace the <textarea id="editor1"> with a CKEditor
                 // instance, using default configuration.
                 CKEDITOR.replace( 'CmsvideoVideo[video_text]' );
-            </script>
+</script>

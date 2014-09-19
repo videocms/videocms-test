@@ -15,16 +15,18 @@ class AdminController extends Controller
         
         $ModelCategories = new CmsvideoCategories;
         $ModelVideo = new CmsvideoVideo;
+       
         
         if(isset($_POST['CmsvideoVideo']))
         {
             $ModelVideo->attributes=$_POST['CmsvideoVideo'];
+            $ImageUpload = CUploadedFile::getInstance($ModelVideo,'image');
             $ModelVideo->video_date = date('Y-m-d');
             
             if($ModelVideo->validate())
             {
                 $ModelVideo->AddNewVideo();
-                
+                $ImageAdd = $ImageUpload->saveAs('images/' . $ImageUpload->getName());
                 $VideoAdd = true;
                 $ModelVideo->video_title = '';
                 $ModelVideo->video_text = '';
@@ -35,16 +37,17 @@ class AdminController extends Controller
                 $ModelVideo->video_1080p = '';
             }
         }
-        
+
         $AmountVideo = $ModelVideo->CountAllVideo();
         
         $Site = new CPagination(intval($AmountVideo));
         $Site->pageSize = 10;
         
         $Data = $ModelVideo->SelectVideo($Site->pageSize, $Site->currentPage);
-        
+
         $this->render('videos', array(
             'Data' => $Data,
+            'ImageAdd' => $ImageAdd,
             'Site' => $Site,
             'VideoAdd' => $VideoAdd,
             'ModelVideo' => $ModelVideo,
@@ -262,6 +265,7 @@ class AdminController extends Controller
             'ErrorChangePass'=>$ErrorChangePass
         ));
     }
+
     
 }
 
