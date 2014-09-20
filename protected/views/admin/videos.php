@@ -7,6 +7,7 @@ echo '<th>Tytuł</th>';
 echo '<th>Video 480p</th>';
 echo '<th>Video 720p</th>';
 echo '<th>Video 1080p</th>';
+echo '<th>Image</th>';
 echo '<th>Data</th>';
 echo '<th>Edytuj</th>';
 echo '<th>Usuń</th>';
@@ -30,6 +31,7 @@ foreach($Data as $ModelVideosShow)
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_480p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_720p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_1080p'].'</td>';
+    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_image'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
     echo '<td class="'.$RowClass.'">';
     
@@ -115,9 +117,9 @@ $this->widget('CLinkPager', array(
     }
     ?>
     <div class="row">
-    <?php echo $form->labelEx($ModelVideo, 'image'); ?>
-    <?php echo $form->fileField($ModelVideo, 'image'); ?>
-    <?php echo $form->error($ModelVideo, 'image'); ?>
+    <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
+    <?php echo $form->fileField($ModelVideo, 'video_image'); ?>
+    <?php echo $form->error($ModelVideo, 'video_image'); ?>
     </div>
     
     <div class="row buttons">

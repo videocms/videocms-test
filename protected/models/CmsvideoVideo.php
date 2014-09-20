@@ -10,7 +10,7 @@ class CmsvideoVideo extends CFormModel
     public $video_480p;
     public $video_720p;
     public $video_1080p;
-    public $image;
+    public $video_image;
 
 
     public function rules() {
@@ -18,7 +18,7 @@ class CmsvideoVideo extends CFormModel
             array('video_title, video_text, video_category, video_480p, video_720p, video_1080p', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_title', 'length', 'max'=>65),
-            array('image','file', 'allowEmpty' => true, 'safe'=>true, 'types' => 'jpg, jpeg, gif, png,pdf,doc,docx,txt,MP4'),
+            array('video_image', 'file','types'=>'jpg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
         );
     }
     
@@ -32,6 +32,7 @@ class CmsvideoVideo extends CFormModel
             'video_480p' => '480p',
             'video_720p' => '720p',
             'video_1080p' => '1080p',
+            'video_image' => 'Image',
         );
     }
     
@@ -85,7 +86,7 @@ class CmsvideoVideo extends CFormModel
     
     public function AddNewVideo()
     {
-        $AddVideo = Yii::app()->db->createCommand('INSERT INTO videocms_video (video_title, video_text, video_category, video_date, video_480p, video_720p, video_1080p) VALUES (:VideoTitle, :VideoText, :VideoCategory, :VideoDate, :Video480p, :Video720p, :Video1080p)');
+        $AddVideo = Yii::app()->db->createCommand('INSERT INTO videocms_video (video_title, video_text, video_category, video_date, video_480p, video_720p, video_1080p, video_image) VALUES (:VideoTitle, :VideoText, :VideoCategory, :VideoDate, :Video480p, :Video720p, :Video1080p, :VideoImage)');
         $AddVideo->bindValue(':VideoTitle', $this->video_title, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoText', $this->video_text, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoCategory', $this->video_category, PDO::PARAM_INT);
@@ -93,6 +94,7 @@ class CmsvideoVideo extends CFormModel
         $AddVideo->bindValue(':Video480p', $this->video_480p, PDO::PARAM_STR);
         $AddVideo->bindValue(':Video720p', $this->video_720p, PDO::PARAM_STR);
         $AddVideo->bindValue(':Video1080p', $this->video_1080p, PDO::PARAM_STR);
+        $AddVideo->bindValue(':VideoImage', $this->video_image, PDO::PARAM_STR);
         $AddVideo->execute();
     }
     
