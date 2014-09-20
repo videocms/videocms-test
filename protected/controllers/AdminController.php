@@ -15,6 +15,7 @@ class AdminController extends Controller
         
         $ModelCategories = new CmsvideoCategories;
         $ModelVideo = new CmsvideoVideo;
+        //$ModelVast = new VastVideo();
 
         if(isset($_POST['CmsvideoVideo']))
         {
@@ -279,6 +280,104 @@ class AdminController extends Controller
             'ErrorChangePass'=>$ErrorChangePass
         ));
     }
+    
+    //VAST
+    
+    public function actionVast()
+    {
+        $this->pageTitle = 'Vast';
+        if(Yii::app()->session['zalogowany'] != 'tak') 
+        {
+            $this->redirect(array('login/index'));
+        }
+        
+        $VastAdd = false;
+        
+        $ModelVast = new VastVideo();
+        
+        if(isset($_POST['VastVideo']))
+        {
+            $ModelVast->attributes=$_POST['VastVideo'];
+            
+            if($ModelVast->validate())
+            {
+                $ModelVast->AddVast();
+                $VastAdd = true;
+                $ModelVast->vast_title = '';
+                $ModelVast->vast_source = '';
+                $ModelVast->vast_link = '';
+            }
+        }
+        
+        $DataVast = $ModelVast->DownloadVast();
+        
+        $this->render('vast', array(
+            'Data' => $DataVast,
+            'VastAdd' => $VastAdd,
+            'ModelVast' => $ModelVast
+        ));
+    }
+    public function actionVastDelete($id)
+    {
+        if(Yii::app()->session['zalogowany'] != 'tak')
+        {
+            $this->redirect(array('login/index'));
+        }
+        
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        
+        $ModelVast = new VastVideo();
+        $ModelVast->DeleteVast($id);
+        $this->redirect(array('admin/vast'));
+    }
+    
+    public function actionVastUpdate($id)
+    {
+        $this->pageTitle = 'Edit Vast';
+        if(Yii::app()->session['zalogowany'] != 'tak')
+        {
+            $this->redirect(array('login/index'));
+        }
+        
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        
+        $VastUpdate = false;
+        $ModelVast = new VastVideo();
+        
+        if(isset($_POST['VastVideo']))
+        {
+            $ModelVast->attributes = $_POST['VastVideo'];
+            if($ModelVast->validate())
+            {
+                $ModelVast->SaveVast($id);
+                $VastUpdate = true;
+            }
+            $this->redirect(array('/admin/vast'));
+        }
+        else
+        {
+            $Data = $ModelVast->DownloadOneVast($id);
+            foreach ($Data as $DataVast)
+            {
+                $ModelVast->vast_title = $DataVast['vast_title'];
+                $ModelVast->vast_source = $DataVast['vast_source'];
+                $ModelVast->vast_link = $DataVast['vast_link'];
+            }
+        }
+        
+        $this->render('vastupdate', array(
+            'ModelVast' => $ModelVast,
+            'VastUpdate' => $VastUpdate,
+        ));
+    }
+    
+    // KONIEC VAST
 
     
 }

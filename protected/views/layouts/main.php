@@ -83,6 +83,7 @@ $.noConflict();
 				array('label'=>'Wyloguj', 'url'=>array('/login/logout')),
                             array('label'=>'Wideo', 'url'=>array('/admin/videos')),
 				array('label'=>'Kategorie', 'url'=>array('/admin/category')),
+                            array('label'=>'Reklamy', 'url'=>array('/admin/vast')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Zmień hasło', 'url'=>array('/admin/pass')),
 			),
