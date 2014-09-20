@@ -4,6 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="pl" />
+        <meta name="advertising" content="ask" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <div class=""
 	<!-- blueprint CSS framework -->
@@ -62,8 +63,7 @@ $.noConflict();
    filemanager_title:"Responsive Filemanager" ,
    external_plugins: { "filemanager" : "/filemanager/plugin.min.js"}
         });</script>
-        
-       
+
         </head>
 
 <body>
