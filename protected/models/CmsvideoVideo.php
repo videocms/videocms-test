@@ -11,7 +11,7 @@ class CmsvideoVideo extends CFormModel
     public $video_720p;
     public $video_1080p;
     public $video_image;
-    public $video_thum;
+    public $video_thumb;
 
 
     public function rules() {
