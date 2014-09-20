@@ -298,6 +298,43 @@ class AdminController extends Controller
         if(isset($_POST['VastVideo']))
         {
             $ModelVast->attributes=$_POST['VastVideo'];
+          /////// SZTYWNO
+            $xmldata = '<?xml version="1.0" encoding="utf-8"?>';
+$xmldata .= '<VAST version="2.0">';
+//foreach ($model as $ModelVast)
+//{
+    $xmldata .= '<Ad id="229">';
+    $xmldata .= '<InLine>';
+    $xmldata .= '<Creatives>';
+    $xmldata .= '<Creative sequence="1" id="7969">';
+    $xmldata .= '<Linear>';
+    $xmldata .= '<Duration>00:00:31</Duration>'; //czas kurwa
+    $xmldata .= ' <VideoClicks>';
+    $xmldata .= '<ClickThrough><![CDATA[http://www.timeto.pl]]></ClickThrough>';
+    $xmldata .= '</VideoClicks>';
+    $xmldata .= '<MediaFiles>';
+    $xmldata .= '<MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA[http://stream1.imav.tv/timetoimav/reklamy/talia_2014_spot_ad480p.mp4]]>';
+    //$xmldata .= '<test>'.$model->test.'</test>';
+    $xmldata .= '</MediaFile>';
+    $xmldata .= '</MediaFiles>';
+    $xmldata .= '</Linear>';
+    $xmldata .= '</Creative>';
+    $xmldata .= '</Creatives>';
+    $xmldata .= '</InLine>';
+    $xmldata .= '</Ad>';
+//}
+$xmldata .= '</VAST>';
+
+if(file_put_contents('reklama.xml',$xmldata)) 
+{
+    
+    header('Content-type: text/xml');   
+    
+
+   header('Content-Disposition: Attachment; filename="reklama.xml"');
+    // pobieranie jak cos delete (test), zjebane
+   // readfile('reklama.xml');        
+}
             
             if($ModelVast->validate())
             {
