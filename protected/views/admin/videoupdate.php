@@ -5,6 +5,7 @@
         'id'=>'videocms-videos-form',
         'enableAjaxValidation'=>false,
     ));
+    
     ?>
     <p class="note">Pola oznaczone <span class="required">*</span> są wymagane.</p>
     
