@@ -91,7 +91,7 @@ $.noConflict();
 		});
 		vid1.ads();
 		vid1.vast({
-      url: '<?php echo Yii::app()->request->baseUrl; ?>/reklama.xml'
+      url: '<?php echo Yii::app()->request->baseUrl; ?>/vast/test.xml'
     });
 	</script>
    <script type="text/javascript">

@@ -308,12 +308,12 @@ $xmldata .= '<VAST version="2.0">';
     $xmldata .= '<Creatives>';
     $xmldata .= '<Creative sequence="1" id="7969">';
     $xmldata .= '<Linear>';
-    $xmldata .= '<Duration>00:00:31</Duration>'; //czas kurwa
+    $xmldata .= '<Duration>00:00:31</Duration>'; //czas kurwa ?? moze być 0 ??
     $xmldata .= ' <VideoClicks>';
-    $xmldata .= '<ClickThrough><![CDATA[http://www.timeto.pl]]></ClickThrough>';
+    $xmldata .= '<ClickThrough><![CDATA[http://'.$ModelVast->vast_link.']]></ClickThrough>';
     $xmldata .= '</VideoClicks>';
     $xmldata .= '<MediaFiles>';
-    $xmldata .= '<MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA[http://stream1.imav.tv/timetoimav/reklamy/talia_2014_spot_ad480p.mp4]]>';
+    $xmldata .= '<MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['.$ModelVast->vast_source.']]>';
     //$xmldata .= '<test>'.$model->test.'</test>';
     $xmldata .= '</MediaFile>';
     $xmldata .= '</MediaFiles>';
@@ -325,17 +325,17 @@ $xmldata .= '<VAST version="2.0">';
 //}
 $xmldata .= '</VAST>';
 
-if(file_put_contents('reklama.xml',$xmldata)) 
+if(file_put_contents('vast/'.$ModelVast->vast_title.'.xml',$xmldata)) 
 {
     
     header('Content-type: text/xml');   
     
 
-   header('Content-Disposition: Attachment; filename="reklama.xml"');
+   header('Content-Disposition: Attachment; filename="vast/'.$ModelVast->vast_title.'.xml"');
     // pobieranie jak cos delete (test), zjebane
    // readfile('reklama.xml');        
 }
-            
+            $ModelVast->vast_source_vast ='/vast/'.$ModelVast->vast_title.'.xml';
             if($ModelVast->validate())
             {
                 $ModelVast->AddVast();
@@ -343,6 +343,7 @@ if(file_put_contents('reklama.xml',$xmldata))
                 $ModelVast->vast_title = '';
                 $ModelVast->vast_source = '';
                 $ModelVast->vast_link = '';
+                
             }
         }
         
@@ -405,6 +406,7 @@ if(file_put_contents('reklama.xml',$xmldata))
                 $ModelVast->vast_title = $DataVast['vast_title'];
                 $ModelVast->vast_source = $DataVast['vast_source'];
                 $ModelVast->vast_link = $DataVast['vast_link'];
+                $ModelVast->vast_source_vast = $DataVast['vast_source_vast'];
             }
         }
         
