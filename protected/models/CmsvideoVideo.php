@@ -36,6 +36,13 @@ class CmsvideoVideo extends CFormModel
         );
     }
     
+    public function ImageThumbCreate($ImageUrl, $ImageName) 
+    {
+        $ImageThumb = new EasyImage($ImageUrl);
+        $ImageThumb->resize(100, 100);
+        $ImageThumb->save('images/thumbs/th-'.$ImageName);
+    }
+    
     public function CountAllVideo()
     {
         $CountVideo = Yii::app()->db->createCommand('SELECT count(video_id) AS HowVideo FROM videocms_video');

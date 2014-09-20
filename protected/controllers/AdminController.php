@@ -22,13 +22,12 @@ class AdminController extends Controller
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
             $ModelVideo->video_date = date('Y-m-d');
             $ImageNewName = date("d-m-Y", time())."-".$ImageUpload->getName();
-            $ModelVideo->video_image = 'images/'.$ImageNewName;
-            $ImageThumb = new EasyImage($ModelVideo->video_image); 
+            $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
             
             if($ModelVideo->validate())
             {
                 $ModelVideo->AddNewVideo();
-                $ImageAdd = $ImageUpload->saveAs('images/' . $ImageNewName);
+                $ImageAdd = $ImageUpload->saveAs('images/orginal/' . $ImageNewName);
                 $VideoAdd = true;
                 $ModelVideo->video_title = '';
                 $ModelVideo->video_text = '';
@@ -39,13 +38,10 @@ class AdminController extends Controller
                 $ModelVideo->video_1080p = '';
                 $ModelVideo->video_image = '';
             }
-             if (file_exists($ModelVideo->video_image)) {
-             $ImageThumb->resize(100, 100);
-             $ImageThumb->save('images/'.$ImageNewName.'-th');
-             }
+            $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ImageNewName);
         }
-        $AmountVideo = $ModelVideo->CountAllVideo();
         
+        $AmountVideo = $ModelVideo->CountAllVideo();
         $Site = new CPagination(intval($AmountVideo));
         $Site->pageSize = 10;
         
