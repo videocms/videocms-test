@@ -28,6 +28,7 @@ class AdminController extends Controller
             {
                 $ModelVideo->AddNewVideo();
                 $ImageAdd = $ImageUpload->saveAs('images/orginal/' . $ImageNewName);
+                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ImageNewName);
                 $VideoAdd = true;
                 $ModelVideo->video_title = '';
                 $ModelVideo->video_text = '';
@@ -38,7 +39,7 @@ class AdminController extends Controller
                 $ModelVideo->video_1080p = '';
                 $ModelVideo->video_image = '';
             }
-            $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ImageNewName);
+           // $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ImageNewName);
         }
         
         $AmountVideo = $ModelVideo->CountAllVideo();
