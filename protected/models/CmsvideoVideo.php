@@ -19,7 +19,7 @@ class CmsvideoVideo extends CFormModel
             array('video_title, video_text, video_category, video_480p, video_720p, video_1080p', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_title', 'length', 'max'=>65),
-            array('video_image, video_thumb', 'file','types'=>'jpg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
+            array('video_image, video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
         );
     }
     
