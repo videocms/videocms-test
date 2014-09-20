@@ -15,8 +15,7 @@ class AdminController extends Controller
         
         $ModelCategories = new CmsvideoCategories;
         $ModelVideo = new CmsvideoVideo;
-       
-        
+
         if(isset($_POST['CmsvideoVideo']))
         {
             $ModelVideo->attributes=$_POST['CmsvideoVideo'];
@@ -24,7 +23,7 @@ class AdminController extends Controller
             $ModelVideo->video_date = date('Y-m-d');
             $ImageNewName = date("d-m-Y", time())."-".$ImageUpload->getName();
             $ModelVideo->video_image = 'images/'.$ImageNewName;
-            
+            $ImageThumb = new EasyImage($ModelVideo->video_image); 
             
             if($ModelVideo->validate())
             {
@@ -40,8 +39,11 @@ class AdminController extends Controller
                 $ModelVideo->video_1080p = '';
                 $ModelVideo->video_image = '';
             }
+             if (file_exists($ModelVideo->video_image)) {
+             $ImageThumb->resize(100, 100);
+             $ImageThumb->save('images/'.$ImageNewName.'-th');
+             }
         }
-
         $AmountVideo = $ModelVideo->CountAllVideo();
         
         $Site = new CPagination(intval($AmountVideo));

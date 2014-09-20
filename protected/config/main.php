@@ -18,6 +18,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+                'ext.easyimage.EasyImage',
 	),
 
 	'modules'=>array(
@@ -90,7 +91,16 @@ return array(
                     'class'=> 'CDbHttpSession',
                     'connectionID' => 'db',
                     'sessionTableName' => 'VideoCMS_sesja',
-            ),    
+            ), 
+            
+             'easyImage' => array(
+                    'class' => 'application.extensions.easyimage.EasyImage',
+                    //'driver' => 'GD',
+                    //'quality' => 100,
+                    //'cachePath' => '/assets/easyimage/',
+                    //'cacheTime' => 2592000,
+                    //'retinaSupport' => false,
+            ),
 	),
 
 	// application-level parameters that can be accessed
