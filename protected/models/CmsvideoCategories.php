@@ -10,7 +10,7 @@ class CmsvideoCategories extends CFormModel
     {
         return array(
             array('category_name, category_vast', 'required'),
-            array('category_vast', 'numerical', 'integerOnly'=>true),
+            array('category_vast', 'length', 'max'=>60),
             array('category_name', 'length', 'max'=>50),
             );
         
