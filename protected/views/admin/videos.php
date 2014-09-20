@@ -121,10 +121,6 @@ $this->widget('CLinkPager', array(
     <?php echo $form->fileField($ModelVideo, 'video_image'); ?>
     <?php echo $form->error($ModelVideo, 'video_image'); ?>
     </div>
-    <div class="input-append">
-	  <input  id="fieldID1" type="text" value="" >
-	  <a href="javascript:open_popup('http://videocms-test.pl/filemanager/dialog.php?type=1&field_id=fieldID')" class="btn" type="button">Select</a>
-	</div><br/>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Dodaj'); ?>
     </div>
