@@ -151,6 +151,7 @@ class AdminController extends Controller
         $CategotyAdd = false;
         
         $ModelCategories = new CmsvideoCategories;
+        $ModelVast = new VastVideo;
         
         if(isset($_POST['CmsvideoCategories']))
         {
@@ -161,6 +162,7 @@ class AdminController extends Controller
                 $ModelCategories->AddCategory();
                 $CategotyAdd = true;
                 $ModelCategories->category_name = '';
+                $ModelCategories->category_vast = '';
             }
         }
         
@@ -169,7 +171,8 @@ class AdminController extends Controller
         $this->render('category', array(
             'Data' => $DataCategory,
             'CategoryAdd' => $CategotyAdd,
-            'ModelCategory' => $ModelCategories
+            'ModelCategory' => $ModelCategories,
+                'ModelVast' =>$ModelVast
         ));
     }
     public function actionCategoryDelete($id)
@@ -204,6 +207,7 @@ class AdminController extends Controller
         
         $CategoryUpdate = false;
         $ModelCategory = new CmsvideoCategories;
+        $ModelVast = new VastVideo;
         
         if(isset($_POST['CmsvideoCategories']))
         {
@@ -221,12 +225,14 @@ class AdminController extends Controller
             foreach ($Data as $DataForm)
             {
                 $ModelCategory->category_name = $DataForm['category_name'];
+                $ModelCategory->category_vast = $DataForm['category_vast'];
             }
         }
         
         $this->render('categoryupdate', array(
             'ModelCategory' => $ModelCategory,
             'CategoryUpdate' => $CategoryUpdate,
+            'ModelVast' => $ModelVast,
         ));
     }
     

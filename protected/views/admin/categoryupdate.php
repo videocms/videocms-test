@@ -21,6 +21,13 @@
         )); ?>
         <?php echo $form->error($ModelCategory, 'category_name'); ?>
     </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelCategory, 'category_vast'); ?>
+        <?php echo $form->dropDownList($ModelCategory, 'category_vast', CHtml::listData($ModelVast->DownloadVast(), 'vast_id', 'vast_title'), array('style'=>'width: 400px;')
+                ); 
+        ?>
+        <?php echo $form->error($ModelCategory, 'category_vast'); ?>
+    </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Zapisz'); ?>
     </div>

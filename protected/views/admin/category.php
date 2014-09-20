@@ -5,6 +5,7 @@ echo '<table style="width: 850px;">';
 echo '<tr>';
 echo '<th>ID</th>';
 echo '<th>Nazwa</th>';
+echo '<th>Vast</th>';
 echo '<th>Edytuj</th>';
 echo '<th>Usuń</th>';
 echo '<tr>';
@@ -25,6 +26,7 @@ foreach($Data as $ModelCategoryShow)
     echo '<tr>';
     echo '<td class="'.$RowClass.'">'.$ModelCategoryShow['category_id'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelCategoryShow['category_name'].'</td>';
+    echo '<td class="'.$RowClass.'">'.$ModelCategoryShow['category_vast'].'</td>';
     echo '<td class="'.$RowClass.'">';
     
     echo CHtml::link(
@@ -68,6 +70,14 @@ echo '</table>';
         <?php echo $form->labelEx($ModelCategory,'category_name'); ?>
         <?php echo $form->textField($ModelCategory,'category_name', array('size' => 50,'maxlength' => 50)); ?>
         <?php echo $form->error($ModelCategory,'category_name'); ?>
+    </div>
+    
+   <div class="row">
+        <?php echo $form->labelEx($ModelCategory, 'category_vast'); ?>
+        <?php echo $form->dropDownList($ModelCategory, 'category_vast', CHtml::listData($ModelVast->DownloadVast(), 'vast_id', 'vast_title'), array('style'=>'width: 400px;')
+                ); 
+        ?>
+        <?php echo $form->error($ModelCategory, 'category_vast'); ?>
     </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Dodaj'); ?>
