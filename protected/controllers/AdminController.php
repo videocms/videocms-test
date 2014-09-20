@@ -23,6 +23,7 @@ class AdminController extends Controller
             $ModelVideo->video_date = date('Y-m-d');
             $ImageNewName = date("d-m-Y", time())."-".$ImageUpload->getName();
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
+            $ModelVideo->video_thumb = 'images/thumbs/th-'.$ImageNewName;
             
             if($ModelVideo->validate())
             {
@@ -38,6 +39,7 @@ class AdminController extends Controller
                 $ModelVideo->video_720p = '';
                 $ModelVideo->video_1080p = '';
                 $ModelVideo->video_image = '';
+                $ModelVideo->video_thumb = '';
             }
            // $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ImageNewName);
         }
@@ -101,6 +103,7 @@ class AdminController extends Controller
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
             $ImageNewName = date("d-m-Y", time())."-".$ImageUpload->getName();
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
+            $ModelVideo->video_thumb = 'images/thumbs/th-'.$ImageNewName;
             
             if ($ModelVideo->validate())
             {
@@ -124,6 +127,7 @@ class AdminController extends Controller
                 $ModelVideo->video_720p = $DataVideo['video_720p'];
                 $ModelVideo->video_1080p = $DataVideo['video_1080p'];
                 $ModelVideo->video_image = $DataVideo['video_image'];
+                $ModelVideo->video_thumb = $DataVideo['video_thumb'];
             }
         }
         
