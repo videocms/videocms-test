@@ -112,15 +112,17 @@ class CmsvideoVideo extends CFormModel
         $DeleteVideo->execute();
     }
     
+    
     public function UpdateVideo($id)
     {
-        $AddVideo = Yii::app()->db->createCommand('UPDATE videocms_video SET video_title = :VideoTitle, video_text = :VideoText, video_category = :VideoCategory, video_480p = :Video480p, video_720p = :Video720p, video_1080p = :Video1080p WHERE video_id = :VideoId');
+        $AddVideo = Yii::app()->db->createCommand('UPDATE videocms_video SET video_title = :VideoTitle, video_text = :VideoText, video_category = :VideoCategory, video_480p = :Video480p, video_720p = :Video720p, video_1080p = :Video1080p, video_image = :VideoImage WHERE video_id = :VideoId');
         $AddVideo->bindValue(':VideoTitle', $this->video_title, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoText', $this->video_text, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoCategory', $this->video_category, PDO::PARAM_INT);
         $AddVideo->bindValue(':Video480p', $this->video_480p, PDO::PARAM_STR);
         $AddVideo->bindValue(':Video720p', $this->video_720p, PDO::PARAM_STR);
         $AddVideo->bindValue(':Video1080p', $this->video_1080p, PDO::PARAM_STR);
+        $AddVideo->bindValue(':VideoImage', $this->video_image, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoId', $id, PDO::PARAM_INT);
         $AddVideo->execute();
       }

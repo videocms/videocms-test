@@ -76,7 +76,7 @@ class AdminController extends Controller
         $this->redirect(array('admin/videos'));
     }
     
-    public function actionVideoUpdate($id)
+        public function actionVideoUpdate($id)
     {
         $this->pageTitle = 'Edit Video';
         if(Yii::app()->session['zalogowany'] != 'tak')
@@ -94,13 +94,19 @@ class AdminController extends Controller
         $ModelVideo = new CmsvideoVideo;
         $ModelCategories = new CmsvideoCategories;
         
+        
         if(isset($_POST['CmsvideoVideo']))
         {
             $ModelVideo->attributes = $_POST['CmsvideoVideo'];
+            $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
+            $ImageNewName = date("d-m-Y", time())."-".$ImageUpload->getName();
+            $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
             
             if ($ModelVideo->validate())
             {
                 $ModelVideo->UpdateVideo($id);
+                $ImageAdd = $ImageUpload->saveAs('images/orginal/' . $ImageNewName);
+                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ImageNewName);
                 $VideoUpdate = true;
             }
             $this->redirect(array('admin/videos'));
@@ -117,6 +123,7 @@ class AdminController extends Controller
                 $ModelVideo->video_480p = $DataVideo['video_480p'];
                 $ModelVideo->video_720p = $DataVideo['video_720p'];
                 $ModelVideo->video_1080p = $DataVideo['video_1080p'];
+                $ModelVideo->video_image = $DataVideo['video_image'];
             }
         }
         

@@ -4,15 +4,15 @@
     $form=$this->beginWidget('CActiveForm', array(
         'id'=>'videocms-videos-form',
         'enableAjaxValidation'=>false,
+        'htmlOptions' => array('enctype' => 'multipart/form-data'),
     ));
-    
     ?>
     <p class="note">Pola oznaczone <span class="required">*</span> są wymagane.</p>
     
     <?php echo $form->errorSummary($ModelVideo); ?>
     
-    
     <?php 
+    
    if($VideoUpdate)
    {
        echo '<div class="pozytywnie">Wpis został zaktualizowany.</div>';
@@ -54,6 +54,12 @@
         <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), array('style'=>'width: 400px;')
                 ); ?>
         <?php echo $form->error($ModelVideo, 'video_category'); ?> 
+    </div>
+    
+     <div class="row">
+    <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
+    <?php echo $form->fileField($ModelVideo, 'video_image'); ?>
+    <?php echo $form->error($ModelVideo, 'video_image'); ?>
     </div>
     
     <div class="row buttons">
