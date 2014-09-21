@@ -42,7 +42,6 @@ class AdminController extends Controller
                 $ModelVideo->video_image = '';
                 $ModelVideo->video_thumb = '';
             }
-           // $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ImageNewName);
         }
         
         $AmountVideo = $ModelVideo->CountAllVideo();
@@ -396,10 +395,7 @@ class AdminController extends Controller
             'VastUpdate' => $VastUpdate,
         ));
     }
-    
-    // KONIEC VAST
-
-    
+    // KONIEC VAST    
 }
 
 ?>
