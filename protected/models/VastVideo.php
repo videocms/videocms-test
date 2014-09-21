@@ -26,7 +26,43 @@ class VastVideo extends CFormModel
         );
     }
     
-     public function DownloadVast()
+     public function VastXml()
+    {
+        $SelectVast = Yii::app()->db->createCommand('SELECT * FROM videocms_vast WHERE vast_title = :VastTitle');
+       // $SelectVast = Yii::app()->db->createCommand('SELECT * FROM videocms_vast');
+        $SelectVast->bindValue(':VastTitle', $this->vast_title, PDO::PARAM_STR);
+        $InfVast = $SelectVast->query();
+        $xmldata = '<?xml version="1.0" encoding="utf-8"?>';
+        $xmldata .= '<VAST version="2.0">';
+        while(($Rekord=$InfVast->read()) !== false)
+        {
+            $xmldata .= '<Ad id="'.$Rekord['vast_id'].'">';
+            $xmldata .= '<InLine>';
+            $xmldata .= '<Creatives>';
+            $xmldata .= '<Creative sequence="1" id="7969">';
+            $xmldata .= '<Linear>';
+            $xmldata .= '<Duration>00:00:31</Duration>';
+            $xmldata .= ' <VideoClicks>';
+            $xmldata .= '<ClickThrough><![CDATA[http://'.$Rekord['vast_link'].']]></ClickThrough>';
+            $xmldata .= '</VideoClicks>';
+            $xmldata .= '<MediaFiles>';
+            $xmldata .= '<MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['.$Rekord['vast_source'].']]>';
+            //$xmldata .= '<test>'.$model->test.'</test>';
+            $xmldata .= '</MediaFile>';
+            $xmldata .= '</MediaFiles>';
+            $xmldata .= '</Linear>';
+            $xmldata .= '</Creative>';
+            $xmldata .= '</Creatives>';
+            $xmldata .= '</InLine>';
+            $xmldata .= '</Ad>';
+        }
+        $xmldata .= '</VAST>';
+        $sxe = new SimpleXMLElement($xmldata);
+        $sxe->asXML("vast/$this->vast_title.xml");
+       // $sxe->asXML("vast/vast.xml");
+    }
+   
+    public function DownloadVast()
     {
         $SelectVast = Yii::app()->db->createCommand('SELECT * FROM videocms_vast');
         $InfVast = $SelectVast->query();

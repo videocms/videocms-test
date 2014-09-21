@@ -90,7 +90,9 @@ $.noConflict();
 		});
 		vid1.ads();
 		vid1.vast({
-      url: '<?php echo Yii::app()->request->baseUrl; ?><?php echo ''.$ModelCategoryShow['category_vast'].''; ?>'
+     // url: '<?php echo Yii::app()->request->baseUrl; ?><?php echo ''.$ModelCategoryShow['category_vast'].''; ?>'
+     
+      url: '/admin/vastxml'
     });
 	</script>
    <script type="text/javascript">
@@ -102,7 +104,6 @@ $.noConflict();
    // });
  
 	</script>
-
 
 
 <?php

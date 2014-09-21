@@ -289,7 +289,19 @@ class AdminController extends Controller
     
     //VAST
     
-    public function actionVast()
+ public function actionVastXml()
+    {
+        $this->pageTitle = 'Vast';
+        
+        $ModelVast = new VastVideo;
+
+        $this->layout = "xml";
+        $this->render('vastxml',array(
+        'ModelVast'=>$ModelVast,
+        ));
+    }
+    
+ public function actionVast()
     {
         $this->pageTitle = 'Vast';
         if(Yii::app()->session['zalogowany'] != 'tak') 
@@ -299,68 +311,31 @@ class AdminController extends Controller
         
         $VastAdd = false;
         
-        $ModelVast = new VastVideo();
+        $ModelVast = new VastVideo;
         
         if(isset($_POST['VastVideo']))
         {
             $ModelVast->attributes=$_POST['VastVideo'];
-          /////// SZTYWNO
-            $xmldata = '<?xml version="1.0" encoding="utf-8"?>';
-$xmldata .= '<VAST version="2.0">';
-//foreach ($model as $ModelVast)
-//{
-    $xmldata .= '<Ad id="229">';
-    $xmldata .= '<InLine>';
-    $xmldata .= '<Creatives>';
-    $xmldata .= '<Creative sequence="1" id="7969">';
-    $xmldata .= '<Linear>';
-    $xmldata .= '<Duration>00:00:31</Duration>'; //czas kurwa ?? moze być 0 ??
-    $xmldata .= ' <VideoClicks>';
-    $xmldata .= '<ClickThrough><![CDATA[http://'.$ModelVast->vast_link.']]></ClickThrough>';
-    $xmldata .= '</VideoClicks>';
-    $xmldata .= '<MediaFiles>';
-    $xmldata .= '<MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['.$ModelVast->vast_source.']]>';
-    //$xmldata .= '<test>'.$model->test.'</test>';
-    $xmldata .= '</MediaFile>';
-    $xmldata .= '</MediaFiles>';
-    $xmldata .= '</Linear>';
-    $xmldata .= '</Creative>';
-    $xmldata .= '</Creatives>';
-    $xmldata .= '</InLine>';
-    $xmldata .= '</Ad>';
-//}
-$xmldata .= '</VAST>';
-
-if(file_put_contents('vast/'.$ModelVast->vast_title.'.xml',$xmldata)) 
-{
-    
-    header('Content-type: text/xml');   
-    
-
-   header('Content-Disposition: Attachment; filename="vast/'.$ModelVast->vast_title.'.xml"');
-    // pobieranie jak cos delete (test), zjebane
-   // readfile('reklama.xml');        
-}
             $ModelVast->vast_source_vast ='/vast/'.$ModelVast->vast_title.'.xml';
-            if($ModelVast->validate())
+             if($ModelVast->validate())
             {
                 $ModelVast->AddVast();
+                $ModelVast->VastXml();
                 $VastAdd = true;
                 $ModelVast->vast_title = '';
                 $ModelVast->vast_source = '';
-                $ModelVast->vast_link = '';
-                
+                $ModelVast->vast_link = '';     
             }
         }
-        
         $DataVast = $ModelVast->DownloadVast();
-        
+
         $this->render('vast', array(
             'Data' => $DataVast,
             'VastAdd' => $VastAdd,
             'ModelVast' => $ModelVast
         ));
     }
+    
     public function actionVastDelete($id)
     {
         if(Yii::app()->session['zalogowany'] != 'tak')
