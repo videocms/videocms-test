@@ -294,7 +294,7 @@ class AdminController extends Controller
         
         $ModelVast = new VastVideo;
 
-        $this->layout = "xml";
+        $this->layout = "blank";
         $this->render('vastxml',array(
         'ModelVast'=>$ModelVast,
         ));
