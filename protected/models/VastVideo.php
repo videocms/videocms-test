@@ -98,7 +98,7 @@ class VastVideo extends CFormModel
     public function SaveVast($id)
     {
         //$UpdateVast = Yii::app()->db->createCommand('UPDATE videocms_vast SET vast_title = :VastTitle, vast_source = :VastSource, vast_link = :VastLink WHERE vast_id = :VastId');
-        $UpdateVast = Yii::app()->db->createCommand('UPDATE videocms_vast SET vast_title = :VastTitle, vast_source = :VastSource, vast_link = :VastLink, vast_source_vast = :VastSourcevast WHERE vast_id = :VastId');
+        $UpdateVast = Yii::app()->db->createCommand('UPDATE videocms_vast SET vast_title = :VastTitle, vast_source = :VastSource, vast_link = :VastLink WHERE vast_id = :VastId');
         $UpdateVast->bindValue(':VastTitle',$this->vast_title,PDO::PARAM_STR);
         $UpdateVast->bindValue(':VastSource',$this->vast_source,PDO::PARAM_STR);
         $UpdateVast->bindValue(':VastLink',$this->vast_link,PDO::PARAM_STR);
