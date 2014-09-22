@@ -12,7 +12,6 @@ class VastVideo extends CFormModel
     public function rules() {
         return array(
             array('vast_title, vast_source, vast_link', 'required'),
-    
         );
     }
     public function attributeLabels()

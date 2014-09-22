@@ -287,7 +287,7 @@ class AdminController extends Controller
     }
     
     //VAST
- 
+    
     //Wywołanie funkcji generującej dynamicznie XML - http://videocms-test.pl/admin/vastxml/?id=34
     public function actionVastXml($id)
     {
@@ -295,7 +295,7 @@ class AdminController extends Controller
         $DataVast = $ModelVast->DownloadOneVast($id);
         foreach ($DataVast as $Data)
             {
-            header('Content-type: text/xml');
+            header('Content-Type: application/xml');
             echo '<?xml version="1.0" encoding="UTF-8"?>
             <VAST version="2.0">
             <Ad id="'.$Data['vast_id'].'">
