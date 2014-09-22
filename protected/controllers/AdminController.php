@@ -21,7 +21,6 @@ class AdminController extends Controller
         {
             $ModelVideo->attributes=$_POST['CmsvideoVideo'];
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
-           // $ModelVideo->video_date = date('Y-m-d');
             if ($ImageUpload) {
             $ImageNewName = date("d-m-Y")."-".$ImageUpload->getName();
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
@@ -32,7 +31,6 @@ class AdminController extends Controller
             {
                 $ModelVideo->AddNewVideo();
                 if ($ImageUpload) {
-             //   $ImageAdd = $ImageUpload->saveAs('images/orginal/' . $ImageNewName);
                 $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
                 $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 }
@@ -40,7 +38,6 @@ class AdminController extends Controller
                 $ModelVideo->video_title = '';
                 $ModelVideo->video_text = '';
                 $ModelVideo->video_category = '';
-            //  $ModelVideo->video_date = '';
                 $ModelVideo->video_480p = '';
                 $ModelVideo->video_720p = '';
                 //$ModelVideo->video_1080p = '';
@@ -57,7 +54,6 @@ class AdminController extends Controller
 
         $this->render('videos', array(
             'Data' => $Data,
-          //  'ImageAdd' => $ImageAdd,
             'Site' => $Site,
             'VideoAdd' => $VideoAdd,
             'ModelVideo' => $ModelVideo,
@@ -117,7 +113,6 @@ class AdminController extends Controller
             {
                 $ModelVideo->UpdateVideo($id);
                 if ($ImageUpload) {
-             //   $ImageAdd = $ImageUpload->saveAs('images/orginal/' . $ImageNewName);
                 $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
                 $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 }
