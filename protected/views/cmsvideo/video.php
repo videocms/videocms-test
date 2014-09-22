@@ -92,7 +92,7 @@ $.noConflict();
 		vid1.vast({
      // url: '<?php echo Yii::app()->request->baseUrl; ?><?php echo ''.$ModelCategoryShow['category_vast'].''; ?>'
      
-      url: '/admin/vastxml/?id=34.xml'
+      url: '/cmsvideo/vastxml/?id=<?php echo $Vast[$ModelVastShow['vast_id']]; ?>.xml'
     });
 	</script>
    <script type="text/javascript">
@@ -107,6 +107,7 @@ $.noConflict();
 
 
 <?php
+
 }
 
 ?>

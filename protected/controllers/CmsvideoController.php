@@ -63,6 +63,8 @@ class CmsvideoController extends Controller
        
         $ModelCategory = new CmsvideoCategories;
         $DataCategory = $ModelCategory->DownloadCategories();
+        //$ModelVast = new VastVideo;
+        //$DataVast = $ModelVast->DownloadVast();
         
         $ModelVideo = new CmsvideoVideo;
         $DataVideo = $ModelVideo->DownloadVideo($id);
@@ -75,6 +77,7 @@ class CmsvideoController extends Controller
         $this->render('video', array(
             'DataCategory' => $DataCategory,
             'DataVideo' => $DataVideo,
+            //'DataVast'=> $DataVast,
             
         ));
         
