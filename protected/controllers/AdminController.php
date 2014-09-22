@@ -25,7 +25,7 @@ class AdminController extends Controller
             if ($ImageUpload) {
             $ImageNewName = date("d-m-Y")."-".$ImageUpload->getName();
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
-            $ModelVideo->video_thumb = 'images/thumbs/th-'.$ImageNewName;
+            $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
             }
             
             if($ModelVideo->validate())
@@ -110,7 +110,7 @@ class AdminController extends Controller
              if ($ImageUpload) {
             $ImageNewName = date("d-m-Y")."-".$ImageUpload->getName();
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
-            $ModelVideo->video_thumb = 'images/thumbs/th-'.$ImageNewName;
+            $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
             }
             
             if ($ModelVideo->validate())

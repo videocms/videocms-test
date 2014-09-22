@@ -54,7 +54,8 @@ class CmsvideoVideo extends CFormModel
     public function ImageThumbCreate($ImageUrl, $ThumbUrl) 
     {
         $ImageThumb = new EasyImage($ImageUrl);
-        $ImageThumb->resize(320, 180);
+        $ImageThumb->resize(346, 230);
+        $ImageThumb->crop(320, 180);
         $ImageThumb->save($ThumbUrl);
     }
     
