@@ -56,9 +56,14 @@
         <?php echo $form->error($ModelVideo, 'video_category'); ?> 
     </div>
     
+    
      <div class="row">
     <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
-    <?php echo $form->fileField($ModelVideo, 'video_image'); ?>
+         
+         <?php echo $form->textField($ModelVideo, 'video_image'); ?>
+         <p id="upload"></p>
+         <input name="upload1" type="button" value="zmien" onclick="changeMode()" />
+         
     <?php echo $form->error($ModelVideo, 'video_image'); ?>
     </div>
     
@@ -68,3 +73,10 @@
     
     <?php $this->endWidget(); ?>
 </div>
+<script type="text/javascript">
+function changeMode() {
+    var mode;
+    mode='<?php echo $form->fileField($ModelVideo, 'video_image'); ?>';
+	document.getElementById('upload').innerHTML = mode;
+}
+</script>
