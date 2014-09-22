@@ -21,21 +21,25 @@ class AdminController extends Controller
         {
             $ModelVideo->attributes=$_POST['CmsvideoVideo'];
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
-            $ModelVideo->video_date = date('Y-m-d');
-            $ImageNewName = date("d-m-Y", time())."-".$ImageUpload->getName();
+           // $ModelVideo->video_date = date('Y-m-d');
+            if ($ImageUpload) {
+            $ImageNewName = date("d-m-Y")."-".$ImageUpload->getName();
+            }
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
             $ModelVideo->video_thumb = 'images/thumbs/th-'.$ImageNewName;
             
             if($ModelVideo->validate())
             {
                 $ModelVideo->AddNewVideo();
+                if ($ImageUpload) {
                 $ImageAdd = $ImageUpload->saveAs('images/orginal/' . $ImageNewName);
+                }
                 $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ImageNewName);
                 $VideoAdd = true;
                 $ModelVideo->video_title = '';
                 $ModelVideo->video_text = '';
                 $ModelVideo->video_category = '';
-                $ModelVideo->video_date = '';
+            //    $ModelVideo->video_date = '';
                 $ModelVideo->video_480p = '';
                 $ModelVideo->video_720p = '';
                 $ModelVideo->video_1080p = '';
