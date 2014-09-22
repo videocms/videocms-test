@@ -16,14 +16,14 @@ class CmsvideoVideo extends CFormModel
 
     public function rules() {
         return array(
-            array('video_title, video_text, video_category, video_480p, video_720p', 'required'),
+            array('video_title, video_text, video_category, video_480p, video_720p video_image', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_1080p', 'length', 'max'=>255),
             array('video_title', 'length', 'max'=>65),
-            array('video_image', 'required','on'=>'insert'),
             array('video_image, video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update', 'maxSize'=>'204800'),
         );
     }
+    
     
     ////// WLASNA REGULA np: array('video_1080p',moja_regula),
    // public function moja_regula($attribute_name){
