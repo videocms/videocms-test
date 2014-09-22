@@ -67,6 +67,12 @@
     <?php echo $form->error($ModelVideo, 'video_image'); ?>
     </div>
     
+    <div class="row">
+        <?php echo $form->labelEx($ModelVideo, 'video_thumb'); ?>
+        <?php echo $form->textField($ModelVideo, 'video_thumb'); ?>
+        <?php echo $form->error($ModelVideo, 'video_thumb'); ?>
+    </div>
+    
     <div class="row buttons">
         <?php echo CHtml::submitButton('Aktualizuj'); ?>
     </div>
