@@ -37,15 +37,15 @@ foreach ($DataVideo as $ModelSite)
                                   echo'<source src="'.$ModelSite['video_1080p'].'" type="video/mp4" data-res="1080" />';
                      }
                           elseif ($ModelSite['video_720p'] == NULL) {
-                                  echo'<source src="'.$ModelSite['video_480p'].'" type="video/mp4" data-res="420" />';
+                                  echo'<source src="'.$ModelSite['video_480p'].'" type="video/mp4" data-res="480" />';
                                   echo'<source src="'.$ModelSite['video_1080p'].'" type="video/mp4" data-res="1080" />';
                      }
                           elseif ($ModelSite['video_1080p'] == NULL) {
-                                  echo'<source src="'.$ModelSite['video_480p'].'" type="video/mp4" data-res="420" />';
+                                  echo'<source src="'.$ModelSite['video_480p'].'" type="video/mp4" data-res="480" />';
                                   echo'<source src="'.$ModelSite['video_720p'].'" type="video/mp4" data-res="720" />'; 
                      }
                      else {
-                          echo'<source src="'.$ModelSite['video_480p'].'" type="video/mp4" data-res="420" />';
+                          echo'<source src="'.$ModelSite['video_480p'].'" type="video/mp4" data-res="480" />';
                           echo'<source src="'.$ModelSite['video_720p'].'" type="video/mp4" data-res="720" />';
                           echo'<source src="'.$ModelSite['video_1080p'].'" type="video/mp4" data-res="1080" />';
                     }
