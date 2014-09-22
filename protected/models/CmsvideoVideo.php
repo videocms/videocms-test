@@ -168,5 +168,26 @@ class CmsvideoVideo extends CFormModel
         $AddVideo->bindValue(':VideoId', $id, PDO::PARAM_INT);
         $AddVideo->execute();
       }
+    
+      public function UpdateViews($id)
+    {
+        $SelectViews = Yii::app()->db->createCommand('SELECT video_views FROM videocms_video WHERE video_id = :IdVideo');
+        $SelectViews->bindValue(':IdVideo', $id, PDO::PARAM_INT);
+        $DataViews = $SelectViews->query();
+        $Data = $DataViews->read();
+        $Views = $Data['video_views'];
+        
+        if($Data) {
+           $count = $Views + 1;
+        }
+        else {
+           $count = 1;
+        }
+        
+        $AddViews = Yii::app()->db->createCommand('UPDATE videocms_video SET video_views = :VideoViews WHERE video_id = :IdVideo');
+        $AddViews->bindValue(':IdVideo', $id, PDO::PARAM_INT);
+        $AddViews->bindValue(':VideoViews', $count, PDO::PARAM_INT);
+        $AddViews->execute();
+    }
 }
 ?>
