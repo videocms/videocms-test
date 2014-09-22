@@ -109,6 +109,12 @@ class AdminController extends Controller
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
             $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
             }
+           // else {
+           // $Data = $ModelVideo->DownloadVideo($id);
+           // foreach($Data as $DataVideo) {
+           // $ModelVideo->video_thumb = $DataVideo['video_thumb'];
+           // }
+           // }
          
             if ($ModelVideo->validate())
             {
