@@ -287,20 +287,40 @@ class AdminController extends Controller
     }
     
     //VAST
-    
- public function actionVastXml()
+ 
+    //Wywołanie funkcji generującej dynamicznie XML - http://videocms-test.pl/admin/vastxml/?id=34
+    public function actionVastXml($id)
     {
-        $this->pageTitle = 'Vast';
-        
         $ModelVast = new VastVideo;
+        $DataVast = $ModelVast->DownloadOneVast($id);
 
-        $this->layout = "blank";
-        $this->render('vastxml',array(
-        'ModelVast'=>$ModelVast,
-        ));
-    }
+        echo '<?xml version="1.0" encoding="UTF-8"?>
+        <VAST version="2.0">';
+        foreach ($DataVast as $Data)
+            {
+            echo '<Ad id="'.$Data['vast_id'].'">
+            <InLine>
+            <Creatives>
+            <Creative sequence="1" id="7969">
+            <Linear>
+            <Duration>00:00:31</Duration>
+            <VideoClicks>
+            <ClickThrough><![CDATA['.$Data['vast_link'].']></ClickThrough>
+            </VideoClicks>
+            <MediaFiles>
+            <MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['. $Data['vast_source'].']>
+            </MediaFile>
+            </MediaFiles>
+            </Linear>
+            </Creative>
+            </Creatives>
+            </InLine>
+            </Ad>';
+            }
+            echo '</VAST>';
+        }
     
- public function actionVast()
+    public function actionVast()
     {
         $this->pageTitle = 'Vast';
         if(Yii::app()->session['zalogowany'] != 'tak') 
@@ -309,7 +329,6 @@ class AdminController extends Controller
         }
         
         $VastAdd = false;
-        
         $ModelVast = new VastVideo;
         
         if(isset($_POST['VastVideo']))
@@ -395,7 +414,7 @@ class AdminController extends Controller
             'VastUpdate' => $VastUpdate,
         ));
     }
-    // KONIEC VAST    
+    // KONIEC VAST 
 }
 
 ?>
