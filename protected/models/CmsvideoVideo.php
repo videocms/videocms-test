@@ -109,13 +109,13 @@ class CmsvideoVideo extends CFormModel
     
     public function DownloadVideo($id)
     {
-        $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video WHERE video_id = :IdVideo');
+        $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id WHERE video_id = :IdVideo');
         $SelectVideo->bindValue(':IdVideo', $id, PDO::PARAM_INT);
         $DataVideo = $SelectVideo->queryAll();
         
         return $DataVideo;
     }
-    
+   
     public function AddNewVideo()
     {
         $AddVideo = Yii::app()->db->createCommand('INSERT INTO videocms_video (video_title, video_text, video_category, video_date, video_480p, video_720p, video_1080p, video_thumb, video_image) VALUES (:VideoTitle, :VideoText, :VideoCategory, :VideoDate, :Video480p, :Video720p, :Video1080p, :VideoThumb, :VideoImage)');

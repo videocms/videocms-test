@@ -85,6 +85,5 @@ class CmsvideoCategories extends CFormModel
         
         return $DataVast;
     }
-    
 }
 ?>

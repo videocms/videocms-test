@@ -68,6 +68,7 @@ class CmsvideoController extends Controller
         
         $ModelVideo = new CmsvideoVideo;
         $DataVideo = $ModelVideo->DownloadVideo($id);
+        //$DataVast = $ModelVideo->SelectVastVideo($id);
         
         foreach($DataVideo as $Video)
         {
@@ -77,6 +78,7 @@ class CmsvideoController extends Controller
         $this->render('video', array(
             'DataCategory' => $DataCategory,
             'DataVideo' => $DataVideo,
+            'DataVast' => $DataVast,
             //'DataVast'=> $DataVast,
             
         ));

@@ -134,6 +134,7 @@ class AdminController extends Controller
         
         $this->render('videoupdate', array(
             'ModelVideo' => $ModelVideo,
+            'ImageAdd' => $ImageAdd,
             'VideoUpdate' => $VideoUpdate,
             'ModelCategories' => $ModelCategories,
             

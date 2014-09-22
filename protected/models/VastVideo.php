@@ -106,7 +106,5 @@ class VastVideo extends CFormModel
         $UpdateVast->bindValue(':VastId',$id,PDO::PARAM_INT);
         $UpdateVast->execute();
     }
-    
-   
 }
 ?>
