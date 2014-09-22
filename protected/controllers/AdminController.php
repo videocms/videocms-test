@@ -24,17 +24,17 @@ class AdminController extends Controller
            // $ModelVideo->video_date = date('Y-m-d');
             if ($ImageUpload) {
             $ImageNewName = date("d-m-Y")."-".$ImageUpload->getName();
-            }
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
             $ModelVideo->video_thumb = 'images/thumbs/th-'.$ImageNewName;
+            }
             
             if($ModelVideo->validate())
             {
                 $ModelVideo->AddNewVideo();
                 if ($ImageUpload) {
                 $ImageAdd = $ImageUpload->saveAs('images/orginal/' . $ImageNewName);
-                }
                 $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ImageNewName);
+                }
                 $VideoAdd = true;
                 $ModelVideo->video_title = '';
                 $ModelVideo->video_text = '';
