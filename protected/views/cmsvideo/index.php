@@ -9,6 +9,7 @@ foreach($DataVideo as $ModelSite)
 {
     echo '<h2>'.CHtml::link($ModelSite['video_title'], array('cmsvideo/video/'.$ModelSite['video_id'])).'</h2>';
     echo '<p class="data">Data publikacji: '.$ModelSite['video_date'].'</p>';
+    echo '<img src="/'.$ModelSite['video_thumb'].'">';
     echo '<p class="tresc">'.substr($ModelSite['video_text'], 0, 400).'...</p>';
    ?> <!--echo '<p class="data">video: '.$ModelSite['video_480p'].'</p>'; -->
   
