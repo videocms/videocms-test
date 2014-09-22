@@ -293,12 +293,12 @@ class AdminController extends Controller
     {
         $ModelVast = new VastVideo;
         $DataVast = $ModelVast->DownloadOneVast($id);
-
-        echo '<?xml version="1.0" encoding="UTF-8"?>
-        <VAST version="2.0">';
         foreach ($DataVast as $Data)
             {
-            echo '<Ad id="'.$Data['vast_id'].'">
+            header('Content-type: text/xml');
+            echo '<?xml version="1.0" encoding="UTF-8"?>
+            <VAST version="2.0">
+            <Ad id="'.$Data['vast_id'].'">
             <InLine>
             <Creatives>
             <Creative sequence="1" id="7969">
@@ -315,9 +315,9 @@ class AdminController extends Controller
             </Creative>
             </Creatives>
             </InLine>
-            </Ad>';
+            </Ad>
+            </VAST>';
             }
-            echo '</VAST>';
         }
     
     public function actionVast()
