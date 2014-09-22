@@ -20,7 +20,7 @@ foreach ($DataVideo as $ModelSite)
    // Code that uses other library's $ can follow here.
    </script>
    
-   <video id="example-2" class="video-js vjs-default-skin" preload="auto" data-setup='{}' controls width="640" height="360" poster="http://video-js.zencoder.com/oceans-clip.png" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
+   <video id="example-2" class="video-js vjs-default-skin" preload="auto" data-setup='{}' controls width="640" height="360" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $ModelSite['video_image']; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
         <source src="<?php echo ''.$ModelSite['video_480p'].'';?>" type="video/mp4" data-res="480" />
 	<source src="<?php echo ''.$ModelSite['video_720p'].'';?>" type="video/mp4" data-res="720" />
 	<source src="<?php echo ''.$ModelSite['video_1080p'].'';?>" type="video/mp4" data-res="1080" />
