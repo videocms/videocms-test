@@ -46,6 +46,7 @@ return array(
                         'showScriptName'=>FALSE,
 			'rules'=>array(
                                 'index/'         =>'/',
+                                //'admin/vastxml/?id=34'  =>'admin/vast.xml',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

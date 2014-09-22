@@ -92,7 +92,7 @@ $.noConflict();
 		vid1.vast({
      // url: '<?php echo Yii::app()->request->baseUrl; ?><?php echo ''.$ModelCategoryShow['category_vast'].''; ?>'
      
-      url: '/vast/tomek.xml'
+      url: '/admin/vastxml/?id=34.xml'
     });
 	</script>
    <script type="text/javascript">

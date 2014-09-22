@@ -305,10 +305,10 @@ class AdminController extends Controller
             <Linear>
             <Duration>00:00:31</Duration>
             <VideoClicks>
-            <ClickThrough><![CDATA['.$Data['vast_link'].']></ClickThrough>
+            <ClickThrough><![CDATA['.$Data['vast_link'].']]></ClickThrough>
             </VideoClicks>
             <MediaFiles>
-            <MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['. $Data['vast_source'].']>
+            <MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['. $Data['vast_source'].']]>
             </MediaFile>
             </MediaFiles>
             </Linear>
