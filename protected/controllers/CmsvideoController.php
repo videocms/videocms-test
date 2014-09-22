@@ -65,10 +65,8 @@ class CmsvideoController extends Controller
         $DataCategory = $ModelCategory->DownloadCategories();
         //$ModelVast = new VastVideo;
         //$DataVast = $ModelVast->DownloadVast();
-        
         $ModelVideo = new CmsvideoVideo;
         $DataVideo = $ModelVideo->DownloadVideo($id);
-        //$DataVast = $ModelVideo->SelectVastVideo($id);
         
         foreach($DataVideo as $Video)
         {
@@ -86,8 +84,7 @@ class CmsvideoController extends Controller
     }
     
     //VAST
-    
-    
+  
     //Wywołanie funkcji generującej dynamicznie XML - http://videocms-test.pl/cmsvideo/vastxml/?id=34
     public function actionVastXml($id)
     {
@@ -121,6 +118,5 @@ class CmsvideoController extends Controller
         }
     /// end VAST
 }
-
 
 ?>
