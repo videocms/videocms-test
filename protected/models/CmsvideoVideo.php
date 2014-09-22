@@ -45,6 +45,29 @@ class CmsvideoVideo extends CFormModel
         $ImageThumb->save('images/thumbs/th-'.$ImageName);
     }
     
+     public function DeleteVideoImage($id)
+    {
+        $SelectImage = Yii::app()->db->createCommand('SELECT video_image, video_thumb FROM videocms_video WHERE video_id = :VideoId');
+        $SelectImage->bindValue(':VideoId', $id, PDO::PARAM_INT);
+        $DataImage = $SelectImage->query();
+        $Data = $DataImage->read();
+        $FileImage = $Data['video_image'];
+        $FileThumb = $Data['video_thumb'];
+
+        if (file_exists($FileImage)) {
+             unlink($FileImage);
+        }
+        else {
+            echo 'Error deleting Image:'.$FileImage;
+        }
+        if (file_exists($FileThumb)) {
+            unlink($FileThumb);
+        }
+        else {
+            echo 'Error deleting Thumbnail: '.$FileThumb;
+        }    
+    }
+    
     public function CountAllVideo()
     {
         $CountVideo = Yii::app()->db->createCommand('SELECT count(video_id) AS HowVideo FROM videocms_video');

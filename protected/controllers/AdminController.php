@@ -73,6 +73,7 @@ class AdminController extends Controller
         }
         
         $ModelVideo = new CmsvideoVideo;
+        $ModelVideo->DeleteVideoImage($id);
         $ModelVideo->DeleteVideo($id);
         
         $this->redirect(array('admin/videos'));
