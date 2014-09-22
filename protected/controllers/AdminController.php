@@ -32,8 +32,9 @@ class AdminController extends Controller
             {
                 $ModelVideo->AddNewVideo();
                 if ($ImageUpload) {
-                $ImageAdd = $ImageUpload->saveAs('images/orginal/' . $ImageNewName);
-                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ImageNewName);
+             //   $ImageAdd = $ImageUpload->saveAs('images/orginal/' . $ImageNewName);
+                $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
+                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 }
                 $VideoAdd = true;
                 $ModelVideo->video_title = '';
@@ -56,7 +57,7 @@ class AdminController extends Controller
 
         $this->render('videos', array(
             'Data' => $Data,
-            'ImageAdd' => $ImageAdd,
+          //  'ImageAdd' => $ImageAdd,
             'Site' => $Site,
             'VideoAdd' => $VideoAdd,
             'ModelVideo' => $ModelVideo,
@@ -106,15 +107,20 @@ class AdminController extends Controller
         {
             $ModelVideo->attributes = $_POST['CmsvideoVideo'];
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
-            $ImageNewName = date("d-m-Y", time())."-".$ImageUpload->getName();
+             if ($ImageUpload) {
+            $ImageNewName = date("d-m-Y")."-".$ImageUpload->getName();
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
             $ModelVideo->video_thumb = 'images/thumbs/th-'.$ImageNewName;
+            }
             
             if ($ModelVideo->validate())
             {
                 $ModelVideo->UpdateVideo($id);
-                $ImageAdd = $ImageUpload->saveAs('images/orginal/' . $ImageNewName);
-                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ImageNewName);
+                if ($ImageUpload) {
+             //   $ImageAdd = $ImageUpload->saveAs('images/orginal/' . $ImageNewName);
+                $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
+                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
+                }
                 $VideoUpdate = true;
             }
             $this->redirect(array('admin/videos'));
@@ -138,7 +144,6 @@ class AdminController extends Controller
         
         $this->render('videoupdate', array(
             'ModelVideo' => $ModelVideo,
-            'ImageAdd' => $ImageAdd,
             'VideoUpdate' => $VideoUpdate,
             'ModelCategories' => $ModelCategories,
             

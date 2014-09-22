@@ -38,11 +38,15 @@ class CmsvideoVideo extends CFormModel
         );
     }
     
-    public function ImageThumbCreate($ImageUrl, $ImageName) 
+    public function ImageCreate($ImageUpload, $ImageUrl) 
+    {
+       $ImageUpload->saveAs($ImageUrl);
+    }
+    public function ImageThumbCreate($ImageUrl, $ThumbUrl) 
     {
         $ImageThumb = new EasyImage($ImageUrl);
-        $ImageThumb->resize(100, 100);
-        $ImageThumb->save('images/thumbs/th-'.$ImageName);
+        $ImageThumb->resize(320, 180);
+        $ImageThumb->save($ThumbUrl);
     }
     
      public function DeleteVideoImage($id)
