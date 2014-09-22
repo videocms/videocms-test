@@ -59,9 +59,9 @@
     
      <div class="row">
     <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
-         
+         <p id="upload">
          <?php echo $form->textField($ModelVideo, 'video_image'); ?>
-         <p id="upload"></p>
+         </p>
          <input name="upload1" type="button" value="zmien" onclick="changeMode()" />
          
     <?php echo $form->error($ModelVideo, 'video_image'); ?>
