@@ -103,16 +103,17 @@ class AdminController extends Controller
         {
             $ModelVideo->attributes = $_POST['CmsvideoVideo'];
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
-             if ($ImageUpload !== NULL) {
+            if($ImageUpload !== NULL) {
             $ModelVideo->DeleteVideoImage($id);
             $ImageNewName = date("d-m-Y-H-i-s", time())."-".$ImageUpload->getName();
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
             $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
             }
-            
+         
             if ($ModelVideo->validate())
             {
                 $ModelVideo->UpdateVideo($id);
+                
                 if ($ImageUpload !== NULL) {
                 $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
                 $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
