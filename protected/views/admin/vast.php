@@ -7,7 +7,7 @@ echo '<th>ID</th>';
 echo '<th>tytul</th>';
 echo '<th>source</th>';
 echo '<th>link</th>';
-echo '<th>source_vast</th>';
+//echo '<th>source_vast</th>';
 echo '<th>Edytuj</th>';
 echo '<th>Usuń</th>';
 echo '<tr>';
@@ -30,7 +30,7 @@ foreach($Data as $ModelVastShow)
     echo '<td class="'.$RowClass.'">'.$ModelVastShow['vast_title'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVastShow['vast_source'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVastShow['vast_link'].'</td>';
-    echo '<td class="'.$RowClass.'">'.$ModelVastShow['vast_source_vast'].'</td>';
+    //echo '<td class="'.$RowClass.'">'.$ModelVastShow['vast_source_vast'].'</td>';
     echo '<td class="'.$RowClass.'">';
     
     echo CHtml::link(

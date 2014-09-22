@@ -30,11 +30,6 @@
         <?php echo $form->textField($ModelVast, 'vast_link'); ?>
         <?php echo $form->error($ModelVast, 'vast_link'); ?>
     </div>
-        <div class="row">
-        <?php echo $form->labelEx($ModelVast, 'vast_source_vast'); ?>
-        <?php echo $form->textField($ModelVast, 'vast_source_vast'); ?>
-        <?php echo $form->error($ModelVast, 'vast_source_vast'); ?>
-    </div>
     </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Zapisz'); ?>

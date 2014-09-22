@@ -334,11 +334,11 @@ class AdminController extends Controller
         if(isset($_POST['VastVideo']))
         {
             $ModelVast->attributes=$_POST['VastVideo'];
-            $ModelVast->vast_source_vast ='/vast/'.$ModelVast->vast_title.'.xml';
+            //$ModelVast->vast_source_vast ='/vast/'.$ModelVast->vast_title.'.xml'; <-- create vast .xml
              if($ModelVast->validate())
             {
                 $ModelVast->AddVast();
-                $ModelVast->VastXml();
+                //$ModelVast->VastXml();  // create file .xml
                 $VastAdd = true;
                 $ModelVast->vast_title = '';
                 $ModelVast->vast_source = '';
@@ -405,7 +405,7 @@ class AdminController extends Controller
                 $ModelVast->vast_title = $DataVast['vast_title'];
                 $ModelVast->vast_source = $DataVast['vast_source'];
                 $ModelVast->vast_link = $DataVast['vast_link'];
-                $ModelVast->vast_source_vast = $DataVast['vast_source_vast'];
+                //$ModelVast->vast_source_vast = $DataVast['vast_source_vast']; <-- create xml
             }
         }
         
