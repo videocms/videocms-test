@@ -169,7 +169,7 @@ class CmsvideoVideo extends CFormModel
         $AddVideo->execute();
       }
     
-      public function UpdateViews($id)
+    public function UpdateViews($id)
     {
      $session = Yii::app()->getSession();
      $video_arr = array();
