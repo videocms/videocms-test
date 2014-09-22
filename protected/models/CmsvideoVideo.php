@@ -16,7 +16,7 @@ class CmsvideoVideo extends CFormModel
 
     public function rules() {
         return array(
-            array('video_title, video_text, video_category, video_480p, video_720p, video_image', 'required'),
+            array('video_title, video_text, video_category, video_480p, video_720p, video_image, video_thumb', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_1080p', 'length', 'max'=>255),
             array('video_title', 'length', 'max'=>65),

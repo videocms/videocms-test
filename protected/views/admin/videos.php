@@ -8,6 +8,7 @@ echo '<th>Video 480p</th>';
 echo '<th>Video 720p</th>';
 echo '<th>Video 1080p</th>';
 echo '<th>Image</th>';
+echo '<th>Thumb</th>';
 echo '<th>Data</th>';
 echo '<th>Edytuj</th>';
 echo '<th>Usuń</th>';
@@ -32,6 +33,7 @@ foreach($Data as $ModelVideosShow)
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_720p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_1080p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_image'].'</td>';
+    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_thumb'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
     echo '<td class="'.$RowClass.'">';
     

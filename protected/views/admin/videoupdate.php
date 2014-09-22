@@ -11,12 +11,11 @@
     
     <?php echo $form->errorSummary($ModelVideo); ?>
     
-    <?php 
-    
-   if($VideoUpdate)
-   {
-       echo '<div class="pozytywnie">Wpis został zaktualizowany.</div>';
-   }
+    <?php
+    if($VideoUpdate)
+    {
+        echo '<div class="pozytywnie">Wpis został zaktualizowany.</div>';
+    }
     ?>
     
     <div class="row">
@@ -51,26 +50,23 @@
     
     <div class="row">
         <?php echo $form->labelEx($ModelVideo, 'video_category');?>
-        <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), array('style'=>'width: 400px;')
-                ); ?>
+        <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), 
+                array('style'=>'width: 400px;')); ?>
         <?php echo $form->error($ModelVideo, 'video_category'); ?> 
     </div>
     
-    
-     <div class="row">
-    <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
-         <p id="upload">
-         <?php echo $form->textField($ModelVideo, 'video_image',array('readonly'=>true)); ?><input name="upload1" type="button" value="zmien" onclick="changeMode()" />
-         
-         </p>
-         
-    <?php echo $form->error($ModelVideo, 'video_image'); ?>
+    <div class="row">
+         <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
+            <p id="upload">
+                <?php echo $form->textField($ModelVideo, 'video_image',array('readonly'=>true)); ?>
+                <input name="upload1" type="button" value="zmien" onclick="changeMode()" />
+            </p>       
+         <?php echo $form->error($ModelVideo, 'video_image'); ?>
     </div>
     
-    <div class="row">
-        <?php echo $form->labelEx($ModelVideo, 'video_thumb'); ?>
-        <?php echo $form->textField($ModelVideo, 'video_thumb'); ?>
-        <?php echo $form->error($ModelVideo, 'video_thumb'); ?>
+   <div class="row">
+        <?php echo $form->textField($ModelVideo, 'video_thumb',array('hidden'=>true)); ?>
+        <?php echo $form->error($ModelVideo, 'video_image'); ?>
     </div>
     
     <div class="row buttons">
