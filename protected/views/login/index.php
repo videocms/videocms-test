@@ -13,26 +13,31 @@
   <?php
   if($ErrorData)
   {
-      echo '<div class="zle">Wpisałeś złe dane!</div>';
+      echo '<p class="text-warning">Wpisałeś złe dane!</p>';
   }
   echo $form->errorSummary($ModelUsers);
-  ?>
-    <div class="row">
+  ?><div class="row">
+  <div class="col-xs-6 col-md-4">
+    <div class="form-group">
         <?php 
         echo $form->labelEx($ModelUsers,'user_login');
-        echo $form->textField($ModelUsers,'user_login');
-        echo $form->error($ModelUsers,'user_login');
+        echo $form->textField($ModelUsers,'user_login', array('class' => 'form-control', 'placeholder'=>'Login'));
+        echo $form->error($ModelUsers,'user_login', array('class' => 'bg-danger', 'placeholder'=>'Login'));
         ?>
     </div>
-    <div class="row">
+    <div class="form-group">
         <?php 
         echo $form->labelEx($ModelUsers,'user_pass');
-        echo $form->textField($ModelUsers,'user_pass');
-        echo $form->error($ModelUsers,'user_pass');
+        echo $form->passwordField($ModelUsers,'user_pass', array('class' => 'form-control', 'placeholder'=>'Hasło'));
+        echo $form->error($ModelUsers,'user_pass', array('class' => 'bg-danger', 'placeholder'=>'Hasło'));
         ?>
     </div>
+  
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Login'); ?>
+        <?php echo CHtml::submitButton('Login', array('class' => 'btn btn-default')); ?>
     </div>
+  </div>
+  </div>
     <?php $this->endWidget(); ?>
+    
 </div>

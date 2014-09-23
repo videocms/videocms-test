@@ -78,7 +78,7 @@
     </div>
     
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Aktualizuj'); ?>
+        <?php echo CHtml::submitButton('Aktualizuj', array('class' => 'btn btn-primary')); ?>
     </div>
     
     <?php $this->endWidget(); ?>
