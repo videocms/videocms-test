@@ -16,15 +16,21 @@ class CmsvideoVideo extends CFormModel
 
     public function rules() {
         return array(
-            array('video_title, video_text, video_category, video_480p, video_720p, video_image, video_thumb', 'required'),
+            array('video_title, video_text, video_category, video_image, video_thumb', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
-            array('video_1080p', 'length', 'max'=>255),
+            array('video_1080p, video_480p, video_720p', 'video_attribute'),
             array('video_title', 'length', 'max'=>65),
             array('video_image, video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update', 'maxSize'=>'204800'),
         );
     }
     
     
+    public function video_attribute($attribute_name){
+     if((empty($this->video_1080p)) && (empty($this->video_480p)) && (empty($this->video_720p))){
+               $this->addError($attribute_name,
+                 'Proszę dodać przynajmniej jedno video!');
+        }
+    }
     ////// WLASNA REGULA np: array('video_1080p',moja_regula),
    // public function moja_regula($attribute_name){
     // if(empty($this->video_1080p)){
