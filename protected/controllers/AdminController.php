@@ -142,6 +142,7 @@ class AdminController extends Controller
                 $ModelVideo->video_1080p = $DataVideo['video_1080p'];
                 $ModelVideo->video_image = $DataVideo['video_image'];
                 $ModelVideo->video_thumb = $DataVideo['video_thumb'];
+                $ModelVideo->video_published = $DataVideo['video_published'];
             }
         }
         
