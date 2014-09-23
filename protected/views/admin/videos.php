@@ -1,17 +1,15 @@
 <?php
 echo '<h1>Wideo</h1>';
-echo '<table style="width: 850px;">';
+echo '<table style="width: 100%;">';
 echo '<tr>';
 echo '<th>ID</th>';
+echo '<th>Thumb</th>';
 echo '<th>Tytuł</th>';
 echo '<th>Video 480p</th>';
 echo '<th>Video 720p</th>';
 echo '<th>Video 1080p</th>';
-echo '<th>Zdjęcie</th>';
-echo '<th>Thumb</th>';
 echo '<th>Data</th>';
-echo '<th>Publikacja</th>';
-echo '<th>Edytuj</th>';
+echo '<th>Public</th>';
 echo '<th>Usuń</th>';
 echo '<tr>';
 
@@ -29,17 +27,14 @@ foreach($Data as $ModelVideosShow)
     }
     echo '<tr>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_id'].'</td>';
-    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_title'].'</td>';
+    echo '<td class="'.$RowClass.'">'.CHtml::link('<img src="../'.$ModelVideosShow['video_thumb'].'" style="width: 60px; height: 60px;"/>',array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'</td>';
+    echo '<td class="'.$RowClass.'">'.CHtml::link($ModelVideosShow['video_title'],array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_480p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_720p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_1080p'].'</td>';
-    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_image'].'</td>';
-    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_thumb'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_published'].'</td>';
     echo '<td class="'.$RowClass.'">';
-    
-    echo CHtml::link('Edytuj',array('admin/videoupdate/'.$ModelVideosShow['video_id']));
     echo '</td>';
     echo '<td class="'.$RowClass.'">';
     

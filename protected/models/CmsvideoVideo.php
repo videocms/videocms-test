@@ -100,6 +100,16 @@ class CmsvideoVideo extends CFormModel
     
     public function SelectVideo($LimitOnSite = 10, $Site = 1)
     {
+        $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video WHERE video_published = "1" ORDER BY video_id DESC LIMIT :Start, :SetTheLimit');
+        $SelectVideo->bindValue(':Start', ($Site * $LimitOnSite), PDO::PARAM_INT);
+        $SelectVideo->bindValue(':SetTheLimit', $LimitOnSite, PDO::PARAM_INT);
+        
+        $DataVideo = $SelectVideo->queryAll();
+        return $DataVideo;
+    }
+    
+    public function SelectAdminVideo($LimitOnSite = 10, $Site = 1)
+    {
         $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video ORDER BY video_id DESC LIMIT :Start, :SetTheLimit');
         $SelectVideo->bindValue(':Start', ($Site * $LimitOnSite), PDO::PARAM_INT);
         $SelectVideo->bindValue(':SetTheLimit', $LimitOnSite, PDO::PARAM_INT);
@@ -119,7 +129,7 @@ class CmsvideoVideo extends CFormModel
     
     public function SelectVideoCategory($id,$LimitOnSite,$Site)
     {
-        $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video WHERE video_category = :IdCategory ORDER BY video_id DESC LIMIT :Start, :SetLimit');
+        $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video WHERE video_category = :IdCategory AND video_published = "1" ORDER BY video_id DESC LIMIT :Start, :SetLimit');
         $SelectVideo->bindValue(':IdCategory', $id, PDO::PARAM_INT);
         $SelectVideo->bindValue(':Start', ($Site * $LimitOnSite), PDO::PARAM_INT);
         $SelectVideo->bindValue(':SetLimit', $LimitOnSite, PDO::PARAM_INT);
@@ -131,10 +141,9 @@ class CmsvideoVideo extends CFormModel
     
     public function DownloadVideo($id)
     {
-        $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id WHERE video_id = :IdVideo');
+        $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id WHERE video_id = :IdVideo AND video_published = "1"');
         $SelectVideo->bindValue(':IdVideo', $id, PDO::PARAM_INT);
         $DataVideo = $SelectVideo->queryAll();
-        
         return $DataVideo;
     }
    

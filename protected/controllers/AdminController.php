@@ -40,7 +40,7 @@ class AdminController extends Controller
                 $ModelVideo->video_category = '';
                 $ModelVideo->video_480p = '';
                 $ModelVideo->video_720p = '';
-                //$ModelVideo->video_1080p = '';
+                $ModelVideo->video_1080p = '';
                 $ModelVideo->video_image = '';
                 $ModelVideo->video_thumb = '';
             }
@@ -50,7 +50,7 @@ class AdminController extends Controller
         $Site = new CPagination(intval($AmountVideo));
         $Site->pageSize = 10;
         
-        $Data = $ModelVideo->SelectVideo($Site->pageSize, $Site->currentPage);
+        $Data = $ModelVideo->SelectAdminVideo($Site->pageSize, $Site->currentPage);
 
         $this->render('videos', array(
             'Data' => $Data,
