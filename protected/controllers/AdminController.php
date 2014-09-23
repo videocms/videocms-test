@@ -130,7 +130,7 @@ class AdminController extends Controller
         }
         else
         {
-            $Data = $ModelVideo->DownloadVideo($id);
+            $Data = $ModelVideo->DownloadVideoAdmin($id);
             
             foreach($Data as $DataVideo)
             {
