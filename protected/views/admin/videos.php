@@ -1,7 +1,7 @@
 <?php
 echo '<h1>Wideo</h1>';
-echo '<table style="width: 100%;">';
-echo '<tr>';
+echo '<table class="table table-hover">';
+echo '<tr class="active">';
 echo '<th>ID</th>';
 echo '<th>Thumb</th>';
 echo '<th>Tytuł</th>';
@@ -33,9 +33,12 @@ foreach($Data as $ModelVideosShow)
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_720p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_1080p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
-    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_published'].'</td>';
-    echo '<td class="'.$RowClass.'">';
-    echo '</td>';
+    if ($ModelVideosShow['video_published'] == "1")
+    {
+        echo '<td class="glyphicon glyphicon-ok"><input type="hidden" class="form-control" placeholder="'.$ModelVideosShow['video_published'].'"></td>';
+    }  else {
+        echo '<td class="glyphicon glyphicon-remove"><input type="hidden" class="form-control" placeholder="'.$ModelVideosShow['video_published'].'"></td>';
+    }
     echo '<td class="'.$RowClass.'">';
     
     echo CHtml::link(
