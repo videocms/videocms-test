@@ -74,9 +74,6 @@
         array(
         '1' => 'Opublikowano',
         '0' => 'Nie opublikowano',
-        ),
-        array(
-        'options' => array('1' => array('selected' => 'selected'))
         )); ?>
     </div>
     
