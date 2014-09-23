@@ -7,9 +7,10 @@ echo '<th>Tytuł</th>';
 echo '<th>Video 480p</th>';
 echo '<th>Video 720p</th>';
 echo '<th>Video 1080p</th>';
-echo '<th>Image</th>';
+echo '<th>Zdjęcie</th>';
 echo '<th>Thumb</th>';
 echo '<th>Data</th>';
+echo '<th>Publikacja</th>';
 echo '<th>Edytuj</th>';
 echo '<th>Usuń</th>';
 echo '<tr>';
@@ -35,6 +36,7 @@ foreach($Data as $ModelVideosShow)
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_image'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_thumb'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
+    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_published'].'</td>';
     echo '<td class="'.$RowClass.'">';
     
     echo CHtml::link('Edytuj',array('admin/videoupdate/'.$ModelVideosShow['video_id']));
@@ -122,6 +124,17 @@ $this->widget('CLinkPager', array(
     <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
     <?php echo $form->fileField($ModelVideo, 'video_image'); ?>
     <?php echo $form->error($ModelVideo, 'video_image'); ?>
+    </div>
+    
+    <div class="row">
+    <?php echo $form->dropDownList($ModelVideo, 'video_published',
+    array(
+    '1' => 'Opublikowano',
+    '0' => 'Nie opublikowano',
+    ),
+    array(
+    'options' => array('1' => array('selected' => 'selected'))
+    )); ?>
     </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Dodaj'); ?>

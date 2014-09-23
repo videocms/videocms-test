@@ -66,7 +66,18 @@
     
    <div class="row">
         <?php echo $form->textField($ModelVideo, 'video_thumb',array('hidden'=>true)); ?>
-        <?php echo $form->error($ModelVideo, 'video_image'); ?>
+        <?php echo $form->error($ModelVideo, 'video_thumb'); ?>
+    </div>
+    
+    <div class="row">
+    <?php echo $form->dropDownList($ModelVideo, 'video_published',
+        array(
+        '1' => 'Opublikowano',
+        '0' => 'Nie opublikowano',
+        ),
+        array(
+        'options' => array('1' => array('selected' => 'selected'))
+        )); ?>
     </div>
     
     <div class="row buttons">

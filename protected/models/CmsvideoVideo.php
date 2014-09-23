@@ -12,11 +12,11 @@ class CmsvideoVideo extends CFormModel
     public $video_1080p;
     public $video_image;
     public $video_thumb;
-
+    public $video_published;
 
     public function rules() {
         return array(
-            array('video_title, video_text, video_category, video_image, video_thumb', 'required'),
+            array('video_title, video_text, video_category, video_image, video_thumb, video_published', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_1080p, video_480p, video_720p', 'video_attribute'),
             array('video_title', 'length', 'max'=>65),
@@ -51,6 +51,7 @@ class CmsvideoVideo extends CFormModel
             'video_1080p' => '1080p',
             'video_image' => 'Image',
             'video_thumb' => 'Thumbnail',
+            'video_published' => 'Published',
         );
     }
     
@@ -139,7 +140,7 @@ class CmsvideoVideo extends CFormModel
    
     public function AddNewVideo()
     {
-        $AddVideo = Yii::app()->db->createCommand('INSERT INTO videocms_video (video_title, video_text, video_category, video_date, video_480p, video_720p, video_1080p, video_thumb, video_image) VALUES (:VideoTitle, :VideoText, :VideoCategory, :VideoDate, :Video480p, :Video720p, :Video1080p, :VideoThumb, :VideoImage)');
+        $AddVideo = Yii::app()->db->createCommand('INSERT INTO videocms_video (video_title, video_text, video_category, video_date, video_480p, video_720p, video_1080p, video_thumb, video_image, video_published) VALUES (:VideoTitle, :VideoText, :VideoCategory, :VideoDate, :Video480p, :Video720p, :Video1080p, :VideoThumb, :VideoImage, :VideoPublished)');
         $AddVideo->bindValue(':VideoTitle', $this->video_title, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoText', $this->video_text, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoCategory', $this->video_category, PDO::PARAM_INT);
@@ -149,6 +150,7 @@ class CmsvideoVideo extends CFormModel
         $AddVideo->bindValue(':Video1080p', $this->video_1080p, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoThumb', $this->video_thumb, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoImage', $this->video_image, PDO::PARAM_STR);
+        $AddVideo->bindValue(':VideoPublished', $this->video_published, PDO::PARAM_STR);
         $AddVideo->execute();
     }
     
@@ -162,7 +164,7 @@ class CmsvideoVideo extends CFormModel
     
     public function UpdateVideo($id)
     {
-        $AddVideo = Yii::app()->db->createCommand('UPDATE videocms_video SET video_title = :VideoTitle, video_text = :VideoText, video_category = :VideoCategory, video_480p = :Video480p, video_720p = :Video720p, video_1080p = :Video1080p, video_image = :VideoImage, video_thumb = :VideoThumb WHERE video_id = :VideoId');
+        $AddVideo = Yii::app()->db->createCommand('UPDATE videocms_video SET video_title = :VideoTitle, video_text = :VideoText, video_category = :VideoCategory, video_480p = :Video480p, video_720p = :Video720p, video_1080p = :Video1080p, video_image = :VideoImage, video_thumb = :VideoThumb, video_published = :VideoPublished WHERE video_id = :VideoId');
         $AddVideo->bindValue(':VideoTitle', $this->video_title, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoText', $this->video_text, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoCategory', $this->video_category, PDO::PARAM_INT);
@@ -171,6 +173,7 @@ class CmsvideoVideo extends CFormModel
         $AddVideo->bindValue(':Video1080p', $this->video_1080p, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoThumb', $this->video_thumb, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoImage', $this->video_image, PDO::PARAM_STR);
+        $AddVideo->bindValue(':VideoPublished', $this->video_published, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoId', $id, PDO::PARAM_INT);
         $AddVideo->execute();
       }
