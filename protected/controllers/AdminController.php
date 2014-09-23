@@ -115,7 +115,6 @@ class AdminController extends Controller
            // $ModelVideo->video_thumb = $DataVideo['video_thumb'];
            // }
            // }
-         
             if ($ModelVideo->validate())
             {
                 $ModelVideo->UpdateVideo($id);

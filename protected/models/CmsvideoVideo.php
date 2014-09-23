@@ -178,7 +178,6 @@ class CmsvideoVideo extends CFormModel
         $DeleteVideo->execute();
     }
     
-    
     public function UpdateVideo($id)
     {
         $AddVideo = Yii::app()->db->createCommand('UPDATE videocms_video SET video_title = :VideoTitle, video_text = :VideoText, video_category = :VideoCategory, video_480p = :Video480p, video_720p = :Video720p, video_1080p = :Video1080p, video_image = :VideoImage, video_thumb = :VideoThumb, video_published = :VideoPublished WHERE video_id = :VideoId');
