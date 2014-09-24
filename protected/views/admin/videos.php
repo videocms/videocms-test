@@ -8,6 +8,7 @@ echo '<th>Tytuł</th>';
 echo '<th>Video 480p</th>';
 echo '<th>Video 720p</th>';
 echo '<th>Video 1080p</th>';
+echo '<th>Wyświetlenia</th>';
 echo '<th>Data</th>';
 echo '<th>Public</th>';
 echo '<th>Usuń</th>';
@@ -32,6 +33,7 @@ foreach($Data as $ModelVideosShow)
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_480p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_720p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_1080p'].'</td>';
+    echo '<td class="'.$RowClass.'"><center>'.$ModelVideosShow['video_views'].'</center></td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
     if ($ModelVideosShow['video_published'] == "1")
     {
