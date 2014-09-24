@@ -3,10 +3,10 @@ echo '<h1>Vast</h1>';
 echo '<table style="width: 850px;">';
 echo '<tr>';
 echo '<th>ID</th>';
-echo '<th>tytul</th>';
-echo '<th>source</th>';
-echo '<th>link</th>';
-//echo '<th>source_vast</th>';
+echo '<th>Tytuł</th>';
+echo '<th>Źródło</th>';
+echo '<th>Kategorie</th>';
+echo '<th>Link</th>';
 echo '<th>Edytuj</th>';
 echo '<th>Usuń</th>';
 echo '<tr>';
@@ -28,8 +28,8 @@ foreach($Data as $ModelVastShow)
     echo '<td class="'.$RowClass.'">'.$ModelVastShow['vast_id'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVastShow['vast_title'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVastShow['vast_source'].'</td>';
+    echo '<td class="'.$RowClass.'">'.$ModelVastShow['vast_video_cat'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVastShow['vast_link'].'</td>';
-    //echo '<td class="'.$RowClass.'">'.$ModelVastShow['vast_source_vast'].'</td>';
     echo '<td class="'.$RowClass.'">';
     
     echo CHtml::link(
@@ -83,6 +83,10 @@ echo '</table>';
         <?php echo $form->labelEx($ModelVast,'vast_link'); ?>
         <?php echo $form->textField($ModelVast,'vast_link'); ?>
         <?php echo $form->error($ModelVast,'vast_link'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelVast, 'video_category'); ?>
+        <?php echo $form->listBox($ModelVast, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'),array('multiple'=>'multiple','size'=>'10'), array('style'=>'width: 400px;')); ?>        <?php echo $form->error($ModelVast, 'video_category'); ?>
     </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Dodaj'); ?>

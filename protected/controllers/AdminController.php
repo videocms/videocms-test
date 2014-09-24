@@ -164,7 +164,6 @@ class AdminController extends Controller
         $CategotyAdd = false;
         
         $ModelCategories = new CmsvideoCategories;
-        $ModelVast = new VastVideo;
         
         if(isset($_POST['CmsvideoCategories']))
         {
@@ -175,7 +174,6 @@ class AdminController extends Controller
                 $ModelCategories->AddCategory();
                 $CategotyAdd = true;
                 $ModelCategories->category_name = '';
-                $ModelCategories->category_vast = '';
             }
         }
         
@@ -185,7 +183,6 @@ class AdminController extends Controller
             'Data' => $DataCategory,
             'CategoryAdd' => $CategotyAdd,
             'ModelCategory' => $ModelCategories,
-                'ModelVast' =>$ModelVast
         ));
     }
     public function actionCategoryDelete($id)
@@ -220,7 +217,6 @@ class AdminController extends Controller
         
         $CategoryUpdate = false;
         $ModelCategory = new CmsvideoCategories;
-        $ModelVast = new VastVideo;
         
         if(isset($_POST['CmsvideoCategories']))
         {
@@ -238,14 +234,12 @@ class AdminController extends Controller
             foreach ($Data as $DataForm)
             {
                 $ModelCategory->category_name = $DataForm['category_name'];
-                $ModelCategory->category_vast = $DataForm['category_vast'];
             }
         }
         
         $this->render('categoryupdate', array(
             'ModelCategory' => $ModelCategory,
             'CategoryUpdate' => $CategoryUpdate,
-            'ModelVast' => $ModelVast,
         ));
     }
     
@@ -311,6 +305,7 @@ class AdminController extends Controller
         
         $VastAdd = false;
         $ModelVast = new VastVideo;
+        $ModelCategories = new CmsvideoCategories;
         
         if(isset($_POST['VastVideo']))
         {
@@ -331,7 +326,8 @@ class AdminController extends Controller
         $this->render('vast', array(
             'Data' => $DataVast,
             'VastAdd' => $VastAdd,
-            'ModelVast' => $ModelVast
+            'ModelVast' => $ModelVast,
+            'ModelCategories' => $ModelCategories,
         ));
     }
     
@@ -367,6 +363,7 @@ class AdminController extends Controller
         
         $VastUpdate = false;
         $ModelVast = new VastVideo();
+        $ModelCategories = new CmsvideoCategories;
         
         if(isset($_POST['VastVideo']))
         {
@@ -393,6 +390,7 @@ class AdminController extends Controller
         $this->render('vastupdate', array(
             'ModelVast' => $ModelVast,
             'VastUpdate' => $VastUpdate,
+            'ModelCategories' => $ModelCategories,
         ));
     }
     // KONIEC VAST 

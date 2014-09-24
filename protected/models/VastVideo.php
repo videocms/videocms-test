@@ -6,12 +6,12 @@ class VastVideo extends CFormModel
     public $vast_title;
     public $vast_source;
     public $vast_link;
-    //public $vast_source_vast; <-- create file .xml
+    public $video_category;
 
 
     public function rules() {
         return array(
-            array('vast_title, vast_source, vast_link', 'required'),
+            array('vast_title, vast_source, vast_link, video_category', 'required'),
         );
     }
     public function attributeLabels()
@@ -21,7 +21,7 @@ class VastVideo extends CFormModel
             'vast_title' => 'Title',
             'vast_source' => 'Source',
             'vast_link' => 'Link',
-           // 'vast_source_vast' => 'Source Vast', <--- create file .xml
+            'video_category' => 'KategoriaWideo',
         );
     }
     /**             Create file .xml
@@ -79,12 +79,11 @@ class VastVideo extends CFormModel
     
     public function AddVast()
     {
-        //$AddVast = Yii::app()->db->createCommand('INSERT INTO videocms_vast (vast_title, vast_source, vast_link, vast_source_vast) VALUES (:VastTitle, :VastSource, :VastLink, :VastSourcevast)');  <--- create .xml
-        $AddVast = Yii::app()->db->createCommand('INSERT INTO videocms_vast (vast_title, vast_source, vast_link) VALUES (:VastTitle, :VastSource, :VastLink)');
+        $AddVast = Yii::app()->db->createCommand('INSERT INTO videocms_vast (vast_title, vast_source, vast_link, vast_video_cat) VALUES (:VastTitle, :VastSource, :VastLink, :VastVideoCategory)');
         $AddVast->bindValue(':VastTitle', $this->vast_title, PDO::PARAM_STR);
         $AddVast->bindValue(':VastSource', $this->vast_source, PDO::PARAM_STR);
         $AddVast->bindValue(':VastLink', $this->vast_link, PDO::PARAM_STR);
-      //  $AddVast->bindValue(':VastSourcevast', $this->vast_source_vast, PDO::PARAM_STR); <- create file xml source
+        $AddVast->bindValue(':VastVideoCategory', implode(',', $this->video_category), PDO::PARAM_STR);
         $AddVast->execute();
     }
     
@@ -97,12 +96,11 @@ class VastVideo extends CFormModel
     
     public function SaveVast($id)
     {
-         //$UpdateVast = Yii::app()->db->createCommand('UPDATE videocms_vast SET vast_title = :VastTitle, vast_source = :VastSource, vast_link = :VastLink WHERE vast_id = :VastId');
-        $UpdateVast = Yii::app()->db->createCommand('UPDATE videocms_vast SET vast_title = :VastTitle, vast_source = :VastSource, vast_link = :VastLink WHERE vast_id = :VastId');
+        $UpdateVast = Yii::app()->db->createCommand('UPDATE videocms_vast SET vast_title = :VastTitle, vast_source = :VastSource, vast_link = :VastLink, vast_video_cat = :VastVideoCategory WHERE vast_id = :VastId');
         $UpdateVast->bindValue(':VastTitle',$this->vast_title,PDO::PARAM_STR);
         $UpdateVast->bindValue(':VastSource',$this->vast_source,PDO::PARAM_STR);
         $UpdateVast->bindValue(':VastLink',$this->vast_link,PDO::PARAM_STR);
-        //$UpdateVast->bindValue(':VastSourcevast', $this->vast_source_vast, PDO::PARAM_STR);    vast .xml
+        $UpdateVast->bindValue(':VastVideoCategory', implode(',', $this->video_category), PDO::PARAM_STR);
         $UpdateVast->bindValue(':VastId',$id,PDO::PARAM_INT);
         $UpdateVast->execute();
     }
