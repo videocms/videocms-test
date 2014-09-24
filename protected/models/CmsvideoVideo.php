@@ -1,6 +1,6 @@
 <?php
 
-
+ 
 class CmsvideoVideo extends CFormModel
 {
     public $video_title;

@@ -1,7 +1,6 @@
 <?php
 echo '<h1>Vast</h1>';
 echo '<table style="width: 850px;">';
-
 echo '<tr>';
 echo '<th>ID</th>';
 echo '<th>tytul</th>';

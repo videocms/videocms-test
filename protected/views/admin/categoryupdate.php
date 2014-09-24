@@ -1,4 +1,4 @@
-<h1>Edycja Kategorii</h1>
+<h1>Edycja Kategorii</h1> 
 <div class="form">
     <?php $form=$this->beginWidget('CActiveForm', array(
         'id'=>'videocms-category-form',

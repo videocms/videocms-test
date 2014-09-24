@@ -7,7 +7,7 @@ class CmsvideoCategories extends CFormModel
     public $category_name;
     
     public function rules()
-    {
+    { 
         return array(
             array('category_name, category_vast', 'required'),
             array('category_vast', 'length', 'max'=>60),

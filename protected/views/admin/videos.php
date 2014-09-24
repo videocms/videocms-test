@@ -12,7 +12,7 @@ echo '<th>Wyświetlenia</th>';
 echo '<th>Data</th>';
 echo '<th>Public</th>';
 echo '<th>Usuń</th>';
-echo '<tr>';
+echo '<tr>'; 
 
 foreach($Data as $ModelVideosShow)
 {

@@ -1,5 +1,5 @@
 <?php
-
+ 
 class VastVideo extends CFormModel
 {
     public $vast_id;
