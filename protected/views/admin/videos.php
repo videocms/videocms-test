@@ -121,6 +121,12 @@ $this->widget('CLinkPager', array(
         ?>
         <?php echo $form->error($ModelVideo, 'video_category'); ?>
     </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelVideo, 'player_type'); ?>
+        <?php echo $form->dropDownList($ModelVideo, 'player_type', array('mp4' => 'mp4', 'mp3' => 'mp3'));
+        ?>
+        <?php echo $form->error($ModelVideo, 'player_type'); ?>
+    </div>
     
     <?php        
     if ($ImageAdd) {
