@@ -15,8 +15,8 @@ class CmsvideoController extends Controller
         foreach ($DataSeo as $Seoo)
         {
         $this->pageMetaRobots = $Seoo['settings_robots'];
-        $this->pageMetaKeywords = $Seoo['settings_kywords'];
-        $this->pageMetaDescription = $Seoo['settings_desciption'];
+        $this->pageMetaKeywords = $Seoo['settings_keywords'];
+        $this->pageMetaDescription = $Seoo['settings_description'];
         }
         $this->pageTitle='Strona główna';
          
