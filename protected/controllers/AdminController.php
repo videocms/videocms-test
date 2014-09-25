@@ -407,7 +407,7 @@ class AdminController extends Controller
     // KONIEC VAST 
     
     // player
-    public function actionPlayer()
+    public function actionSettings()
     {
         $this->pageTitle = 'Edycja';
         if(Yii::app()->session['zalogowany'] != 'tak') 
@@ -416,25 +416,14 @@ class AdminController extends Controller
         }
         
         $ModelPlayer = new CmsvideoPlayer;
-         //
-        if(isset($_POST['CmsvideoPlayer']))
-        {
-            $ModelPlayer->attributes=$_POST['CmsvideoPlayer'];
-            
-            if($ModelPlayer->validate())
-            {
-                $ModelPlayer->player_type = '';
-            }
-        }
-        //
+
         $DataPlayer = $ModelPlayer->DownloadPlayer();
         
         $this->render('settings', array(
             'Data' => $DataPlayer,
-            'ModelPlayer' => $ModelPlayer
+            'ModelPlayer' => $ModelPlayer,
         ));
     }
-    
     
     public function actionPlayerUpdate($id)
     {

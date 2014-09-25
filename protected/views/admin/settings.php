@@ -1,5 +1,5 @@
 <?php
-echo '<h1>PLayer</h1>';
+echo '<h1>Player</h1>';
 echo '<table class="table table-hover">';
 echo '<tr class="active">';
 echo '<th>Type</th>';
