@@ -68,6 +68,12 @@
         <?php echo $form->textField($ModelVideo, 'video_thumb',array('hidden'=>true)); ?>
         <?php echo $form->error($ModelVideo, 'video_thumb'); ?>
     </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelVideo, 'player_type'); ?>
+        <?php echo $form->dropDownList($ModelVideo, 'player_type', array('video/mp4' => 'mp4', 'video/webm' => 'webm', 'video/ogg' => 'ogg', 'rtmp/mp4' => 'rtmp'));
+        ?>
+        <?php echo $form->error($ModelVideo, 'player_type'); ?>
+    </div>
     
     <div class="row">
     <?php echo $form->dropDownList($ModelVideo, 'video_published',

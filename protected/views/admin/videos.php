@@ -123,7 +123,7 @@ $this->widget('CLinkPager', array(
     </div>
     <div class="row">
         <?php echo $form->labelEx($ModelVideo, 'player_type'); ?>
-        <?php echo $form->dropDownList($ModelVideo, 'player_type', array('mp4' => 'mp4', 'mp3' => 'mp3'));
+        <?php echo $form->dropDownList($ModelVideo, 'player_type', array('video/mp4' => 'mp4', 'video/webm' => 'webm', 'video/ogg' => 'ogg', 'rtmp/mp4' => 'rtmp'));
         ?>
         <?php echo $form->error($ModelVideo, 'player_type'); ?>
     </div>
