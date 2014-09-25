@@ -427,7 +427,7 @@ class AdminController extends Controller
         ));
     }
     
-    public function actionPlayerUpdate($id)
+    public function actionSettingsPlayer($id)
     {
         $this->pageTitle = 'Edycja';
         if(Yii::app()->session['zalogowany'] != 'tak')
@@ -469,7 +469,52 @@ class AdminController extends Controller
         ));
     }
     
-    // koniec player
+    // koniec player 
+    
+    // SEO
+    public function actionSeo($id)
+    {
+        $this->pageTitle = 'Seo';
+        if(Yii::app()->session['zalogowany'] != 'tak')
+        {
+            $this->redirect(array('login/index'));
+        }
+        
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        
+        $SettingsUpdate = false;
+        $ModelSettings = new CmsvideoSettings;
+        
+        if(isset($_POST['CmsvideoSettings']))
+        {
+            $ModelSettings->attributes = $_POST['CmsvideoSettings'];
+            if($ModelSettings->validate())
+            {
+                $ModelSettings->SaveSettings($id);
+                $SettingsUpdate = true;
+            }
+            $this->redirect(array('/admin/seo/1'));
+        }
+        else
+        {
+            $Data = $ModelSettings->DownloadOneSettings($id);
+            foreach ($Data as $DataForm)
+            {
+                $ModelSettings->settings_keywords = $DataForm['settings_keywords'];
+                $ModelSettings->settings_description = $DataForm['settings_description'];
+                $ModelSettings->settings_robots = $DataForm['settings_robots'];
+            }
+        }
+        
+        $this->render('seo', array(
+            'ModelSettings' => $ModelSettings,
+            'SettingsUpdate' => $SettingsUpdate,
+        ));
+    }
+    // end SEO
 }
 
 ?>

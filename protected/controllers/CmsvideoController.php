@@ -2,9 +2,24 @@
  
 class CmsvideoController extends Controller
 {
+    public $pageMetaDescription;
+    public $pageMetaRobots;
+    public $pageMetaKeywords;
+    
+    
     public function actionIndex()
     {
+        $ModalSeo = new CmsvideoSettings;
+        $DataSeo = $ModalSeo->DownloadSettings();
+        
+        foreach ($DataSeo as $Seoo)
+        {
+        $this->pageMetaRobots = $Seoo['settings_robots'];
+        $this->pageMetaKeywords = $Seoo['settings_kywords'];
+        $this->pageMetaDescription = $Seoo['settings_desciption'];
+        }
         $this->pageTitle='Strona główna';
+         
         $ModelCategories = new CmsvideoCategories;
         $DataCategory = $ModelCategories->DownloadCategories();
         
@@ -19,12 +34,13 @@ class CmsvideoController extends Controller
         $this->render('index',
                 array(
                         'DataCategory' => $DataCategory,
+                        'DataSeo' => $DataSeo,
                         'DataVideo' => $DataVideo,
                         'Site' => $Site,
                         )
                 );
     }
-    
+        
     public function actionCategory($id)
     {
         if(!is_numeric($id))

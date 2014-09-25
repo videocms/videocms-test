@@ -5,6 +5,19 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="pl" />
         <meta name="advertising" content="ask" />
+            <?php if (!empty($this->pageMetaDescription))
+                {
+        echo '    <meta name="description" content="' . $this->pageMetaDescription . '" /></ br> ';
+                } 
+                if (!empty($this->pageMetaRobots))
+                {
+        echo '    <meta name="robots" content="' . $this->pageMetaRobots . '" /></ br>';
+                } 
+                if (!empty($this->pageMetaKeywords))
+                {
+        echo '    <meta name="keywords" content="' . $this->pageMetaKeywords . '" /></ br>';
+                }
+            ?>
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <div class=""
 	<!-- blueprint CSS framework -->
@@ -84,6 +97,7 @@ $.noConflict();
 				array('label'=>'Kategorie', 'url'=>array('/admin/category')),
                             array('label'=>'Reklamy', 'url'=>array('/admin/vast')),
                             array('label'=>'Ustawienia', 'url'=>array('/admin/settings')),
+                            array('label'=>'Seo', 'url'=>array('/admin/seo/1')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Zmień hasło', 'url'=>array('/admin/pass')),
                             array('label'=>'Wyloguj', 'url'=>array('/login/logout')),

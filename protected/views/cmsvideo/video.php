@@ -4,6 +4,7 @@ foreach ($DataCategory as $ModelCategoryShow)
     $Category[$ModelCategoryShow['category_id']] = $ModelCategoryShow['category_name'];
 }
 
+
 foreach ($DataVideo as $ModelSite)
 {
     echo '<h1>'.$ModelSite['video_title'].'</h1>';
@@ -24,30 +25,30 @@ foreach ($DataVideo as $ModelSite)
    <video id="example-2" class="video-js vjs-default-skin" preload="auto" controls width="640" height="360" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $ModelSite['video_image']; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
         <?php             if (($ModelSite['video_720p'] == NULL) && ($ModelSite['video_1080p'] == NULL))
                      {
-                          echo'<source src="'.$ModelSite['video_480p'].'" type="video/mp4" data-res="480" />';
+                          echo'<source src="'.$ModelSite['video_480p'].'" type="'.$ModelSite['player_type'].'" data-res="480" />';
                      }
                           elseif (($ModelSite['video_480p'] == NULL) && ($ModelSite['video_1080p'] == NULL)) {
-                                  echo'<source src="'.$ModelSite['video_720p'].'" type="video/mp4" data-res="720" />';
+                                  echo'<source src="'.$ModelSite['video_720p'].'" type="'.$ModelSite['player_type'].'" data-res="720" />';
                      }
                           elseif (($ModelSite['video_480p'] == NULL) && ($ModelSite['video_720p'] == NULL)){
-                                  echo'<source src="'.$ModelSite['video_1080p'].'" type="video/mp4" data-res="1080" />';
+                                  echo'<source src="'.$ModelSite['video_1080p'].'" type="'.$ModelSite['player_type'].'" data-res="1080" />';
                      }
                           elseif ($ModelSite['video_480p'] == NULL) {
-                                  echo'<source src="'.$ModelSite['video_720p'].'" type="video/mp4" data-res="720" />';
-                                  echo'<source src="'.$ModelSite['video_1080p'].'" type="video/mp4" data-res="1080" />';
+                                  echo'<source src="'.$ModelSite['video_720p'].'" type="'.$ModelSite['player_type'].'" data-res="720" />';
+                                  echo'<source src="'.$ModelSite['video_1080p'].'" type="'.$ModelSite['player_type'].'" data-res="1080" />';
                      }
                           elseif ($ModelSite['video_720p'] == NULL) {
-                                  echo'<source src="'.$ModelSite['video_480p'].'" type="video/mp4" data-res="480" />';
-                                  echo'<source src="'.$ModelSite['video_1080p'].'" type="video/mp4" data-res="1080" />';
+                                  echo'<source src="'.$ModelSite['video_480p'].'" type="'.$ModelSite['player_type'].'" data-res="480" />';
+                                  echo'<source src="'.$ModelSite['video_1080p'].'" type="'.$ModelSite['player_type'].'" data-res="1080" />';
                      }
                           elseif ($ModelSite['video_1080p'] == NULL) {
-                                  echo'<source src="'.$ModelSite['video_480p'].'" type="video/mp4" data-res="480" />';
-                                  echo'<source src="'.$ModelSite['video_720p'].'" type="video/mp4" data-res="720" />'; 
+                                  echo'<source src="'.$ModelSite['video_480p'].'" type="'.$ModelSite['player_type'].'" data-res="480" />';
+                                  echo'<source src="'.$ModelSite['video_720p'].'" type="'.$ModelSite['player_type'].'" data-res="720" />'; 
                      }
                      else {
-                          echo'<source src="'.$ModelSite['video_480p'].'" type="video/mp4" data-res="480" />';
-                          echo'<source src="'.$ModelSite['video_720p'].'" type="video/mp4" data-res="720" />';
-                          echo'<source src="'.$ModelSite['video_1080p'].'" type="video/mp4" data-res="1080" />';
+                          echo'<source src="'.$ModelSite['video_480p'].'" type="'.$ModelSite['player_type'].'" data-res="480" />';
+                          echo'<source src="'.$ModelSite['video_720p'].'" type="'.$ModelSite['player_type'].'" data-res="720" />';
+                          echo'<source src="'.$ModelSite['video_1080p'].'" type="'.$ModelSite['player_type'].'" data-res="1080" />';
                     }
     ?>
         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
