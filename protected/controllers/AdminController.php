@@ -9,7 +9,7 @@ class AdminController extends Controller
         $DataVast = $SelectVast->queryAll();
         
         foreach($DataVast as $vast) {
-            echo 'ID reklamy: '.$vast['vast_id'];
+            echo '<br />ID reklamy: '.$vast['vast_id'];
             echo '<br />ID wideo: '.$vast['video_id'];
             echo '<br />Kategoria wideo: '.$vast['category_name'];
         }
