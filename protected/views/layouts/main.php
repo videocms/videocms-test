@@ -7,15 +7,15 @@
         <meta name="advertising" content="ask" />
             <?php if (!empty($this->pageMetaDescription))
                 {
-        echo '    <meta name="description" content="' . $this->pageMetaDescription . '" /></ br> ';
+        echo '    <meta name="description" content="' . $this->pageMetaDescription . '" />';
                 } 
                 if (!empty($this->pageMetaRobots))
                 {
-        echo '    <meta name="robots" content="' . $this->pageMetaRobots . '" /></ br>';
+        echo '    <meta name="robots" content="' . $this->pageMetaRobots . '" />';
                 } 
                 if (!empty($this->pageMetaKeywords))
                 {
-        echo '    <meta name="keywords" content="' . $this->pageMetaKeywords . '" /></ br>';
+        echo '    <meta name="keywords" content="' . $this->pageMetaKeywords . '" />';
                 }
             ?>
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>

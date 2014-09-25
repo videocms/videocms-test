@@ -59,7 +59,7 @@ class CmsvideoPlayer extends CFormModel
     {
         $UpdatePlayer = Yii::app()->db->createCommand('UPDATE videocms_player SET player_type = :PlayerType, player_autoplay = :PlayerAutoplay WHERE player_id = :PlayerId');
         $UpdatePlayer->bindValue(':PlayerType',$this->player_type,PDO::PARAM_STR);
-        $UpdatePlayer->bindValue(':PlayerSource',$this->player_autoplay,PDO::PARAM_STR);
+        $UpdatePlayer->bindValue(':PlayerAutoplay',$this->player_autoplay,PDO::PARAM_STR);
         $UpdatePlayer->bindValue(':PlayerId',$id,PDO::PARAM_INT);
         $UpdatePlayer->execute();
     }
