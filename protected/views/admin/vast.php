@@ -1,11 +1,11 @@
 <?php
 echo '<h1>Vast</h1>';
-echo '<table style="width: 850px;">';
-echo '<tr>';
+echo '<table class="table table-hover">';
+echo '<tr class="active">';
 echo '<th>ID</th>';
 echo '<th>Tytuł</th>';
 echo '<th>Źródło</th>';
-echo '<th>Kategorie</th>';
+echo '<th>Kategorie Wideo</th>';
 echo '<th>Link</th>';
 echo '<th>Edytuj</th>';
 echo '<th>Usuń</th>';
@@ -86,7 +86,7 @@ echo '</table>';
     </div>
     <div class="row">
         <?php echo $form->labelEx($ModelVast, 'video_category'); ?>
-        <?php echo $form->listBox($ModelVast, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'),array('multiple'=>'multiple','size'=>'10'), array('style'=>'width: 400px;')); ?>        <?php echo $form->error($ModelVast, 'video_category'); ?>
+        <?php echo $form->listBox($ModelVast, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'),array('multiple'=>'multiple','size'=>'5'), array('style'=>'width: 400px;')); ?>        <?php echo $form->error($ModelVast, 'video_category'); ?>
     </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Dodaj'); ?>

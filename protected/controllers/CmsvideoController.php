@@ -78,9 +78,6 @@ class CmsvideoController extends Controller
             'DataCategory' => $DataCategory,
             'DataVideo' => $DataVideo,
             'DataViews' => $DataViews,
-            'DataVast' => $DataVast,
-            //'DataVast'=> $DataVast,
-            
         ));
         
     }
@@ -88,16 +85,16 @@ class CmsvideoController extends Controller
     //VAST
   
     //Wywołanie funkcji generującej dynamicznie XML - http://videocms-test.pl/cmsvideo/vastxml/?id=34
-    public function actionVastXml($id)
+    public function actionVastXml($vid)
     {
         $ModelVast = new VastVideo;
-        $DataVast = $ModelVast->DownloadOneVast($id);
+        $DataVast = $ModelVast->DownloadVideoVast($vid);
+        header('Content-Type: application/xml');
+        echo '<?xml version="1.0" encoding="UTF-8"?>
+              <VAST version="2.0">';
         foreach ($DataVast as $Data)
             {
-            header('Content-Type: application/xml');
-            echo '<?xml version="1.0" encoding="UTF-8"?>
-            <VAST version="2.0">
-            <Ad id="'.$Data['vast_id'].'">
+            echo '<Ad id="'.$Data['vast_id'].'">
             <InLine>
             <Creatives>
             <Creative sequence="1" id="7969">
@@ -114,9 +111,9 @@ class CmsvideoController extends Controller
             </Creative>
             </Creatives>
             </InLine>
-            </Ad>
-            </VAST>';
+            </Ad>';
             }
+            echo '</VAST>';
         }
     /// end VAST
 }

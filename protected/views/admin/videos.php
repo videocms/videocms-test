@@ -5,6 +5,7 @@ echo '<tr class="active">';
 echo '<th>ID</th>';
 echo '<th>Thumb</th>';
 echo '<th>Tytuł</th>';
+echo '<th>Kategoria</th>';
 echo '<th>Video 480p</th>';
 echo '<th>Video 720p</th>';
 echo '<th>Video 1080p</th>';
@@ -13,6 +14,11 @@ echo '<th>Data</th>';
 echo '<th>Public</th>';
 echo '<th>Usuń</th>';
 echo '<tr>'; 
+
+foreach ($DataCategory as $ModelCategoryShow)
+{
+    $Category[$ModelCategoryShow['category_id']] = $ModelCategoryShow['category_name'];
+}
 
 foreach($Data as $ModelVideosShow)
 {
@@ -30,6 +36,7 @@ foreach($Data as $ModelVideosShow)
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_id'].'</td>';
     echo '<td class="'.$RowClass.'">'.CHtml::link('<img src="../'.$ModelVideosShow['video_thumb'].'" style="width: 60px; height: 60px;"/>',array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'</td>';
     echo '<td class="'.$RowClass.'">'.CHtml::link($ModelVideosShow['video_title'],array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'</td>';
+    echo '<td class="'.$RowClass.'">'.$Category[$ModelVideosShow['video_category']].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_480p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_720p'].'</td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_1080p'].'</td>';

@@ -77,6 +77,13 @@ class VastVideo extends CFormModel
         return $InfVast;
     }
     
+    public function DownloadVideoVast($id) {
+        $SelectVast = Yii::app()->db->createCommand('SELECT r.vast_id, r.vast_link, r.vast_source FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo');
+        $SelectVast->bindValue(':IdVideo', $id, PDO::PARAM_INT);
+        $InfVast = $SelectVast->query();
+        return $InfVast;
+    }
+    
     public function AddVast()
     {
         $AddVast = Yii::app()->db->createCommand('INSERT INTO videocms_vast (vast_title, vast_source, vast_link, vast_video_cat) VALUES (:VastTitle, :VastSource, :VastLink, :VastVideoCategory)');

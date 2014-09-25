@@ -2,6 +2,20 @@
  
 class AdminController extends Controller
 {
+    
+    public function actionDownloadVast($id) {
+        $SelectVast = Yii::app()->db->createCommand('SELECT v.video_id, v.video_category, c.category_name, r.vast_id, r.vast_video_cat FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo');
+        $SelectVast->bindValue(':IdVideo', $id, PDO::PARAM_INT);
+        $DataVast = $SelectVast->queryAll();
+        
+        foreach($DataVast as $vast) {
+            echo 'ID reklamy: '.$vast['vast_id'];
+            echo '<br />ID wideo: '.$vast['video_id'];
+            echo '<br />Kategoria wideo: '.$vast['category_name'];
+        }
+    }
+    
+    
     public function actionVideos()
     {
         $this->pageTitle = 'Videos';
@@ -14,6 +28,7 @@ class AdminController extends Controller
         $VideoAdd = false;
         
         $ModelCategories = new CmsvideoCategories;
+        $DataCategory = $ModelCategories->DownloadCategories();
         $ModelVideo = new CmsvideoVideo;
         //$ModelVast = new VastVideo();
 
@@ -57,6 +72,7 @@ class AdminController extends Controller
             'Site' => $Site,
             'VideoAdd' => $VideoAdd,
             'ModelVideo' => $ModelVideo,
+            'DataCategory' =>$DataCategory,
             'ModelCategories' =>$ModelCategories,
         ));
     }
@@ -109,12 +125,7 @@ class AdminController extends Controller
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
             $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
             }
-           // else {
-           // $Data = $ModelVideo->DownloadVideo($id);
-           // foreach($Data as $DataVideo) {
-           // $ModelVideo->video_thumb = $DataVideo['video_thumb'];
-           // }
-           // }
+
             if ($ModelVideo->validate())
             {
                 $ModelVideo->UpdateVideo($id);

@@ -1,7 +1,7 @@
 <?php
 echo '<h1>Wideo</h1>';
-echo '<table style="width: 850px;">';
-echo '<tr>';
+echo '<table class="table table-hover">';
+echo '<tr class="active">';
 echo '<th>ID</th>';
 echo '<th>Nazwa</th>';
 echo '<th>Edytuj</th>';

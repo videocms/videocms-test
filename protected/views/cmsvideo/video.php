@@ -105,15 +105,16 @@ foreach ($DataVideo as $ModelSite)
                     });
 	vid1.ads();
 	vid1.vast({
-            //url: '/cmsvideo/vastxml/?id=<?php echo $ModelSite['category_vast']; ?>.xml'
-            <?php  //do sprawdzenia pozostawione do testu
-            if (count($ModelSite['category_vast']) === 1) {
-                          echo 'url: "/cmsvideo/vastxml/?id='.$ModelSite['category_vast'].'.xml"';
-            }
-            else{ // do testu, ciekawe co wyswietli
-                echo $ModelSite['category_vast'][array_rand($ModelSite['category_vast'])];
-            }
-                ?>
+            url: '/cmsvideo/vastxml/?vid=<?php echo $ModelSite['video_id']; ?>.xml'
+            
+   // < ?php  //do sprawdzenia pozostawione do testu
+            //if (count($ModelSite['category_vast']) === 1) {
+              //            echo 'url: "/cmsvideo/vastxml/?id='.$ModelSite['category_vast'].'.xml"';
+           // }
+         //   else{ // do testu, ciekawe co wyswietli
+               // echo $ModelSite['category_vast'][array_rand($ModelSite['category_vast'])];
+           // }
+               // ?>
         });
     </script>
     <script type="text/javascript">
