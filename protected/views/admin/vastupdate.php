@@ -20,6 +20,7 @@
             'maxlength'=>40
         )); ?>
         <?php echo $form->error($ModelVast, 'vast_title'); ?>
+    </div>
         <div class="row">
         <?php echo $form->labelEx($ModelVast, 'vast_source'); ?>
         <?php echo $form->textField($ModelVast, 'vast_source'); ?>
@@ -33,7 +34,6 @@
     <div class="row">
         <?php echo $form->labelEx($ModelVast, 'video_category'); ?>
         <?php echo $form->listBox($ModelVast, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'),array('multiple'=>'multiple','size'=>'10'), array('style'=>'width: 400px;')); ?>        <?php echo $form->error($ModelVast, 'video_category'); ?>
-    </div>
     </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Zapisz'); ?>

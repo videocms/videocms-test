@@ -384,7 +384,7 @@ class AdminController extends Controller
                 $ModelVast->SaveVast($id);
                 $VastUpdate = true;
             }
-            $this->redirect(array('/admin/vast'));
+            //$this->redirect(array('/admin/vast'));
         }
         else
         {
