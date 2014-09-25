@@ -16,8 +16,8 @@ class CmsvideoPlayer extends CFormModel
     {
         return array(
             'player_id' => 'ID',
-            'player_autoplay' => 'Autoplay',
             'player_type' => 'Type',
+            'player_autoplay' => 'Autoplay',
         );
     }
     

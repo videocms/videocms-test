@@ -83,6 +83,7 @@ $.noConflict();
                             array('label'=>'Wideo', 'url'=>array('/admin/videos')),
 				array('label'=>'Kategorie', 'url'=>array('/admin/category')),
                             array('label'=>'Reklamy', 'url'=>array('/admin/vast')),
+                            array('label'=>'Ustawienia', 'url'=>array('/admin/settings')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Zmień hasło', 'url'=>array('/admin/pass')),
                             array('label'=>'Wyloguj', 'url'=>array('/login/logout')),
@@ -111,7 +112,7 @@ $.noConflict();
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
 		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
+		<!--<?php echo Yii::powered(); ?>-->
 	</div><!-- footer -->
 
 </div><!-- page -->
