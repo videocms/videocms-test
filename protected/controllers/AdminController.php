@@ -2,17 +2,16 @@
  
 class AdminController extends Controller
 {
-    
+    //Testowanie przypisanych reklam
     public function actionDownloadVast($id) {
         $SelectVast = Yii::app()->db->createCommand('SELECT v.video_id, v.video_category, c.category_name, r.vast_id, r.vast_video_cat FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo');
         $SelectVast->bindValue(':IdVideo', $id, PDO::PARAM_INT);
         $DataVast = $SelectVast->queryAll();
-        
+        echo '<pre>';
         foreach($DataVast as $vast) {
-            echo '<br />ID reklamy: '.$vast['vast_id'];
-            echo '<br />ID wideo: '.$vast['video_id'];
-            echo '<br />Kategoria wideo: '.$vast['category_name'];
+            print_r($vast);
         }
+        echo '</pre>';
     }
     
     
