@@ -107,14 +107,7 @@ foreach ($DataVideo as $ModelSite)
 	vid1.vast({
             url: '/cmsvideo/vastxml/?vid=<?php echo $ModelSite['video_id']; ?>.xml'
             
-   // < ?php  //do sprawdzenia pozostawione do testu
-            //if (count($ModelSite['category_vast']) === 1) {
-              //            echo 'url: "/cmsvideo/vastxml/?id='.$ModelSite['category_vast'].'.xml"';
-           // }
-         //   else{ // do testu, ciekawe co wyswietli
-               // echo $ModelSite['category_vast'][array_rand($ModelSite['category_vast'])];
-           // }
-               // ?>
+    
         });
     </script>
     <script type="text/javascript">

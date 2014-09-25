@@ -107,7 +107,7 @@ class VastVideo extends CFormModel
         $UpdateVast->bindValue(':VastTitle',$this->vast_title,PDO::PARAM_STR);
         $UpdateVast->bindValue(':VastSource',$this->vast_source,PDO::PARAM_STR);
         $UpdateVast->bindValue(':VastLink',$this->vast_link,PDO::PARAM_STR);
-        $UpdateVast->bindValue(':VastVideoCategory', implode(',', $this->video_category), PDO::PARAM_STR);
+        $UpdateVast->bindValue(':VastVideoCategory', implode(', ', $this->video_category), PDO::PARAM_STR);
         $UpdateVast->bindValue(':VastId',$id,PDO::PARAM_INT);
         $UpdateVast->execute();
     }
