@@ -3793,6 +3793,8 @@ vjs.Player.prototype.onEnded = function(){
   if (this.options_['loop']) {
     this.currentTime(0);
     this.play();
+  } else if (!this.paused()) {
+    this.pause();
   }
 };
 
@@ -4437,7 +4439,8 @@ vjs.Player.prototype.src = function(source){
  * @private
  */
 vjs.Player.prototype.sourceList_ = function(sources){
-  var sourceTech = this.selectSource(sources);
+  var sourceTech = this.selectSource(sources),
+      errorTimeout;
 
   if (sourceTech) {
     if (sourceTech.tech === this.techName) {
@@ -4449,13 +4452,17 @@ vjs.Player.prototype.sourceList_ = function(sources){
     }
   } else {
     // We need to wrap this in a timeout to give folks a chance to add error event handlers
-    setTimeout(vjs.bind(this, function() {
+    errorTimeout = setTimeout(vjs.bind(this, function() {
       this.error({ code: 4, message: this.localize(this.options()['notSupportedMessage']) });
     }), 0);
 
     // we could not find an appropriate tech, but let's still notify the delegate that this is it
     // this needs a better comment about why this is needed
     this.triggerReady();
+
+    this.on('dispose', function() {
+      clearTimeout(errorTimeout);
+    });
   }
 };
 
@@ -6305,9 +6312,11 @@ vjs.Html5.prototype.setupTriggers = function(){
 };
 
 vjs.Html5.prototype.eventHandler = function(evt){
-  // In the case of an error, set the error prop on the player
-  // and let the player handle triggering the event.
-  if (evt.type == 'error') {
+  // In the case of an error on the video element, set the error prop
+  // on the player and let the player handle triggering the event. On
+  // some platforms, error events fire that do not cause the error
+  // property on the video element to be set. See #1465 for an example.
+  if (evt.type == 'error' && this.error()) {
     this.player().error(this.error().code);
 
   // in some cases we pass the event directly to the player
@@ -6389,6 +6398,20 @@ vjs.Html5.prototype.supportsFullScreen = function(){
 
 vjs.Html5.prototype.enterFullScreen = function(){
   var video = this.el_;
+
+  if ('webkitDisplayingFullscreen' in video) {
+    this.one('webkitbeginfullscreen', vjs.bind(this, function(e) {
+      this.player_.isFullscreen(true);
+
+      this.one('webkitendfullscreen', vjs.bind(this, function(e) {
+        this.player_.isFullscreen(false);
+        this.player_.trigger('fullscreenchange');
+      }));
+
+      this.player_.trigger('fullscreenchange');
+    }));
+  }
+
   if (video.paused && video.networkState <= video.HAVE_METADATA) {
     // attempt to prime the video element for programmatic access
     // this isn't necessary on the desktop but shouldn't hurt
@@ -7357,7 +7380,7 @@ vjs.TextTrack.prototype.mode = function(){
  * and restore it to its normal size when not in fullscreen mode.
  */
 vjs.TextTrack.prototype.adjustFontSize = function(){
-    if (this.player_.isFullScreen()) {
+    if (this.player_.isFullscreen()) {
         // Scale the font by the same factor as increasing the video width to the full screen window width.
         // Additionally, multiply that factor by 1.4, which is the default font size for
         // the caption track (from the CSS)
