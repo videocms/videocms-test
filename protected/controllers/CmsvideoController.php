@@ -5,12 +5,16 @@ class CmsvideoController extends Controller
     public $pageMetaDescription;
     public $pageMetaRobots;
     public $pageMetaKeywords;
-    
+    public $pageMetaOgDescription;
+    public $pageMetaOgImage;
+    public $pageMetaOgUrl;
+    public $pageMetaOgTitle;
+    public $pageMetaFB;
     
     public function actionIndex()
     {
-        $ModalSeo = new CmsvideoSettings;
-        $DataSeo = $ModalSeo->DownloadSettings();
+        $ModelSeo = new CmsvideoSettings;
+        $DataSeo = $ModelSeo->DownloadSettings();
         
         foreach ($DataSeo as $Seoo)
         {
