@@ -30,6 +30,7 @@ class AdminController extends Controller
         $DataCategory = $ModelCategories->DownloadCategories();
         $ModelVideo = new CmsvideoVideo;
         //$ModelVast = new VastVideo();
+        
 
         if(isset($_POST['CmsvideoVideo']))
         {
@@ -120,6 +121,7 @@ class AdminController extends Controller
         if(isset($_POST['CmsvideoVideo']))
         {
             $ModelVideo->attributes = $_POST['CmsvideoVideo'];
+            $Tags = explode(',',$ModelVideo->tag_name);
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
             if($ImageUpload !== NULL) {
             $ModelVideo->DeleteVideoImage($id);
@@ -127,9 +129,12 @@ class AdminController extends Controller
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
             $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
             }
-
+            
             if ($ModelVideo->validate())
             {
+                foreach($Tags as $Tag) {
+                    $ModelVideo->AddTag($Tag);
+                }
                 $ModelVideo->UpdateVideo($id);
                 
                 if ($ImageUpload !== NULL) {

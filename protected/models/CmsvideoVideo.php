@@ -16,13 +16,14 @@ class CmsvideoVideo extends CFormModel
     public $player_type;
     public $video_description;
     public $video_keywords;
+    public $tag_name;
 
     public function rules() {
         return array(
             array('video_title, video_text, video_category, video_image, video_thumb, video_published, player_type', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_1080p, video_480p, video_720p', 'video_attribute'),
-            array('video_title', 'length', 'max'=>65),
+            array('video_title, tag_name', 'length', 'max'=>65),
             array('video_keywords', 'length', 'max'=>255),
             array('video_description', 'length', 'max'=>255),
             array('video_image, video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update', 'maxSize'=>'204800'),
@@ -59,7 +60,8 @@ class CmsvideoVideo extends CFormModel
             'video_published' => 'Published',
             'player_type' => 'Player Typ',
             'video_descriptions' => 'Descriptions',
-            'video_keywords' => 'Keywords'
+            'video_keywords' => 'Keywords',
+            'tag_name' => 'Tagi'
         );
     }
     
@@ -242,6 +244,11 @@ class CmsvideoVideo extends CFormModel
         
             $session['video_arr']=$video_arr;
         }
+    }
+    public function AddTag($Tag) {
+          $AddTag = Yii::app()->db->createCommand('INSERT INTO videocms_tags (tag_name) SELECT * FROM (SELECT :TagName) AS tmp WHERE NOT EXISTS (SELECT tag_name FROM videocms_tags WHERE tag_name = :TagName) LIMIT 1;');
+          $AddTag->bindValue(':TagName', $Tag, PDO::PARAM_STR);
+          $AddTag->execute();
     }
 }
 ?>
