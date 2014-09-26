@@ -252,8 +252,9 @@ class CmsvideoVideo extends CFormModel
         $AddTag->execute();   
     }
     
-    public function SelectTag() {
-        $SelectTags = Yii::app()->db->createCommand('SELECT tag_idvideo FROM videocms_tags WHERE tag_name = :TagName');
+    
+    public function UpdateVideoTag($Tag, $Vid) { 
+         $SelectTags = Yii::app()->db->createCommand('SELECT tag_idvideo FROM videocms_tags WHERE tag_name = :TagName');
         $SelectTags->bindValue(':TagName', $Tag, PDO::PARAM_STR);
         
         $row = $SelectTags->queryRow();
@@ -261,9 +262,8 @@ class CmsvideoVideo extends CFormModel
             foreach ($row as $key=>$val) {
               $res[] = array('label'=>$key,'value'=>$val);
             }
-    }
-    
-    public function UpdateVideoTag($Tag, $Vid) { 
+            
+            
         $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags SET tag_idvideo = :VideoTag WHERE tag_name = :TagName');
         $UpdateTag->bindValue(':TagName', $Tag, PDO::PARAM_STR);
         $UpdateTag->bindValue(':VideoTag', serialize($Vid), PDO::PARAM_STR);

@@ -145,7 +145,6 @@ class AdminController extends Controller
             {
                 foreach($Tags as $Tag) {
                     $ModelVideo->AddTag($Tag);
-                   // $ModelVideo->SelectVideoTag();
                     $ModelVideo->UpdateVideoTag($Tag, $id);
                 }
                 $ModelVideo->UpdateVideo($id);
