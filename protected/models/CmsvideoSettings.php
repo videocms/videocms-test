@@ -30,21 +30,21 @@ class CmsvideoSettings extends CFormModel
         return $InfSettings;
     }
     
-    public function DownloadOneSettings($id)
+    public function DownloadOneSettings()
     {
         $SelectSettings = Yii::app()->db->createCommand('Select * FROM videocms_settings WHERE settings_id = :IdSettings');
-        $SelectSettings->bindValue(':IdSettings', $id, PDO::PARAM_INT);
+        $SelectSettings->bindValue(':IdSettings', '1', PDO::PARAM_INT);
         $InfSettings = $SelectSettings->query();
         
         return $InfSettings;
     }
-    public function SaveSettings($id)
+    public function SaveSettings()
     {
         $UpdateSettings = Yii::app()->db->createCommand('UPDATE videocms_settings SET settings_keywords = :SettingsKeywords, settings_description = :SettingsDescription, settings_robots = :SettingsRobots WHERE settings_id = :SettingsId');
         $UpdateSettings->bindValue(':SettingsKeywords',$this->settings_keywords,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':SettingsDescription',$this->settings_description,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':SettingsRobots',$this->settings_robots,PDO::PARAM_STR);
-        $UpdateSettings->bindValue(':SettingsId',$id,PDO::PARAM_INT);
+        $UpdateSettings->bindValue(':SettingsId','1',PDO::PARAM_INT);
         $UpdateSettings->execute();
     }
 }

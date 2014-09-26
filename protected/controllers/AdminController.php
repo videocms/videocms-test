@@ -477,19 +477,14 @@ class AdminController extends Controller
     // koniec player 
     
     // SEO
-    public function actionSeo($id)
+    public function actionSeo()
     {
         $this->pageTitle = 'Seo';
         if(Yii::app()->session['zalogowany'] != 'tak')
         {
             $this->redirect(array('login/index'));
         }
-        
-        if(!is_numeric($id))
-        {
-            exit;
-        }
-        
+
         $SettingsUpdate = false;
         $ModelSettings = new CmsvideoSettings;
         
@@ -498,14 +493,14 @@ class AdminController extends Controller
             $ModelSettings->attributes = $_POST['CmsvideoSettings'];
             if($ModelSettings->validate())
             {
-                $ModelSettings->SaveSettings($id);
+                $ModelSettings->SaveSettings();
                 $SettingsUpdate = true;
             }
-            $this->redirect(array('/admin/seo/1'));
+            $this->redirect(array('/admin/seo/'));
         }
         else
         {
-            $Data = $ModelSettings->DownloadOneSettings($id);
+            $Data = $ModelSettings->DownloadOneSettings();
             foreach ($Data as $DataForm)
             {
                 $ModelSettings->settings_keywords = $DataForm['settings_keywords'];
