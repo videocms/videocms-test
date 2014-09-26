@@ -245,17 +245,24 @@ class CmsvideoVideo extends CFormModel
             $session['video_arr']=$video_arr;
         }
     }
-    public function AddTag($Tag) {
-          $AddTag = Yii::app()->db->createCommand('INSERT INTO videocms_tags (tag_name) SELECT * FROM (SELECT :TagName) AS tmp WHERE NOT EXISTS (SELECT tag_name FROM videocms_tags WHERE tag_name = :TagName) LIMIT 1;');
-          $AddTag->bindValue(':TagName', $Tag, PDO::PARAM_STR);
-          $AddTag->execute();
+    public function AddTag($Tag, $Vid) {
+        $AddTag = Yii::app()->db->createCommand('INSERT INTO videocms_tags (tag_name) SELECT * FROM (SELECT :TagName) AS tmp WHERE NOT EXISTS (SELECT tag_name FROM videocms_tags WHERE tag_name = :TagName) LIMIT 1');
+        $AddTag->bindValue(':TagName', $Tag, PDO::PARAM_STR);
+        $AddTag->execute();   
           
-          $AddTag1 = Yii::app()->db->createCommand('SELECT tag_idvideo FROM videocms_tags WHERE tag_idvideo = :TagIdvideo');
-          $AddTag1->bindValue(':TagIdvideo',$this->tag_idvideo, PDO::PARAM_STR);
-          $AddTag->execute();
-          $AddTag1 = implode($AddTag1);
+        $SelectTags = Yii::app()->db->createCommand('SELECT tag_idvideo FROM videocms_tags WHERE tag_name = :TagName');
+        $SelectTags->bindValue(':TagName', $Tag, PDO::PARAM_STR);
+        
+        $row = $SelectTags->queryRow();
+        $res = array();
+            foreach ($row as $key=>$val) {
+              $res[] = array('label'=>$key,'value'=>$val);
+            }
           
-          $tagarray = Yii::app()->db->createCommand()->select('tag_idvideo')->from('videocms_tags')->where('tag_idvideo IN ('.$AddTag1.')')->queryAll();
+        $AddTag2 = Yii::app()->db->createCommand('UPDATE videocms_tags SET tag_idvideo = :VideoTag WHERE tag_name = :TagName');
+        $AddTag2->bindValue(':TagName', $Tag, PDO::PARAM_STR);
+        $AddTag2->bindValue(':VideoTag', serialize($res), PDO::PARAM_STR);
+        $AddTag2->execute(); 
     }
 }
 ?>
