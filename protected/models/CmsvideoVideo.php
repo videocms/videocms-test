@@ -249,6 +249,13 @@ class CmsvideoVideo extends CFormModel
           $AddTag = Yii::app()->db->createCommand('INSERT INTO videocms_tags (tag_name) SELECT * FROM (SELECT :TagName) AS tmp WHERE NOT EXISTS (SELECT tag_name FROM videocms_tags WHERE tag_name = :TagName) LIMIT 1;');
           $AddTag->bindValue(':TagName', $Tag, PDO::PARAM_STR);
           $AddTag->execute();
+          
+          $AddTag1 = Yii::app()->db->createCommand('SELECT tag_idvideo FROM videocms_tags WHERE tag_idvideo = :TagIdvideo');
+          $AddTag1->bindValue(':TagIdvideo',$this->tag_idvideo, PDO::PARAM_STR);
+          $AddTag->execute();
+          $AddTag1 = implode($AddTag1);
+          
+          $tagarray = Yii::app()->db->createCommand()->select('tag_idvideo')->from('videocms_tags')->where('tag_idvideo IN ('.$AddTag1.')')->queryAll();
     }
 }
 ?>
