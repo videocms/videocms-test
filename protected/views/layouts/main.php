@@ -56,7 +56,9 @@
 $.noConflict();
 // Code that uses other library's $ can follow here.
 </script> -->
-        
+        <script>
+    videojs.options.flash.swf = "video-js.swf";
+  </script>
         <!-- koniec video js -->
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/js/bootstrap.min.js"></script>
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
