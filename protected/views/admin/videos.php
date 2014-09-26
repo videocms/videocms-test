@@ -149,6 +149,16 @@ $this->widget('CLinkPager', array(
     'options' => array('1' => array('selected' => 'selected'))
     )); ?>
     </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
+        <?php echo $form->textField($ModelVideo, 'video_description'); ?>
+        <?php echo $form->error($ModelVideo, 'video_description'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelVideo, 'video_keywords'); ?>
+        <?php echo $form->textField($ModelVideo, 'video_keywords'); ?>
+        <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
+    </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Dodaj'); ?>
     </div>

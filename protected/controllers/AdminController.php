@@ -58,6 +58,8 @@ class AdminController extends Controller
                 $ModelVideo->video_image = '';
                 $ModelVideo->video_thumb = '';
                 $ModelVideo->player_type = '';
+                $ModelVideo->video_description = '';
+                $ModelVideo->video_keywords = '';
             }
         }
         
@@ -154,6 +156,8 @@ class AdminController extends Controller
                 $ModelVideo->video_thumb = $DataVideo['video_thumb'];
                 $ModelVideo->video_published = $DataVideo['video_published'];
                 $ModelVideo->player_type = $DataVideo['player_type'];
+                $ModelVideo->video_description = $DataVideo['video_description'];
+                $ModelVideo->video_keywords = $DataVideo['video_keywords'];
             }
         }
         

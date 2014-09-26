@@ -48,6 +48,16 @@ class CmsvideoController extends Controller
             exit;
         }
         
+        $ModalSeo = new CmsvideoSettings;
+        $DataSeo = $ModalSeo->DownloadSettings();
+        
+        foreach ($DataSeo as $Seoo)
+        {
+        $this->pageMetaRobots = $Seoo['settings_robots'];
+        $this->pageMetaKeywords = $Seoo['settings_keywords'];
+        $this->pageMetaDescription = $Seoo['settings_description'];
+        }
+        
         $ModelCategory = new CmsvideoCategories;
         
         $DataCategory = $ModelCategory->DownloadOneCategory($id);
@@ -77,6 +87,14 @@ class CmsvideoController extends Controller
             exit;
         }
        
+        $ModalSeo = new CmsvideoSettings;
+        $DataSeo = $ModalSeo->DownloadSettings();
+        
+        foreach ($DataSeo as $Seoo)
+        {
+        $this->pageMetaRobots = $Seoo['settings_robots'];
+        }
+        
         $ModelCategory = new CmsvideoCategories;
         $DataCategory = $ModelCategory->DownloadCategories();
         //$ModelVast = new VastVideo;
@@ -88,6 +106,8 @@ class CmsvideoController extends Controller
         foreach($DataVideo as $Video)
         {
             $this->pageTitle = $Video['video_title'];
+            $this->pageMetaKeywords = $Video['video_keywords'];
+            $this->pageMetaDescription = $Video['video_description'];
         }
         
         $this->render('video', array(
