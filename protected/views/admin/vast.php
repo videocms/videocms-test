@@ -86,7 +86,12 @@ echo '</table>';
     </div>
     <div class="row">
         <?php echo $form->labelEx($ModelVast, 'video_category'); ?>
-        <?php echo $form->listBox($ModelVast, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'),array('multiple'=>'multiple','size'=>'5'), array('style'=>'width: 400px;')); ?>        <?php echo $form->error($ModelVast, 'video_category'); ?>
+        <?php
+            $htmlOptions = array('size' => '5', 
+               'multiple' => 'true', 
+              );
+             echo $form->listBox($ModelVast,'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), $htmlOptions);?>
+        <?php echo $form->error($ModelVast, 'video_category'); ?>
     </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Dodaj'); ?>

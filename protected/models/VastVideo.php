@@ -6,6 +6,7 @@ class VastVideo extends CFormModel
     public $vast_title;
     public $vast_source;
     public $vast_link;
+    public $vast_video_cat;
     public $video_category;
 
 

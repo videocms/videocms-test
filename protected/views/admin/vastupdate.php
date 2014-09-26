@@ -33,7 +33,21 @@
     </div>
     <div class="row">
         <?php echo $form->labelEx($ModelVast, 'video_category'); ?>
-        <?php echo $form->listBox($ModelVast, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'),array('multiple'=>'multiple','size'=>'10'), array('style'=>'width: 400px;')); ?>        <?php echo $form->error($ModelVast, 'video_category'); ?>
+        <?php
+        $optionCategories = explode(',',$ModelVast->vast_video_cat);
+        $optionsCategory = array();
+        foreach ($optionCategories as $optionCatgory) {
+        if ($optionCatgory) {
+           $optionsCategory[$optionCatgory] = array('selected' => 'selected');
+           }
+        }
+            $htmlOptions = array(
+               'size' => '5', 
+               'multiple' => 'true',
+               'options' => $optionsCategory
+              );
+            echo $form->listBox($ModelVast,'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), $htmlOptions);?>
+        <?php echo $form->error($ModelVast, 'video_category'); ?>
     </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Zapisz'); ?>
