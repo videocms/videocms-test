@@ -144,7 +144,9 @@ class AdminController extends Controller
             if ($ModelVideo->validate())
             {
                 foreach($Tags as $Tag) {
-                    $ModelVideo->AddTag($Tag, $id);
+                    $ModelVideo->AddTag($Tag);
+                   // $ModelVideo->SelectVideoTag();
+                    $ModelVideo->UpdateVideoTag($Tag, $id);
                 }
                 $ModelVideo->UpdateVideo($id);
                 
