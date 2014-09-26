@@ -41,12 +41,12 @@
            $optionsCategory[$optionCatgory] = array('selected' => 'selected');
            }
         }
-            $htmlOptions = array(
+            echo $form->listBox($ModelVast,'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), array(
                'size' => '5', 
                'multiple' => 'true',
-               'options' => $optionsCategory
-              );
-            echo $form->listBox($ModelVast,'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), $htmlOptions);?>
+               'options' => $optionsCategory)
+                );
+            ?>
         <?php echo $form->error($ModelVast, 'video_category'); ?>
     </div>
     <div class="row buttons">
