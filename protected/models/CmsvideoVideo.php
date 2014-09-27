@@ -245,6 +245,15 @@ class CmsvideoVideo extends CFormModel
             $session['video_arr']=$video_arr;
         }
     }
+    public function SelectTags($id) {
+       $SelectTags = Yii::app()->db->createCommand('SELECT tag_name FROM videocms_tags WHERE tag_idvideo LIKE :IdVideo');
+        $SelectTags->bindValue(':IdVideo', '%"'.$id.'"%', PDO::PARAM_INT);
+        $DataTags = $SelectTags->queryAll();
+        return $DataTags;
+       // foreach($DataTag as $Tag) {
+         //   echo $Tag['tag_name'];
+        //}
+    }
     
     public function AddTag($Tag) {
         $Tag = strtolower($Tag);

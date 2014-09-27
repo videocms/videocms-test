@@ -108,6 +108,7 @@ class CmsvideoController extends Controller
         $ModelVideo = new CmsvideoVideo;
         $DataVideo = $ModelVideo->DownloadVideo($id);
         $DataViews = $ModelVideo->UpdateViews($id);
+        $DataTags = $ModelVideo->SelectTags($id);
         
         foreach($DataVideo as $Video)
         {
@@ -120,6 +121,7 @@ class CmsvideoController extends Controller
             'DataCategory' => $DataCategory,
             'DataVideo' => $DataVideo,
             'DataViews' => $DataViews,
+            'DataTags' => $DataTags,
         ));
         
     }
