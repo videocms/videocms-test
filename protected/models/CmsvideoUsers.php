@@ -12,6 +12,7 @@ class CmsvideoUsers extends CFormModel
             array('user_login, user_pass', 'required'),
             array('user_login', 'length', 'max'=>150),
             array('user_pass', 'length', 'max'=>50),
+            array('user_login, user_pass', 'match' ,'pattern'=>'/^[A-Za-z0-9_]+$/u','message'=> 'Proszę wpisać dane poprawnie!.'),
         );
     }
 
