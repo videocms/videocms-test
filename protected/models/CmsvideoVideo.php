@@ -252,22 +252,28 @@ class CmsvideoVideo extends CFormModel
         $AddTag->execute();   
     }
     
-    
-    public function UpdateVideoTag($Tag, $Vid) { 
-    
-        $row = explode(',',$Vid);
-        $optionsCategory = array();
-        foreach ($row as $optionCatgory) {
-      
-           $optionsCategory[$optionCatgory] = 'idVideo';
-           
+    public function AddVideoTag($Tag, $Vid) {    
+        
+        $SelectTags = Yii::app()->db->createCommand('SELECT tag_idvideo FROM videocms_tags WHERE tag_name = :TagName');
+        $SelectTags->bindValue(':TagName', $Tag, PDO::PARAM_STR);
+        $DataTags = $SelectTags->query();
+        $Data = $DataTags->read();
+        $rows = $Data['tag_idvideo'];
+       
+        if(empty($rows)) {
+        $row2[] = $Vid; 
         }
-            
-            
+        else {
+        $row2 = unserialize($rows);
+        }
+        if (!in_array($Vid,$row2) && !empty($rows)) {
+        array_push($row2, $Vid);
+        }
+        
         $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags SET tag_idvideo = :VideoTag WHERE tag_name = :TagName');
         $UpdateTag->bindValue(':TagName', $Tag, PDO::PARAM_STR);
-        $UpdateTag->bindValue(':VideoTag', serialize($optionsCategory), PDO::PARAM_STR);
-        $UpdateTag->execute(); 
+        $UpdateTag->bindValue(':VideoTag', serialize($row2), PDO::PARAM_STR);
+        $UpdateTag->execute();   
     }
 }
 ?>

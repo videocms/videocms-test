@@ -2,17 +2,6 @@
  
 class AdminController extends Controller
 {
-    
-    public function actionSelectOneTag($id) {
-        $SelectTag = Yii::app()->db->createCommand('SELECT tag_idvideo FROM videocms_tags WHERE tag_name = :TagName');
-        $SelectTag->bindValue(':TagName', $id, PDO::PARAM_INT);
-        $DataTags = $SelectTag->query();
-        $Data = $DataTags->readAll();
-        $test = unserialize($Data);
-        echo '<pre>';
-        print_r($test);
-        echo '</pre>';
-    }
     //Testowanie przypisanych reklam
     public function actionDownloadVast($id) {
         $SelectVast = Yii::app()->db->createCommand('SELECT v.video_id, v.video_category, c.category_name, r.vast_id, r.vast_video_cat FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo');
@@ -144,8 +133,10 @@ class AdminController extends Controller
             if ($ModelVideo->validate())
             {
                 foreach($Tags as $Tag) {
+                    if ($Tag != NULL) {
                     $ModelVideo->AddTag($Tag);
-                    $ModelVideo->UpdateVideoTag($Tag, $id);
+                    $ModelVideo->AddVideoTag($Tag, $id);
+                    }
                 }
                 $ModelVideo->UpdateVideo($id);
                 
