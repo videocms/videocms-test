@@ -11,6 +11,8 @@ class CmsvideoController extends Controller
     public $pageMetaOgTitle;
     public $pageMetaFB;
     
+    //public $defaultAction = 'cmsvideo';
+    
     public function actionIndex()
     {
         $ModelSeo = new CmsvideoSettings;
