@@ -36,6 +36,7 @@ class AdminController extends Controller
         {
             $ModelVideo->attributes=$_POST['CmsvideoVideo'];
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
+            $Tags = explode(',',$ModelVideo->tag_name);
             if ($ImageUpload !== NULL) {
             $ImageNewName = date("d-m-Y-H-i-s", time())."-".$ImageUpload->getName();
             $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
@@ -43,8 +44,15 @@ class AdminController extends Controller
             }
             
             if($ModelVideo->validate())
-            {
+            {   
                 $ModelVideo->AddNewVideo();
+                $id = Yii::app()->db->getLastInsertID();
+                foreach($Tags as $Tag) {
+                    if ($Tag != NULL) {
+                    $ModelVideo->AddTag($Tag);
+                    $ModelVideo->AddVideoTag($Tag, $id);
+                    }
+                }
                 if ($ImageUpload !== NULL) {
                 $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
                 $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
