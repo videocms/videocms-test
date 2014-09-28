@@ -17,6 +17,7 @@ class CmsvideoVideo extends CFormModel
     public $video_description;
     public $video_keywords;
     public $tag_name;
+    public $tag_delete;
 
     public function rules() {
         return array(
@@ -24,7 +25,7 @@ class CmsvideoVideo extends CFormModel
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_1080p, video_480p, video_720p', 'video_attribute'),
             array('video_title, tag_name', 'length', 'max'=>65),
-            array('video_keywords', 'length', 'max'=>255),
+            array('video_keywords, tag_delete', 'length', 'max'=>255),
             array('video_description', 'length', 'max'=>255),
             array('video_image, video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update', 'maxSize'=>'204800'),
         );

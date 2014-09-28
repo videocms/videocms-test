@@ -97,6 +97,11 @@
         <?php echo $form->textField($ModelVideo, 'tag_name'); ?>
         <?php echo $form->error($ModelVideo, 'tag_name'); ?>
     </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelVideo, 'tag_delete'); ?>
+        <?php echo $form->textField($ModelVideo, 'tag_delete'); ?>
+        <?php echo $form->error($ModelVideo, 'tag_delete'); ?>
+    </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Aktualizuj', array('class' => 'btn btn-primary')); ?>
     </div>

@@ -108,7 +108,17 @@ class AdminController extends Controller
         $this->redirect(array('admin/videos'));
     }
     
-    public function actionVideoUpdate($id, $tag)
+    public function actionTest2($tag, $id) {
+        $ModelTags = new CmsvideoTags;
+        $row = $ModelTags->SelectTags($tag);
+        $array1 = unserialize($row['tag_idvideo']);
+        $array2 = explode(',', $id);
+        $string =  array_diff($array1, $array2);
+        $newTag = serialize($string);
+        $ModelTags->DeleteTag($tag,$newTag);
+    }
+    
+    public function actionVideoUpdate($id)
     {
         $this->pageTitle = 'Edit Video';
         if(Yii::app()->session['zalogowany'] != 'tak')
@@ -127,14 +137,7 @@ class AdminController extends Controller
         $ModelTags = new CmsvideoTags;
         $ModelCategories = new CmsvideoCategories;
         
-        $rowTag = $ModelTags->SelectTags($tag);
-        $array1 = unserialize($rowTag['tag_idvideo']);
-        $array2 = explode(',', $id);
-        $string =  array_diff($array1, $array2);
-        $newTag = serialize($string);
-        $ModelTags->DeleteTag($tag,$newTag);
-        
-        
+
         if(isset($_POST['CmsvideoVideo']))
         {
             $ModelVideo->attributes = $_POST['CmsvideoVideo'];
@@ -162,6 +165,15 @@ class AdminController extends Controller
                 if ($ImageUpload !== NULL) {
                 $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
                 $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
+                }
+                
+                if($ModelVideo->tag_delete) {
+                $row = $ModelTags->SelectTags($ModelVideo->tag_delete);
+                $array1 = unserialize($row['tag_idvideo']);
+                $array2 = explode(',', $id);
+                $string =  array_diff($array1, $array2);
+                $newTag = serialize($string);
+                $ModelTags->DeleteTag($ModelVideo->tag_delete,$newTag);
                 }
                 $VideoUpdate = true;
             }
