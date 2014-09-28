@@ -108,17 +108,7 @@ class AdminController extends Controller
         $this->redirect(array('admin/videos'));
     }
     
-    public function actionTest2($tag, $id) {
-        $ModelTags = new CmsvideoTags;
-        $row = $ModelTags->SelectTags($tag);
-        $array1 = unserialize($row['tag_idvideo']);
-        $array2 = explode(',', $id);
-        $string =  array_diff($array1, $array2);
-        $newTag = serialize($string);
-        $ModelTags->DeleteTag($tag,$newTag);
-    }
-    
-    public function actionVideoUpdate($id)
+    public function actionVideoUpdate($id, $tag)
     {
         $this->pageTitle = 'Edit Video';
         if(Yii::app()->session['zalogowany'] != 'tak')
@@ -136,6 +126,13 @@ class AdminController extends Controller
         $ModelVideo = new CmsvideoVideo;
         $ModelTags = new CmsvideoTags;
         $ModelCategories = new CmsvideoCategories;
+        
+        $rowTag = $ModelTags->SelectTags($tag);
+        $array1 = unserialize($rowTag['tag_idvideo']);
+        $array2 = explode(',', $id);
+        $string =  array_diff($array1, $array2);
+        $newTag = serialize($string);
+        $ModelTags->DeleteTag($tag,$newTag);
         
         
         if(isset($_POST['CmsvideoVideo']))
