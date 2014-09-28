@@ -107,38 +107,15 @@ class AdminController extends Controller
         
         $this->redirect(array('admin/videos'));
     }
-
-    public function actionTest($tagi) {    
-              $ModelTags = new CmsvideoTags;
-
-                  $tagsList = explode(',',$tagi);
-                  $currentTagsList = array();  // current tags
-               //   print_r($currentTagsList);
-                  foreach ($tagsList as $TagValue) {  // added to list 
-
-                                $isExists = $ModelTags->SelectTags($TagValue);
-                                if (count($isExists) > 0) {
-                                    // update currentTagList
-                                    foreach ($isExists as $DataTag) {
-                                    $currentTagsList[]=$DataTag['tag_name'];
-                                   /* echo '<pre>';
-                                    print_r($currentTagsList);
-                                    echo '</pre>';
-                                    * 
-                                    */
-                                    }
-                                } else {
-                                    // add new and update currentTagList
-                                    $tagNew = new CmsvideoTags;
-                                    $tagNew->tag_name = $TagValue;
-                                    $currentTagsList[]=$tagNew->tag_name;
-                                    echo '<pre>';
-                                    print_r($currentTagsList);
-                                //    $ModelTags->AddTag($currentTagsList); 
-                                    echo '</pre>';
-                                                  
-                                }
-             }
+    
+    public function actionTest2($tag, $id) {
+        $ModelTags = new CmsvideoTags;
+        $row = $ModelTags->SelectTags($tag);
+        $array1 = unserialize($row['tag_idvideo']);
+        $array2 = explode(',', $id);
+        $string =  array_diff($array1, $array2);
+        $newTag = serialize($string);
+        $ModelTags->DeleteTag($tag,$newTag);
     }
     
     public function actionVideoUpdate($id)

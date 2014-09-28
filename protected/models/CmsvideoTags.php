@@ -17,7 +17,7 @@ class CmsvideoTags extends CFormModel
         $TagValue = preg_replace('/[^0-9a-z-]/', '', $TagValue);
         $SelectTags = Yii::app()->db->createCommand('SELECT * FROM videocms_tags WHERE tag_name = :TagName LIMIT 1');
         $SelectTags->bindValue(':TagName', $TagValue, PDO::PARAM_STR);
-        $DataTags = $SelectTags->queryAll();
+        $DataTags = $SelectTags->queryRow();
         return $DataTags;
     }
     
@@ -31,6 +31,12 @@ class CmsvideoTags extends CFormModel
         $AddTag->execute();   
     }
     
+    public function DeleteTag($TagValue, $newTag) {
+        $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags SET tag_idvideo = :VideoTag WHERE tag_name = :TagName');
+        $UpdateTag->bindValue(':TagName', $TagValue, PDO::PARAM_STR);
+        $UpdateTag->bindValue(':VideoTag', $newTag, PDO::PARAM_STR);
+        $UpdateTag->execute(); 
+    }
     public function AddVideoTag($Tag, $Vid) {
         
         $Tag = strtolower($Tag);
