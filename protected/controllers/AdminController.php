@@ -48,10 +48,10 @@ class AdminController extends Controller
             {   
                 $ModelVideo->AddNewVideo();
                 $id = Yii::app()->db->getLastInsertID();
-                foreach($Tags as $Tag) {
-                    if ($Tag != NULL) {
-                    $ModelVideo->AddTag($Tag);
-                    $ModelVideo->AddVideoTag($Tag, $id);
+                foreach($Tags as $TagValue) {
+                    if ($TagValue != NULL) {
+                    $ModelVideo->AddTag($TagValue);
+                    $ModelVideo->AddVideoTag($TagValue, $id);
                     }
                 }
                 if ($ImageUpload !== NULL) {
@@ -107,6 +107,39 @@ class AdminController extends Controller
         
         $this->redirect(array('admin/videos'));
     }
+
+    public function actionTest($tagi) {    
+              $ModelTags = new CmsvideoTags;
+
+                  $tagsList = explode(',',$tagi);
+                  $currentTagsList = array();  // current tags
+               //   print_r($currentTagsList);
+                  foreach ($tagsList as $TagValue) {  // added to list 
+
+                                $isExists = $ModelTags->SelectTags($TagValue);
+                                if (count($isExists) > 0) {
+                                    // update currentTagList
+                                    foreach ($isExists as $DataTag) {
+                                    $currentTagsList[]=$DataTag['tag_name'];
+                                   /* echo '<pre>';
+                                    print_r($currentTagsList);
+                                    echo '</pre>';
+                                    * 
+                                    */
+                                    }
+                                } else {
+                                    // add new and update currentTagList
+                                    $tagNew = new CmsvideoTags;
+                                    $tagNew->tag_name = $TagValue;
+                                    $currentTagsList[]=$tagNew->tag_name;
+                                    echo '<pre>';
+                                    print_r($currentTagsList);
+                                //    $ModelTags->AddTag($currentTagsList); 
+                                    echo '</pre>';
+                                                  
+                                }
+             }
+    }
     
     public function actionVideoUpdate($id)
     {
@@ -124,6 +157,7 @@ class AdminController extends Controller
         $VideoUpdate = false;
         
         $ModelVideo = new CmsvideoVideo;
+        $ModelTags = new CmsvideoTags;
         $ModelCategories = new CmsvideoCategories;
         
         
@@ -131,6 +165,8 @@ class AdminController extends Controller
         {
             $ModelVideo->attributes = $_POST['CmsvideoVideo'];
             $Tags = explode(',',$ModelVideo->tag_name);
+            
+            
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
             if($ImageUpload !== NULL) {
             $ModelVideo->DeleteVideoImage($id);
@@ -141,10 +177,10 @@ class AdminController extends Controller
             
             if ($ModelVideo->validate())
             {
-                foreach($Tags as $Tag) {
-                    if ($Tag != NULL) {
-                    $ModelVideo->AddTag($Tag);
-                    $ModelVideo->AddVideoTag($Tag, $id);
+                foreach($Tags as $TagValue) {
+                    if ($TagValue != NULL) {
+                    $ModelTags->AddTag($TagValue);
+                    $ModelTags->AddVideoTag($TagValue, $id);
                     }
                 }
                 $ModelVideo->UpdateVideo($id);

@@ -245,51 +245,5 @@ class CmsvideoVideo extends CFormModel
             $session['video_arr']=$video_arr;
         }
     }
-    public function SelectTags($id) {
-       $SelectTags = Yii::app()->db->createCommand('SELECT tag_name FROM videocms_tags WHERE tag_idvideo LIKE :IdVideo');
-        $SelectTags->bindValue(':IdVideo', '%"'.$id.'"%', PDO::PARAM_INT);
-        $DataTags = $SelectTags->queryAll();
-        return $DataTags;
-       // foreach($DataTag as $Tag) {
-         //   echo $Tag['tag_name'];
-        //}
-    }
-    
-    public function AddTag($Tag) {
-        $Tag = strtolower($Tag);
-        $Tag = trim($Tag,'-'); 
-        $Tag = preg_replace('/[\-]+/', '-', $Tag);
-        $Tag = preg_replace('/[^0-9a-z-]/', '', $Tag);
-        $AddTag = Yii::app()->db->createCommand('INSERT INTO videocms_tags (tag_name) SELECT * FROM (SELECT :TagName) AS tmp WHERE NOT EXISTS (SELECT tag_name FROM videocms_tags WHERE tag_name = :TagName) LIMIT 1');
-        $AddTag->bindValue(':TagName', $Tag, PDO::PARAM_STR);
-        $AddTag->execute();   
-    }
-    
-    public function AddVideoTag($Tag, $Vid) {
-        $Tag = strtolower($Tag);
-        $Tag = trim($Tag,'-'); 
-        $Tag = preg_replace('/[\-]+/', '-', $Tag);
-        $Tag = preg_replace('/[^0-9a-z-]/', '', $Tag);
-        $SelectTags = Yii::app()->db->createCommand('SELECT tag_idvideo FROM videocms_tags WHERE tag_name = :TagName LIMIT 1');
-        $SelectTags->bindValue(':TagName', $Tag, PDO::PARAM_STR);
-        $DataTags = $SelectTags->query();
-        $Data = $DataTags->read();
-        $rows = $Data['tag_idvideo'];
-       
-        if(empty($rows)) {
-        $row2[] = $Vid; 
-        }
-        else {
-        $row2 = unserialize($rows);
-        }
-        if (!in_array($Vid,$row2) && !empty($rows)) {
-        array_push($row2, $Vid);
-        }
-        
-        $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags SET tag_idvideo = :VideoTag WHERE tag_name = :TagName');
-        $UpdateTag->bindValue(':TagName', $Tag, PDO::PARAM_STR);
-        $UpdateTag->bindValue(':VideoTag', serialize($row2), PDO::PARAM_STR);
-        $UpdateTag->execute();   
-    }
 }
 ?>
