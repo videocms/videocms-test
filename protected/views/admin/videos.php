@@ -1,6 +1,6 @@
 <?php
 echo '<h1>Wideo</h1>';
-echo '<table class="table table-hover">';
+echo '<table class="table table-hover" id="lol">';
 echo '<tr class="active">';
 echo '<th>ID</th>';
 echo '<th>Thumb</th>';
@@ -54,6 +54,11 @@ foreach($Data as $ModelVideosShow)
             'Usuń',
             array('admin/videodelete/'.$ModelVideosShow['video_id']),
             array('confirm' => 'Czy na pewno chcesz usunąć ten rekord?'));
+   // echo CHtml::ajaxLink(
+   // 'delete',
+   // array('admin/videodelete/', 'id' => $ModelVideosShow['video_id']), // Yii URL
+   // array('update' => '#lol') // jQuery selector
+//);
     echo '</td>';
     echo '<tr>';
 }

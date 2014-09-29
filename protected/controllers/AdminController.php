@@ -110,12 +110,14 @@ class AdminController extends Controller
     
     public function actionTest2($tag, $id) {
         $ModelTags = new CmsvideoTags;
-        $row = $ModelTags->SelectTags($tag);
-        $array1 = unserialize($row['tag_idvideo']);
-        $array2 = explode(',', $id);
-        $string =  array_diff($array1, $array2);
-        $newTag = serialize($string);
-        $ModelTags->DeleteTag($tag,$newTag);
+        $row = $ModelTags->DownloadTag($id);
+        //$array1 = unserialize($row['tag_idvideo']);
+       // $array2 = implode(",", $array1);
+        //$array2 = explode(',', $id);
+                print_r($row);
+       // $string =  array_diff($array1, $array2);
+       // $newTag = serialize($string);
+       // $ModelTags->DeleteTag($tag,$newTag);
     }
     
     public function actionVideoUpdate($id)
@@ -136,7 +138,11 @@ class AdminController extends Controller
         $ModelVideo = new CmsvideoVideo;
         $ModelTags = new CmsvideoTags;
         $ModelCategories = new CmsvideoCategories;
-        
+        $DataTag = $ModelTags->DownloadTag($id);
+        //$DataTag = implode(",", $Dat);
+       // $DataTag = unserialize($Dat['tag_idvideo']);
+        //$array1 = unserialize($row['tag_idvideo']);
+        //$array2 = explode(',', $id);
 
         if(isset($_POST['CmsvideoVideo']))
         {
@@ -203,6 +209,8 @@ class AdminController extends Controller
         
         
         $this->render('videoupdate', array(
+            'DataTag' => $DataTag,
+            'ModelTags' => $ModelTags,
             'ModelVideo' => $ModelVideo,
             'VideoUpdate' => $VideoUpdate,
             'ModelCategories' => $ModelCategories,

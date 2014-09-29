@@ -1,3 +1,33 @@
+<?php
+echo '<table class="table table-hover" id="lol">';
+echo '<tr class="active">';
+echo '<th>Tagi</th>';
+echo '<tr>'; 
+
+foreach($DataTag as $ModelTagsShow)
+{
+    if($Class == 0)
+    {
+        $Class = 1;
+        $RowClass = 'row1';
+    }
+    else 
+    {
+        $Class = 0;
+        $RowClass = 'row2';
+    }
+    echo '<tr>';
+   ?> <td class="<?php echo $RowClass;?>"><div class="checkbox_wrapper" id="<?php echo $ModelTagsShow['tag_name'];?>" style="display:block"><input type="checkbox" name="c" class="checkbox" onclick="showMe('<?php echo $ModelTagsShow['tag_name'];?>'), submit()"/> <label><?php echo $ModelTagsShow['tag_name'];?></label></div></td> <?php
+    echo '<tr>';
+}
+
+echo '</table>';
+echo '<br /><br />';
+
+        
+?>
+
+
 <div class="form">
     <h2>Edycja wpisu</h2>
     <?php 
@@ -108,10 +138,34 @@
     
     <?php $this->endWidget(); ?>
 </div>
+   <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script type="text/javascript">
+     $.noConflict();
 function changeMode() {
     var mode;
     mode='<?php echo $form->fileField($ModelVideo, 'video_image'); ?>';
 	document.getElementById('upload').innerHTML = mode;
 }
-</script>
+ </script>
+<script type="text/javascript">
+function submit(check) {
+    var checked = [];
+    $('input:checkbox:checked').each(function() {
+        checked.push( $(this).next('label').text() );
+    });
+        $('#CmsvideoVideo_tag_delete').val(checked.join(","));
+}
+function showMe (box) {
+
+    var chboxs = document.getElementsByName("c");
+    var vis = "block";
+    for(var i=0;i<chboxs.length;i++) { 
+        if(chboxs[i].checked){
+         vis = "none";
+            break;
+        }
+    }
+    document.getElementById(box).style.display = vis;
+
+}
+ </script>
