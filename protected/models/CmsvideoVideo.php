@@ -16,6 +16,7 @@ class CmsvideoVideo extends CFormModel
     public $player_type;
     public $video_description;
     public $video_keywords;
+    public $video_tags;
     public $tag_name;
     public $tag_delete;
 

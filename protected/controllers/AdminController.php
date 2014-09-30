@@ -147,8 +147,6 @@ class AdminController extends Controller
         {
             $ModelVideo->attributes = $_POST['CmsvideoVideo'];
             $Tags = explode(',',$ModelVideo->tag_name);
-            
-            
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
             if($ImageUpload !== NULL) {
             $ModelVideo->DeleteVideoImage($id);
@@ -173,8 +171,8 @@ class AdminController extends Controller
                 }
                
                 if($ModelVideo->tag_delete) {
-                   $test = explode(',',$ModelVideo->tag_delete);
-                    foreach($test as $Tag) {
+                   $TagDelete = explode(',',$ModelVideo->tag_delete);
+                    foreach($TagDelete as $Tag) {
                         $row = $ModelTags->SelectTags($Tag);
                         $array1 = unserialize($row['tag_idvideo']);
                         $array2 = explode(',', $id);

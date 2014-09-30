@@ -23,8 +23,6 @@ foreach($DataTag as $ModelTagsShow)
 
 echo '</table>';
 echo '<br /><br />';
-
-        
 ?>
 
 
