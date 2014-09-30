@@ -1,6 +1,7 @@
 <?php
 
 class LoginController extends Controller {
+    public $pageMetaOgImage;
     public function actionIndex()
     {
         $this->pageTitle = 'Login';

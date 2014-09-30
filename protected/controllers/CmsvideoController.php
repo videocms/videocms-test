@@ -115,6 +115,10 @@ class CmsvideoController extends Controller
             $this->pageTitle = $Video['video_title'];
             $this->pageMetaKeywords = $Video['video_keywords'];
             $this->pageMetaDescription = $Video['video_description'];
+            $this->pageMetaOgDescription = $Video['video_description'];  //do wyjebania og description
+            $this->pageMetaOgTitle = $Video['video_title'];  //i to
+            $this->pageMetaOgImage = $Video['video_thumb'];
+           // $this->pageMetaDescription = $Video['video_description'];
         }
         
         $this->render('video', array(

@@ -8,6 +8,7 @@
             <?php if (!empty($this->pageMetaDescription))
                 {
         echo '    <meta name="description" content="' . $this->pageMetaDescription . '" />';
+        echo '    <meta property="og:description" content="' . $this->pageMetaDescription . '" />';
                 } 
                 if (!empty($this->pageMetaRobots))
                 {
@@ -18,6 +19,11 @@
         echo '    <meta name="keywords" content="' . $this->pageMetaKeywords . '" />';
                 }
             ?>
+        <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
+        <?php
+            echo '<meta property="og:image" content="http://videocms-test.pl/' . $this->pageMetaOgImage.'" />';
+        ?>
+ 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <div class=""
 	<!-- blueprint CSS framework -->

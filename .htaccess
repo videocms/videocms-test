@@ -4,6 +4,6 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php
 #RewriteRule ^(.*)$ index.php?page=$1 [L,QSA]
-Deny from ALL
+#Deny from ALL
 Allow from 217.144.193.158
 Allow from 82.115.70.17

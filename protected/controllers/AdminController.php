@@ -2,6 +2,7 @@
  
 class AdminController extends Controller
 {
+   public $pageMetaOgImage;
    
     //Testowanie przypisanych reklam
     public function actionDownloadVast($id) {

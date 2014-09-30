@@ -2,6 +2,7 @@
  
 class SiteController extends Controller
 {
+    public $pageMetaOgImage;
 	/**
 	 * Declares class-based actions.
 	 */
