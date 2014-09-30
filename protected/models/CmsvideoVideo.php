@@ -3,6 +3,7 @@
  
 class CmsvideoVideo extends CFormModel
 {
+    public $video_id;
     public $video_title;
     public $video_text;
     public $video_category;
@@ -17,6 +18,7 @@ class CmsvideoVideo extends CFormModel
     public $video_description;
     public $video_keywords;
     public $video_tags;
+    public $tag_id;
     public $tag_name;
     public $tag_delete;
 
@@ -25,9 +27,9 @@ class CmsvideoVideo extends CFormModel
             array('video_title, video_text, video_category, video_image, video_thumb, video_published, player_type', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_1080p, video_480p, video_720p', 'video_attribute'),
-            array('video_title, tag_name', 'length', 'max'=>65),
-            array('video_keywords, tag_delete', 'length', 'max'=>255),
-            array('video_description', 'length', 'max'=>255),
+            array('video_title', 'length', 'max'=>65),
+            array('video_keywords, tag_delete, tag_name', 'length', 'max'=>255),
+            array('video_description, video_tags', 'length', 'max'=>255),
             array('video_image, video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update', 'maxSize'=>'204800'),
         );
     }
@@ -195,7 +197,7 @@ class CmsvideoVideo extends CFormModel
     
     public function UpdateVideo($id)
     {
-        $AddVideo = Yii::app()->db->createCommand('UPDATE videocms_video SET video_title = :VideoTitle, video_text = :VideoText, video_category = :VideoCategory, video_480p = :Video480p, video_720p = :Video720p, video_1080p = :Video1080p, video_image = :VideoImage, video_thumb = :VideoThumb, video_published = :VideoPublished, player_type = :PlayerType, video_description = :VideoDescription, video_keywords = :VideoKeywords WHERE video_id = :VideoId');
+        $AddVideo = Yii::app()->db->createCommand('UPDATE videocms_video SET video_title = :VideoTitle, video_text = :VideoText, video_category = :VideoCategory, video_480p = :Video480p, video_720p = :Video720p, video_1080p = :Video1080p, video_image = :VideoImage, video_thumb = :VideoThumb, video_published = :VideoPublished, player_type = :PlayerType, video_tags = :TagId, video_description = :VideoDescription, video_keywords = :VideoKeywords WHERE video_id = :VideoId');
         $AddVideo->bindValue(':VideoTitle', $this->video_title, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoText', $this->video_text, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoCategory', $this->video_category, PDO::PARAM_INT);
@@ -208,6 +210,7 @@ class CmsvideoVideo extends CFormModel
         $AddVideo->bindValue(':PlayerType', $this->player_type, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoDescription', $this->video_description, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoKeywords', $this->video_keywords, PDO::PARAM_STR);
+        $AddVideo->bindValue(':TagId', $this->video_tags, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoId', $id, PDO::PARAM_INT);
         $AddVideo->execute();
       }

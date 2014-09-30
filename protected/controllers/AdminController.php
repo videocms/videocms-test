@@ -192,6 +192,7 @@ class AdminController extends Controller
             
             foreach($Data as $DataVideo)
             {
+                $ModelVideo->video_id = $DataVideo['video_id'];
                 $ModelVideo->video_title = $DataVideo['video_title'];
                 $ModelVideo->video_text = $DataVideo['video_text'];
                 $ModelVideo->video_category = $DataVideo['video_category'];
@@ -204,6 +205,7 @@ class AdminController extends Controller
                 $ModelVideo->player_type = $DataVideo['player_type'];
                 $ModelVideo->video_description = $DataVideo['video_description'];
                 $ModelVideo->video_keywords = $DataVideo['video_keywords'];
+                $ModelVideo->video_tags = $DataVideo['video_tags'];
             }
         }
         

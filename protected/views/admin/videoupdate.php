@@ -1,29 +1,4 @@
-<?php
-echo '<table class="table table-hover" id="lol">';
-echo '<tr class="active">';
-echo '<th>Tagi</th>';
-echo '<tr>'; 
 
-foreach($DataTag as $ModelTagsShow)
-{
-    if($Class == 0)
-    {
-        $Class = 1;
-        $RowClass = 'row1';
-    }
-    else 
-    {
-        $Class = 0;
-        $RowClass = 'row2';
-    }
-    echo '<tr>';
-   ?> <td class="<?php echo $RowClass;?>"><div class="checkbox_wrapper" id="<?php echo $ModelTagsShow['tag_name'];?>" style="display:block"><input type="checkbox" name="c" class="checkbox" onclick="showMe('<?php echo $ModelTagsShow['tag_name'];?>'), submit()"/> <label><?php echo $ModelTagsShow['tag_name'];?></label></div></td> <?php
-    echo '<tr>';
-}
-
-echo '</table>';
-echo '<br /><br />';
-?>
 
 
 <div class="form">
@@ -121,8 +96,17 @@ echo '<br /><br />';
         <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
     </div>
     <div class="row">
+        <?php
+         $tagi = $ModelTags->DownloadTag($ModelVideo->video_id);
+        foreach($tagi as $data) { ?>
+        <div class="checkbox_wrapper" id="<?php echo $data['tag_name'];?>" style="display:block">
+            <input type="checkbox" name="c" class="checkbox" onclick="showMe('<?php echo $data['tag_name'];?>'), deleteTag()"/> 
+            <label><?php echo $data['tag_name'];?></label></div>
+        <?php } ?>
+    </div>    
+    <div class="row">
         <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
-        <?php echo $form->textField($ModelVideo, 'tag_name'); ?>
+        <?php echo $form->textField($ModelVideo, 'tag_name', CHtml::listData($ModelTags->DownloadTag($ModelVideo->video_id), 'tag_id','tag_name')); ?>
         <?php echo $form->error($ModelVideo, 'tag_name'); ?>
     </div>
     <div class="row">
@@ -146,12 +130,13 @@ function changeMode() {
 }
  </script>
 <script type="text/javascript">
-function submit(check) {
+function deleteTag(check) {
     var checked = [];
     $('input:checkbox:checked').each(function() {
         checked.push( $(this).next('label').text() );
     });
         $('#CmsvideoVideo_tag_delete').val(checked.join(","));
+        $('#CmsvideoVideo_tag_name').val(checked.join(","));
 }
 function showMe (box) {
 
