@@ -2,7 +2,6 @@
  
 class AdminController extends Controller
 {
-   public $pageMetaOgImage;
    
     //Testowanie przypisanych reklam
     public function actionDownloadVast($id) {
@@ -109,16 +108,15 @@ class AdminController extends Controller
         $this->redirect(array('admin/videos'));
     }
     
-    public function actionTest2($tag, $id) {
-        $ModelTags = new CmsvideoTags;
-        $row = $ModelTags->DownloadTag($id);
-        //$array1 = unserialize($row['tag_idvideo']);
-       // $array2 = implode(",", $array1);
-        //$array2 = explode(',', $id);
-                print_r($row);
-       // $string =  array_diff($array1, $array2);
-       // $newTag = serialize($string);
-       // $ModelTags->DeleteTag($tag,$newTag);
+    public function actionTest2($id) {
+        // $row1[] = $id;
+         $SelectVideo = Yii::app()->db->createCommand('SELECT tag_name FROM videocms_tags WHERE tag_idvideo LIKE :TagidVideo');
+        $SelectVideo->bindValue(':TagidVideo', '%"'.$id.'"%', PDO::PARAM_INT);
+        $DataVideo = $SelectVideo->queryAll();
+        
+        foreach($DataVideo as $Data) {
+            echo $Data['tag_name'];
+        }
     }
     
     public function actionVideoUpdate($id)
@@ -173,14 +171,17 @@ class AdminController extends Controller
                 $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
                 $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 }
-                
+               
                 if($ModelVideo->tag_delete) {
-                $row = $ModelTags->SelectTags($ModelVideo->tag_delete);
-                $array1 = unserialize($row['tag_idvideo']);
-                $array2 = explode(',', $id);
-                $string =  array_diff($array1, $array2);
-                $newTag = serialize($string);
-                $ModelTags->DeleteTag($ModelVideo->tag_delete,$newTag);
+                   $test = explode(',',$ModelVideo->tag_delete);
+                    foreach($test as $Tag) {
+                        $row = $ModelTags->SelectTags($Tag);
+                        $array1 = unserialize($row['tag_idvideo']);
+                        $array2 = explode(',', $id);
+                        $string =  array_diff($array1, $array2);
+                        $newTag = serialize($string);
+                        $ModelTags->DeleteTag($Tag,$newTag);
+                    }
                 }
                 $VideoUpdate = true;
             }

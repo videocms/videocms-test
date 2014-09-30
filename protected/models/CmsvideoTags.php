@@ -66,18 +66,10 @@ class CmsvideoTags extends CFormModel
     
      public function DownloadTag($id)
     {
-         $row1[] = $id;
-         //$row2 = serialize($row1);
-        $SelectVideo = Yii::app()->db->createCommand('SELECT tag_name FROM videocms_tags WHERE tag_idvideo = :TagidVideo');
-        $SelectVideo->bindValue(':TagidVideo', serialize($row1), PDO::PARAM_INT);
+        $SelectVideo = Yii::app()->db->createCommand('SELECT tag_name FROM videocms_tags WHERE tag_idvideo LIKE :TagidVideo');
+        $SelectVideo->bindValue(':TagidVideo', '%"'.$id.'"%', PDO::PARAM_INT);
         $DataVideo = $SelectVideo->queryAll();
         return $DataVideo;
-       // $Data = $SelectVideo->queryRow();
-        
-        //$rows = $Data['tag_idvideo'];
-        //$row2 = unserialize($rows);
-
-        
     }
 }
 ?>
