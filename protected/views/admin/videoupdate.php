@@ -106,7 +106,7 @@
     </div>    
     <div class="row">
         <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
-        <?php echo $form->textField($ModelVideo, 'tag_name', CHtml::listData($ModelTags->DownloadTag($ModelVideo->video_id), 'tag_id','tag_name')); ?>
+        <?php echo $form->textField($ModelVideo, 'tag_name') ?>
         <?php echo $form->error($ModelVideo, 'tag_name'); ?>
     </div>
     <div class="row">
