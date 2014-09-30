@@ -100,7 +100,7 @@
          $tagi = $ModelTags->DownloadTag($ModelVideo->video_id);
         foreach($tagi as $data) { ?>
         <div class="checkbox_wrapper" id="<?php echo $data['tag_name'];?>" style="display:block">
-            <input type="checkbox" name="c" class="checkbox" onclick="showMe('<?php echo $data['tag_name'];?>'), deleteTag()"/> 
+            <input type="checkbox" name="c" class="checkbox" onclick="showMe('<?php echo $data['tag_name'];?>'), deleteTag(), tagname()"/> 
             <label><?php echo $data['tag_name'];?></label></div>
         <?php } ?>
     </div>    
@@ -109,10 +109,8 @@
         <?php echo $form->textField($ModelVideo, 'tag_name') ?>
         <?php echo $form->error($ModelVideo, 'tag_name'); ?>
     </div>
-    <div class="row">
-        <?php echo $form->labelEx($ModelVideo, 'tag_delete'); ?>
-        <?php echo $form->textField($ModelVideo, 'tag_delete'); ?>
-        <?php echo $form->error($ModelVideo, 'tag_delete'); ?>
+    <div class="row">       
+        <?php echo $form->hiddenField($ModelVideo, 'tag_delete', array('type'=>"hidden")); ?>
     </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Aktualizuj', array('class' => 'btn btn-primary')); ?>
@@ -136,7 +134,15 @@ function deleteTag(check) {
         checked.push( $(this).next('label').text() );
     });
         $('#CmsvideoVideo_tag_delete').val(checked.join(","));
+}
+function tagname(check) {
+    var checked = [];
+    $('input:checkbox:not(:checked)').each(function() {
+        checked.push( $(this).next('label').text() );
+    });
+	
         $('#CmsvideoVideo_tag_name').val(checked.join(","));
+
 }
 function showMe (box) {
 
