@@ -5,6 +5,47 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="pl" />
         <meta name="advertising" content="ask" />
+        <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
+        <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+        <?php if ($this->pageTitle == 'embed-video-site'){
+            ?>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.11.1.min.js"></script>
+        <!-- video -->
+        
+        <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/video/video-js.css" rel="stylesheet" />
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/video.js"></script>
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/js/video/lib/videojs-contrib-ads/videojs.ads.css" rel="stylesheet" type="text/css">
+ 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/js/video/videojs.vast.css" rel="stylesheet" type="text/css">
+	
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/js/video/button-styles.css" rel="stylesheet" type="text/css" />
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/video-quality-selector.js"></script>
+	<!--[if lt IE 9]><script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/lib/es5.js"></script><![endif]-->
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/lib/videojs-contrib-ads/videojs.ads.js"></script>
+
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/lib/vast-client.js"></script>
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/videojs.vast.js"></script>
+<style type="text/css">
+    #vid1 {
+      width: 75%;
+    }
+  </style>
+  <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+  <!--
+<script>
+$.noConflict();
+// Code that uses other library's $ can follow here.
+</script> -->
+        <script>
+    videojs.options.flash.swf = "video-js.swf";
+  </script>
+<?php echo $content; ?>
+</body>
+</html>
+        <?php 
+        }
+        else{
+            
+        ?>
             <?php if (!empty($this->pageMetaDescription))
                 {
         echo '    <meta name="description" content="' . $this->pageMetaDescription . '" />';
@@ -21,10 +62,6 @@
         echo '    <meta name="keywords" content="' . $this->pageMetaKeywords . '" />';
                 }
             ?>
-        <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
- 
-        <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-        <div class=""
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
@@ -140,3 +177,7 @@ $.noConflict();
 
 </body>
 </html>
+
+        
+<?php
+                }?>

@@ -24,9 +24,10 @@ class CmsvideoController extends Controller
         $this->pageMetaKeywords = $Seoo['settings_keywords'];
         $this->pageMetaDescription = $Seoo['settings_description'];
         $this->pageMetaOgTitle = $Seoo['settings_ogtitle']; 
+        $this->pageTitle=$Seoo['settings_ogtitle']; 
         $this->pageMetaOgImage = $Seoo['settings_ogimage'];
         }
-        $this->pageTitle='Strona główna';
+        //$this->pageTitle='Strona główna';
          
         $ModelCategories = new CmsvideoCategories;
         $DataCategory = $ModelCategories->DownloadCategories();
@@ -117,8 +118,6 @@ class CmsvideoController extends Controller
             $this->pageTitle = $Video['video_title'];
             $this->pageMetaKeywords = $Video['video_keywords'];
             $this->pageMetaDescription = $Video['video_description'];
-            $this->pageMetaOgDescription = $Video['video_description'];  //do wyjebania og description
-            $this->pageMetaOgTitle = $Video['video_title'];  //i to
             $this->pageMetaOgImage = $Video['video_thumb'];
            // $this->pageMetaDescription = $Video['video_description'];
         }
@@ -165,6 +164,48 @@ class CmsvideoController extends Controller
             echo '</VAST>';
         }
     /// end VAST
+        //embed start
+        public function actionEmbed($id)
+    {
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+       
+        $ModalSeo = new CmsvideoSettings;
+        $DataSeo = $ModalSeo->DownloadSettings();
+        
+        foreach ($DataSeo as $Seoo)
+        {
+        $this->pageMetaRobots = $Seoo['settings_robots'];
+        }
+        
+        $ModelCategory = new CmsvideoCategories;
+        $DataCategory = $ModelCategory->DownloadCategories();
+        //$ModelVast = new VastVideo;
+        //$DataVast = $ModelVast->DownloadVast();
+        $ModelVideo = new CmsvideoVideo;
+        $DataVideo = $ModelVideo->DownloadVideo($id);
+        $DataViews = $ModelVideo->UpdateViews($id);
+        
+        $this->pageTitle='embed-video-site';
+        foreach($DataVideo as $Video)
+        {
+            
+            $this->pageMetaKeywords = $Video['video_keywords'];
+            $this->pageMetaDescription = $Video['video_description'];
+            $this->pageMetaOgImage = $Video['video_thumb'];
+           // $this->pageMetaDescription = $Video['video_description'];
+        }
+        
+        $this->render('embed', array(
+            'DataCategory' => $DataCategory,
+            'DataVideo' => $DataVideo,
+            'DataViews' => $DataViews,
+        ));
+        
+    }
+    //embed koniec
 }
 
 ?>

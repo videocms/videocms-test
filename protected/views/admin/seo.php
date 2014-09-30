@@ -50,7 +50,7 @@
         <?php echo $form->textField($ModelSettings, 'settings_description'); ?>
         <?php echo $form->error($ModelSettings, 'settings_description'); ?>
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Zapisz'); ?>
+        <?php echo CHtml::submitButton('Zapisz', array('class' => 'btn btn-success')); ?>
     </div>
     <?php $this->endWidget(); ?>
 </div>
