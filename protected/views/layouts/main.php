@@ -13,6 +13,8 @@
                 if (!empty($this->pageMetaRobots))
                 {
         echo '    <meta name="robots" content="' . $this->pageMetaRobots . '" />';
+        echo '<meta property="og:image" content="http://videocms-test.pl/' . $this->pageMetaOgImage.'" />';
+        echo '<meta property="og:locale" content="pl_PL"/>';
                 } 
                 if (!empty($this->pageMetaKeywords))
                 {
@@ -20,9 +22,6 @@
                 }
             ?>
         <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
-        <?php
-            echo '<meta property="og:image" content="http://videocms-test.pl/' . $this->pageMetaOgImage.'" />';
-        ?>
  
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <div class=""

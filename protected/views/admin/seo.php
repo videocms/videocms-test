@@ -35,6 +35,16 @@
         <?php echo $form->dropDownList($ModelSettings, 'settings_robots', array('noindex,nofollow' => 'noindex,nofollow', 'index,nofollow' => 'index,nofollow', 'index,follow' => 'index,follow')); ?>
         <?php echo $form->error($ModelSettings, 'settings_robots'); ?>
     </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'settings_ogtitle'); ?>
+        <?php echo $form->textField($ModelSettings, 'settings_ogtitle'); ?>
+        <?php echo $form->error($ModelSettings, 'settings_ogtitle'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'settings_ogimage'); ?>
+        <?php echo $form->textField($ModelSettings, 'settings_ogimage'); ?>
+        <?php echo $form->error($ModelSettings, 'settings_ogimage'); ?>
+    </div>
         <div class="row">
         <?php echo $form->labelEx($ModelSettings, 'settings_description'); ?>
         <?php echo $form->textField($ModelSettings, 'settings_description'); ?>

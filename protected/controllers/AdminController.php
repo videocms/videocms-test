@@ -556,6 +556,9 @@ class AdminController extends Controller
                 $ModelSettings->settings_keywords = $DataForm['settings_keywords'];
                 $ModelSettings->settings_description = $DataForm['settings_description'];
                 $ModelSettings->settings_robots = $DataForm['settings_robots'];
+                $ModelSettings->settings_ogimage = $DataForm['settings_ogimage'];
+                $ModelSettings->settings_ogtitle = $DataForm['settings_ogtitle'];
+                
             }
         }
         

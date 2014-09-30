@@ -23,6 +23,8 @@ class CmsvideoController extends Controller
         $this->pageMetaRobots = $Seoo['settings_robots'];
         $this->pageMetaKeywords = $Seoo['settings_keywords'];
         $this->pageMetaDescription = $Seoo['settings_description'];
+        $this->pageMetaOgTitle = $Seoo['settings_ogtitle']; 
+        $this->pageMetaOgImage = $Seoo['settings_ogimage'];
         }
         $this->pageTitle='Strona główna';
          
