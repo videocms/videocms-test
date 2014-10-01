@@ -158,20 +158,16 @@ class AdminController extends Controller
                 $ModelVideo->UpdateVideo($id);
                 
                 if ($ImageUpload !== NULL) {
-                $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
-                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
+                    $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
+                  $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 }
                
                 if($ModelVideo->tag_delete) {
                     $TagDelete = explode(',',$ModelVideo->tag_delete);
-                    
                     foreach($TagDelete as $Tag) {
-                        $row = $ModelTags->SelectTags($Tag);
-                        $array1 = unserialize($row['tag_idvideo']);
-                        $array2[] = $id;
-                        $string =  array_diff($array1, $array2);
-                        $newTag = serialize($string);
-                        $ModelTags->DeleteIdVideo($Tag,$newTag);
+                        $DataTag = $ModelTags->SelectTags($Tag);
+                        $ModelTags->DeleteVideoTag($id, $DataTag);
+                        $ModelTags->DeleteIdVideo($id, $DataTag, $Tag);
                     }
                 }
                 $VideoUpdate = true;
@@ -198,8 +194,7 @@ class AdminController extends Controller
                 $ModelVideo->video_description = $DataVideo['video_description'];
                 $ModelVideo->video_keywords = $DataVideo['video_keywords'];
             }
-        }
-        
+        }    
         
         $this->render('videoupdate', array(
             'ModelTags' => $ModelTags,
@@ -546,8 +541,7 @@ class AdminController extends Controller
                 $ModelSettings->settings_description = $DataForm['settings_description'];
                 $ModelSettings->settings_robots = $DataForm['settings_robots'];
                 $ModelSettings->settings_ogimage = $DataForm['settings_ogimage'];
-                $ModelSettings->settings_ogtitle = $DataForm['settings_ogtitle'];
-                
+                $ModelSettings->settings_ogtitle = $DataForm['settings_ogtitle']; 
             }
         }
         

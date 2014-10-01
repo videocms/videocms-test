@@ -147,9 +147,7 @@ class CmsvideoVideo extends CFormModel
         $SelectVideo->bindValue(':IdCategory', $id, PDO::PARAM_INT);
         $SelectVideo->bindValue(':Start', ($Site * $LimitOnSite), PDO::PARAM_INT);
         $SelectVideo->bindValue(':SetLimit', $LimitOnSite, PDO::PARAM_INT);
-        
-        $DataVideo = $SelectVideo->queryAll();
-        
+        $DataVideo = $SelectVideo->queryAll();  
         return $DataVideo;
     }
     
@@ -158,6 +156,14 @@ class CmsvideoVideo extends CFormModel
         $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video WHERE video_id = :IdVideo AND video_published = "1"');
         $SelectVideo->bindValue(':IdVideo', $id, PDO::PARAM_INT);
         $DataVideo = $SelectVideo->queryAll();
+        return $DataVideo;
+    }
+    
+    public function DownloadOneVideo($id)
+    {
+        $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video WHERE video_id = :IdVideo LIMIT 1');
+        $SelectVideo->bindValue(':IdVideo', $id, PDO::PARAM_INT);
+        $DataVideo = $SelectVideo->queryRow();
         return $DataVideo;
     }
     
