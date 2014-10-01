@@ -32,9 +32,12 @@ class CmsvideoTags extends CFormModel
     }
     
     public function DeleteTag($TagValue, $newTag) {
-        $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags SET tag_idvideo = :VideoTag WHERE tag_name = :TagName');
+       $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags SET tag_idvideo = :VideoTag WHERE tag_name = :TagName');
+       // $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags, videocms_video SET videocms_tags.tag_idvideo = :VideoTag, videocms_video.video_tags = :VideoTagId WHERE videocms_tags.tag_name = :TagName AND videocms_video.video_id = :IdVideo');
         $UpdateTag->bindValue(':TagName', $TagValue, PDO::PARAM_STR);
         $UpdateTag->bindValue(':VideoTag', $newTag, PDO::PARAM_STR);
+      //  $UpdateTag->bindValue(':IdVideo', $Vid, PDO::PARAM_INT);
+        //$UpdateTag->bindValue(':VideoTagId', serialize($row), PDO::PARAM_STR);
         $UpdateTag->execute(); 
     }
     public function AddVideoTag($Tag, $Vid) {
