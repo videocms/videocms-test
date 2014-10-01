@@ -1,6 +1,3 @@
-
-
-
 <div class="form">
     <h2>Edycja wpisu</h2>
     <?php 

@@ -108,15 +108,13 @@ class AdminController extends Controller
         $this->redirect(array('admin/videos'));
     }
     
-    public function actionTest2($id) {
-        // $row1[] = $id;
-         $SelectVideo = Yii::app()->db->createCommand('SELECT tag_name FROM videocms_tags WHERE tag_idvideo LIKE :TagidVideo');
-        $SelectVideo->bindValue(':TagidVideo', '%"'.$id.'"%', PDO::PARAM_INT);
-        $DataVideo = $SelectVideo->queryAll();
-        
-        foreach($DataVideo as $Data) {
-            echo $Data['tag_name'];
-        }
+    public function actionTest2() {
+         $ModelVideo = new CmsvideoVideo;
+        $VideoId = $ModelVideo->DownloadVideo('231');
+      
+        echo $VideoId['video_tags'];
+            
+                
     }
     
     public function actionVideoUpdate($id)
@@ -133,15 +131,9 @@ class AdminController extends Controller
         }
         
         $VideoUpdate = false;
-        
         $ModelVideo = new CmsvideoVideo;
         $ModelTags = new CmsvideoTags;
         $ModelCategories = new CmsvideoCategories;
-        $DataTag = $ModelTags->DownloadTag($id);
-        //$DataTag = implode(",", $Dat);
-       // $DataTag = unserialize($Dat['tag_idvideo']);
-        //$array1 = unserialize($row['tag_idvideo']);
-        //$array2 = explode(',', $id);
 
         if(isset($_POST['CmsvideoVideo']))
         {
@@ -171,14 +163,15 @@ class AdminController extends Controller
                 }
                
                 if($ModelVideo->tag_delete) {
-                   $TagDelete = explode(',',$ModelVideo->tag_delete);
+                    $TagDelete = explode(',',$ModelVideo->tag_delete);
+                    
                     foreach($TagDelete as $Tag) {
                         $row = $ModelTags->SelectTags($Tag);
                         $array1 = unserialize($row['tag_idvideo']);
-                        $array2 = explode(',', $id);
+                        $array2[] = $id;
                         $string =  array_diff($array1, $array2);
                         $newTag = serialize($string);
-                        $ModelTags->DeleteTag($Tag,$newTag);
+                        $ModelTags->DeleteIdVideo($Tag,$newTag);
                     }
                 }
                 $VideoUpdate = true;
@@ -188,8 +181,7 @@ class AdminController extends Controller
         else
         {
             $Data = $ModelVideo->DownloadVideoAdmin($id);
-            //$DataTags = $ModelVideo->SelectTags($id);
-            
+           
             foreach($Data as $DataVideo)
             {
                 $ModelVideo->video_id = $DataVideo['video_id'];
@@ -205,18 +197,15 @@ class AdminController extends Controller
                 $ModelVideo->player_type = $DataVideo['player_type'];
                 $ModelVideo->video_description = $DataVideo['video_description'];
                 $ModelVideo->video_keywords = $DataVideo['video_keywords'];
-                $ModelVideo->video_tags = $DataVideo['video_tags'];
             }
         }
         
         
         $this->render('videoupdate', array(
-            'DataTag' => $DataTag,
             'ModelTags' => $ModelTags,
             'ModelVideo' => $ModelVideo,
             'VideoUpdate' => $VideoUpdate,
             'ModelCategories' => $ModelCategories,
-            
         ));
     }
     
