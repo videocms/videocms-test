@@ -435,7 +435,6 @@ class AdminController extends Controller
                 $ModelVast->vast_source = $DataVast['vast_source'];
                 $ModelVast->vast_link = $DataVast['vast_link'];
                 $ModelVast->vast_video_cat = $DataVast['vast_video_cat'];
-                //$ModelVast->vast_source_vast = $DataVast['vast_source_vast']; <-- create xml
             }
         }
         
