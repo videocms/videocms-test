@@ -45,6 +45,9 @@ class CmsvideoTags extends CFormModel
         $SelectTags = Yii::app()->db->createCommand('SELECT * FROM videocms_tags WHERE tag_name = :TagName LIMIT 1');
         $SelectTags->bindValue(':TagName', $Tag, PDO::PARAM_STR);
         $Data = $SelectTags->queryRow();
+        $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video WHERE video_id = :IdVideo LIMIT 1');
+        $SelectVideo->bindValue(':IdVideo', $Vid, PDO::PARAM_STR);
+        $Data2 = $SelectVideo->queryRow();
        
         $rows = $Data['tag_idvideo'];
         if(empty($rows)) {
@@ -57,9 +60,22 @@ class CmsvideoTags extends CFormModel
         array_push($row2, $Vid);
         }
         
-        $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags SET videocms_tags.tag_idvideo = :VideoTag WHERE videocms_tags.tag_name = :TagName');
+        $rows2 = $Data2['video_tags'];
+        if(empty($rows2)) {
+        $row[] = $Data['tag_id'];
+        }
+        else {
+        $row = unserialize($rows2);
+        }
+        if (!in_array($Data['tag_id'],$row) && !empty($rows2)) {
+        array_push($row, $Data['tag_id']);
+        }
+        
+        $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags, videocms_video SET videocms_tags.tag_idvideo = :VideoTag, videocms_video.video_tags = :VideoTagId WHERE videocms_tags.tag_name = :TagName AND videocms_video.video_id = :IdVideo');
         $UpdateTag->bindValue(':TagName', $Tag, PDO::PARAM_STR);
         $UpdateTag->bindValue(':VideoTag', serialize($row2), PDO::PARAM_STR);
+        $UpdateTag->bindValue(':IdVideo', $Vid, PDO::PARAM_INT);
+        $UpdateTag->bindValue(':VideoTagId', serialize($row), PDO::PARAM_STR);
         $UpdateTag->execute();   
     }
     
