@@ -14,7 +14,7 @@ foreach($DataSlider as $ModelSite1)
                     </div>
                     <div style="position: absolute; top: 0px; left: 0px; width: 600px; height: 50px;
                         color: White; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center;">
-                        "'.$ModelSite1['slider_text'].'"
+                        '.$ModelSite1['slider_text'].'
                     </div>
                 </div>
             </div>';
