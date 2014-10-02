@@ -108,13 +108,18 @@ class AdminController extends Controller
         $this->redirect(array('admin/videos'));
     }
     
-    public function actionTest2() {
-         $ModelVideo = new CmsvideoVideo;
-        $VideoId = $ModelVideo->DownloadVideo('231');
-      
-        echo $VideoId['video_tags'];
-            
-                
+    public function actionTest2($TagValue) {
+        $ModelTags = new CmsvideoTags;
+        $Tag = $ModelTags->SelectTags($TagValue);
+        $array = unserialize($Tag['tag_idvideo']);
+        if(empty($array)) {
+           echo 'Tablica pusta';
+        }
+        else {
+             echo '<pre>';
+                print_r(unserialize($Tag['tag_idvideo']));
+            echo '</pre>';
+        }
     }
     
     public function actionVideoUpdate($id)
@@ -168,6 +173,7 @@ class AdminController extends Controller
                         $DataTag = $ModelTags->SelectTags($Tag);
                         $ModelTags->DeleteVideoTag($id, $DataTag);
                         $ModelTags->DeleteIdVideo($id, $DataTag, $Tag);
+                        $ModelTags->DeleteTag($DataTag['tag_name']);
                     }
                 }
                 $VideoUpdate = true;

@@ -42,6 +42,17 @@ class CmsvideoTags extends CFormModel
         $AddTag->execute();   
     }
     
+    public function DeleteTag($DataTag)
+    {
+        $SelectTag = $this->SelectTags($DataTag);
+        $DeleteTag = unserialize($SelectTag['tag_idvideo']);
+        if(empty($DeleteTag)) {
+            $DeleteTag = Yii::app()->db->createCommand('DELETE FROM videocms_tags WHERE tag_id = :TagId');
+            $DeleteTag->bindValue(':TagId', $SelectTag['tag_id'], PDO::PARAM_INT);
+            $DeleteTag->execute();
+        }
+    }
+    
     //Usuwanie z kolumny tags_idvideo id video w tabeli videocms_tags
     public function DeleteIdVideo($id, $DataTag, $TagValue) {
         $array1 = unserialize($DataTag['tag_idvideo']);
@@ -51,7 +62,7 @@ class CmsvideoTags extends CFormModel
         $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags SET tag_idvideo = :VideoTag WHERE tag_name = :TagName');
         $UpdateTag->bindValue(':TagName', $TagValue, PDO::PARAM_STR);
         $UpdateTag->bindValue(':VideoTag', $newTag, PDO::PARAM_STR);
-        $UpdateTag->execute(); 
+        $UpdateTag->execute();
     }
  
     //Usuwanie z kolumny video_tags nazwy tagu w tabeli videocms_video
