@@ -28,6 +28,7 @@ class AdminController extends Controller
         $VideoAdd = false;
         
         $ModelCategories = new CmsvideoCategories;
+        $ModelTags = new CmsvideoTags;
         $DataCategory = $ModelCategories->DownloadCategories();
         $ModelVideo = new CmsvideoVideo;
         //$ModelVast = new VastVideo();
@@ -50,8 +51,8 @@ class AdminController extends Controller
                 $id = Yii::app()->db->getLastInsertID();
                 foreach($Tags as $TagValue) {
                     if ($TagValue != NULL) {
-                    $ModelVideo->AddTag($TagValue);
-                    $ModelVideo->AddVideoTag($TagValue, $id);
+                    $ModelTags->AddTag($TagValue);
+                    $ModelTags->AddVideoTag($TagValue, $id);
                     }
                 }
                 if ($ImageUpload !== NULL) {
