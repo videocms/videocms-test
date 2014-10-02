@@ -160,8 +160,30 @@ $this->widget('CLinkPager', array(
 </div>
 <?php $this->endWidget(); ?>
 </div>
-<script>
-                // Replace the <textarea id="editor1"> with a CKEditor
-                // instance, using default configuration.
-                //CKEDITOR.replace( 'CmsvideoVideo[video_text]' );
+<script type="text/javascript">
+ var title = $('#CmsvideoVideo_video_title'),
+    slug = $('#CmsvideoVideo_video_alias');
+
+title.on('keyup', function() {
+  var val = $(this).val();
+  val = val.toLowerCase()
+    .replace(/-/g, '_')
+    .replace(/ /g, '-')
+    .replace(/'Ą'/g, 'a')
+    .replace('ą', 'a')
+    .replace('Ć', 'c')
+    .replace('ć', 'c')
+    .replace('Ę', 'e')
+    .replace('ę', 'e')
+    .replace('Ó', 'o')
+    .replace('ó', 'o')
+    .replace('Ś', 's')
+    .replace('ś', 's')
+    .replace('Ź', 'z')
+    .replace('ź', 'z')
+    .replace('ż', 'z')
+    .replace('Ż', 'z')
+    .replace(/[^a-z_\-]/g, '');
+  slug.val(val);
+});   
 </script>
