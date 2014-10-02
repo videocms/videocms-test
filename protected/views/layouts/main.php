@@ -218,6 +218,7 @@ $.noConflict();
                     $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/cmsvideo/index')),
+                            array('label'=>'Panel', 'url'=>array('/admin/index')),
                             array('label'=>'Wideo', 'url'=>array('/admin/videos')),
 				array('label'=>'Kategorie', 'url'=>array('/admin/category')),
                             array('label'=>'Reklamy', 'url'=>array('/admin/vast')),
