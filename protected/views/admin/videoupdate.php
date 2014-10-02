@@ -97,7 +97,7 @@
             </div>    
             <div class="row">
                 <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
-                <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Tagi')); ?>
+                <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Tagi', 'value'=>NULL)); ?>
                 <?php echo $form->error($ModelVideo, 'tag_name'); ?>
             </div>
             <div class="row">       

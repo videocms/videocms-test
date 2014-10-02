@@ -185,7 +185,7 @@ class CmsvideoVideo extends CFormModel
         $Alias = preg_replace('/[\-]+/', '-', $Alias);
         $Alias = preg_replace('/[^0-9a-z-]/', '', $Alias);
         
-        $AddVideo = Yii::app()->db->createCommand('INSERT INTO videocms_video (video_title, video_alias, video_text, video_category, video_date, video_480p, video_720p, video_1080p, video_thumb, video_image, video_published, player_type, video_description, video_keywords) VALUES (:VideoTitle, :VideoAlias, :VideoText, :VideoCategory, :VideoDate, :Video480p, :Video720p, :Video1080p, :VideoThumb, :VideoImage, :VideoPublished, :PlayerType, :VideoDescription, :VideoKeywords)');
+        $AddVideo = Yii::app()->db->createCommand('INSERT INTO videocms_video (video_title, video_alias, video_text, video_category, video_date, video_480p, video_720p, video_1080p, video_thumb, video_image, video_published, player_type, video_description, video_keywords, video_tags) VALUES (:VideoTitle, :VideoAlias, :VideoText, :VideoCategory, :VideoDate, :Video480p, :Video720p, :Video1080p, :VideoThumb, :VideoImage, :VideoPublished, :PlayerType, :VideoDescription, :VideoKeywords, :TagName)');
         $AddVideo->bindValue(':VideoTitle', $this->video_title, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoAlias', $Alias, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoText', $this->video_text, PDO::PARAM_STR);
@@ -200,9 +200,11 @@ class CmsvideoVideo extends CFormModel
         $AddVideo->bindValue(':PlayerType', $this->player_type, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoDescription', $this->video_description, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoKeywords', $this->video_keywords, PDO::PARAM_STR);
+        if (empty($this->tag_name) )
+        { $AddVideo->bindValue(':TagName', serialize(array()), PDO::PARAM_STR);}
         $AddVideo->execute();
-    }
     
+    }
     public function DeleteVideo($id)
     {
         $DeleteVideo = Yii::app()->db->createCommand('DELETE FROM videocms_video WHERE video_id = :IdVideo');
