@@ -557,6 +557,99 @@ class AdminController extends Controller
         ));
     }
     // end SEO
+    //start Slider
+    public function actionSlider()
+    {
+        $this->pageTitle = 'Slider';
+        if(Yii::app()->session['zalogowany'] != 'tak') 
+        {
+            $this->redirect(array('login/index'));
+        }
+        
+        $SliderAdd = false;
+        
+        $ModelSlider = new CmsvideoSlider;
+        
+        if(isset($_POST['CmsvideoSlider']))
+        {
+            $ModelSlider->attributes=$_POST['CmsvideoSlider'];
+            
+            if($ModelSlider->validate())
+            {
+                $ModelSlider->AddSlider();
+                $SliderAdd = true;
+                $ModelSlider->slider_image = '';
+                $ModelSlider->slider_text = '';
+            }
+        }
+        
+        $DataSlider = $ModelSlider->DownloadSlider();
+        
+        $this->render('slider', array(
+            'Data' => $DataSlider,
+            'SliderAdd' => $SliderAdd,
+            'ModelSlider' => $ModelSlider,
+        ));
+    }
+    public function actionSliderDelete($id)
+    {
+        if(Yii::app()->session['zalogowany'] != 'tak')
+        {
+            $this->redirect(array('login/index'));
+        }
+        
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        
+        $ModelSlider = new CmsvideoSlider();
+        $ModelSlider->DeleteSlider($id);
+        $this->redirect(array('admin/slider'));
+    }
+    
+    public function actionSliderUpdate($id)
+    {
+        $this->pageTitle = 'Edit Slider';
+        if(Yii::app()->session['zalogowany'] != 'tak')
+        {
+            $this->redirect(array('login/index'));
+        }
+        
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        
+        $SliderUpdate = false;
+        $ModelSlider = new CmsvideoSlider;
+        
+        if(isset($_POST['CmsvideoSlider']))
+        {
+            $ModelSlider->attributes = $_POST['CmsvideoSlider'];
+            if($ModelSlider->validate())
+            {
+                $ModelSlider->SaveSlider($id);
+                $SliderUpdate = true;
+            }
+            $this->redirect(array('/admin/slider'));
+        }
+        else
+        {
+            $Data = $ModelSlider->DownloadOneSlider($id);
+            foreach ($Data as $DataForm)
+            {
+                $ModelSlider->slider_image = $DataForm['slider_image'];
+                $ModelSlider->slider_text = $DataForm['slider_text'];
+            }
+        }
+        
+        $this->render('sliderupdate', array(
+            'ModelSlider' => $ModelSlider,
+            'SliderUpdate' => $SliderUpdate,
+        ));
+    }
+    // end Slider
 }
 
 ?>
