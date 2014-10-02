@@ -98,7 +98,7 @@ class CmsvideoTags extends CFormModel
     public function DeleteVideoTag($id, $DataTag) {
         $ModelVideo = new CmsvideoVideo;
         $DataVideo = $ModelVideo->DownloadOneVideo($id);
-        $array1[] = $DataTag['tag_id'];
+        $array1[] = $DataTag['tag_name'];
         $array2 = unserialize($DataVideo['video_tags']);
         $string =  array_diff($array2, $array1);
         $newTag = serialize($string);
@@ -127,19 +127,19 @@ class CmsvideoTags extends CFormModel
         
         $rows2 = $Data2['video_tags'];
         if(empty($rows2)) {
-        $row[] = $Data['tag_id'];
+        $row[] = $Data['tag_name'];
         }
         else {
         $row = unserialize($rows2);
         }
-        if (!in_array($Data['tag_id'],$row) && !empty($rows2)) {
-        array_push($row, $Data['tag_id']);
+        if (!in_array($Data['tag_name'],$row) && !empty($rows2)) {
+        array_push($row, $Data['tag_name']);
         }
         
-        $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags, videocms_video SET videocms_tags.tag_idvideo = :VideoTag, videocms_video.video_tags = :VideoTagName WHERE videocms_tags.tag_id = :TagId AND videocms_video.video_id = :IdVideo');
+        $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags, videocms_video SET videocms_tags.tag_idvideo = :VideoTag, videocms_video.video_tags = :VideoTagName WHERE videocms_tags.tag_name = :TagName AND videocms_video.video_id = :IdVideo');
         $UpdateTag->bindValue(':VideoTag', serialize($row2), PDO::PARAM_STR);
         $UpdateTag->bindValue(':VideoTagName', serialize($row), PDO::PARAM_STR);
-        $UpdateTag->bindValue(':TagId', $Data['tag_id'], PDO::PARAM_STR);
+        $UpdateTag->bindValue(':TagName', $Data['tag_name'], PDO::PARAM_STR);
         $UpdateTag->bindValue(':IdVideo', $id, PDO::PARAM_INT);
         $UpdateTag->execute();   
     }
