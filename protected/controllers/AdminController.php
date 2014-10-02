@@ -68,7 +68,7 @@ public function actionIndex() {
             {   
                 $ModelVideo->AddNewVideo();
                 $id = Yii::app()->db->getLastInsertID();
-                if ($Tags !== NULL) {
+                if (!empty($ModelVideo->tag_name)) {
                     foreach($Tags as $TagValue) {
                             $ModelTags->AddTag($TagValue);
                             $ModelTags->AddVideoTag($TagValue, $id);
@@ -185,10 +185,10 @@ public function actionIndex() {
             
             if ($ModelVideo->validate())
             {
-                foreach($Tags as $TagValue) {
-                    if ($TagValue != NULL) {
-                    $ModelTags->AddTag($TagValue);
-                    $ModelTags->AddVideoTag($TagValue, $id);
+                if (!empty($ModelVideo->tag_name)) {
+                    foreach($Tags as $TagValue) {
+                            $ModelTags->AddTag($TagValue);
+                            $ModelTags->AddVideoTag($TagValue, $id);
                     }
                 }
                 $ModelVideo->UpdateVideo($id);
@@ -209,7 +209,8 @@ public function actionIndex() {
                 }
                 $VideoUpdate = true;
             }
-           // $this->redirect(array('admin/videos'));
+            //$this->redirect(array('admin/videos/'));
+            $this->redirect(Yii::app()->request->urlReferrer);
         }
         else
         {

@@ -33,7 +33,8 @@ foreach($Data as $ModelVideosShow)
     echo '<td class="'.$RowClass.'">'.CHtml::link($ModelVideosShow['video_title'],array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'<br />';
     echo $Category[$ModelVideosShow['video_category']].'</td>';
     echo '<td class="'.$RowClass.'"><center>';
-    foreach(unserialize($ModelVideosShow['video_tags']) as $Tag) {echo $Tag.' ';}
+    if(!empty($ModelVideosShow['video_tags'])) {
+    foreach(unserialize($ModelVideosShow['video_tags']) as $Tag) {echo $Tag.' ';} }
     echo '</center></td>';
     echo '<td class="'.$RowClass.'"><center>'.$ModelVideosShow['video_views'].'</center></td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
