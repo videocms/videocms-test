@@ -25,7 +25,7 @@ class CmsvideoVideo extends CFormModel
 
     public function rules() {
         return array(
-            array('video_title, video_text, video_category, video_image, video_thumb, video_published, player_type', 'required'),
+            array('video_title, video_alias, video_text, video_category, video_image, video_thumb, video_published, player_type', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_1080p, video_480p, video_720p', 'video_attribute'),
             array('video_title', 'length', 'max'=>65),
@@ -53,20 +53,20 @@ class CmsvideoVideo extends CFormModel
     public function attributeLabels() {
         return array(
             'video_id' => 'ID',
-            'video_title' => 'Title',
+            'video_title' => 'Tytuł',
             'video_alias' => 'Alias',
-            'video_text' => 'Text',
-            'video_category' => 'Category',
-            'video_date' => 'Date',
+            'video_text' => 'Tekst',
+            'video_category' => 'Kategoria',
+            'video_date' => 'Data',
             'video_480p' => '480p',
             'video_720p' => '720p',
             'video_1080p' => '1080p',
-            'video_image' => 'Image',
-            'video_thumb' => 'Thumbnail',
-            'video_published' => 'Published',
-            'player_type' => 'Player Typ',
-            'video_descriptions' => 'Descriptions',
-            'video_keywords' => 'Keywords',
+            'video_image' => 'Obrazek',
+            'video_thumb' => 'Miniaturka',
+            'video_published' => 'Publikacja',
+            'player_type' => 'Typ playera',
+            'video_descriptions' => 'Opis',
+            'video_keywords' => 'Słowa kluczowe',
             'tag_name' => 'Tagi'
         );
     }
@@ -179,8 +179,9 @@ class CmsvideoVideo extends CFormModel
    
     public function AddNewVideo()
     {
-        $AddVideo = Yii::app()->db->createCommand('INSERT INTO videocms_video (video_title, video_text, video_category, video_date, video_480p, video_720p, video_1080p, video_thumb, video_image, video_published, player_type, video_description, video_keywords) VALUES (:VideoTitle, :VideoText, :VideoCategory, :VideoDate, :Video480p, :Video720p, :Video1080p, :VideoThumb, :VideoImage, :VideoPublished, :PlayerType, :VideoDescription, :VideoKeywords)');
+        $AddVideo = Yii::app()->db->createCommand('INSERT INTO videocms_video (video_title, video_alias, video_text, video_category, video_date, video_480p, video_720p, video_1080p, video_thumb, video_image, video_published, player_type, video_description, video_keywords) VALUES (:VideoTitle, :VideoAlias, :VideoText, :VideoCategory, :VideoDate, :Video480p, :Video720p, :Video1080p, :VideoThumb, :VideoImage, :VideoPublished, :PlayerType, :VideoDescription, :VideoKeywords)');
         $AddVideo->bindValue(':VideoTitle', $this->video_title, PDO::PARAM_STR);
+        $AddVideo->bindValue(':VideoAlias', $this->video_alias, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoText', $this->video_text, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoCategory', $this->video_category, PDO::PARAM_INT);
         $AddVideo->bindValue(':VideoDate', NULL, PDO::PARAM_STR);
