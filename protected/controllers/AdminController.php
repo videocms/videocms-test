@@ -4,6 +4,13 @@ class AdminController extends Controller
 {
     public $slider_duration;
     public $slider_arrow;
+    public $slider_dragorientation;
+    public $slider_slidespacing;
+    public $slider_mindragoffsettoslide;
+    public $slider_loop;
+    public $slider_hwa;
+    public $slider_arrowkeynavigation;
+    public $slider_lazyloading;
    
     //Testowanie przypisanych reklam
     public function actionDownloadVast($id) {
@@ -563,6 +570,13 @@ class AdminController extends Controller
                 $ModelSettings->settings_ogtitle = $DataForm['settings_ogtitle']; 
                 $ModelSettings->slider_duration = $DataForm['slider_duration']; 
                 $ModelSettings->slider_arrow = $DataForm['slider_arrow']; 
+                $ModelSettings->slider_dragorientation = $DataForm['slider_dragorientation'];
+                $ModelSettings->slider_slidespacing = $DataForm['slider_slidespacing'];
+                $ModelSettings->slider_mindragoffsettoslide = $DataForm['slider_mindragoffsettoslide'];
+                $ModelSettings->slider_loop = $DataForm['slider_loop'];
+                $ModelSettings->slider_hwa = $DataForm['slider_hwa'];
+                $ModelSettings->slider_arrowkeynavigation = $DataForm['slider_arrowkeynavigation'];
+                $ModelSettings->slider_lazyloading = $DataForm['slider_lazyloading'];
             }
         }
         

@@ -13,11 +13,18 @@ class CmsvideoSettings extends CFormModel
     public $settings_fb;
     public $slider_duration;
     public $slider_arrow;
+    public $slider_dragorientation;
+    public $slider_slidespacing;
+    public $slider_mindragoffsettoslide;
+    public $slider_loop;
+    public $slider_hwa;
+    public $slider_arrowkeynavigation;
+    public $slider_lazyloading;
 
 
     public function rules() {
         return array(
-            array('settings_keywords, settings_description, settings_robots, settings_ogdescription, settings_ogimage, settings_ogurl, settings_ogtitle, settings_fb, slider_duration, slider_arrow', 'length', 'max'=>255),
+            array('settings_keywords, settings_description, settings_robots, settings_ogdescription, settings_ogimage, settings_ogurl, settings_ogtitle, settings_fb, slider_duration, slider_arrow, slider_dragorientation, slider_slidespacing, slider_mindragoffsettoslide, slider_loop, slider_hwa, slider_arrowkeynavigation, slider_lazyloading', 'length', 'max'=>255),
         );
     }
     public function attributeLabels()
@@ -33,6 +40,13 @@ class CmsvideoSettings extends CFormModel
             'settings_ogtitle' => 'OgTitle',
             'settings_fb' => 'FB',
             'slider_duration' => 'speed',
+            'slider_dragorientation' => 'Drag orientacja',
+            'slider_slidespacing' => 'Odstępy miedzy zdjęciami',
+            'slider_mindragoffsettoslide' => 'czułość slide',
+            'slider_loop' => 'powtarzanie',
+            'slider_hwa' => 'HWA',
+            'slider_arrowkeynavigation' => 'Działanie klawiatury',
+            'slider_lazyloading' => 'Lazy Load',
             'slider_arrow' => 'szczalki'
         );
     }
@@ -54,7 +68,7 @@ class CmsvideoSettings extends CFormModel
     }
     public function SaveSettings()
     {
-        $UpdateSettings = Yii::app()->db->createCommand('UPDATE videocms_settings SET settings_keywords = :SettingsKeywords, settings_description = :SettingsDescription, settings_robots = :SettingsRobots, settings_ogdescription = :OgDescription, settings_ogimage = :OgImage, settings_ogurl = :OgUrl, settings_ogtitle = :OgTitle, settings_fb = :Fb, slider_duration = :SliderDuration, slider_arrow = :SliderArrow WHERE settings_id = :SettingsId');
+        $UpdateSettings = Yii::app()->db->createCommand('UPDATE videocms_settings SET settings_keywords = :SettingsKeywords, settings_description = :SettingsDescription, settings_robots = :SettingsRobots, settings_ogdescription = :OgDescription, settings_ogimage = :OgImage, settings_ogurl = :OgUrl, settings_ogtitle = :OgTitle, settings_fb = :Fb, slider_duration = :SliderDuration, slider_arrow = :SliderArrow, slider_dragorientation = :SliderDragorien, slider_slidespacing = :SliderSlidespacing, slider_mindragoffsettoslide = :SliderMindragoff, slider_loop = :SliderLoop, slider_hwa = :SliderHwa, slider_arrowkeynavigation = :SliderArrowkey, slider_lazyloading = :SliderLazyload WHERE settings_id = :SettingsId');
         $UpdateSettings->bindValue(':SettingsKeywords',$this->settings_keywords,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':SettingsDescription',$this->settings_description,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':SettingsRobots',$this->settings_robots,PDO::PARAM_STR);
@@ -65,6 +79,13 @@ class CmsvideoSettings extends CFormModel
         $UpdateSettings->bindValue(':Fb',$this->settings_fb,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':SliderDuration',$this->slider_duration,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':SliderArrow',$this->slider_arrow,PDO::PARAM_STR);
+        $UpdateSettings->bindValue(':SliderDragorien',$this->slider_dragorientation,PDO::PARAM_STR);
+        $UpdateSettings->bindValue(':SliderSlidespacing',$this->slider_slidespacing,PDO::PARAM_STR);
+        $UpdateSettings->bindValue(':SliderMindragoff',$this->slider_mindragoffsettoslide,PDO::PARAM_STR);
+        $UpdateSettings->bindValue(':SliderLoop',$this->slider_loop,PDO::PARAM_STR);
+        $UpdateSettings->bindValue(':SliderHwa',$this->slider_hwa,PDO::PARAM_STR);
+        $UpdateSettings->bindValue(':SliderArrowkey',$this->slider_arrowkeynavigation,PDO::PARAM_STR);
+        $UpdateSettings->bindValue(':SliderLazyload',$this->slider_lazyloading,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':SettingsId','1',PDO::PARAM_INT);
         $UpdateSettings->execute();
     }

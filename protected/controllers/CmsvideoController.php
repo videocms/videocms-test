@@ -12,6 +12,13 @@ class CmsvideoController extends Controller
     public $pageMetaFB;
     public $slider_duration;
     public $slider_arrow;
+    public $slider_dragorientation;
+    public $slider_slidespacing;
+    public $slider_mindragoffsettoslide;
+    public $slider_loop;
+    public $slider_hwa;
+    public $slider_arrowkeynavigation;
+    public $slider_lazyloading;
     
     //public $defaultAction = 'cmsvideo';
     
@@ -30,6 +37,13 @@ class CmsvideoController extends Controller
         $this->pageMetaOgImage = $Seoo['settings_ogimage'];
         $this->slider_duration = $Seoo['slider_duration'];
         $this->slider_arrow = $Seoo['slider_arrow'];
+        $this->slider_dragorientation = $Seoo['slider_dragorientation'];
+        $this->slider_slidespacing = $Seoo['slider_slidespacing'];
+        $this->slider_mindragoffsettoslide = $Seoo['slider_mindragoffsettoslide'];
+        $this->slider_loop = $Seoo['slider_loop'];
+        $this->slider_hwa = $Seoo['slider_hwa'];
+        $this->slider_arrowkeynavigation = $Seoo['slider_arrowkeynavigation'];
+        $this->slider_lazyloading = $Seoo['slider_lazyloading'];
         }
         //$this->pageTitle='Strona główna';
          

@@ -179,6 +179,13 @@ $.noConflict();
         var options = { 
             $AutoPlay: true,
             $SlideDuration: <?php echo $this->slider_duration; ?>,
+            $DragOrientation: <?php echo $this->slider_dragorientation; ?>,
+            $SlideSpacing: <?php echo $this->slider_slidespacing; ?>,
+            $MinDragOffsetToSlide: <?php echo $this->slider_mindragoffsettoslide; ?>,
+            $Loop: <?php echo $this->slider_loop; ?>,
+            $HWA: <?php echo $this->slider_hwa; ?>,
+            $ArrowKeyNavigation: <?php echo $this->slider_arrowkeynavigation; ?>,
+            $LazyLoading: <?php echo $this->slider_lazyloading; ?>,
             $ArrowNavigatorOptions: {                       //[Optional] Options to specify and enable arrow navigator or not
                     $Class: $JssorArrowNavigator$,              //[Requried] Class to create arrow navigator instance
                     $ChanceToShow: <?php echo $this->slider_arrow; ?>,                               //[Required] 0 Never, 1 Mouse Over, 2 Always

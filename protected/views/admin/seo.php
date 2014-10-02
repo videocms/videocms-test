@@ -60,6 +60,41 @@
         <?php echo $form->textField($ModelSettings, 'slider_arrow'); ?>
         <?php echo $form->error($ModelSettings, 'slider_arrow'); ?>
     </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'slider_dragorientation'); ?>
+        <?php echo $form->textField($ModelSettings, 'slider_dragorientation'); ?>
+        <?php echo $form->error($ModelSettings, 'slider_dragorientation'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'slider_slidespacing'); ?>
+        <?php echo $form->textField($ModelSettings, 'slider_slidespacing'); ?>
+        <?php echo $form->error($ModelSettings, 'slider_slidespacing'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'slider_mindragoffsettoslide'); ?>
+        <?php echo $form->textField($ModelSettings, 'slider_mindragoffsettoslide'); ?>
+        <?php echo $form->error($ModelSettings, 'slider_mindragoffsettoslide'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'slider_loop'); ?>
+        <?php echo $form->textField($ModelSettings, 'slider_loop'); ?>
+        <?php echo $form->error($ModelSettings, 'slider_loop'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'slider_hwa'); ?>
+        <?php echo $form->textField($ModelSettings, 'slider_hwa'); ?>
+        <?php echo $form->error($ModelSettings, 'slider_hwa'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'slider_arrowkeynavigation'); ?>
+        <?php echo $form->textField($ModelSettings, 'slider_arrowkeynavigation'); ?>
+        <?php echo $form->error($ModelSettings, 'slider_arrowkeynavigation'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'slider_lazyloading'); ?>
+        <?php echo $form->textField($ModelSettings, 'slider_lazyloading'); ?>
+        <?php echo $form->error($ModelSettings, 'slider_lazyloading'); ?>
+    </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Zapisz', array('class' => 'btn btn-success')); ?>
     </div>
