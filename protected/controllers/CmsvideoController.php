@@ -34,15 +34,22 @@ class CmsvideoController extends Controller
         
         $ModelVideo = new CmsvideoVideo;
         $AmountVideo = $ModelVideo->CountAllVideo();
+        $ModelSlider = new CmsvideoSlider;
+        //$AmountSlider = $ModelSlider->CountAllSlider();
         
         $Site = new CPagination(intval($AmountVideo));
         $Site->pageSize = 10;
         
+        //$SiteSlider = new CPagination(intval($AmountSlider));
+        //$SiteSlider->pageSize = 10;
+        
         $DataVideo = $ModelVideo->SelectVideo($Site->pageSize, $Site->currentPage);
+        $DataSlider = $ModelSlider->DownloadSlider();
        
         $this->render('index',
                 array(
                         'DataCategory' => $DataCategory,
+                        'DataSlider' => $DataSlider,
                         'DataSeo' => $DataSeo,
                         'DataVideo' => $DataVideo,
                         'Site' => $Site,

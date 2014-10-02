@@ -2,8 +2,11 @@
     <!-- Slides Container -->
     <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 600px; height: 300px;
             overflow: hidden;">
-        <div>
-                <img u="image" src="http://jimdo.wpengine.com/wp-content/uploads/2014/01/tree-247122.jpg" />
+        <?php
+foreach($DataSlider as $ModelSite1)
+{
+    echo '<div>
+                <img u="image" src="'.$ModelSite1['slider_image'].'" />
                 <div u="caption" t="MCLIP|B" style="position: absolute; top: 250px; left: 0px;
                     width: 600px; height: 50px;">
                     <div style="position: absolute; top: 0px; left: 0px; width: 600px; height: 50px;
@@ -11,23 +14,12 @@
                     </div>
                     <div style="position: absolute; top: 0px; left: 0px; width: 600px; height: 50px;
                         color: White; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center;">
-                        <a href="http://www.w3schools.com">Visit W3Schools</a>
+                        "'.$ModelSite1['slider_text'].'"
                     </div>
                 </div>
-            </div>
-        <div>
-                <img u="image" src="http://images.visitcanberra.com.au/images/canberra_hero_image.jpg" />
-                <div u="caption" t="MCLIP|B" style="position: absolute; top: 250px; left: 0px;
-                    width: 600px; height: 50px;">
-                    <div style="position: absolute; top: 0px; left: 0px; width: 600px; height: 50px;
-                        background-color: Black; opacity: 0.5; filter: alpha(opacity=50);">
-                    </div>
-                    <div style="position: absolute; top: 0px; left: 0px; width: 600px; height: 50px;
-                        color: White; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center;">
-                        TOMEK!!!!!!! :D
-                    </div>
-                </div>
-            </div>
+            </div>';
+     
+}?>      
     </div>
      <style>
             /* jssor slider arrow navigator skin 03 css */
