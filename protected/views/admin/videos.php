@@ -2,15 +2,11 @@
 echo '<h1>Wideo</h1>';
 echo '<table class="table table-hover" id="lol">';
 echo '<tr class="active">';
-echo '<th>ID</th>';
 echo '<th>Thumb</th>';
 echo '<th>Tytuł</th>';
-echo '<th>Kategoria</th>';
-echo '<th>Video 480p</th>';
-echo '<th>Video 720p</th>';
-echo '<th>Video 1080p</th>';
+echo '<th>Tagi</th>';
 echo '<th>Wyświetlenia</th>';
-echo '<th>Data</th>';
+echo '<th>Data dodania</th>';
 echo '<th>Public</th>';
 echo '<th>Usuń</th>';
 echo '<tr>'; 
@@ -33,13 +29,12 @@ foreach($Data as $ModelVideosShow)
         $RowClass = 'row2';
     }
     echo '<tr>';
-    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_id'].'</td>';
     echo '<td class="'.$RowClass.'">'.CHtml::link('<img src="../'.$ModelVideosShow['video_thumb'].'" style="width: 60px; height: 60px;"/>',array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'</td>';
-    echo '<td class="'.$RowClass.'">'.CHtml::link($ModelVideosShow['video_title'],array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'</td>';
-    echo '<td class="'.$RowClass.'">'.$Category[$ModelVideosShow['video_category']].'</td>';
-    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_480p'].'</td>';
-    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_720p'].'</td>';
-    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_1080p'].'</td>';
+    echo '<td class="'.$RowClass.'">'.CHtml::link($ModelVideosShow['video_title'],array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'<br />';
+    echo $Category[$ModelVideosShow['video_category']].'</td>';
+    echo '<td class="'.$RowClass.'"><center>';
+    foreach(unserialize($ModelVideosShow['video_tags']) as $Tag) {echo $Tag.' ';}
+    echo '</center></td>';
     echo '<td class="'.$RowClass.'"><center>'.$ModelVideosShow['video_views'].'</center></td>';
     echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
     if ($ModelVideosShow['video_published'] == "1")
@@ -100,12 +95,16 @@ $this->widget('CLinkPager', array(
     </div>
     
     <div class="row">
+         <div class="col-md-8">
+    <div class="row">
         <?php echo $form->labelEx($ModelVideo, 'video_text'); ?>
-        <?php echo $form->textArea($ModelVideo, 'video_text', array('rows' => 25, 'cols' => 50)); ?>
+        <?php echo $form->textArea($ModelVideo, 'video_text'); ?>
         <?php echo $form->error($ModelVideo, 'video_text'); ?>
     </div>
+    </div>
+         <div class="col-md-4">
     <div class="row">
-        <div class="col-xs-4">
+        <div class="col-xs-12">
         <?php echo $form->labelEx($ModelVideo, 'video_480p'); ?>
         <?php echo $form->textField($ModelVideo, 'video_480p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 480p')); ?>
         <?php echo $form->error($ModelVideo, 'video_480p'); ?>
@@ -192,6 +191,8 @@ $this->widget('CLinkPager', array(
         <div class="col-xs-4">
         <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-success')); ?>
         </div>
+    </div>
+    </div>
     </div>
     <?php $this->endWidget(); ?>
 </div>
