@@ -213,6 +213,7 @@ $.noConflict();
                             array('label'=>'Wideo', 'url'=>array('/admin/videos')),
 				array('label'=>'Kategorie', 'url'=>array('/admin/category')),
                             array('label'=>'Reklamy', 'url'=>array('/admin/vast')),
+                            array('label'=>'Slider', 'url'=>array('/admin/slider')),
                             array('label'=>'Ustawienia', 'url'=>array('/admin/settings')),
                             array('label'=>'Seo', 'url'=>array('/admin/seo/1')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
