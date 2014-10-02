@@ -59,7 +59,7 @@
          <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
             <p id="upload">
                 <?php echo $form->textField($ModelVideo, 'video_image',array('readonly'=>true)); ?>
-                <input name="upload1" type="button" value="zmien" onclick="changeMode()" />
+                <input class="btn btn-default btn-sm" name="upload1" type="button" value="zmien" onclick="changeMode()" />
             </p>       
          <?php echo $form->error($ModelVideo, 'video_image'); ?>
     </div>
@@ -110,7 +110,8 @@
         <?php echo $form->hiddenField($ModelVideo, 'tag_delete', array('type'=>"hidden")); ?>
     </div>
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Aktualizuj', array('class' => 'btn btn-primary')); ?>
+        <?php echo CHtml::submitButton('Aktualizuj', array('class' => 'btn btn-success')); ?>
+        <?php echo CHtml::link('Anuluj',array('admin/videos'),array('class'=>'btn btn-danger')); ?>
     </div>
     
     <?php $this->endWidget(); ?>
