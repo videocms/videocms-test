@@ -5,6 +5,7 @@ class CmsvideoVideo extends CFormModel
 {
     public $video_id;
     public $video_title;
+    public $video_alias;
     public $video_text;
     public $video_category;
     public $video_date;
@@ -53,6 +54,7 @@ class CmsvideoVideo extends CFormModel
         return array(
             'video_id' => 'ID',
             'video_title' => 'Title',
+            'video_alias' => 'Alias',
             'video_text' => 'Text',
             'video_category' => 'Category',
             'video_date' => 'Date',

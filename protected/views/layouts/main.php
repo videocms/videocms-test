@@ -106,7 +106,7 @@ $.noConflict();
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/tinymce/tinymce.min.js"></script>
 <script>tinymce.init({
-         selector: "textarea",theme: "modern",width: '100%',height: 500,
+         selector: "textarea",theme: "modern",width: '100%',height: 535,
     plugins: [
          "advlist autolink link image lists charmap print preview hr anchor pagebreak",
          "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
