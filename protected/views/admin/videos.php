@@ -187,7 +187,7 @@ title.on('keyup', function() {
     .replace('ź', 'z')
     .replace('ż', 'z')
     .replace('Ż', 'z')
-    .replace(/[^a-z_\-]/g, '');
+    .replace(/[^a-z0-9\-]/g, '');
   slug.val(val);
 });   
 </script>
