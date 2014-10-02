@@ -10,6 +10,8 @@ class CmsvideoController extends Controller
     public $pageMetaOgUrl;
     public $pageMetaOgTitle;
     public $pageMetaFB;
+    public $slider_duration;
+    public $slider_arrow;
     
     //public $defaultAction = 'cmsvideo';
     
@@ -26,6 +28,8 @@ class CmsvideoController extends Controller
         $this->pageMetaOgTitle = $Seoo['settings_ogtitle']; 
         $this->pageTitle=$Seoo['settings_ogtitle']; 
         $this->pageMetaOgImage = $Seoo['settings_ogimage'];
+        $this->slider_duration = $Seoo['slider_duration'];
+        $this->slider_arrow = $Seoo['slider_arrow'];
         }
         //$this->pageTitle='Strona główna';
          

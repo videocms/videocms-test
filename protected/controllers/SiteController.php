@@ -2,6 +2,8 @@
  
 class SiteController extends Controller
 {
+    public $slider_duration;
+    public $slider_arrow;
 	/**
 	 * Declares class-based actions.
 	 */

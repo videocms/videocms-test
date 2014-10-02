@@ -5,7 +5,7 @@ class CmsvideoSlider extends CFormModel
     public $slider_id;
     public $slider_image;
     public $slider_text;
-    
+
     public function rules()
     { 
         return array(
@@ -17,9 +17,10 @@ class CmsvideoSlider extends CFormModel
     
     public function attributeLabels() {
         return array(
-            'category_id' => 'ID',
-            'category_image' => 'Zdjęcie',
-            'category_text' => 'Opis'
+            'slider_id' => 'ID',
+            'slider_image' => 'Zdjęcie',
+            'slider_text' => 'Opis',
+            
         );
     }
     public function DownloadSlider()
@@ -67,6 +68,6 @@ class CmsvideoSlider extends CFormModel
         $AmountSlider = $CountSlider->queryScalar();
         
         return $AmountSlider;
-    }
+    }   
 }
 ?>

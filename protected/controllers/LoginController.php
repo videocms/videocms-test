@@ -1,6 +1,8 @@
 <?php
 
 class LoginController extends Controller {
+    public $slider_duration;
+    public $slider_arrow;
     public function actionIndex()
     {
         $this->pageTitle = 'Login';

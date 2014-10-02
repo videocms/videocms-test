@@ -49,6 +49,17 @@
         <?php echo $form->labelEx($ModelSettings, 'settings_description'); ?>
         <?php echo $form->textField($ModelSettings, 'settings_description'); ?>
         <?php echo $form->error($ModelSettings, 'settings_description'); ?>
+        </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'slider_duration'); ?>
+        <?php echo $form->textField($ModelSettings, 'slider_duration'); ?>
+        <?php echo $form->error($ModelSettings, 'slider_duration'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'slider_arrow'); ?>
+        <?php echo $form->textField($ModelSettings, 'slider_arrow'); ?>
+        <?php echo $form->error($ModelSettings, 'slider_arrow'); ?>
+    </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Zapisz', array('class' => 'btn btn-success')); ?>
     </div>

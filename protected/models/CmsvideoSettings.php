@@ -11,11 +11,13 @@ class CmsvideoSettings extends CFormModel
     public $settings_ogurl;
     public $settings_ogtitle;
     public $settings_fb;
+    public $slider_duration;
+    public $slider_arrow;
 
 
     public function rules() {
         return array(
-            array('settings_keywords, settings_description, settings_robots, settings_ogdescription, settings_ogimage, settings_ogurl, settings_ogtitle, settings_fb', 'length', 'max'=>255),
+            array('settings_keywords, settings_description, settings_robots, settings_ogdescription, settings_ogimage, settings_ogurl, settings_ogtitle, settings_fb, slider_duration, slider_arrow', 'length', 'max'=>255),
         );
     }
     public function attributeLabels()
@@ -29,7 +31,9 @@ class CmsvideoSettings extends CFormModel
             'settings_ogimage' => 'OgImage',
             'settings_ogurl' => 'OgUrl',
             'settings_ogtitle' => 'OgTitle',
-            'settings_fb' => 'FB'
+            'settings_fb' => 'FB',
+            'slider_duration' => 'speed',
+            'slider_arrow' => 'szczalki'
         );
     }
     
@@ -50,7 +54,7 @@ class CmsvideoSettings extends CFormModel
     }
     public function SaveSettings()
     {
-        $UpdateSettings = Yii::app()->db->createCommand('UPDATE videocms_settings SET settings_keywords = :SettingsKeywords, settings_description = :SettingsDescription, settings_robots = :SettingsRobots, settings_ogdescription = :OgDescription, settings_ogimage = :OgImage, settings_ogurl = :OgUrl, settings_ogtitle = :OgTitle, settings_fb = :Fb WHERE settings_id = :SettingsId');
+        $UpdateSettings = Yii::app()->db->createCommand('UPDATE videocms_settings SET settings_keywords = :SettingsKeywords, settings_description = :SettingsDescription, settings_robots = :SettingsRobots, settings_ogdescription = :OgDescription, settings_ogimage = :OgImage, settings_ogurl = :OgUrl, settings_ogtitle = :OgTitle, settings_fb = :Fb, slider_duration = :SliderDuration, slider_arrow = :SliderArrow WHERE settings_id = :SettingsId');
         $UpdateSettings->bindValue(':SettingsKeywords',$this->settings_keywords,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':SettingsDescription',$this->settings_description,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':SettingsRobots',$this->settings_robots,PDO::PARAM_STR);
@@ -59,6 +63,8 @@ class CmsvideoSettings extends CFormModel
         $UpdateSettings->bindValue(':OgUrl',$this->settings_ogurl,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':OgTitle',$this->settings_ogtitle,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':Fb',$this->settings_fb,PDO::PARAM_STR);
+        $UpdateSettings->bindValue(':SliderDuration',$this->slider_duration,PDO::PARAM_STR);
+        $UpdateSettings->bindValue(':SliderArrow',$this->slider_arrow,PDO::PARAM_STR);
         $UpdateSettings->bindValue(':SettingsId','1',PDO::PARAM_INT);
         $UpdateSettings->execute();
     }

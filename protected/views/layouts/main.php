@@ -178,9 +178,10 @@ $.noConflict();
 
         var options = { 
             $AutoPlay: true,
+            $SlideDuration: <?php echo $this->slider_duration; ?>,
             $ArrowNavigatorOptions: {                       //[Optional] Options to specify and enable arrow navigator or not
                     $Class: $JssorArrowNavigator$,              //[Requried] Class to create arrow navigator instance
-                    $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+                    $ChanceToShow: <?php echo $this->slider_arrow; ?>,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
                     $AutoCenter: 0,                                 //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
                     $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
                 },

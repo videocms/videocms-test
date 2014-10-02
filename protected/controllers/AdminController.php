@@ -2,6 +2,8 @@
  
 class AdminController extends Controller
 {
+    public $slider_duration;
+    public $slider_arrow;
    
     //Testowanie przypisanych reklam
     public function actionDownloadVast($id) {
@@ -559,6 +561,8 @@ class AdminController extends Controller
                 $ModelSettings->settings_robots = $DataForm['settings_robots'];
                 $ModelSettings->settings_ogimage = $DataForm['settings_ogimage'];
                 $ModelSettings->settings_ogtitle = $DataForm['settings_ogtitle']; 
+                $ModelSettings->slider_duration = $DataForm['slider_duration']; 
+                $ModelSettings->slider_arrow = $DataForm['slider_arrow']; 
             }
         }
         
