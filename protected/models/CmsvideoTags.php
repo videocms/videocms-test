@@ -12,10 +12,26 @@ class CmsvideoTags extends CFormModel
     
     //Pobieranie wpisu dla danego tagu
     public function SelectTags($TagValue) {
+
+        
+        // replace non letter or digits by -
+        $TagValue = preg_replace('~[^\\pL\d]+~u', '-', $TagValue);
+
+        // trim
+        $TagValue = trim($TagValue, '-');
+
+        // transliterate
+        setlocale(LC_CTYPE, 'pl_PL');
+        $TagValue = iconv("UTF-8","UTF-8", $TagValue);
+
+        // lowercase
         $TagValue = strtolower($TagValue);
-        $TagValue = trim($TagValue,'-'); 
-        $TagValue = preg_replace('/[\-]+/', '-', $TagValue);
-        $TagValue = preg_replace('/[^0-9a-z-]/', '', $TagValue);
+
+        // remove unwanted characters
+       // $TagValue = preg_replace('~[^-\w]+~', '', $TagValue);
+        
+        
+        
         $SelectTags = Yii::app()->db->createCommand('SELECT * FROM videocms_tags WHERE tag_name = :TagName LIMIT 1');
         $SelectTags->bindValue(':TagName', $TagValue, PDO::PARAM_STR);
         $DataTags = $SelectTags->queryRow();
@@ -33,10 +49,23 @@ class CmsvideoTags extends CFormModel
     
     //Dododawanie do kolumny tag_name nazwy tagu w tabeli videocms_tags
     public function AddTag($TagValue) {
+         
+        // replace non letter or digits by -
+        $TagValue = preg_replace('~[^\\pL\d]+~u', '-', $TagValue);
+
+        // trim
+        $TagValue = trim($TagValue, '-');
+
+        // transliterate
+        setlocale(LC_CTYPE, 'pl_PL');
+        $TagValue = iconv("UTF-8","UTF-8", $TagValue);
+       
+
+        // lowercase
         $TagValue = strtolower($TagValue);
-        $TagValue = trim($TagValue,'-'); 
-        $TagValue = preg_replace('/[\-]+/', '-', $TagValue);
-        $TagValue = preg_replace('/[^0-9a-z-]/', '', $TagValue);
+
+        // remove unwanted characters
+       // $TagValue = preg_replace('~[^-\w]+~', '', $TagValue);
         $AddTag = Yii::app()->db->createCommand('INSERT INTO videocms_tags (tag_name) SELECT * FROM (SELECT :TagName) AS tmp WHERE NOT EXISTS (SELECT tag_name FROM videocms_tags WHERE tag_name = :TagName) LIMIT 1');
         $AddTag->bindValue(':TagName', $TagValue, PDO::PARAM_STR);
         $AddTag->execute();   
