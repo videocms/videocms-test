@@ -19,6 +19,9 @@ foreach ($DataVideo as $ModelSite)
         echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$ModelSite['video_category']], 
                 array('cmsvideo/category/'.$ModelSite['video_category'])).'</p>';
     }
+    foreach (unserialize($ModelSite['video_tags']) as $Tag) {
+        echo $Tag.' ';
+    }
 ?>
     <script>
    $.noConflict();
