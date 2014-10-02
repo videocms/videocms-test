@@ -102,7 +102,7 @@ $this->widget('CLinkPager', array(
         </div>
         <div class="col-xs-6 col-md-4">
                 <?php echo $form->labelEx($ModelVideo, 'video_alias'); ?>
-                <?php echo $form->textField($ModelVideo, 'video_alias', array('class' => 'form-control', 'placeholder' => 'Alias')); ?>
+                <?php echo $form->textField($ModelVideo, 'video_alias', array('class' => 'form-control', 'placeholder' => 'Alias', 'readonly' => true)); ?>
                 <?php echo $form->error($ModelVideo, 'video_alias'); ?>
              <div class="row">
                 <?php echo $form->labelEx($ModelVideo, 'video_480p'); ?>
@@ -166,6 +166,8 @@ $this->widget('CLinkPager', array(
 
 title.on('keyup', function() {
   var val = $(this).val();
+  val = val.toLowerCase()
+    .replace(/ /g, '-');
   slug.val(val);
-});   
+});
 </script>

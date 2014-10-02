@@ -178,10 +178,17 @@ class CmsvideoVideo extends CFormModel
     }
    
     public function AddNewVideo()
-    {
+    {   
+        $Alias = $this->video_alias;
+        $Alias = strtolower($Alias);
+        $Alias = str_replace(array('ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż'), array('a', 'c', 'e', 'l', 'n', 'o', 's', 'z', 'z'), $Alias);
+        $Alias = trim($Alias,'-'); 
+        $Alias = preg_replace('/[\-]+/', '-', $Alias);
+        $Alias = preg_replace('/[^0-9a-z-]/', '', $Alias);
+        
         $AddVideo = Yii::app()->db->createCommand('INSERT INTO videocms_video (video_title, video_alias, video_text, video_category, video_date, video_480p, video_720p, video_1080p, video_thumb, video_image, video_published, player_type, video_description, video_keywords) VALUES (:VideoTitle, :VideoAlias, :VideoText, :VideoCategory, :VideoDate, :Video480p, :Video720p, :Video1080p, :VideoThumb, :VideoImage, :VideoPublished, :PlayerType, :VideoDescription, :VideoKeywords)');
         $AddVideo->bindValue(':VideoTitle', $this->video_title, PDO::PARAM_STR);
-        $AddVideo->bindValue(':VideoAlias', $this->video_alias, PDO::PARAM_STR);
+        $AddVideo->bindValue(':VideoAlias', $Alias, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoText', $this->video_text, PDO::PARAM_STR);
         $AddVideo->bindValue(':VideoCategory', $this->video_category, PDO::PARAM_INT);
         $AddVideo->bindValue(':VideoDate', NULL, PDO::PARAM_STR);

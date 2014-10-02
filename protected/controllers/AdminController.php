@@ -49,10 +49,10 @@ class AdminController extends Controller
             {   
                 $ModelVideo->AddNewVideo();
                 $id = Yii::app()->db->getLastInsertID();
-                foreach($Tags as $TagValue) {
-                        if ($TagValue != NULL) {
-                        $ModelTags->AddTag($TagValue);
-                        $ModelTags->AddVideoTag($TagValue, $id);
+                if ($Tags !== NULL) {
+                    foreach($Tags as $TagValue) {
+                            $ModelTags->AddTag($TagValue);
+                            $ModelTags->AddVideoTag($TagValue, $id);
                     }
                 }
                 if ($ImageUpload !== NULL) {
