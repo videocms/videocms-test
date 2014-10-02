@@ -80,9 +80,9 @@ class CmsvideoTags extends CFormModel
     }
     
     //Dodawanie do kolumny tag_idvideo id video w tabeli videocms_tags i do kolumny video_tags nazwy tagu w tabeli videocms_video
-    public function AddVideoTag($Tag, $id) {
+    public function AddVideoTag($TagValue, $id) {
         $ModelVideo = new CmsvideoVideo;
-        $Data = $this->SelectTags($Tag);
+        $Data = $this->SelectTags($TagValue);
         $Data2 = $ModelVideo->DownloadOneVideo($id);
        
         $rows = $Data['tag_idvideo'];
@@ -110,7 +110,7 @@ class CmsvideoTags extends CFormModel
         $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags, videocms_video SET videocms_tags.tag_idvideo = :VideoTag, videocms_video.video_tags = :VideoTagName WHERE videocms_tags.tag_name = :TagName AND videocms_video.video_id = :IdVideo');
         $UpdateTag->bindValue(':VideoTag', serialize($row2), PDO::PARAM_STR);
         $UpdateTag->bindValue(':VideoTagName', serialize($row), PDO::PARAM_STR);
-        $UpdateTag->bindValue(':TagName', $Tag, PDO::PARAM_STR);
+        $UpdateTag->bindValue(':TagName', $Data['tag_name'], PDO::PARAM_STR);
         $UpdateTag->bindValue(':IdVideo', $id, PDO::PARAM_INT);
         $UpdateTag->execute();   
     }

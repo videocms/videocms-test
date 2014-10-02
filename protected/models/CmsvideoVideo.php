@@ -25,11 +25,11 @@ class CmsvideoVideo extends CFormModel
 
     public function rules() {
         return array(
-            array('video_title, video_text, video_category, video_image, video_thumb, video_published, player_type,tag_name', 'required'),
+            array('video_title, video_text, video_category, video_image, video_thumb, video_published, player_type', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_1080p, video_480p, video_720p', 'video_attribute'),
             array('video_title', 'length', 'max'=>65),
-            array('video_alias, video_description, video_keywords, tag_delete', 'length', 'max'=>255),
+            array('video_alias, video_description, video_keywords, tag_delete, tag_name', 'length', 'max'=>255),
             array('video_image, video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update', 'maxSize'=>'204800'),
         );
     }
