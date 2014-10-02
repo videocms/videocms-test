@@ -171,3 +171,12 @@ title.on('keyup', function() {
   slug.val(val);
 });
 </script>
+<script type="text/javascript">
+ var tags = $('#CmsvideoVideo_tag_name'),
+    keywords = $('#CmsvideoVideo_video_keywords');
+
+tags.on('keyup', function() {
+  var val = $(this).val();
+  keywords.val(val);
+});
+</script>
