@@ -103,8 +103,19 @@ class AdminController extends Controller
         }
         
         $ModelVideo = new CmsvideoVideo;
+        $ModelTags = new CmsvideoTags;
         $ModelVideo->DeleteVideoImage($id);
+        
+       // $SelectVideo = $ModelVideo->DownloadOneVideo($id);
+        $TagDelete = $ModelTags->DownloadTag($id);
+        foreach($TagDelete as $DataTag) {
+             $ModelTags->DeleteIdVideo($id, $DataTag);
+             $ModelTags->DeleteTag($DataTag['tag_name']);
+        }
+        
         $ModelVideo->DeleteVideo($id);
+        
+        
         
         $this->redirect(array('admin/videos'));
     }
@@ -173,7 +184,7 @@ class AdminController extends Controller
                     foreach($TagDelete as $Tag) {
                         $DataTag = $ModelTags->SelectTags($Tag);
                         $ModelTags->DeleteVideoTag($id, $DataTag);
-                        $ModelTags->DeleteIdVideo($id, $DataTag, $Tag);
+                        $ModelTags->DeleteIdVideo($id, $DataTag);
                         $ModelTags->DeleteTag($DataTag['tag_name']);
                     }
                 }

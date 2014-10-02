@@ -25,7 +25,7 @@ class CmsvideoTags extends CFormModel
     //Pobieranie tagów dla danego video
     public function DownloadTag($id)
     {
-        $SelectVideo = Yii::app()->db->createCommand('SELECT tag_id, tag_name FROM videocms_tags WHERE tag_idvideo LIKE :TagidVideo');
+        $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_tags WHERE tag_idvideo LIKE :TagidVideo');
         $SelectVideo->bindValue(':TagidVideo', '%"'.$id.'"%', PDO::PARAM_INT);
         $DataVideo = $SelectVideo->queryAll();
         return $DataVideo;
@@ -54,13 +54,13 @@ class CmsvideoTags extends CFormModel
     }
     
     //Usuwanie z kolumny tags_idvideo id video w tabeli videocms_tags
-    public function DeleteIdVideo($id, $DataTag, $TagValue) {
+    public function DeleteIdVideo($id, $DataTag) {
         $array1 = unserialize($DataTag['tag_idvideo']);
         $array2[] = $id;
         $string =  array_diff($array1, $array2);
         $newTag = serialize($string);
         $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags SET tag_idvideo = :VideoTag WHERE tag_name = :TagName');
-        $UpdateTag->bindValue(':TagName', $TagValue, PDO::PARAM_STR);
+        $UpdateTag->bindValue(':TagName', $DataTag['tag_name'], PDO::PARAM_STR);
         $UpdateTag->bindValue(':VideoTag', $newTag, PDO::PARAM_STR);
         $UpdateTag->execute();
     }
