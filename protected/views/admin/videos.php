@@ -166,28 +166,6 @@ $this->widget('CLinkPager', array(
 
 title.on('keyup', function() {
   var val = $(this).val();
-  val = val.toLowerCase()
-    .replace(/-/g, '_')
-    .replace(/ /g, '-')
-    .replace(/'Ą'/g, 'a')
-    .replace('ą', 'a')
-    .replace('Ć', 'c')
-    .replace('ć', 'c')
-    .replace('Ę', 'e')
-    .replace('ę', 'e')
-    .replace('Ł', 'l')
-    .replace('ł', 'l')
-    .replace('Ń', 'n')
-    .replace('ń', 'n')
-    .replace('Ó', 'o')
-    .replace('ó', 'o')
-    .replace('Ś', 's')
-    .replace('ś', 's')
-    .replace('Ź', 'z')
-    .replace('ź', 'z')
-    .replace('ż', 'z')
-    .replace('Ż', 'z')
-    .replace(/[^a-z0-9\-]/g, '');
   slug.val(val);
 });   
 </script>
