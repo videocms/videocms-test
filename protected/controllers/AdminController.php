@@ -24,7 +24,17 @@ class AdminController extends Controller
         echo '</pre>';
     }
     
+public function actionIndex() {
+    $this->pageTitle = 'Panel';
+    if (Yii::app()->session['zalogowany'] != 'tak')
+        {
+            $this->redirect(array('login/index'));
+        }
+        $this->render('index');
+}
+
     
+
     public function actionVideos()
     {
         $this->pageTitle = 'Videos';

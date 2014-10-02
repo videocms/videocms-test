@@ -1,16 +1,4 @@
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
- Edytuj SEO
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Zamknij</span></button>
-        <h4 class="modal-title" id="myModalLabel">Seo Edytowanie</h4>
-      </div>
-      <div class="modal-body">
+<h1>Ustawienia</h1> 
         <div class="form">
     <?php $form=$this->beginWidget('CActiveForm', array(
         'id'=>'videocms-settings-form',
@@ -25,6 +13,7 @@
         echo '<div class="pozytywnie">ustawienia zostały zaktualizowane</div>';
     }
     ?>
+    <h2>SEO</h2> 
     <div class="row">
         <?php echo $form->labelEx($ModelSettings, 'settings_keywords'); ?>
         <?php echo $form->textField($ModelSettings, 'settings_keywords'); ?>
@@ -50,19 +39,22 @@
         <?php echo $form->textField($ModelSettings, 'settings_description'); ?>
         <?php echo $form->error($ModelSettings, 'settings_description'); ?>
         </div>
+    <h2>Slider</h2> 
     <div class="row">
         <?php echo $form->labelEx($ModelSettings, 'slider_duration'); ?>
         <?php echo $form->textField($ModelSettings, 'slider_duration'); ?>
         <?php echo $form->error($ModelSettings, 'slider_duration'); ?>
     </div>
+    Szczałki 0->szczałek niema, 1 -> szczałki po najchaniu sie pojawiają, 2 -> są cały czas
     <div class="row">
         <?php echo $form->labelEx($ModelSettings, 'slider_arrow'); ?>
-        <?php echo $form->textField($ModelSettings, 'slider_arrow'); ?>
+        <?php echo $form->dropDownList($ModelSettings, 'slider_arrow', array('0' => '0', '1' => '1', '2' => '2')); ?>
         <?php echo $form->error($ModelSettings, 'slider_arrow'); ?>
     </div>
+    przesuwanie np mobilnie palcem: domyślnie 1
     <div class="row">
         <?php echo $form->labelEx($ModelSettings, 'slider_dragorientation'); ?>
-        <?php echo $form->textField($ModelSettings, 'slider_dragorientation'); ?>
+        <?php echo $form->dropDownList($ModelSettings, 'slider_dragorientation', array('0' => '0', '1' => '1', '2' => '2', '3' => '3')); ?>
         <?php echo $form->error($ModelSettings, 'slider_dragorientation'); ?>
     </div>
     <div class="row">
@@ -70,6 +62,7 @@
         <?php echo $form->textField($ModelSettings, 'slider_slidespacing'); ?>
         <?php echo $form->error($ModelSettings, 'slider_slidespacing'); ?>
     </div>
+    czułość przesuwania domyslnie: (20):
     <div class="row">
         <?php echo $form->labelEx($ModelSettings, 'slider_mindragoffsettoslide'); ?>
         <?php echo $form->textField($ModelSettings, 'slider_mindragoffsettoslide'); ?>
@@ -77,22 +70,23 @@
     </div>
     <div class="row">
         <?php echo $form->labelEx($ModelSettings, 'slider_loop'); ?>
-        <?php echo $form->textField($ModelSettings, 'slider_loop'); ?>
+        <?php echo $form->dropDownList($ModelSettings, 'slider_loop', array('0' => '0', '1' => '1', '2' => '2')); ?>
         <?php echo $form->error($ModelSettings, 'slider_loop'); ?>
     </div>
+    Enable hardware acceleration:
     <div class="row">
         <?php echo $form->labelEx($ModelSettings, 'slider_hwa'); ?>
-        <?php echo $form->textField($ModelSettings, 'slider_hwa'); ?>
+        <?php echo $form->dropDownList($ModelSettings, 'slider_hwa', array('false' => 'false', 'true' => 'true')); ?>
         <?php echo $form->error($ModelSettings, 'slider_hwa'); ?>
     </div>
     <div class="row">
         <?php echo $form->labelEx($ModelSettings, 'slider_arrowkeynavigation'); ?>
-        <?php echo $form->textField($ModelSettings, 'slider_arrowkeynavigation'); ?>
+        <?php echo $form->dropDownList($ModelSettings, 'slider_arrowkeynavigation', array('false' => 'false', 'true' => 'true')); ?>
         <?php echo $form->error($ModelSettings, 'slider_arrowkeynavigation'); ?>
     </div>
     <div class="row">
         <?php echo $form->labelEx($ModelSettings, 'slider_lazyloading'); ?>
-        <?php echo $form->textField($ModelSettings, 'slider_lazyloading'); ?>
+        <?php echo $form->dropDownList($ModelSettings, 'slider_lazyloading', array('0' => '0', '1' => '1', '2' => '2')); ?>
         <?php echo $form->error($ModelSettings, 'slider_lazyloading'); ?>
     </div>
     <div class="row buttons">
@@ -100,14 +94,3 @@
     </div>
     <?php $this->endWidget(); ?>
 </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-        
-      </div>
-    </div>
-  </div>
-</div>
-<?php
-?>
-
