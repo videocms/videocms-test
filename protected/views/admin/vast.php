@@ -1,5 +1,5 @@
 <?php
-echo '<h1>Vast</h1>';
+echo '<h1>Reklamy</h1>';
 echo '<table class="table table-hover">';
 echo '<tr class="active">';
 echo '<th>ID</th>';
@@ -68,33 +68,40 @@ echo '</table>';
         echo '<div>Nowa reklama została dodana.</div>';
     }
     ?>
-
-    <div class="row">
-        <?php echo $form->labelEx($ModelVast,'vast_title'); ?>
-        <?php echo $form->textField($ModelVast,'vast_title', array('size' => 40,'maxlength' => 40)); ?>
-        <?php echo $form->error($ModelVast,'vast_title'); ?>
+<div class="row">
+    <div class="col-xs-12 col-md-8">
+        <div class="row">
+            <?php echo $form->labelEx($ModelVast,'vast_title'); ?>
+            <?php echo $form->textField($ModelVast,'vast_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Nazwa reklamy')); ?>
+            <?php echo $form->error($ModelVast,'vast_title'); ?>
+        </div>
+        <div class="row">
+            <?php echo $form->labelEx($ModelVast,'vast_source'); ?>
+            <?php echo $form->textField($ModelVast,'vast_source', array('class' => 'form-control', 'placeholder' => 'Adres URL reklamy'));?>
+            <?php echo $form->error($ModelVast,'vast_source'); ?>
+        </div>
+        <div class="row">
+            <?php echo $form->labelEx($ModelVast,'vast_link'); ?>
+            <?php echo $form->textField($ModelVast,'vast_link', array('class' => 'form-control', 'placeholder' => 'Odlinkowanie reklamy')); ?>
+            <?php echo $form->error($ModelVast,'vast_link'); ?>
+        </div>
     </div>
-    <div class="row">
-        <?php echo $form->labelEx($ModelVast,'vast_source'); ?>
-        <?php echo $form->textField($ModelVast,'vast_source');?>
-        <?php echo $form->error($ModelVast,'vast_source'); ?>
+    <div class="col-xs-6 col-md-4">
+        <div class="row">
+            <?php echo $form->labelEx($ModelVast, 'video_category'); ?>
+            <?php
+                $htmlOptions = array( 
+                   'multiple' => 'true',
+                   'class' => 'form-control',
+                    'size' => 9,
+                  );
+                 echo $form->listBox($ModelVast,'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), $htmlOptions);?>
+            <?php echo $form->error($ModelVast, 'video_category'); ?>
+        </div>
+        <div class="row buttons">
+            <?php echo CHtml::submitButton('Dodaj',array('class' => 'btn btn-primary')); ?>
+        </div>
     </div>
-    <div class="row">
-        <?php echo $form->labelEx($ModelVast,'vast_link'); ?>
-        <?php echo $form->textField($ModelVast,'vast_link'); ?>
-        <?php echo $form->error($ModelVast,'vast_link'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($ModelVast, 'video_category'); ?>
-        <?php
-            $htmlOptions = array('size' => '5', 
-               'multiple' => 'true', 
-              );
-             echo $form->listBox($ModelVast,'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), $htmlOptions);?>
-        <?php echo $form->error($ModelVast, 'video_category'); ?>
-    </div>
-    <div class="row buttons">
-        <?php echo CHtml::submitButton('Dodaj'); ?>
-    </div>
+</div>
     <?php $this->endWidget(); ?>
 </div>
