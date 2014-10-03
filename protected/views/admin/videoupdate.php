@@ -66,9 +66,9 @@
             <div class="row">
                 <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
                 <p id="upload">
-                     <div class="col-xs-10">
+                <div class="col-xs-10">
                 <?php echo $form->textField($ModelVideo, 'video_image',array('readonly'=>true, 'class' => 'col-md-4 form-control')); ?>
-                     </div>
+                </div>
                 <input class="btn btn-default btn-sm" name="upload1" type="button" value="zmien" onclick="changeMode()" /></p>       
                  <?php echo $form->error($ModelVideo, 'video_image'); ?>
             </div>
@@ -87,19 +87,19 @@
                 <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
             </div>
             <div class="row">
+                <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
+                <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Tagi')); ?>
+                <?php echo $form->error($ModelVideo, 'tag_name'); ?>
+            </div>
+            <div class="row">
                 <?php
                  $tagi = $ModelTags->DownloadTag($ModelVideo->video_id);
                 foreach($tagi as $data) { ?>
                 <div class="checkbox_wrapper" id="<?php echo $data['tag_name'];?>" style="display:block">
                     <input type="checkbox" name="c" class="checkbox" onclick="showMe('<?php echo $data['tag_name'];?>'), deleteTag(), tagname()"/> 
-                    <label><?php echo $data['tag_name'];?></label></div>
+                    <label class="form-control"><?php echo $data['tag_name'];?></label></div>
                 <?php } ?>
             </div>    
-            <div class="row">
-                <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
-                <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Tagi')); ?>
-                <?php echo $form->error($ModelVideo, 'tag_name'); ?>
-            </div>
             <div class="row">       
                 <?php echo $form->hiddenField($ModelVideo, 'tag_delete', array('type'=>"hidden")); ?>
             </div>

@@ -54,22 +54,21 @@ echo '</table>';
     ));
     ?>
 
-    <p class="note">Pola oznaczone <span class="required">*</span> są wymagane.</p>
-    <?php 
-    echo $form->errorSummary($ModelCategory); 
-    if($AddCategory)
-    {
-        echo '<div>Nowa kategoria została dodana.</div>';
-    }
-    ?>
-
     <div class="row">
-        <?php echo $form->labelEx($ModelCategory,'category_name'); ?>
-        <?php echo $form->textField($ModelCategory,'category_name', array('size' => 50,'maxlength' => 50)); ?>
-        <?php echo $form->error($ModelCategory,'category_name'); ?>
-    </div>
-    <div class="row buttons">
-        <?php echo CHtml::submitButton('Dodaj'); ?>
+        <div class="col-xs-4">
+             <p class="note">Pola oznaczone <span class="required">*</span> są wymagane.</p>
+            <?php 
+            echo $form->errorSummary($ModelCategory); 
+            if($AddCategory)
+            {
+                echo '<div>Nowa kategoria została dodana.</div>';
+            }
+            ?>
+            <?php echo $form->labelEx($ModelCategory,'category_name'); ?>
+            <?php echo $form->textField($ModelCategory,'category_name', array('size' => 50,'maxlength' => 50, 'class' => 'form-control')); ?>
+            <?php echo $form->error($ModelCategory,'category_name'); ?>
+            <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-primary')); ?>
+         </div>
     </div>
     <?php $this->endWidget(); ?>
 </div>
