@@ -212,10 +212,15 @@ $.noConflict();
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 	</div><!-- header -->
 
-	<div id="mainmenu">
+	<div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<?php if(Yii::app()->session['zalogowany'] == 'tak')
                 {
                     $this->widget('zii.widgets.CMenu',array(
+                      //'id'=>'bs-example-navbar-collapse-1',
+                       // 'items'=>$this->myMenu,
+                        'htmlOptions'=>array('class'=>'nav navbar-nav'),
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/cmsvideo/index')),
                             array('label'=>'Panel', 'url'=>array('/admin/index')),
@@ -232,13 +237,17 @@ $.noConflict();
                 ));}
                 else
                 {
-                    $this->widget('zii.widgets.CMenu',array('items'=>array(
+                    $this->widget('zii.widgets.CMenu',array(
+                        //'id'=>'bs-example-navbar-collapse-1',
+                       // 'items'=>$this->myMenu,
+                        'htmlOptions'=>array('class'=>'nav navbar-nav'),
+                        'items'=>array(
                         array('label'=>'Strona główna', 'url'=>array('/index')),
                         array('label'=>'Zaloguj', 'url'=>array('/login/index')),
                     ),
                   ));
                 }
-?>
+                ?></div></div>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
