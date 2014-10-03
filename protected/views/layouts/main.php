@@ -5,6 +5,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="pl" />
         <meta name="advertising" content="ask" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <?php if ($this->pageTitle == 'embed-video-site'){
@@ -211,11 +213,22 @@ $.noConflict();
 	<div id="header">
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 	</div><!-- header -->
-
-	<div class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		<?php if(Yii::app()->session['zalogowany'] == 'tak')
+        <!-- menu new -->
+        <nav id="myNavbar" class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">logo(tutej)</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <?php if(Yii::app()->session['zalogowany'] == 'tak')
                 {
                     $this->widget('zii.widgets.CMenu',array(
                       //'id'=>'bs-example-navbar-collapse-1',
@@ -247,8 +260,14 @@ $.noConflict();
                     ),
                   ));
                 }
-                ?></div></div>
-	</div><!-- mainmenu -->
+                ?>
+
+              
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+        <!-- menu end new -->
+	<!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
