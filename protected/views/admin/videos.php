@@ -77,17 +77,16 @@ $this->widget('CLinkPager', array(
         'htmlOptions' => array('enctype' => 'multipart/form-data'),
     ));
     ?>
-   
-    
-    <?php echo $form->errorSummary($ModelVideo); ?>
-    <?php  
-    if($VideoAdd)
-    {
-        echo '<div>Nowe wideo zostało dodane.</div>';
-    }
-    ?>
+  
     
     <div class="row">
+        <?php echo $form->errorSummary($ModelVideo); ?>
+        <?php  
+        if($VideoAdd)
+        {
+            echo '<div class="alert alert-success" role="alert">Nowe wideo zostało dodane!</div>';
+        }
+        ?>
         <div class="col-xs-12 col-md-8">
             <?php echo $form->labelEx($ModelVideo, 'video_title'); ?>
             <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł')); ?>

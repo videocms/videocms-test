@@ -7,18 +7,16 @@
         'htmlOptions' => array('enctype' => 'multipart/form-data'),
     ));
     ?>
-    <p class="note">Pola oznaczone <span class="required">*</span> są wymagane.</p>
-      
-    <?php echo $form->errorSummary($ModelVideo); ?>
-    
-    <?php
-    if($VideoUpdate)
-    {
-        echo '<div class="pozytywnie">Wpis został zaktualizowany.</div>';
-    }
-    ?>
-    
+
     <div class="row">
+        <?php echo $form->errorSummary($ModelVideo); ?>
+    
+        <?php
+        if($VideoUpdate)
+        {
+            echo '<div class="alert alert-success" role="alert">Wideo zostało zaktualizowane!</div>';
+        }
+        ?>
         <div class="col-xs-12 col-md-8">
             <?php echo $form->labelEx($ModelVideo, 'video_title'); ?>
             <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł')); ?>
