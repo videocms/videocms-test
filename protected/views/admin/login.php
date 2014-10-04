@@ -18,20 +18,26 @@
 
       echo '<p class="text-danger">Wpisałeś złe dane!</p></div>';
   }
-  echo $form->errorSummary($ModelUsers);
+  //echo $form->errorSummary($ModelUsers);
   ?>
+    <?php
+    if (($form->error($ModelUsers,'user_login') == true) || ($form->error($ModelUsers,'user_pass') == true))
+    {
+     echo '<div class="alert alert-danger fade in" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
+     echo $form->error($ModelUsers,'user_login', array('class' => 'text-danger'));
+     echo $form->error($ModelUsers,'user_pass', array('class' => 'text-danger'));
+    echo '</div>';}
+     ?>
     <div class="form-group">
         <?php 
         echo $form->labelEx($ModelUsers,'user_login');
         echo $form->textField($ModelUsers,'user_login', array('class' => 'form-control', 'placeholder'=>'Login'));
-        echo $form->error($ModelUsers,'user_login', array('class' => 'bg-danger', 'placeholder'=>'Login'));
         ?>
     </div>
     <div class="form-group">
         <?php 
         echo $form->labelEx($ModelUsers,'user_pass');
         echo $form->passwordField($ModelUsers,'user_pass', array('class' => 'form-control', 'placeholder'=>'Hasło'));
-        echo $form->error($ModelUsers,'user_pass', array('class' => 'bg-danger', 'placeholder'=>'Hasło'));
         ?>
     </div>
   <div class="panel-body">
