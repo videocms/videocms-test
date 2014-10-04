@@ -49,6 +49,7 @@ return array(
                                'admin/'         =>'admin/index',
                                '<action:\w+>' => 'site/<action>',
                                '<action:\w+>/<id:\d+>' => 'site/<action>',
+                            '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 			),
                     'urlSuffix'=>'.html',
 		),

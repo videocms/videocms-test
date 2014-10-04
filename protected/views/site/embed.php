@@ -96,7 +96,7 @@ foreach ($DataVideo as $ModelSite)
                     });
 	vid1.ads();
 	vid1.vast({
-            url: '/cmsvideo/vastxml/?vid=<?php echo $ModelSite['video_id']; ?>.xml'
+            url: '/vastxml/?vid=<?php echo $ModelSite['video_id']; ?>.xml'
             
     
         });
