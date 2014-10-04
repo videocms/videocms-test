@@ -64,7 +64,7 @@ foreach ($DataCategory as $ModelCategoryShow)
 
 foreach($DataVideo as $ModelSite)
 {
-    echo '<h2>'.CHtml::link($ModelSite['video_title'], array('cmsvideo/video/'.$ModelSite['video_id'])).'</h2>';
+    echo '<h2>'.CHtml::link($ModelSite['video_title'], array('video/'.$ModelSite['video_id'])).'</h2>';
     echo '<p class="data">Data publikacji: '.$ModelSite['video_date'].'</p>';
     echo '<img src="/'.$ModelSite['video_thumb'].'">';
     echo '<p class="tresc">'.substr($ModelSite['video_text'], 0, 400).'...</p>';
@@ -74,7 +74,7 @@ foreach($DataVideo as $ModelSite)
    <?php
     if($Category[$ModelSite['video_category']] != '')
     {
-        echo '<p class="category">Kategoria: '.CHtml::link($Category[$ModelSite['video_category']], array('cmsvideo/category/'.$ModelSite['video_category'])).'</p>';
+        echo '<p class="category">Kategoria: '.CHtml::link($Category[$ModelSite['video_category']], array('category/'.$ModelSite['video_category'])).'</p>';
     }
 }
 

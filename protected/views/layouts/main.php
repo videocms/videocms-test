@@ -233,7 +233,7 @@ $.noConflict();
                        // 'items'=>$this->myMenu,
                         'htmlOptions'=>array('class'=>'nav navbar-nav'),
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/cmsvideo/index')),
+				array('label'=>'Home', 'url'=>array('/index')),
                             array('label'=>'Panel', 'url'=>array('/admin/index')),
                             array('label'=>'Wideo', 'url'=>array('/admin/videos')),
 				array('label'=>'Kategorie', 'url'=>array('/admin/category')),

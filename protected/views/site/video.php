@@ -12,12 +12,12 @@ foreach ($DataVideo as $ModelSite)
     echo '<p class="data">Data publikacji: '.$ModelSite['video_date'].'</p>';
     echo '<p class="tresc">'.$ModelSite['video_text'].'</p>';
     ?>
-        <p class="tresc">Embed: <input type="text" value="<iframe width='560' height='315' src='http://videocms-test.pl/cmsvideo/embed/<?php echo $ModelSite['video_id'];?>.html' frameborder='0' allowfullscreen></iframe>"></p><?php
+        <p class="tresc">Embed: <input type="text" value="<iframe width='560' height='315' src='http://videocms-test.pl/embed/<?php echo $ModelSite['video_id'];?>.html' frameborder='0' allowfullscreen></iframe>"></p><?php
     //echo '<p class="tresc">Embed: <input type="text" value"<iframe width="560" height="315" src="http://videocms-test.pl/cmsvideo/embed/'.$ModelSite['video_id'].'.html" frameborder="0" allowfullscreen></iframe>"></p>';
     if ($Category[$ModelSite['video_category']] != '')
     {
         echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$ModelSite['video_category']], 
-                array('cmsvideo/category/'.$ModelSite['video_category'])).'</p>';
+                array('category/'.$ModelSite['video_category'])).'</p>';
     }
     foreach (unserialize($ModelSite['video_tags']) as $Tag) {
         echo $Tag.' ';
@@ -112,7 +112,7 @@ foreach ($DataVideo as $ModelSite)
                     });
 	vid1.ads();
 	vid1.vast({
-            url: '/cmsvideo/vastxml/?vid=<?php echo $ModelSite['video_id']; ?>.xml'
+            url: '/vastxml/?vid=<?php echo $ModelSite['video_id']; ?>.xml'
             
     
         });

@@ -249,7 +249,6 @@ public function actionIndex() {
         {
             $this->redirect(array('login/index'));
         }
-        
         $CategotyAdd = false;
         
         $ModelCategories = new CmsvideoCategories;
