@@ -46,6 +46,7 @@ return array(
                         'showScriptName'=>FALSE,
 			'rules'=>array(
                                'index/'         =>'/',
+                               'admin/'         =>'admin/index',
                                '<action:\w+>' => 'site/<action>',
                                '<action:\w+>/<id:\d+>' => 'site/<action>',
 			),
