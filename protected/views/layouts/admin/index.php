@@ -259,7 +259,7 @@
 			'items'=>array(
                             array('label'=>'Wyloguj', 'url'=>array('/admin/logout')),
 			),
-                        ));}?></i>
+                        ));}?>
                             <!--<a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>-->
                      
                     <!-- /.dropdown-user -->
@@ -279,14 +279,14 @@
                         'htmlOptions'=>array('class'=>'nav'),
 			'items'=>array(
                             array('label'=>'<i class="fa fa-dashboard fa-f"></i> Panel', 'url'=>array('/admin/index')),
-                            array('label'=>'Wideo', 'url'=>array('/admin/videos')),
-				array('label'=>'Kategorie', 'url'=>array('/admin/category')),
-                            array('label'=>'Reklamy', 'url'=>array('/admin/vast')),
-                            array('label'=>'Slider', 'url'=>array('/admin/slider')),
-                            array('label'=>'Ustawienia', 'url'=>array('/admin/settings')),
-                            array('label'=>'Seo', 'url'=>array('/admin/seo/1')),
+                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Wideo', 'url'=>array('/admin/videos')),
+                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Kategorie', 'url'=>array('/admin/category')),
+                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Reklamy', 'url'=>array('/admin/vast')),
+                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Slider', 'url'=>array('/admin/slider')),
+                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Ustawienia', 'url'=>array('/admin/settings')),
+                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Seo', 'url'=>array('/admin/seo/1')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Zmień hasło', 'url'=>array('/admin/pass')),
+                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Zmień hasło', 'url'=>array('/admin/pass')),
 			),
                 ));}
                 else
