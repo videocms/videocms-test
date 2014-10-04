@@ -275,9 +275,10 @@
                     $this->widget('zii.widgets.CMenu',array(
                      'id'=>'side-menu',
                        // 'items'=>$this->myMenu,
+                        'encodeLabel' => false,
                         'htmlOptions'=>array('class'=>'nav'),
 			'items'=>array(
-                            array('label'=>'Panel','class' => 'fa fa-dashboard fa-f', 'url'=>array('/admin/index')),
+                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Panel', 'url'=>array('/admin/index')),
                             array('label'=>'Wideo', 'url'=>array('/admin/videos')),
 				array('label'=>'Kategorie', 'url'=>array('/admin/category')),
                             array('label'=>'Reklamy', 'url'=>array('/admin/vast')),
