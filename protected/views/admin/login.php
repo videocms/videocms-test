@@ -1,5 +1,5 @@
-<h1>Zaloguj się</h1>
-<div class="form">
+
+<div class="panel-body">
     <?php
     $form=$this->beginWidget('CActiveForm', array(
         'id'=>'cmsvideo-users-login-form',
@@ -16,8 +16,7 @@
       echo '<p class="text-warning">Wpisałeś złe dane!</p>';
   }
   echo $form->errorSummary($ModelUsers);
-  ?><div class="row">
-  <div class="col-xs-6 col-md-4">
+  ?>
     <div class="form-group">
         <?php 
         echo $form->labelEx($ModelUsers,'user_login');
@@ -32,11 +31,10 @@
         echo $form->error($ModelUsers,'user_pass', array('class' => 'bg-danger', 'placeholder'=>'Hasło'));
         ?>
     </div>
-  
+  <div class="panel-body">
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Login', array('class' => 'btn btn-default')); ?>
+        <?php echo CHtml::submitButton('Login', array('class' => 'btn btn-lg btn-success btn-block')); ?>
     </div>
-  </div>
   </div>
     <?php $this->endWidget(); ?>
     

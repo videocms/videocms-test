@@ -693,7 +693,12 @@ public function actionIndex() {
     //login
     public function actionLogin()
     {
-        $this->pageTitle = 'Login';
+         if(Yii::app()->session['zalogowany'] == 'tak')
+        {
+            $this->redirect(array('admin/'));
+        }
+        $this->layout='admin/login';
+        $this->pageTitle = 'Login admin panel';
         $ErrorData = false;
         $ModelUsers = new CmsvideoUsers;
         if (isset($_POST['CmsvideoUsers']))

@@ -207,7 +207,7 @@ class SiteController extends Controller
         {
             exit;
         }
-       
+        $this->layout='site/embed';
         $ModalSeo = new CmsvideoSettings;
         $DataSeo = $ModalSeo->DownloadSettings();
         
