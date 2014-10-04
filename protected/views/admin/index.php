@@ -14,7 +14,7 @@ if($xml ===  FALSE)
    echo 'wystąpił problem z pobraniem danych!';
 } 
 else { 
-     if ($xml->wer == '0.2') {
+     if ($xml->wer == $wers) {
 ?>
 <div class="row">
     <div class="col-lg-3 col-md-6">
@@ -25,7 +25,7 @@ else {
                         <i class="fa fa-check-circle-o fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">0.2</div>
+                        <div class="huge"><?php echo $wers ?></div>
                         <div>Aktualna wersja!</div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ else {
                         <i class="fa fa-exclamation-triangle fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">0.2</div>
+                        <div class="huge">'.$wers.'</div>
                         <div>Aktualna to: '.$xml->wer.'!</div>
                     </div>
                 </div>
