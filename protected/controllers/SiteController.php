@@ -19,7 +19,7 @@ class SiteController extends Controller
     public $slider_hwa;
     public $slider_arrowkeynavigation;
     public $slider_lazyloading;
- //   public $layout='cmsvideo/index';
+    public $layout='site/index';
     //public $defaultAction = 'cmsvideo';
     
     public function actionIndex()

@@ -11,6 +11,7 @@ class AdminController extends Controller
     public $slider_hwa;
     public $slider_arrowkeynavigation;
     public $slider_lazyloading;
+    public $layout='admin/index';
    
     //Testowanie przypisanych reklam
     public function actionDownloadVast($id) {
