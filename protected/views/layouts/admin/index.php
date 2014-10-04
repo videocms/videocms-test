@@ -255,9 +255,10 @@
                     $this->widget('zii.widgets.CMenu',array(
                     // 'id'=>'side-menu',
                        // 'items'=>$this->myMenu,
+                        'encodeLabel' => false,
                         'htmlOptions'=>array('class'=>'dropdown-menu dropdown-user'),
 			'items'=>array(
-                            array('label'=>'Wyloguj', 'url'=>array('/admin/logout')),
+                            array('label'=>'<i class="fa fa-sign-out fa-fw"></i> Wyloguj', 'url'=>array('/admin/logout')),
 			),
                         ));}?>
                             <!--<a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>-->
@@ -279,14 +280,14 @@
                         'htmlOptions'=>array('class'=>'nav'),
 			'items'=>array(
                             array('label'=>'<i class="fa fa-dashboard fa-f"></i> Panel', 'url'=>array('/admin/index')),
-                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Wideo', 'url'=>array('/admin/videos')),
-                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Kategorie', 'url'=>array('/admin/category')),
-                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Reklamy', 'url'=>array('/admin/vast')),
-                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Slider', 'url'=>array('/admin/slider')),
-                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Ustawienia', 'url'=>array('/admin/settings')),
-                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Seo', 'url'=>array('/admin/seo/1')),
+                            array('label'=>'<i class="fa fa-film fa-f"></i> Wideo', 'url'=>array('/admin/videos')),
+                            array('label'=>'<i class="fa fa-table fa-f"></i> Kategorie', 'url'=>array('/admin/category')),
+                            array('label'=>'<i class="fa fa-desktop fa-f"></i> Reklamy', 'url'=>array('/admin/vast')),
+                            array('label'=>'<i class="fa fa-picture-o fa-f"></i> Slider', 'url'=>array('/admin/slider')),
+                            array('label'=>'<i class="fa fa-cog fa-f"></i> Ustawienia', 'url'=>array('/admin/settings')),
+                            array('label'=>'<i class="fa fa-cog fa-f"></i> Seo', 'url'=>array('/admin/seo/1')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                            array('label'=>'<i class="fa fa-dashboard fa-f"></i> Zmień hasło', 'url'=>array('/admin/pass')),
+                            array('label'=>'<i class="fa fa-pencil-square-o fa-f"></i> Zmień hasło', 'url'=>array('/admin/pass')),
 			),
                 ));}
                 else
