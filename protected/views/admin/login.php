@@ -9,11 +9,14 @@
 	),
       ));
 ?>
-    <p class="note">Pola wypełnione <span class="required">*</span> są wymagane.</p>
+    <div class="alert alert-warning fade in" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <p class="bg-warning">Pola wypełnione <span class="required">*</span> są wymagane.</p></div>
   <?php
   if($ErrorData)
   {
-      echo '<p class="text-warning">Wpisałeś złe dane!</p>';
+      echo '<div class="alert alert-danger fade in" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
+
+      echo '<p class="text-danger">Wpisałeś złe dane!</p></div>';
   }
   echo $form->errorSummary($ModelUsers);
   ?>

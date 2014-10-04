@@ -2,15 +2,6 @@
  
 class AdminController extends Controller
 {
-    public $slider_duration;
-    public $slider_arrow;
-    public $slider_dragorientation;
-    public $slider_slidespacing;
-    public $slider_mindragoffsettoslide;
-    public $slider_loop;
-    public $slider_hwa;
-    public $slider_arrowkeynavigation;
-    public $slider_lazyloading;
     public $layout='admin/index';
    
     //Testowanie przypisanych reklam
