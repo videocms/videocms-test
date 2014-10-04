@@ -1,5 +1,5 @@
 <?php
-$wers = "0.1";
+$wers = "0.2";
 $url = 'http://www.alexie.pl/wersja.xml'; 
 $xml = simpleXML_load_file($url,"SimpleXMLElement",LIBXML_NOCDATA);
 ?>
@@ -14,7 +14,7 @@ if($xml ===  FALSE)
    echo 'wystąpił problem z pobraniem danych!';
 } 
 else { 
-     if ($xml->wer == '0.1') {
+     if ($xml->wer == '0.2') {
 ?>
 <div class="row">
     <div class="col-lg-3 col-md-6">
@@ -25,10 +25,17 @@ else {
                         <i class="fa fa-check-circle-o fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">0.1</div>
+                        <div class="huge">0.2</div>
                         <div>Aktualna wersja!</div>
                     </div>
                 </div>
+            </div>
+            <div class="panel-footer">
+                <span class="pull-left">Brak aktualizacji systemu!</span>
+                <span class="pull-right">
+                    <i class=" fa fa-check-circle-o"></i>
+                </span>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>
@@ -46,10 +53,17 @@ else {
                         <i class="fa fa-exclamation-triangle fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">0.1</div>
+                        <div class="huge">0.2</div>
                         <div>Aktualna to: '.$xml->wer.'!</div>
                     </div>
                 </div>
+            </div>
+            <div class="panel-footer">
+                <span class="pull-left">Aktualizacja systemu!</span>
+                <span class="pull-right">
+                    <i class=" fa fa-arrow-circle-right"></i>
+                </span>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>
