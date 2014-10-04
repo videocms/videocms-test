@@ -9,7 +9,7 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'VideoCMS',
         'language' => 'pl',
-        'defaultController' => 'cmsvideo',
+       // 'defaultController' => 'site',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -45,11 +45,9 @@ return array(
 			'urlFormat'=>'path',
                         'showScriptName'=>FALSE,
 			'rules'=>array(
-                                'index/'         =>'/',
-                                //'admin/vastxml/?id=34'  =>'admin/vast.xml',
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+                               'index/'         =>'/',
+                               '<action:\w+>' => 'site/<action>',
+                               '<action:\w+>/<id:\d+>' => 'site/<action>',
 			),
                     'urlSuffix'=>'.html',
 		),

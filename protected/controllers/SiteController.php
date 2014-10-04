@@ -2,50 +2,81 @@
  
 class SiteController extends Controller
 {
+    public $pageMetaDescription;
+    public $pageMetaRobots;
+    public $pageMetaKeywords;
+    public $pageMetaOgDescription;
+    public $pageMetaOgImage;
+    public $pageMetaOgUrl;
+    public $pageMetaOgTitle;
+    public $pageMetaFB;
     public $slider_duration;
     public $slider_arrow;
     public $slider_dragorientation;
     public $slider_slidespacing;
     public $slider_mindragoffsettoslide;
-    public $slider_loop;
+    public $slider_loop; 
     public $slider_hwa;
     public $slider_arrowkeynavigation;
     public $slider_lazyloading;
-	/**
-	 * Declares class-based actions.
-	 */
-	public function actions()
-	{
-		return array(
-			// captcha action renders the CAPTCHA image displayed on the contact page
-			'captcha'=>array(
-				'class'=>'CCaptchaAction',
-				'backColor'=>0xFFFFFF,
-			),
-			// page action renders "static" pages stored under 'protected/views/site/pages'
-			// They can be accessed via: index.php?r=site/page&view=FileName
-			'page'=>array(
-				'class'=>'CViewAction',
-			),
-		);
-	}
-
-	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
-	 */
-	public function actionIndex()
-	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
-	}
-
-	/**
-	 * This is the action to handle external exceptions.
-	 */
-	public function actionError()
-	{
+ //   public $layout='cmsvideo/index';
+    //public $defaultAction = 'cmsvideo';
+    
+    public function actionIndex()
+    {
+        $ModelSeo = new CmsvideoSettings;
+        $DataSeo = $ModelSeo->DownloadSettings();
+        
+        foreach ($DataSeo as $Seoo)
+        {
+        $this->pageMetaRobots = $Seoo['settings_robots'];
+        $this->pageMetaKeywords = $Seoo['settings_keywords'];
+        $this->pageMetaDescription = $Seoo['settings_description'];
+        $this->pageMetaOgTitle = $Seoo['settings_ogtitle']; 
+        $this->pageTitle=$Seoo['settings_ogtitle']; 
+        $this->pageMetaOgImage = $Seoo['settings_ogimage'];
+        $this->slider_duration = $Seoo['slider_duration'];
+        $this->slider_arrow = $Seoo['slider_arrow'];
+        $this->slider_dragorientation = $Seoo['slider_dragorientation'];
+        $this->slider_slidespacing = $Seoo['slider_slidespacing'];
+        $this->slider_mindragoffsettoslide = $Seoo['slider_mindragoffsettoslide'];
+        $this->slider_loop = $Seoo['slider_loop'];
+        $this->slider_hwa = $Seoo['slider_hwa'];
+        $this->slider_arrowkeynavigation = $Seoo['slider_arrowkeynavigation'];
+        $this->slider_lazyloading = $Seoo['slider_lazyloading'];
+        }
+        //$this->pageTitle='Strona główna';
+         
+        $ModelCategories = new CmsvideoCategories;
+        $DataCategory = $ModelCategories->DownloadCategories();
+        
+        $ModelVideo = new CmsvideoVideo;
+        $AmountVideo = $ModelVideo->CountAllVideo();
+        $ModelSlider = new CmsvideoSlider;
+        //$AmountSlider = $ModelSlider->CountAllSlider();
+        
+        $Site = new CPagination(intval($AmountVideo));
+        $Site->pageSize = 10;
+        
+        //$SiteSlider = new CPagination(intval($AmountSlider));
+        //$SiteSlider->pageSize = 10;
+        
+        $DataVideo = $ModelVideo->SelectVideo($Site->pageSize, $Site->currentPage);
+        $DataSlider = $ModelSlider->DownloadSlider();
+       
+        $this->render('index',
+                array(
+                        'DataCategory' => $DataCategory,
+                        'DataSlider' => $DataSlider,
+                        'DataSeo' => $DataSeo,
+                        'DataVideo' => $DataVideo,
+                        'Site' => $Site,
+                        )
+                );
+    }
+    
+    public function actionError()
+    {
 		if($error=Yii::app()->errorHandler->error)
 		{
 			if(Yii::app()->request->isAjaxRequest)
@@ -53,66 +84,164 @@ class SiteController extends Controller
 			else
 				$this->render('error', $error);
 		}
-	}
-
-	/**
-	 * Displays the contact page
-	 */
-	public function actionContact()
-	{
-		$model=new ContactForm;
-		if(isset($_POST['ContactForm']))
-		{
-			$model->attributes=$_POST['ContactForm'];
-			if($model->validate())
-			{
-				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-				$headers="From: $name <{$model->email}>\r\n".
-					"Reply-To: {$model->email}\r\n".
-					"MIME-Version: 1.0\r\n".
-					"Content-Type: text/plain; charset=UTF-8";
-
-				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
-				$this->refresh();
-			}
-		}
-		$this->render('contact',array('model'=>$model));
-	}
-
-	/**
-	 * Displays the login page
-	 */
-	public function actionLogin()
-	{
-		$model=new LoginForm;
-
-		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-
-		// collect user input data
-		if(isset($_POST['LoginForm']))
-		{
-			$model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
-		}
-		// display the login form
-		$this->render('login',array('model'=>$model));
-	}
-
-	/**
-	 * Logs out the current user and redirect to homepage.
-	 */
-	public function actionLogout()
-	{
-		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->homeUrl);
-	}
+    }
+        
+    public function actionCategory($id)
+    {
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        
+        $ModalSeo = new CmsvideoSettings;
+        $DataSeo = $ModalSeo->DownloadSettings();
+        
+        foreach ($DataSeo as $Seoo)
+        {
+        $this->pageMetaRobots = $Seoo['settings_robots'];
+        $this->pageMetaKeywords = $Seoo['settings_keywords'];
+        $this->pageMetaDescription = $Seoo['settings_description'];
+        }
+        
+        $ModelCategory = new CmsvideoCategories;
+        
+        $DataCategory = $ModelCategory->DownloadOneCategory($id);
+        
+        foreach ($DataCategory as $Category)
+        {
+            $this->pageTitle = 'Category: '.$Category['category_name'];
+        }
+        
+        $ModelVideo = new CmsvideoVideo;
+        
+        $AmountVideo = $ModelVideo->CountVideoCategory($id);
+        $Site = new CPagination(intval($AmountVideo));
+        $Site->pageSize=10;
+        
+        $DataVideo = $ModelVideo->SelectVideoCategory($id, $Site->pageSize, $Site->currentPage);
+        $this->render('category', array(
+                    'DataVideo' => $DataVideo,
+                    'Site' => $Site,
+                      ));
+    }
+    
+    public function actionVideo($id)
+    {
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+       
+        $ModalSeo = new CmsvideoSettings;
+        $DataSeo = $ModalSeo->DownloadSettings();
+        
+        foreach ($DataSeo as $Seoo)
+        {
+        $this->pageMetaRobots = $Seoo['settings_robots'];
+        }
+        
+        $ModelCategory = new CmsvideoCategories;
+        $DataCategory = $ModelCategory->DownloadCategories();
+        //$ModelVast = new VastVideo;
+        //$DataVast = $ModelVast->DownloadVast();
+        $ModelVideo = new CmsvideoVideo;
+        $DataVideo = $ModelVideo->DownloadVideo($id);
+        $DataViews = $ModelVideo->UpdateViews($id);
+        
+        
+        foreach($DataVideo as $Video)
+        {
+            $this->pageTitle = $Video['video_title'];
+            $this->pageMetaKeywords = $Video['video_keywords'];
+            $this->pageMetaDescription = $Video['video_description'];
+            $this->pageMetaOgImage = $Video['video_thumb'];
+           // $this->pageMetaDescription = $Video['video_description'];
+        }
+        
+        $this->render('video', array(
+            'DataCategory' => $DataCategory,
+            'DataVideo' => $DataVideo,
+            'DataViews' => $DataViews,
+        ));
+        
+    }
+    
+    //VAST
+  
+    //Wywołanie funkcji generującej dynamicznie XML - http://videocms-test.pl/cmsvideo/vastxml/?id=34
+    public function actionVastXml($vid)
+    {
+        $ModelVast = new VastVideo;
+        $DataVast = $ModelVast->DownloadVideoVast($vid);
+        header('Content-Type: application/xml');
+        echo '<?xml version="1.0" encoding="UTF-8"?>
+              <VAST version="2.0">';
+        foreach ($DataVast as $Data)
+            {
+            echo '<Ad id="'.$Data['vast_id'].'">
+            <InLine>
+            <Creatives>
+            <Creative sequence="1" id="7969">
+            <Linear>
+            <Duration>00:00:31</Duration>
+            <VideoClicks>
+            <ClickThrough><![CDATA[http://'.$Data['vast_link'].']]></ClickThrough>
+            </VideoClicks>
+            <MediaFiles>
+            <MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['. $Data['vast_source'].']]>
+            </MediaFile>
+            </MediaFiles>
+            </Linear>
+            </Creative>
+            </Creatives>
+            </InLine>
+            </Ad>';
+            }
+            echo '</VAST>';
+        }
+    /// end VAST
+        //embed start
+        public function actionEmbed($id)
+    {
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+       
+        $ModalSeo = new CmsvideoSettings;
+        $DataSeo = $ModalSeo->DownloadSettings();
+        
+        foreach ($DataSeo as $Seoo)
+        {
+        $this->pageMetaRobots = $Seoo['settings_robots'];
+        }
+        
+        $ModelCategory = new CmsvideoCategories;
+        $DataCategory = $ModelCategory->DownloadCategories();
+        //$ModelVast = new VastVideo;
+        //$DataVast = $ModelVast->DownloadVast();
+        $ModelVideo = new CmsvideoVideo;
+        $DataVideo = $ModelVideo->DownloadVideo($id);
+        $DataViews = $ModelVideo->UpdateViews($id);
+        
+        $this->pageTitle='embed-video-site';
+        foreach($DataVideo as $Video)
+        {
+            
+            $this->pageMetaKeywords = $Video['video_keywords'];
+            $this->pageMetaDescription = $Video['video_description'];
+            $this->pageMetaOgImage = $Video['video_thumb'];
+           // $this->pageMetaDescription = $Video['video_description'];
+        }
+        
+        $this->render('embed', array(
+            'DataCategory' => $DataCategory,
+            'DataVideo' => $DataVideo,
+            'DataViews' => $DataViews,
+        ));
+        
+    }
+    //embed koniec
 }
+
+?>
