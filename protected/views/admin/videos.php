@@ -91,16 +91,10 @@ $this->widget('CLinkPager', array(
             echo '<div class="alert alert-success" role="alert">Nowe wideo zostało dodane!</div>';
         }
 
-    if (($form->error($ModelVideo, 'video_title') == true) || ($form->error($ModelVideo, 'video_text') == true) || ($form->error($ModelVideo, 'video_480p') == true) || ($form->error($ModelVideo, 'video_720p') == true) || ($form->error($ModelVideo, 'video_1080p') == true) || ($form->error($ModelVideo, 'video_image') == true) || ($form->error($ModelVideo, 'tag_name') == true))
+    if (($form->errorSummary($ModelVideo) == true))
     {
      echo '<div class="alert alert-danger fade in" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
      echo $form->errorSummary($ModelVideo);
-    // echo $form->error($ModelVideo,'video_text', array('class' => 'text-danger'));
-    // echo $form->error($ModelVideo,'video_480p', array('class' => 'text-danger'));
-    // echo $form->error($ModelVideo,'video_720p', array('class' => 'text-danger'));
-    // echo $form->error($ModelVideo,'video_1080p', array('class' => 'text-danger'));
-    // echo $form->error($ModelVideo,'video_image', array('class' => 'text-danger'));
-    // echo $form->error($ModelVideo,'tag_name', array('class' => 'text-danger'));
     echo '</div>';}
      ?>
         <div class="col-lg-12">
