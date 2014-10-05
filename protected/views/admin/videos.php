@@ -106,11 +106,24 @@ $this->widget('CLinkPager', array(
                 <p class="note">Pola oznacone <span class="required">*</span> są wymagane.</p>
             </div>
             <div class="col-lg-6">
+                <?php
+                 if (($form->error($ModelVideo, 'video_title') != true))
+                 {
+                ?>
                 <div class="form-group">
             <?php echo $form->labelEx($ModelVideo, 'video_title'); ?>
             <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł')); ?>
-            <?php echo $form->error($ModelVideo, 'video_title', array('class' => 'text-danger')); ?> 
                 </div>
+            <?php
+                 } else {
+            ?>
+            <div class="form-group has-error has-feedback">
+            <?php echo $form->labelEx($ModelVideo, 'video_title', array('class' => 'control-label', 'for' => 'inputError2')); ?>
+            <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł', 'id' => 'inputError2')); ?>
+            <?php echo $form->error($ModelVideo, 'video_title', array('class' => 'text-danger')); ?>
+            </div>
+            <?php   }?> 
+                
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_text'); ?>
                 <?php echo $form->textArea($ModelVideo, 'video_text'); ?>
