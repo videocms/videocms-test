@@ -84,28 +84,43 @@ $this->widget('CLinkPager', array(
   
     
     <div class="row">
-        <?php echo $form->errorSummary($ModelVideo); ?>
+        <?php //echo $form->errorSummary($ModelVideo); ?>
         <?php  
         if($VideoAdd)
         {
             echo '<div class="alert alert-success" role="alert">Nowe wideo zostało dodane!</div>';
         }
-        ?>
+
+    if (($form->error($ModelVideo, 'video_title') == true) || ($form->error($ModelVideo, 'video_text') == true) || ($form->error($ModelVideo, 'video_480p') == true) || ($form->error($ModelVideo, 'video_720p') == true) || ($form->error($ModelVideo, 'video_1080p') == true) || ($form->error($ModelVideo, 'video_image') == true) || ($form->error($ModelVideo, 'tag_name') == true))
+    {
+     echo '<div class="alert alert-danger fade in" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
+     echo $form->error($ModelVideo,'video_title', array('class' => 'text-danger'));
+     echo $form->error($ModelVideo,'video_text', array('class' => 'text-danger'));
+     echo $form->error($ModelVideo,'video_480p', array('class' => 'text-danger'));
+     echo $form->error($ModelVideo,'video_720p', array('class' => 'text-danger'));
+     echo $form->error($ModelVideo,'video_1080p', array('class' => 'text-danger'));
+     echo $form->error($ModelVideo,'video_image', array('class' => 'text-danger'));
+     echo $form->error($ModelVideo,'tag_name', array('class' => 'text-danger'));
+    echo '</div>';}
+     ?>
         <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">Dodaj nowe wideo</div>
             <div class="panel-body">
             <div class="row">
+            <div class="alert alert-warning" role="alert">
+                <p class="note">Pola oznacone <span class="required">*</span> są wymagane.</p>
+            </div>
             <div class="col-lg-6">
                 <div class="form-group">
             <?php echo $form->labelEx($ModelVideo, 'video_title'); ?>
             <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł')); ?>
-            <?php echo $form->error($ModelVideo, 'video_title'); ?>
+            <?php echo $form->error($ModelVideo, 'video_title', array('class' => 'text-danger')); ?> 
                 </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_text'); ?>
                 <?php echo $form->textArea($ModelVideo, 'video_text'); ?>
-                <?php echo $form->error($ModelVideo, 'video_text'); ?>
+                <?php echo $form->error($ModelVideo, 'video_text', array('class' => 'text-danger')); ?> 
             </div>
             </div>
            <div class="col-lg-6">
@@ -116,18 +131,18 @@ $this->widget('CLinkPager', array(
                </div>
              <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_480p'); ?>
-                <?php echo $form->textField($ModelVideo, 'video_480p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 480p')); ?>
-                <?php echo $form->error($ModelVideo, 'video_480p'); ?>  
-            </div>
+                <?php echo $form->textField($ModelVideo, 'video_480p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 480p')); ?> 
+                <?php echo $form->error($ModelVideo, 'video_480p', array('class' => 'text-danger')); ?> 
+             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_720p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_720p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 720p')); ?>
-                <?php echo $form->error($ModelVideo, 'video_720p'); ?>  
+                <?php echo $form->error($ModelVideo, 'video_720p', array('class' => 'text-danger')); ?> 
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_1080p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_1080p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 1080p')); ?>
-                <?php echo $form->error($ModelVideo, 'video_1080p'); ?>
+                <?php echo $form->error($ModelVideo, 'video_1080p', array('class' => 'text-danger')); ?> 
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_category'); ?>
@@ -143,7 +158,7 @@ $this->widget('CLinkPager', array(
                 <?php if ($ImageAdd) {echo '<div>Plik został wgrany na serwer</div>';} ?>
                 <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
                 <?php echo $form->fileField($ModelVideo, 'video_image'); ?>
-                <?php echo $form->error($ModelVideo, 'video_image'); ?>
+                <?php echo $form->error($ModelVideo, 'video_image', array('class' => 'text-danger')); ?> 
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
@@ -158,15 +173,12 @@ $this->widget('CLinkPager', array(
              <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
                 <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Tagi')); ?>
-                <?php echo $form->error($ModelVideo, 'tag_name'); ?>
-            </div>
+                <?php echo $form->error($ModelVideo, 'tag_name', array('class' => 'text-danger')); ?> 
+             </div>
             <div class="form-group">
                 <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>            </div>
             <div class="form-group">
                 <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-success')); ?>
-            </div>
-            <div class="form-group">
-                <p class="note">Pola oznacone <span class="required">*</span> są wymagane.</p>
             </div>
         </div>
         </div>
