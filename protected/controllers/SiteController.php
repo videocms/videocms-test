@@ -118,25 +118,45 @@ class SiteController extends Controller
             $this->pageMetaDescription = $Seoo['settings_description'];
         }
         
-        $ModelCategory = new CmsvideoCategories;
-        $DataCategory = $ModelCategory->DownloadOneCategory($id);
+       // $ModelCategory = new CmsvideoCategories;
+        //$DataCategory = $ModelCategory->DownloadOneCategory($id);
         
-        foreach ($DataCategory as $Category)
+        $Criteria = new CDbCriteria(
+                    array(
+                        'condition' => 'category_id = :IdCategory',
+                        'params' => array(':IdCategory' => $id),
+                    )
+                    );
+        $ModelCategories = CmsvideoCategories::model()->findAll($Criteria);
+        foreach ($ModelCategories as $Category)
         {
-            $this->pageTitle = 'Category: '.$Category['category_name'];
+            $this->pageTitle = 'Kategoria: '.$Category->category_name;
         }
+        $Criteria = new CDbCriteria(
+                    array(
+                        'condition' => 'video_category = :IdCategory',
+                        'params' => array(':IdCategory' => $id),
+                        'order' => 'video_id DESC'
+                    )
+                    );
+        $Count = CmsvideoVideo::model()->count($Criteria);
+        $Site = new CPagination($Count);
+        $Site->pageSize = 10;
+        $Site->applyLimit($Criteria);
+        $Model = CmsvideoVideo::model()->findAll($Criteria);
         
-        $ModelVideo = new CmsvideoVideo;
-        
-        $AmountVideo = $ModelVideo->CountVideoCategory($id);
-        $Site = new CPagination(intval($AmountVideo));
-        $Site->pageSize=10;
-        
-        $DataVideo = $ModelVideo->SelectVideoCategory($id, $Site->pageSize, $Site->currentPage);
+//        $ModelVideo = new CmsvideoVideo;
+//        
+//        $AmountVideo = $ModelVideo->CountVideoCategory($id);
+//        $Site = new CPagination(intval($AmountVideo));
+//        $Site->pageSize=10;
+//        
+//        $DataVideo = $ModelVideo->SelectVideoCategory($id, $Site->pageSize, $Site->currentPage);
         $this->render('category', array(
-                    'DataVideo' => $DataVideo,
-                    'Site' => $Site,
-                      ));
+                                    'Model' => $Model,
+                                    //'DataVideo' => $DataVideo,
+                                    'Site' => $Site,
+                                ));
     }
     
     public function actionVideo($id)
@@ -148,24 +168,27 @@ class SiteController extends Controller
        
         $ModalSeo = new CmsvideoSettings;
         $DataSeo = $ModalSeo->DownloadSettings();
+        $ModelCategories = CmsvideoCategories::model()->findAll();
+        $Model = CmsvideoVideo::model()->findAll('video_id=:IdVideo', array(':IdVideo'=>$id));
+      
         
         foreach ($DataSeo as $Seoo)
         {
             $this->pageMetaRobots = $Seoo['settings_robots'];
         }
         
-        $ModelCategory = new CmsvideoCategories;
-        $DataCategory = $ModelCategory->DownloadCategories();
+        //$ModelCategory = new CmsvideoCategories;
+       // $DataCategory = $ModelCategory->DownloadCategories();
         //$ModelVast = new VastVideo;
         //$DataVast = $ModelVast->DownloadVast();
-        $ModelVideo = new CmsvideoVideo;
-        $DataVideo = $ModelVideo->DownloadVideo($id);
-        $DataViews = $ModelVideo->UpdateViews($id);
+       // $ModelVideo = new CmsvideoVideo;
+        //$DataVideo = $ModelVideo->DownloadVideo($id);
+        //$DataViews = $ModelVideo->UpdateViews($id);
         
         
-        foreach($DataVideo as $Video)
+        foreach ($Model as $Video)
         {
-            $this->pageTitle = $Video['video_title'];
+            $this->pageTitle = $Video->video_title;
             $this->pageMetaKeywords = $Video['video_keywords'];
             $this->pageMetaDescription = $Video['video_description'];
             $this->pageMetaOgImage = $Video['video_thumb'];
@@ -173,9 +196,9 @@ class SiteController extends Controller
         }
         
         $this->render('video', array(
-            'DataCategory' => $DataCategory,
-            'DataVideo' => $DataVideo,
-            'DataViews' => $DataViews,
+            'ModelCategories' => $ModelCategories,
+            'Model' => $Model,
+          //  'DataViews' => $DataViews,
         )); 
     }
     

@@ -69,7 +69,8 @@
 
         if($Category[$ModelSite->video_category] != '')
             {
-                    echo '<p class="category">Kategoria: '.CHtml::link($Category[$ModelSite->video_category], array('category/'.$ModelSite->video_category)).'</p>';
+                    echo '<p class="category">Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
+                            array('category/'.$ModelSite->video_category)).'</p>';
             }
         }
 
