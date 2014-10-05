@@ -26,7 +26,7 @@ class SiteController extends Controller
     {
         $ModelSeo = new CmsvideoSettings;
         $DataSeo = $ModelSeo->DownloadSettings();
-        
+        $ModelSlider = new CmsvideoSlider;
         foreach ($DataSeo as $Seoo)
         {
             $this->pageMetaRobots = $Seoo['settings_robots'];
@@ -47,32 +47,47 @@ class SiteController extends Controller
         }
         //$this->pageTitle='Strona główna';
          
-        $ModelCategories = new CmsvideoCategories;
-        $DataCategory = $ModelCategories->DownloadCategories();
+//        $ModelCategories = new CmsvideoCategories;
+//        $DataCategory = $ModelCategories->DownloadCategories();
         
-        $ModelVideo = new CmsvideoVideo;
-        $AmountVideo = $ModelVideo->CountAllVideo();
-        $ModelSlider = new CmsvideoSlider;
+//        $ModelVideo = new CmsvideoVideo;
+//        $AmountVideo = $ModelVideo->CountAllVideo();
+        
         //$AmountSlider = $ModelSlider->CountAllSlider();
         
-        $Site = new CPagination(intval($AmountVideo));
-        $Site->pageSize = 10;
+//        $Site = new CPagination(intval($AmountVideo));
+//        $Site->pageSize = 10;
         
         //$SiteSlider = new CPagination(intval($AmountSlider));
         //$SiteSlider->pageSize = 10;
         
-        $DataVideo = $ModelVideo->SelectVideo($Site->pageSize, $Site->currentPage);
+//        $DataVideo = $ModelVideo->SelectVideo($Site->pageSize, $Site->currentPage);
+        $ModelCategories = CmsvideoCategories::model()->findAll();
+        $Criteria = new CDbCriteria(
+                    array(
+                        'order' => 'video_id DESC'
+                    )
+                    );
+        $Count = CmsvideoVideo::model()->count($Criteria);
+        $Site = new CPagination($Count);
+        $Site->pageSize = 10;
+        $Site->applyLimit($Criteria);
+        
+        $Model = CmsvideoVideo::model()->findAll($Criteria);
+        
         $DataSlider = $ModelSlider->DownloadSlider();
        
         $this->render('index',
-                  array(
-                        'DataCategory' => $DataCategory,
-                        'DataSlider' => $DataSlider,
-                        'DataSeo' => $DataSeo,
-                        'DataVideo' => $DataVideo,
-                        'Site' => $Site,
-                        )
-                );
+                    array(
+                          'ModelCategories' => $ModelCategories,
+                          'Model' => $Model,
+                         // 'DataCategory' => $DataCategory,
+                          'DataSlider' => $DataSlider,
+                          'DataSeo' => $DataSeo,
+                       //   'DataVideo' => $DataVideo,
+                          'Site' => $Site,
+                          )
+                  );
     }
     
     public function actionError()

@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
-
-    <meta charset="utf-8">
-    <meta name="language" content="pl" />
-         <meta name="advertising" content="ask" />
+        <meta charset="utf-8">
+        <meta name="language" content="pl" />
+        <meta name="advertising" content="ask" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-        <?php if (!empty($this->pageMetaDescription))
-                {
-        echo '    <meta name="description" content="' . $this->pageMetaDescription . '" />';
-        echo '    <meta property="og:description" content="' . $this->pageMetaDescription . '" />';
-                } 
+        <?php   if (!empty($this->pageMetaDescription))
+                    {
+                        echo '<meta name="description" content="' . $this->pageMetaDescription . '" />';
+                        echo '<meta property="og:description" content="' . $this->pageMetaDescription . '" />';
+                    } 
                 if (!empty($this->pageMetaRobots))
-                {
-        echo '    <meta name="robots" content="' . $this->pageMetaRobots . '" />';
-        echo '<meta property="og:image" content="http://videocms-test.pl/' . $this->pageMetaOgImage.'" />';
-        echo '<meta property="og:locale" content="pl_PL"/>';
-                } 
+                    {
+                        echo '<meta name="robots" content="' . $this->pageMetaRobots . '" />';
+                        echo '<meta property="og:image" content="http://videocms-test.pl/' . $this->pageMetaOgImage.'" />';
+                        echo '<meta property="og:locale" content="pl_PL"/>';
+                    } 
                 if (!empty($this->pageMetaKeywords))
-                {
-        echo '    <meta name="keywords" content="' . $this->pageMetaKeywords . '" />';
-                }
-            ?>
+                    {
+                         echo '<meta name="keywords" content="' . $this->pageMetaKeywords . '" />';
+                    }
+        ?>
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/video/videojs.vast.css" rel="stylesheet" type="text/css">
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/js/video/lib/videojs-contrib-ads/videojs.ads.css" rel="stylesheet" type="text/css">
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/video/video-js.css" rel="stylesheet" />
@@ -34,78 +32,74 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <!-- Custom CSS -->
-    <style>
-    body {
-        padding-top: 70px;
-        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    }
-    </style>
-    <style type="text/css">
-    #vid1 {
-      width: 75%;
-    }
-  </style>
-  <style> 
-        .captionOrange, .captionBlack
-        {
-            color: #fff;
-            font-size: 20px;
-            line-height: 30px;
-            text-align: center;
-            border-radius: 4px;
-        }
-        .captionOrange
-        {
-            background: #EB5100;
-            background-color: rgba(235, 81, 0, 0.6);
-        }
-        .captionBlack
-        {
-        	font-size:16px;
-            background: #000;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-        a.captionOrange, A.captionOrange:active, A.captionOrange:visited
-        {
-        	color: #ffffff;
-        	text-decoration: none;
-        }
-        a.captionOrange:hover
-        {
-            color: #eb5100;
-            text-decoration: underline;
-            background-color: #eeeeee;
-            background-color: rgba(238, 238, 238, 0.7);
-        }
-        .bricon
-        {
-            background: url(<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/img/browser-icons.png);
-        }
-    </style>
-           <!-- video -->
+         <!-- Custom CSS -->
+        <style>
+            body {
+                padding-top: 70px;
+                /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+            }
+        </style>
+        <style type="text/css">
+            #vid1 {
+              width: 75%;
+            }
+        </style>
+        <style> 
+            .captionOrange, .captionBlack
+            {
+                color: #fff;
+                font-size: 20px;
+                line-height: 30px;
+                text-align: center;
+                border-radius: 4px;
+            }
+            .captionOrange
+            {
+                background: #EB5100;
+                background-color: rgba(235, 81, 0, 0.6);
+            }
+            .captionBlack
+            {
+                    font-size:16px;
+                background: #000;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+            a.captionOrange, A.captionOrange:active, A.captionOrange:visited
+            {
+                    color: #ffffff;
+                    text-decoration: none;
+            }
+            a.captionOrange:hover
+            {
+                color: #eb5100;
+                text-decoration: underline;
+                background-color: #eeeeee;
+                background-color: rgba(238, 238, 238, 0.7);
+            }
+            .bricon
+            {
+                background: url(<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/img/browser-icons.png);
+            }
+        </style>
+        <!-- video -->
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/video.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/video-quality-selector.js"></script>
 	<!--[if lt IE 9]><script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/lib/es5.js"></script><![endif]-->
-  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/lib/videojs-contrib-ads/videojs.ads.js"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/lib/videojs-contrib-ads/videojs.ads.js"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/lib/vast-client.js"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/videojs.vast.js"></script>
+        <script>
+             videojs.options.flash.swf = "video-js.swf";
+        </script>
 
-  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/lib/vast-client.js"></script>
-  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/videojs.vast.js"></script>
-  <script>
-    videojs.options.flash.swf = "video-js.swf";
-  </script>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-        
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->      
 </head>
-
 <body>
-
     <!-- Navigation -->
     <nav id="myNavbar" class="navbar navbar-default" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -128,31 +122,38 @@
                        // 'items'=>$this->myMenu,
                         'htmlOptions'=>array('class'=>'nav navbar-nav'),
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/index')),
-                            array('label'=>'Panel', 'url'=>array('/admin/index')),
-                            array('label'=>'Wideo', 'url'=>array('/admin/videos')),
-				array('label'=>'Kategorie', 'url'=>array('/admin/category')),
-                            array('label'=>'Reklamy', 'url'=>array('/admin/vast')),
-                            array('label'=>'Slider', 'url'=>array('/admin/slider')),
-                            array('label'=>'Ustawienia', 'url'=>array('/admin/settings')),
-                            array('label'=>'Seo', 'url'=>array('/admin/seo/1')),
+                                 array('label'=>'Home', 'url'=>array('/index')),
+                                 array('label'=>'Panel', 'url'=>array('/admin/index')),
+                                 array('label'=>'Wideo', 'url'=>array('/admin/videos')),
+                                 array('label'=>'Kategorie', 'url'=>array('/admin/category')),
+                                 array('label'=>'Reklamy', 'url'=>array('/admin/vast')),
+                                 array('label'=>'Slider', 'url'=>array('/admin/slider')),
+                                 array('label'=>'Ustawienia', 'url'=>array('/admin/settings')),
+                                 array('label'=>'Seo', 'url'=>array('/admin/seo/1')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Zmień hasło', 'url'=>array('/admin/pass')),
-                            array('label'=>'Wyloguj', 'url'=>array('/login/logout')),
-			),
-                ));}
-                else
-                {
-                    $this->widget('zii.widgets.CMenu',array(
-                        //'id'=>'bs-example-navbar-collapse-1',
-                       // 'items'=>$this->myMenu,
-                        'htmlOptions'=>array('class'=>'nav navbar-nav'),
-                        'items'=>array(
-                        array('label'=>'Strona główna', 'url'=>array('/index')),
-                       // array('label'=>'Zaloguj', 'url'=>array('/login/index')),
-                    ),
-                  ));
+				 array('label'=>'Zmień hasło', 'url'=>array('/admin/pass')),
+                                 array('label'=>'Wyloguj', 'url'=>array('/login/logout')),
+                                ),
+                        )
+                    );
                 }
+                else
+                    {
+                        $this->widget('zii.widgets.CMenu',array(
+                            //'id'=>'bs-example-navbar-collapse-1',
+                           // 'items'=>$this->myMenu,
+                            'htmlOptions'=>array(
+                                           'class'=>'nav navbar-nav'),
+                                           'items'=>array(
+                                                    array(
+                                                         'label'=>'Strona główna', 
+                                                         'url'=>array('/index')
+                                                         ),
+                           // array('label'=>'Zaloguj', 'url'=>array('/login/index')),
+                                                     ),
+                          ) 
+                        );
+                    }
                 ?>
 
               
@@ -162,17 +163,15 @@
 
     <!-- Page Content -->
     <div class="container">
-
        <?php echo $content; ?>
-
     </div>
     <!-- /.container -->
 
     <!-- jQuery -->
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.11.1.min.js"></script>
-            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/js/jssor.slider.min.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/js/jssor.js"></script>
-<script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/js/jssor.slider.min.js"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/js/jssor.js"></script>
+    <script>
     jQuery(document).ready(function ($) {
         var _CaptionTransitions = [];
             _CaptionTransitions["L"] = { $Duration: 800, x: 0.6, $Easing: { $Left: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
@@ -212,7 +211,7 @@
             };
         var jssor_slider1 = new $JssorSlider$('slider1_container', options);
     });
-</script>
+    </script>
     <script>tinymce.init({
          selector: "textarea",theme: "modern",width: '100%',height: 535,
     plugins: [
@@ -227,9 +226,9 @@
    external_filemanager_path:"/filemanager/",
    filemanager_title:"Responsive Filemanager" ,
    external_plugins: { "filemanager" : "/filemanager/plugin.min.js"}
-        });</script>
-   <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/js/bootstrap.min.js"></script>
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/tinymce/tinymce.min.js"></script>
+        });
+    </script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/tinymce/tinymce.min.js"></script>
 </body>
-
 </html>

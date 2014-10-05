@@ -1,25 +1,24 @@
 <div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 600px; height: 300px;">
     <!-- Slides Container -->
-    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 600px; height: 300px;
-            overflow: hidden;">
-        <?php
-foreach($DataSlider as $ModelSite1)
-{
-    echo '<div>
-                <img u="image" src="'.$ModelSite1['slider_image'].'" />
-                <div u="caption" t="MCLIP|B" style="position: absolute; top: 250px; left: 0px;
-                    width: 600px; height: 50px;">
-                    <div style="position: absolute; top: 0px; left: 0px; width: 600px; height: 50px;
-                        background-color: Black; opacity: 0.5; filter: alpha(opacity=50);">
-                    </div>
-                    <div style="position: absolute; top: 0px; left: 0px; width: 600px; height: 50px;
-                        color: White; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center;">
-                        '.$ModelSite1['slider_text'].'
-                    </div>
-                </div>
-            </div>';
-     
-}?>      
+    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 600px; height: 300px; overflow: hidden;">
+    <?php
+        foreach($DataSlider as $ModelSite1)
+            {
+                echo '<div>
+                            <img u="image" src="'.$ModelSite1['slider_image'].'" />
+                            <div u="caption" t="MCLIP|B" style="position: absolute; top: 250px; left: 0px;
+                                width: 600px; height: 50px;">
+                                <div style="position: absolute; top: 0px; left: 0px; width: 600px; height: 50px;
+                                    background-color: Black; opacity: 0.5; filter: alpha(opacity=50);">
+                                </div>
+                                <div style="position: absolute; top: 0px; left: 0px; width: 600px; height: 50px;
+                                    color: White; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center;">
+                                    '.$ModelSite1['slider_text'].'
+                                </div>
+                            </div>
+                      </div>';
+            }
+    ?>      
     </div>
      <style>
             /* jssor slider arrow navigator skin 03 css */
@@ -56,33 +55,24 @@ foreach($DataSlider as $ModelSite1)
 </div>
 
 <?php
+    foreach ($ModelCategories as $ModelCategoryShow)
+        {
+          $Category[$ModelCategoryShow->category_id] = $ModelCategoryShow->category_name;  
+        }
 
-foreach ($DataCategory as $ModelCategoryShow)
-{
-  $Category[$ModelCategoryShow[category_id]] = $ModelCategoryShow['category_name'];  
-}
+    foreach($Model as $ModelSite)
+        {
+            echo '<h2>'.CHtml::link($ModelSite->video_title, array('video/'.$ModelSite->video_id)).'</h2>';
+            echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
+            echo '<img src="/'.$ModelSite->video_thumb.'">';
+            echo '<p class="tresc">'.substr($ModelSite->video_text, 0, 400).'...</p>';
 
-foreach($DataVideo as $ModelSite)
-{
-    echo '<h2>'.CHtml::link($ModelSite['video_title'], array('video/'.$ModelSite['video_id'])).'</h2>';
-    echo '<p class="data">Data publikacji: '.$ModelSite['video_date'].'</p>';
-    echo '<img src="/'.$ModelSite['video_thumb'].'">';
-    echo '<p class="tresc">'.substr($ModelSite['video_text'], 0, 400).'...</p>';
-   ?> <!--echo '<p class="data">video: '.$ModelSite['video_480p'].'</p>'; -->
-  
-   
-   <?php
-    if($Category[$ModelSite['video_category']] != '')
-    {
-        echo '<p class="category">Kategoria: '.CHtml::link($Category[$ModelSite['video_category']], array('category/'.$ModelSite['video_category'])).'</p>';
-    }
-}
+        if($Category[$ModelSite->video_category] != '')
+            {
+                    echo '<p class="category">Kategoria: '.CHtml::link($Category[$ModelSite->video_category], array('category/'.$ModelSite->video_category)).'</p>';
+            }
+        }
 
-echo '<br /><br />';
-
-$this->widget('CLinkPager', array(
-    'pages' => $Site,
-))
-        
-        
+        echo '<br /><br />';
+        $this->widget('CLinkPager', array('pages' => $Site,)) 
 ?>
