@@ -40,7 +40,7 @@ public function actionIndex() {
         $VideoAdd = false;
         
         $ModelVideo = new CmsvideoVideo;
-      //  $ModelCategories = new CmsvideoCategories;
+        $ModelCategories = new CmsvideoCategories;
         $ModelTags = new CmsvideoTags;
         //$DataCategory = $ModelCategories->DownloadCategories();
         
@@ -93,9 +93,9 @@ public function actionIndex() {
         
        // $Data = $ModelVideo->SelectAdminVideo($Site->pageSize, $Site->currentPage);
         $Data = new CActiveDataProvider('CmsvideoVideo', array(
-            'criteria'=>array(
-                'order'=>'video_id DESC',
-                )
+            'sort'=>array(
+	'defaultOrder'=>'video_id DESC',
+			),
               )
             );
 
@@ -105,7 +105,7 @@ public function actionIndex() {
             'VideoAdd' => $VideoAdd,
             'ModelVideo' => $ModelVideo,
             //'DataCategory' =>$DataCategory,
-          //  'ModelCategories' =>$ModelCategories,
+            'ModelCategories' =>$ModelCategories,
         ));
     }
     
