@@ -1,30 +1,94 @@
 <?php
- 
-class VastVideo extends CFormModel
+class VastVideo extends CActiveRecord
 {
-    public $vast_id;
-    public $vast_title;
-    public $vast_source;
-    public $vast_link;
-    public $vast_video_cat;
     public $video_category;
+    
+    public static function model($className=__CLASS__)
+        {
+            return parent::model($className);
+        }
 
-
-    public function rules() {
-        return array(
-            array('vast_title, vast_source, vast_link, video_category', 'required'),
-        );
-    }
-    public function attributeLabels()
+    public function tableName()
+        {
+             return 'videocms_vast';
+        }
+    
+    public function rules() 
+        {
+            return array(
+                array('vast_title, vast_source, vast_link, video_category', 'required'),
+            );
+        }
+        
+    public function relations()
+        {
+            return array(
+            );
+        }
+        
+     public function attributeLabels()
     {
         return array(
-            'vast_id' => 'ID',
-            'vast_title' => 'Title',
-            'vast_source' => 'Source',
+            'vast_id' => 'Id',
+            'vast_title' => 'Nazwa reklamy',
+            'vast_source' => 'Źródło',
             'vast_link' => 'Link',
-            'video_category' => 'KategoriaWideo',
+            'video_category' => 'Kategoria wideo',
         );
     }
+    public function search()
+        {
+            $criteria=new CDbCriteria;
+            $criteria->compare('vast_id', $this->vast_id);
+            $criteria->compare('vast_title', $this->vast_title, true);
+            $criteria->compare('vast_video_cat', $this->vast_video_cat, true);
+            $criteria->compare('vast_source', $this->vast_source, true);
+            $criteria->compare('vast_link', $this->vast_link, true);
+            return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            ));
+        }
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+ 
+//class VastVideo extends CFormModel
+//{
+//    public $vast_id;
+//    public $vast_title;
+//    public $vast_source;
+//    public $vast_link;
+//    public $vast_video_cat;
+//    public $video_category;
+//
+//
+//    public function rules() {
+//        return array(
+//            array('vast_title, vast_source, vast_link, video_category', 'required'),
+//        );
+//    }
+//    public function attributeLabels()
+//    {
+//        return array(
+//            'vast_id' => 'ID',
+//            'vast_title' => 'Title',
+//            'vast_source' => 'Source',
+//            'vast_link' => 'Link',
+//            'video_category' => 'KategoriaWideo',
+//        );
+//    }
     /**             Create file .xml
      public function VastXml()
     {
@@ -62,55 +126,55 @@ class VastVideo extends CFormModel
        // $sxe->asXML("vast/vast.xml");
     }
    **/
-    public function DownloadVast()
-    {
-        $SelectVast = Yii::app()->db->createCommand('SELECT * FROM videocms_vast');
-        $InfVast = $SelectVast->query();
-        return $InfVast;
-    }
-    
-    public function DownloadOneVast($id)
-    {
-        $SelectVast = Yii::app()->db->createCommand('Select * FROM videocms_vast WHERE vast_id = :IdVast');
-        $SelectVast->bindValue(':IdVast', $id, PDO::PARAM_INT);
-        $InfVast = $SelectVast->query();
-        
-        return $InfVast;
-    }
-    
-    public function DownloadVideoVast($id) {
-        $SelectVast = Yii::app()->db->createCommand('SELECT r.vast_id, r.vast_link, r.vast_source FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo');
-        $SelectVast->bindValue(':IdVideo', $id, PDO::PARAM_INT);
-        $InfVast = $SelectVast->query();
-        return $InfVast;
-    }
-    
-    public function AddVast()
-    {
-        $AddVast = Yii::app()->db->createCommand('INSERT INTO videocms_vast (vast_title, vast_source, vast_link, vast_video_cat) VALUES (:VastTitle, :VastSource, :VastLink, :VastVideoCategory)');
-        $AddVast->bindValue(':VastTitle', $this->vast_title, PDO::PARAM_STR);
-        $AddVast->bindValue(':VastSource', $this->vast_source, PDO::PARAM_STR);
-        $AddVast->bindValue(':VastLink', $this->vast_link, PDO::PARAM_STR);
-        $AddVast->bindValue(':VastVideoCategory', implode(',', $this->video_category), PDO::PARAM_STR);
-        $AddVast->execute();
-    }
-    
-    public function DeleteVast($id)
-    {
-        $DeleteVast = Yii::app()->db->createCommand('DELETE FROM videocms_vast WHERE vast_id = :VastId');
-        $DeleteVast->bindValue(':VastId',$id, PDO::PARAM_INT);
-        $DeleteVast->execute();
-    }
-    
-    public function SaveVast($id)
-    {
-        $UpdateVast = Yii::app()->db->createCommand('UPDATE videocms_vast SET vast_title = :VastTitle, vast_source = :VastSource, vast_link = :VastLink, vast_video_cat = :VastVideoCategory WHERE vast_id = :VastId');
-        $UpdateVast->bindValue(':VastTitle',$this->vast_title,PDO::PARAM_STR);
-        $UpdateVast->bindValue(':VastSource',$this->vast_source,PDO::PARAM_STR);
-        $UpdateVast->bindValue(':VastLink',$this->vast_link,PDO::PARAM_STR);
-        $UpdateVast->bindValue(':VastVideoCategory', implode(',', $this->video_category), PDO::PARAM_STR);
-        $UpdateVast->bindValue(':VastId',$id,PDO::PARAM_INT);
-        $UpdateVast->execute();
-    }
-}
+//    public function DownloadVast()
+//    {
+//        $SelectVast = Yii::app()->db->createCommand('SELECT * FROM videocms_vast');
+//        $InfVast = $SelectVast->query();
+//        return $InfVast;
+//    }
+//    
+//    public function DownloadOneVast($id)
+//    {
+//        $SelectVast = Yii::app()->db->createCommand('Select * FROM videocms_vast WHERE vast_id = :IdVast');
+//        $SelectVast->bindValue(':IdVast', $id, PDO::PARAM_INT);
+//        $InfVast = $SelectVast->query();
+//        
+//        return $InfVast;
+//    }
+//    
+//    public function DownloadVideoVast($id) {
+//        $SelectVast = Yii::app()->db->createCommand('SELECT r.vast_id, r.vast_link, r.vast_source FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo');
+//        $SelectVast->bindValue(':IdVideo', $id, PDO::PARAM_INT);
+//        $InfVast = $SelectVast->query();
+//        return $InfVast;
+//    }
+//    
+//    public function AddVast()
+//    {
+//        $AddVast = Yii::app()->db->createCommand('INSERT INTO videocms_vast (vast_title, vast_source, vast_link, vast_video_cat) VALUES (:VastTitle, :VastSource, :VastLink, :VastVideoCategory)');
+//        $AddVast->bindValue(':VastTitle', $this->vast_title, PDO::PARAM_STR);
+//        $AddVast->bindValue(':VastSource', $this->vast_source, PDO::PARAM_STR);
+//        $AddVast->bindValue(':VastLink', $this->vast_link, PDO::PARAM_STR);
+//        $AddVast->bindValue(':VastVideoCategory', implode(',', $this->video_category), PDO::PARAM_STR);
+//        $AddVast->execute();
+//    }
+//    
+//    public function DeleteVast($id)
+//    {
+//        $DeleteVast = Yii::app()->db->createCommand('DELETE FROM videocms_vast WHERE vast_id = :VastId');
+//        $DeleteVast->bindValue(':VastId',$id, PDO::PARAM_INT);
+//        $DeleteVast->execute();
+//    }
+//    
+//    public function SaveVast($id)
+//    {
+//        $UpdateVast = Yii::app()->db->createCommand('UPDATE videocms_vast SET vast_title = :VastTitle, vast_source = :VastSource, vast_link = :VastLink, vast_video_cat = :VastVideoCategory WHERE vast_id = :VastId');
+//        $UpdateVast->bindValue(':VastTitle',$this->vast_title,PDO::PARAM_STR);
+//        $UpdateVast->bindValue(':VastSource',$this->vast_source,PDO::PARAM_STR);
+//        $UpdateVast->bindValue(':VastLink',$this->vast_link,PDO::PARAM_STR);
+//        $UpdateVast->bindValue(':VastVideoCategory', implode(',', $this->video_category), PDO::PARAM_STR);
+//        $UpdateVast->bindValue(':VastId',$id,PDO::PARAM_INT);
+//        $UpdateVast->execute();
+//    }
+//}
 ?>

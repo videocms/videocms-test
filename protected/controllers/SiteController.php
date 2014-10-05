@@ -29,21 +29,21 @@ class SiteController extends Controller
         
         foreach ($DataSeo as $Seoo)
         {
-        $this->pageMetaRobots = $Seoo['settings_robots'];
-        $this->pageMetaKeywords = $Seoo['settings_keywords'];
-        $this->pageMetaDescription = $Seoo['settings_description'];
-        $this->pageMetaOgTitle = $Seoo['settings_ogtitle']; 
-        $this->pageTitle=$Seoo['settings_ogtitle']; 
-        $this->pageMetaOgImage = $Seoo['settings_ogimage'];
-        $this->slider_duration = $Seoo['slider_duration'];
-        $this->slider_arrow = $Seoo['slider_arrow'];
-        $this->slider_dragorientation = $Seoo['slider_dragorientation'];
-        $this->slider_slidespacing = $Seoo['slider_slidespacing'];
-        $this->slider_mindragoffsettoslide = $Seoo['slider_mindragoffsettoslide'];
-        $this->slider_loop = $Seoo['slider_loop'];
-        $this->slider_hwa = $Seoo['slider_hwa'];
-        $this->slider_arrowkeynavigation = $Seoo['slider_arrowkeynavigation'];
-        $this->slider_lazyloading = $Seoo['slider_lazyloading'];
+            $this->pageMetaRobots = $Seoo['settings_robots'];
+            $this->pageMetaKeywords = $Seoo['settings_keywords'];
+            $this->pageMetaDescription = $Seoo['settings_description'];
+            $this->pageMetaOgTitle = $Seoo['settings_ogtitle']; 
+            $this->pageTitle=$Seoo['settings_ogtitle']; 
+            $this->pageMetaOgImage = $Seoo['settings_ogimage'];
+            $this->slider_duration = $Seoo['slider_duration'];
+            $this->slider_arrow = $Seoo['slider_arrow'];
+            $this->slider_dragorientation = $Seoo['slider_dragorientation'];
+            $this->slider_slidespacing = $Seoo['slider_slidespacing'];
+            $this->slider_mindragoffsettoslide = $Seoo['slider_mindragoffsettoslide'];
+            $this->slider_loop = $Seoo['slider_loop'];
+            $this->slider_hwa = $Seoo['slider_hwa'];
+            $this->slider_arrowkeynavigation = $Seoo['slider_arrowkeynavigation'];
+            $this->slider_lazyloading = $Seoo['slider_lazyloading'];
         }
         //$this->pageTitle='Strona główna';
          
@@ -65,7 +65,7 @@ class SiteController extends Controller
         $DataSlider = $ModelSlider->DownloadSlider();
        
         $this->render('index',
-                array(
+                  array(
                         'DataCategory' => $DataCategory,
                         'DataSlider' => $DataSlider,
                         'DataSeo' => $DataSeo,
@@ -79,10 +79,10 @@ class SiteController extends Controller
     {
 		if($error=Yii::app()->errorHandler->error)
 		{
-			if(Yii::app()->request->isAjaxRequest)
-				echo $error['message'];
-			else
-				$this->render('error', $error);
+                    if(Yii::app()->request->isAjaxRequest)
+			echo $error['message'];
+                            else
+                            $this->render('error', $error);
 		}
     }
         
@@ -98,13 +98,12 @@ class SiteController extends Controller
         
         foreach ($DataSeo as $Seoo)
         {
-        $this->pageMetaRobots = $Seoo['settings_robots'];
-        $this->pageMetaKeywords = $Seoo['settings_keywords'];
-        $this->pageMetaDescription = $Seoo['settings_description'];
+            $this->pageMetaRobots = $Seoo['settings_robots'];
+            $this->pageMetaKeywords = $Seoo['settings_keywords'];
+            $this->pageMetaDescription = $Seoo['settings_description'];
         }
         
         $ModelCategory = new CmsvideoCategories;
-        
         $DataCategory = $ModelCategory->DownloadOneCategory($id);
         
         foreach ($DataCategory as $Category)
@@ -137,7 +136,7 @@ class SiteController extends Controller
         
         foreach ($DataSeo as $Seoo)
         {
-        $this->pageMetaRobots = $Seoo['settings_robots'];
+            $this->pageMetaRobots = $Seoo['settings_robots'];
         }
         
         $ModelCategory = new CmsvideoCategories;
@@ -162,8 +161,7 @@ class SiteController extends Controller
             'DataCategory' => $DataCategory,
             'DataVideo' => $DataVideo,
             'DataViews' => $DataViews,
-        ));
-        
+        )); 
     }
     
     //VAST
@@ -171,24 +169,25 @@ class SiteController extends Controller
     //Wywołanie funkcji generującej dynamicznie XML - http://videocms-test.pl/cmsvideo/vastxml/?id=34
     public function actionVastXml($vid)
     {
-        $ModelVast = new VastVideo;
-        $DataVast = $ModelVast->DownloadVideoVast($vid);
         header('Content-Type: application/xml');
         echo '<?xml version="1.0" encoding="UTF-8"?>
               <VAST version="2.0">';
+        $ModelVast = new VastVideo;
+        $DataVast = $ModelVast::model()->findAllBySQL('SELECT r.vast_id, r.vast_link, r.vast_source FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo',array(':IdVideo'=>$vid));
+        
         foreach ($DataVast as $Data)
             {
-            echo '<Ad id="'.$Data['vast_id'].'">
+            echo '<Ad id="'.$Data->vast_id.'">
             <InLine>
             <Creatives>
             <Creative sequence="1" id="7969">
             <Linear>
             <Duration>00:00:31</Duration>
             <VideoClicks>
-            <ClickThrough><![CDATA[http://'.$Data['vast_link'].']]></ClickThrough>
+            <ClickThrough><![CDATA[http://'.$Data->vast_link.']]></ClickThrough>
             </VideoClicks>
             <MediaFiles>
-            <MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['. $Data['vast_source'].']]>
+            <MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['. $Data->vast_source.']]>
             </MediaFile>
             </MediaFiles>
             </Linear>
@@ -213,7 +212,7 @@ class SiteController extends Controller
         
         foreach ($DataSeo as $Seoo)
         {
-        $this->pageMetaRobots = $Seoo['settings_robots'];
+            $this->pageMetaRobots = $Seoo['settings_robots'];
         }
         
         $ModelCategory = new CmsvideoCategories;
@@ -243,5 +242,4 @@ class SiteController extends Controller
     }
     //embed koniec
 }
-
 ?>

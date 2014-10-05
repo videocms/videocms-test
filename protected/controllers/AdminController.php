@@ -3,16 +3,11 @@
 class AdminController extends Controller
 {
     public $layout='admin/index';
-   
-    public function actionSzukaj()
-{
-$assetsDir = Yii::app()->basePath;
-echo $assetsDir;
-}
+    
     
     //Testowanie przypisanych reklam
     public function actionDownloadVast($id) {
-        $SelectVast = Yii::app()->db->createCommand('SELECT v.video_id, v.video_category, c.category_name, r.vast_id, r.vast_video_cat FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo');
+        $SelectVast = Yii::app()->db->createCommand('SELECT v.video_id, v.video_category, c.category_name, r.vast_id, r.vast_title, r.vast_source, r.vast_video_cat FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo');
         $SelectVast->bindValue(':IdVideo', $id, PDO::PARAM_INT);
         $DataVast = $SelectVast->queryAll();
         echo '<pre>';
@@ -141,20 +136,6 @@ public function actionIndex() {
       //  $ModelVideo->DeleteVideo($id);
  
         $this->redirect(array('admin/videos'));
-    }
-    
-    public function actionTest2($TagValue) {
-        $ModelTags = new CmsvideoTags;
-        $Tag = $ModelTags->SelectTags($TagValue);
-        $array = unserialize($Tag['tag_idvideo']);
-        if(empty($array)) {
-           echo 'Tablica pusta';
-        }
-        else {
-             echo '<pre>';
-                print_r(unserialize($Tag['tag_idvideo']));
-            echo '</pre>';
-        }
     }
     
     public function actionVideoUpdate($id)
@@ -402,7 +383,7 @@ public function actionIndex() {
         
         $VastAdd = false;
         $ModelVast = new VastVideo;
-        $ModelCategories = new CmsvideoCategories;
+      //  $ModelCategories = new CmsvideoCategories;
         
         if(isset($_POST['VastVideo']))
         {
@@ -410,7 +391,9 @@ public function actionIndex() {
             //$ModelVast->vast_source_vast ='/vast/'.$ModelVast->vast_title.'.xml'; <-- create vast .xml
              if($ModelVast->validate())
             {
-                $ModelVast->AddVast();
+               // $ModelVast->AddVast();
+                $ModelVast->vast_video_cat = implode(',', $ModelVast->video_category);
+                $ModelVast->save();
                 //$ModelVast->VastXml();  // create file .xml
                 $VastAdd = true;
                 $ModelVast->vast_title = '';
@@ -418,13 +401,14 @@ public function actionIndex() {
                 $ModelVast->vast_link = '';     
             }
         }
-        $DataVast = $ModelVast->DownloadVast();
-
+       // $DataVast = $ModelVast->DownloadVast();
+        $DataVast = new CActiveDataProvider('VastVideo');
+        
         $this->render('vast', array(
             'Data' => $DataVast,
             'VastAdd' => $VastAdd,
             'ModelVast' => $ModelVast,
-            'ModelCategories' => $ModelCategories,
+          //  'ModelCategories' => $ModelCategories,
         ));
     }
     
@@ -439,9 +423,10 @@ public function actionIndex() {
         {
             exit;
         }
-        
-        $ModelVast = new VastVideo();
-        $ModelVast->DeleteVast($id);
+       
+        VastVideo::model()->deleteAll('vast_id=:IdVast', array(':IdVast'=>$id));
+       // $ModelCategory = new CmsvideoCategories;
+      //  $ModelCategory->DeleteCategory($id);
         $this->redirect(array('admin/vast'));
     }
     
@@ -459,35 +444,38 @@ public function actionIndex() {
         }
         
         $VastUpdate = false;
-        $ModelVast = new VastVideo();
-        $ModelCategories = new CmsvideoCategories;
+        $ModelVast = VastVideo::model()->findByPk($id);
+//        $ModelVast = new VastVideo();
+//        $ModelCategories = new CmsvideoCategories;
         
         if(isset($_POST['VastVideo']))
         {
             $ModelVast->attributes = $_POST['VastVideo'];
             if($ModelVast->validate())
             {
-                $ModelVast->SaveVast($id);
+                $ModelVast->vast_video_cat = implode(',', $ModelVast->video_category);
+//                $ModelVast->SaveVast;
+                $ModelVast->save();
                 $VastUpdate = true;
             }
-            //$this->redirect(array('/admin/vast'));
+            $this->redirect(array('/admin/vast'));
         }
-        else
-        {
-            $Data = $ModelVast->DownloadOneVast($id);
-            foreach ($Data as $DataVast)
-            {
-                $ModelVast->vast_title = $DataVast['vast_title'];
-                $ModelVast->vast_source = $DataVast['vast_source'];
-                $ModelVast->vast_link = $DataVast['vast_link'];
-                $ModelVast->vast_video_cat = $DataVast['vast_video_cat'];
-            }
-        }
+//        else
+//        {
+//            $Data = $ModelVast->DownloadOneVast($id);
+//            foreach ($Data as $DataVast)
+//            {
+//                $ModelVast->vast_title = $DataVast['vast_title'];
+//                $ModelVast->vast_source = $DataVast['vast_source'];
+//                $ModelVast->vast_link = $DataVast['vast_link'];
+//                $ModelVast->vast_video_cat = $DataVast['vast_video_cat'];
+//            }
+//        }
         
         $this->render('vastupdate', array(
             'ModelVast' => $ModelVast,
             'VastUpdate' => $VastUpdate,
-            'ModelCategories' => $ModelCategories,
+//            'ModelCategories' => $ModelCategories,
         ));
     }
     // KONIEC VAST 
