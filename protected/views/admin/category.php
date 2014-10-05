@@ -1,40 +1,28 @@
 <?php
 echo '<h1>Kategorie wideo</h1>';
-echo '<table class="table table-hover">';
-echo '<tr class="active">';
-echo '<th>ID</th>';
-echo '<th>Nazwa</th>';
-echo '<th>Usuń</th>';
-echo '<tr>';
-
-foreach($Data as $ModelCategoryShow)
-{
-    if($Class == 0)
-    {
-        $Class = 1;
-        $RowClass = 'row1';
-    }
-    else
-    {
-        $Class = 0;
-        $RowClass = 'row2';
-    }
-    
-    echo '<tr>';
-    echo '<td class="'.$RowClass.'">'.$ModelCategoryShow['category_id'].'</td>';
-     echo '<td class="'.$RowClass.'">'.CHtml::link($ModelCategoryShow['category_name'],array('admin/categoryupdate/'.$ModelCategoryShow['category_id'])).'</td>';
-    echo '<td class="'.$RowClass.'">';
-    
-    echo CHtml::link(
-            'Usuń',
-            array('admin/categorydelete/'.$ModelCategoryShow['category_id']),
-            array('confirm' => 'Czy na pewno chcesz usunąć kategorię?', 'class' => 'btn btn-danger btn-sm')
-            );
-    echo '</td>';
-    echo '</tr>';
-}
-
-echo '</table>';
+$this->widget('zii.widgets.grid.CGridView', array(
+'id' => 'videocms-category-grid',
+'dataProvider'=>$Data,
+'columns'=>array(
+        'category_id',
+        'category_name',
+        array(
+            'class'=>'CButtonColumn',
+            'template'=>'{delete}{update}',
+            'buttons'=>array
+            (
+                'delete' => array
+                (
+                    'url' => 'Yii::app()->createUrl("admin/categorydelete/".$data->category_id)',
+                ),
+                'update' => array
+                (
+                    'url'=> 'Yii::app()->createUrl("admin/categoryupdate/".$data->category_id)',
+                ),
+            ),
+        ),
+),
+));
 ?>
 
 <div class="form">

@@ -47,6 +47,14 @@ class CmsvideoTags extends CFormModel
         return $DataVideo;
     }
     
+     public function DownloadOneVideo($id)
+    {
+        $SelectVideo = Yii::app()->db->createCommand('SELECT * FROM videocms_video WHERE video_id = :IdVideo LIMIT 1');
+        $SelectVideo->bindValue(':IdVideo', $id, PDO::PARAM_INT);
+        $DataVideo = $SelectVideo->queryRow();
+        return $DataVideo;
+    }
+    
     //Dododawanie do kolumny tag_name nazwy tagu w tabeli videocms_tags
     public function AddTag($TagValue) {
          
@@ -97,7 +105,7 @@ class CmsvideoTags extends CFormModel
     //Usuwanie z kolumny video_tags nazwy tagu w tabeli videocms_video
     public function DeleteVideoTag($id, $DataTag) {
         $ModelVideo = new CmsvideoVideo;
-        $DataVideo = $ModelVideo->DownloadOneVideo($id);
+        $DataVideo = $this->DownloadOneVideo($id);
         $array1[] = $DataTag['tag_name'];
         $array2 = unserialize($DataVideo['video_tags']);
         $string =  array_diff($array2, $array1);
@@ -110,9 +118,8 @@ class CmsvideoTags extends CFormModel
     
     //Dodawanie do kolumny tag_idvideo id video w tabeli videocms_tags i do kolumny video_tags nazwy tagu w tabeli videocms_video
     public function AddVideoTag($TagValue, $id) {
-        $ModelVideo = new CmsvideoVideo;
         $Data = $this->SelectTags($TagValue);
-        $Data2 = $ModelVideo->DownloadOneVideo($id);
+        $Data2 = $this->DownloadOneVideo($id);
        
         $rows = $Data['tag_idvideo'];
         if(empty($rows)) {

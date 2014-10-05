@@ -3,74 +3,113 @@
         <h1 class="page-header">Wideo</h1>
     </div>
 </div>
-
 <?php
-echo '<table class="table table-hover" id="lol">';
-echo '<tr class="active">';
-echo '<th>Thumb</th>';
-echo '<th>Tytuł</th>';
-echo '<th>Tagi</th>';
-echo '<th>Wyświetlenia</th>';
-echo '<th>Data dodania</th>';
-echo '<th>Public</th>';
-echo '<th>Usuń</th>';
-echo '<tr>'; 
-
-foreach ($DataCategory as $ModelCategoryShow)
-{
-    $Category[$ModelCategoryShow['category_id']] = $ModelCategoryShow['category_name'];
-}
-
-foreach($Data as $ModelVideosShow)
-{
-    if($Class == 0)
-    {
-        $Class = 1;
-        $RowClass = 'row1';
-    }
-    else 
-    {
-        $Class = 0;
-        $RowClass = 'row2';
-    }
-    echo '<tr>';
-    echo '<td class="'.$RowClass.'">'.CHtml::link('<img src="../'.$ModelVideosShow['video_thumb'].'" style="width: 60px; height: 60px;"/>',array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'</td>';
-    echo '<td class="'.$RowClass.'">'.CHtml::link($ModelVideosShow['video_title'],array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'<br />';
-    echo $Category[$ModelVideosShow['video_category']].'</td>';
-    echo '<td class="'.$RowClass.'"><center>';
-    if(!empty($ModelVideosShow['video_tags'])) {
-    foreach(unserialize($ModelVideosShow['video_tags']) as $Tag) {echo $Tag.' ';} }
-    echo '</center></td>';
-    echo '<td class="'.$RowClass.'"><center>'.$ModelVideosShow['video_views'].'</center></td>';
-    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
-    if ($ModelVideosShow['video_published'] == "1")
-    {
-        echo '<td class="glyphicon glyphicon-ok"><input type="hidden" class="form-control" placeholder="'.$ModelVideosShow['video_published'].'"></td>';
-    }  else {
-        echo '<td class="glyphicon glyphicon-remove"><input type="hidden" class="form-control" placeholder="'.$ModelVideosShow['video_published'].'"></td>';
-    }
-    echo '<td class="'.$RowClass.'">';
-    
-    echo CHtml::link(
-            'Usuń',
-            array('admin/videodelete/'.$ModelVideosShow['video_id']),
-            array('confirm' => 'Czy na pewno chcesz usunąć ten rekord?', 'class' => 'btn btn-danger btn-sm'));
-   // echo CHtml::ajaxLink(
-   // 'delete',
-   // array('admin/videodelete/', 'id' => $ModelVideosShow['video_id']), // Yii URL
-   // array('update' => '#lol') // jQuery selector
-//);
-    echo '</td>';
-    echo '<tr>';
-}
-
-echo '</table>';
-echo '<br /><br />';
-
-$this->widget('CLinkPager', array(
-    'pages' => $Site,
-))
-        
+$this->widget('zii.widgets.grid.CGridView', array(
+'id' => 'videocms-videos-grid',
+'dataProvider'=>$Data,
+'columns'=>array(
+        array(
+              'type' => 'raw',
+              'value' => 'CHtml::image("/" . $data->video_thumb, $data->video_title, array("width"=>"60px" ,"height"=>"60px"))',
+            ),
+        'video_id',
+        'video_title',
+        'video_alias',
+        'video_text',
+        'video_category',
+        'video_date',
+        'video_480p',
+        'video_720p',
+        'video_1080p',
+        'video_published',
+        'player_type',
+        'video_descriptions',
+        'video_keywords',
+        array(
+            'class'=>'CButtonColumn',
+            'template'=>'{delete}{update}',
+            'buttons'=>array
+            (
+                'delete' => array
+                (
+                    'url' => 'Yii::app()->createUrl("admin/videodelete/".$data->video_id)',
+                ),
+                'update' => array
+                (
+                    'url'=> 'Yii::app()->createUrl("admin/videoupdate/".$data->video_id)',
+                ),
+            ),
+        ),
+),
+));
+?>
+<?php
+//echo '<table class="table table-hover" id="lol">';
+//echo '<tr class="active">';
+//echo '<th>Thumb</th>';
+//echo '<th>Tytuł</th>';
+//echo '<th>Tagi</th>';
+//echo '<th>Wyświetlenia</th>';
+//echo '<th>Data dodania</th>';
+//echo '<th>Public</th>';
+//echo '<th>Usuń</th>';
+//echo '<tr>'; 
+//
+//foreach ($DataCategory as $ModelCategoryShow)
+//{
+//    $Category[$ModelCategoryShow['category_id']] = $ModelCategoryShow['category_name'];
+//}
+//
+//foreach($Data as $ModelVideosShow)
+//{
+//    if($Class == 0)
+//    {
+//        $Class = 1;
+//        $RowClass = 'row1';
+//    }
+//    else 
+//    {
+//        $Class = 0;
+//        $RowClass = 'row2';
+//    }
+//    echo '<tr>';
+//    echo '<td class="'.$RowClass.'">'.CHtml::link('<img src="../'.$ModelVideosShow['video_thumb'].'" style="width: 60px; height: 60px;"/>',array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'</td>';
+//    echo '<td class="'.$RowClass.'">'.CHtml::link($ModelVideosShow['video_title'],array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'<br />';
+//    echo $Category[$ModelVideosShow['video_category']].'</td>';
+//    echo '<td class="'.$RowClass.'"><center>';
+//    if(!empty($ModelVideosShow['video_tags'])) {
+//    foreach(unserialize($ModelVideosShow['video_tags']) as $Tag) {echo $Tag.' ';} }
+//    echo '</center></td>';
+//    echo '<td class="'.$RowClass.'"><center>'.$ModelVideosShow['video_views'].'</center></td>';
+//    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
+//    if ($ModelVideosShow['video_published'] == "1")
+//    {
+//        echo '<td class="glyphicon glyphicon-ok"><input type="hidden" class="form-control" placeholder="'.$ModelVideosShow['video_published'].'"></td>';
+//    }  else {
+//        echo '<td class="glyphicon glyphicon-remove"><input type="hidden" class="form-control" placeholder="'.$ModelVideosShow['video_published'].'"></td>';
+//    }
+//    echo '<td class="'.$RowClass.'">';
+//    
+//    echo CHtml::link(
+//            'Usuń',
+//            array('admin/videodelete/'.$ModelVideosShow['video_id']),
+//            array('confirm' => 'Czy na pewno chcesz usunąć ten rekord?', 'class' => 'btn btn-danger btn-sm'));
+//   // echo CHtml::ajaxLink(
+//   // 'delete',
+//   // array('admin/videodelete/', 'id' => $ModelVideosShow['video_id']), // Yii URL
+//   // array('update' => '#lol') // jQuery selector
+////);
+//    echo '</td>';
+//    echo '<tr>';
+//}
+//
+//echo '</table>';
+//echo '<br /><br />';
+//
+//$this->widget('CLinkPager', array(
+//    'pages' => $Site,
+//))
+//        
 ?>
 
 <div class="form">
@@ -102,8 +141,10 @@ $this->widget('CLinkPager', array(
             <div class="panel-heading">Dodaj nowe wideo</div>
             <div class="panel-body">
             <div class="row">
+            <div class="col-lg-12">
             <div class="alert alert-warning" role="alert">
                 <p class="note">Pola oznacone <span class="required">*</span> są wymagane.</p>
+            </div>
             </div>
             <div class="col-lg-6">
                 <?php
@@ -153,7 +194,8 @@ $this->widget('CLinkPager', array(
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_category'); ?>
-                <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), array('class' => 'form-control')); ?>
+                <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData(CmsvideoCategories::model()->findAll(), 'category_id', 'category_name'), array('class' => 'form-control')); ?>
+                
                 <?php echo $form->error($ModelVideo, 'video_category'); ?>
             </div>
             <div class="form-group">

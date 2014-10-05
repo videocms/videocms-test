@@ -4,6 +4,12 @@ class AdminController extends Controller
 {
     public $layout='admin/index';
    
+    public function actionSzukaj()
+{
+$assetsDir = Yii::app()->basePath;
+echo $assetsDir;
+}
+    
     //Testowanie przypisanych reklam
     public function actionDownloadVast($id) {
         $SelectVast = Yii::app()->db->createCommand('SELECT v.video_id, v.video_category, c.category_name, r.vast_id, r.vast_video_cat FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo');
@@ -38,11 +44,11 @@ public function actionIndex() {
         
         $VideoAdd = false;
         
-        $ModelCategories = new CmsvideoCategories;
-        $ModelTags = new CmsvideoTags;
-        $DataCategory = $ModelCategories->DownloadCategories();
         $ModelVideo = new CmsvideoVideo;
-        //$ModelVast = new VastVideo();
+      //  $ModelCategories = new CmsvideoCategories;
+        $ModelTags = new CmsvideoTags;
+        //$DataCategory = $ModelCategories->DownloadCategories();
+        
         
 
         if(isset($_POST['CmsvideoVideo']))
@@ -58,7 +64,8 @@ public function actionIndex() {
             
             if($ModelVideo->validate())
             {   
-                $ModelVideo->AddNewVideo();
+               // $ModelVideo->AddNewVideo();
+                $ModelVideo->save();
                 $id = Yii::app()->db->getLastInsertID();
                 if (!empty($ModelVideo->tag_name)) {
                     foreach($Tags as $TagValue) {
@@ -85,19 +92,25 @@ public function actionIndex() {
             }
         }
         
-        $AmountVideo = $ModelVideo->CountAllVideo();
-        $Site = new CPagination(intval($AmountVideo));
-        $Site->pageSize = 10;
+   //     $AmountVideo = $ModelVideo->CountAllVideo();
+     //   $Site = new CPagination(intval($AmountVideo));
+     //   $Site->pageSize = 10;
         
-        $Data = $ModelVideo->SelectAdminVideo($Site->pageSize, $Site->currentPage);
+       // $Data = $ModelVideo->SelectAdminVideo($Site->pageSize, $Site->currentPage);
+        $Data = new CActiveDataProvider('CmsvideoVideo', array(
+            'criteria'=>array(
+                'order'=>'video_id DESC',
+                )
+              )
+            );
 
         $this->render('videos', array(
             'Data' => $Data,
-            'Site' => $Site,
+            //'Site' => $Site,
             'VideoAdd' => $VideoAdd,
             'ModelVideo' => $ModelVideo,
-            'DataCategory' =>$DataCategory,
-            'ModelCategories' =>$ModelCategories,
+            //'DataCategory' =>$DataCategory,
+          //  'ModelCategories' =>$ModelCategories,
         ));
     }
     
@@ -113,21 +126,20 @@ public function actionIndex() {
             exit;
         }
         
+        
         $ModelVideo = new CmsvideoVideo;
         $ModelTags = new CmsvideoTags;
         $ModelVideo->DeleteVideoImage($id);
         
-       // $SelectVideo = $ModelVideo->DownloadOneVideo($id);
         $TagDelete = $ModelTags->DownloadTag($id);
         foreach($TagDelete as $DataTag) {
              $ModelTags->DeleteIdVideo($id, $DataTag);
              $ModelTags->DeleteTag($DataTag['tag_name']);
         }
         
-        $ModelVideo->DeleteVideo($id);
-        
-        
-        
+        CmsvideoVideo::model()->deleteByPk($id);
+      //  $ModelVideo->DeleteVideo($id);
+ 
         $this->redirect(array('admin/videos'));
     }
     
@@ -159,9 +171,10 @@ public function actionIndex() {
         }
         
         $VideoUpdate = false;
-        $ModelVideo = new CmsvideoVideo;
+       //$ModelVideo = new CmsvideoVideo;
         $ModelTags = new CmsvideoTags;
-        $ModelCategories = new CmsvideoCategories;
+        $ModelVideo = CmsvideoVideo::model()->findByPk($id);
+      //  $ModelCategories = new CmsvideoCategories;
 
         if(isset($_POST['CmsvideoVideo']))
         {
@@ -183,7 +196,8 @@ public function actionIndex() {
                             $ModelTags->AddVideoTag($TagValue, $id);
                     }
                 }
-                $ModelVideo->UpdateVideo($id);
+               // $ModelVideo->UpdateVideo($id);
+                $ModelVideo->save();
                 
                 if ($ImageUpload !== NULL) {
                     $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
@@ -204,33 +218,33 @@ public function actionIndex() {
             //$this->redirect(array('admin/videos/'));
             $this->redirect(Yii::app()->request->urlReferrer);
         }
-        else
-        {
-            $Data = $ModelVideo->DownloadVideoAdmin($id);
-           
-            foreach($Data as $DataVideo)
-            {
-                $ModelVideo->video_id = $DataVideo['video_id'];
-                $ModelVideo->video_title = $DataVideo['video_title'];
-                $ModelVideo->video_text = $DataVideo['video_text'];
-                $ModelVideo->video_category = $DataVideo['video_category'];
-                $ModelVideo->video_480p = $DataVideo['video_480p'];
-                $ModelVideo->video_720p = $DataVideo['video_720p'];
-                $ModelVideo->video_1080p = $DataVideo['video_1080p'];
-                $ModelVideo->video_image = $DataVideo['video_image'];
-                $ModelVideo->video_thumb = $DataVideo['video_thumb'];
-                $ModelVideo->video_published = $DataVideo['video_published'];
-                $ModelVideo->player_type = $DataVideo['player_type'];
-                $ModelVideo->video_description = $DataVideo['video_description'];
-                $ModelVideo->video_keywords = $DataVideo['video_keywords'];
-            }
-        }    
+//        else
+//        {
+//            $Data = $ModelVideo->DownloadVideoAdmin($id);
+//           
+//            foreach($Data as $DataVideo)
+//            {
+//                $ModelVideo->video_id = $DataVideo['video_id'];
+//                $ModelVideo->video_title = $DataVideo['video_title'];
+//                $ModelVideo->video_text = $DataVideo['video_text'];
+//                $ModelVideo->video_category = $DataVideo['video_category'];
+//                $ModelVideo->video_480p = $DataVideo['video_480p'];
+//                $ModelVideo->video_720p = $DataVideo['video_720p'];
+//                $ModelVideo->video_1080p = $DataVideo['video_1080p'];
+//                $ModelVideo->video_image = $DataVideo['video_image'];
+//                $ModelVideo->video_thumb = $DataVideo['video_thumb'];
+//                $ModelVideo->video_published = $DataVideo['video_published'];
+//                $ModelVideo->player_type = $DataVideo['player_type'];
+//                $ModelVideo->video_description = $DataVideo['video_description'];
+//                $ModelVideo->video_keywords = $DataVideo['video_keywords'];
+//            }
+//        }    
         
         $this->render('videoupdate', array(
             'ModelTags' => $ModelTags,
             'ModelVideo' => $ModelVideo,
             'VideoUpdate' => $VideoUpdate,
-            'ModelCategories' => $ModelCategories,
+          //  'ModelCategories' => $ModelCategories,
         ));
     }
     
@@ -241,7 +255,7 @@ public function actionIndex() {
         {
             $this->redirect(array('admin/login'));
         }
-        $CategotyAdd = false;
+        $CategoryAdd = false;
         
         $ModelCategories = new CmsvideoCategories;
         
@@ -251,18 +265,19 @@ public function actionIndex() {
             
             if($ModelCategories->validate())
             {
-                $ModelCategories->AddCategory();
-                $CategotyAdd = true;
+                $ModelCategories->save();
+                //$ModelCategories->AddCategory();
+                $CategoryAdd = true;
                 $ModelCategories->category_name = '';
             }
         }
         
-        $DataCategory = $ModelCategories->DownloadCategories();
-        
+        //$DataCategory = $ModelCategories->DownloadCategories();
+        $DataCategory = new CActiveDataProvider('CmsvideoCategories');
         $this->render('category', array(
             'Data' => $DataCategory,
-            'CategoryAdd' => $CategotyAdd,
-            'ModelCategory' => $ModelCategories,
+            'CategoryAdd' => $CategoryAdd,
+            'ModelCategory' => $ModelCategories
         ));
     }
     public function actionCategoryDelete($id)
@@ -276,9 +291,9 @@ public function actionIndex() {
         {
             exit;
         }
-        
-        $ModelCategory = new CmsvideoCategories;
-        $ModelCategory->DeleteCategory($id);
+        CmsvideoCategories::model()->deleteAll('category_id=:IdCategory', array(':IdCategory'=>$id));
+       // $ModelCategory = new CmsvideoCategories;
+      //  $ModelCategory->DeleteCategory($id);
         $this->redirect(array('admin/category'));
     }
     
@@ -296,26 +311,28 @@ public function actionIndex() {
         }
         
         $CategoryUpdate = false;
-        $ModelCategory = new CmsvideoCategories;
+        $ModelCategory = CmsvideoCategories::model()->findByPk($id);
+        //$ModelCategory = new CmsvideoCategories;
         
         if(isset($_POST['CmsvideoCategories']))
         {
             $ModelCategory->attributes = $_POST['CmsvideoCategories'];
             if($ModelCategory->validate())
             {
-                $ModelCategory->SaveCategory($id);
+                $ModelCategory->save();
+                //$ModelCategory->SaveCategory($id);
                 $CategoryUpdate = true;
             }
             $this->redirect(array('/admin/category'));
         }
-        else
-        {
-            $Data = $ModelCategory->DownloadOneCategory($id);
-            foreach ($Data as $DataForm)
-            {
-                $ModelCategory->category_name = $DataForm['category_name'];
-            }
-        }
+//        else
+//        {
+//            $Data = $ModelCategory->DownloadOneCategory($id);
+//            foreach ($Data as $DataForm)
+//            {
+//                $ModelCategory->category_name = $DataForm['category_name'];
+//            }
+//        }
         
         $this->render('categoryupdate', array(
             'ModelCategory' => $ModelCategory,

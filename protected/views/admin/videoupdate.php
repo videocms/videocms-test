@@ -60,7 +60,7 @@
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_category'); ?>
-                <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData($ModelCategories->DownloadCategories(), 'category_id', 'category_name'), array('class' => 'form-control')); ?>
+                <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData(CmsvideoCategories::model()->findAll(), 'category_id', 'category_name'), array('class' => 'form-control')); ?>
                 <?php echo $form->error($ModelVideo, 'video_category'); ?>
             </div>
             <div class="form-group">
