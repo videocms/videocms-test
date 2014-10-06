@@ -18,7 +18,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
     ),
 'pagerCssClass'=>'pagination',
-'itemsCssClass'=>'table table-striped',
+'itemsCssClass'=>'table table-hover',
 'columns'=>array(
         array(
               'type' => 'raw',
@@ -45,10 +45,17 @@ $this->widget('zii.widgets.grid.CGridView', array(
             (
                 'delete' => array
                 (
+                    'label'=>'',
+                    //'options'=>array('class' => 'btn btn-danger', 'type' => 'button'),
+                    'options'=>array('class' => 'fa fa-times fa-lg'),
+                    'imageUrl'=>'',
                     'url' => 'Yii::app()->createUrl("admin/videodelete/".$data->video_id)',
                 ),
                 'update' => array
                 (
+                    'label'=>'',
+                    'options'=>array('class' => 'fa fa-eye fa-lg'),
+                    'imageUrl'=>'',
                     'url'=> 'Yii::app()->createUrl("admin/videoupdate/".$data->video_id)',
                 ),
             ),

@@ -31,14 +31,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 (   
                     'label'=>'',
                     //'options'=>array('class' => 'btn btn-danger', 'type' => 'button'),
-                    'options'=>array('class' => 'fa fa-times'),
+                    'options'=>array('class' => 'fa fa-times fa-lg'),
                     'imageUrl'=>'',
                     'url' => 'Yii::app()->createUrl("admin/categorydelete/".$data->category_id)',
                 ),
                 'update' => array
                 (
                     'label'=>'',
-                    'options'=>array('class' => 'fa fa-eye'),
+                    'options'=>array('class' => 'fa fa-eye fa-lg'),
                     'imageUrl'=>'',
                     'url'=> 'Yii::app()->createUrl("admin/categoryupdate/".$data->category_id)',
                 ),

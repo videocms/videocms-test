@@ -32,10 +32,16 @@ $this->widget('zii.widgets.grid.CGridView', array(
             (
                 'delete' => array
                 (
+                    'label'=>'',
+                    'options'=>array('class' => 'fa fa-eye'),
+                    'imageUrl'=>'',
                     'url' => 'Yii::app()->createUrl("admin/vastdelete/".$data->vast_id)',
                 ),
                 'update' => array
                 (
+                    'label'=>'',
+                    'options'=>array('class' => 'fa fa-eye'),
+                    'imageUrl'=>'',
                     'url'=> 'Yii::app()->createUrl("admin/vastupdate/".$data->vast_id)',
                 ),
             ),
