@@ -270,7 +270,16 @@ public function actionIndex() {
         }
         
         //$DataCategory = $ModelCategories->DownloadCategories();
-        $DataCategory = new CActiveDataProvider('CmsvideoCategories');
+        $DataCategory = new CActiveDataProvider('CmsvideoCategories', array(
+            'sort'=>array(
+	'defaultOrder'=>'category_id DESC',
+			),
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
+              )
+            );
         $this->render('category', array(
             'Data' => $DataCategory,
             'CategoryAdd' => $CategoryAdd,
@@ -418,7 +427,16 @@ public function actionIndex() {
             }
         }
        // $DataVast = $ModelVast->DownloadVast();
-        $DataVast = new CActiveDataProvider('VastVideo');
+        $DataVast = new CActiveDataProvider('VastVideo', array(
+            'sort'=>array(
+	'defaultOrder'=>'vast_id DESC',
+			),
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
+              )
+            );
         
         $this->render('vast', array(
             'Data' => $DataVast,

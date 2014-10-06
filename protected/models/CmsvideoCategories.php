@@ -41,7 +41,19 @@ class CmsvideoCategories extends CActiveRecord
             $criteria->compare('category_name', $this->category_name, true);
             return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            ));
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
+            'sort'=>array(
+    			'defaultOrder'=>'category_id',
+    			'sortVar'=>'sort',
+    			'attributes'=>array(
+    				'category_id',
+    			),
+    		),
+
+		));
         }
 }
        

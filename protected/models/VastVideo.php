@@ -46,7 +46,19 @@ class VastVideo extends CActiveRecord
             $criteria->compare('vast_link', $this->vast_link, true);
             return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            ));
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
+            'sort'=>array(
+    			'defaultOrder'=>'vast_id',
+    			'sortVar'=>'sort',
+    			'attributes'=>array(
+    				'vast_id',
+    			),
+    		),
+
+		));
         }
 }
 ?>
