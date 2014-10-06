@@ -7,10 +7,12 @@
 $this->widget('zii.widgets.grid.CGridView', array(
 'id' => 'videocms-category-grid',
 'htmlOptions'=>array('class'=>'table-responsive'),
+'summaryCssClass' => 'dataTables_info',
+'template' => '<div class="alert alert-info fade in" role="alert">{summary}</div>{items}<div class="row"><div class="col-md-4"></div><div class="col-md-8">{pager}<br /></div></div>',
 'dataProvider'=>$Data,
 'pager'=>array( 
    'cssFile'=>false,   
-        // 'header'=>'testttt',           
+    'header'=>'',          
     'maxButtonCount'=>'7',
     'selectedPageCssClass'=>'active',
    'htmlOptions'=>array(
@@ -61,6 +63,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
             <div class="panel panel-default">
                 <div class="panel-heading">Dodaj kategorię</div>
                      <div class="panel-body">
+                         <div class="row">
+                              <div class="col-lg-12">
+                                  <div class="alert alert-warning" role="alert">
+                                       <p class="note">Pola oznacone <span class="required">*</span> są wymagane.</p>
+                                  </div>
+                             </div>
                          <div class="col-lg-6">
                             <div class="form-group">
                                 <?php 
@@ -79,6 +87,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                                     <p class="note">Pola oznaczone <span class="required">*</span> są wymagane.</p>
                                     </div>
                         </div>
+                      </div>
                    </div>
              </div>
          </div>

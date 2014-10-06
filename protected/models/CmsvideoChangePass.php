@@ -9,6 +9,7 @@
 class CmsvideoChangePass extends CFormModel
 {
     public $user_pass;
+    public $user_login;
     public $user_newpass;
     public $user_newpass2;
     
@@ -21,6 +22,7 @@ class CmsvideoChangePass extends CFormModel
     
     public function attributeLabels() {
         return array(
+            'user_login' => 'login',
             'user_pass' => 'Stare Hasło',
             'user_newpass' => 'Nowe hasło',
             'user_newpass2' => 'Powtorz nowe hasło',

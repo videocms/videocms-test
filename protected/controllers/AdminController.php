@@ -368,7 +368,7 @@ public function actionIndex() {
         {
             $this->redirect(array('admin/login'));
         }
-        
+        $ChangePass = false;
         $ErrorChangePass = false;
         $ModelPass = new CmsvideoChangePass;
         
@@ -393,7 +393,7 @@ public function actionIndex() {
                         $ModelPass->user_pass = '';
                         $ModelPass->user_newpass = '';
                         $ModelPass->user_newpass2 = '';
-                        
+                        $ChangePass = true;
                         $ErrorChangePass = 'no_error';
                     }
                     else {
@@ -788,6 +788,107 @@ public function actionIndex() {
         $this->redirect(array('/index'));
     }
     //end login
+    //dodanie usera
+    public function actionAdduser()
+    {
+         $this->pageTitle = 'AddUser';
+        if(Yii::app()->session['zalogowany'] != 'tak') 
+        {
+            $this->redirect(array('admin/login'));
+        }
+        $ErrorData = false;
+        $UserAdd = false;
+        
+        $ModelUser = new CmsvideoNewuser;
+        
+        if(isset($_POST['CmsvideoNewuser']))
+        {
+            $ModelUser->attributes=$_POST['CmsvideoNewuser'];
+            
+            if($ModelUser->validate())
+            {
+                if ($ModelUser->user_pass == $ModelUser->user_newpass)
+                {
+                $ModelUser->save();
+                $UserAdd = true;
+                $ModelUser->user_login = '';
+                $ModelUser->user_pass = md5($ModelUser->user_pass);
+                }
+                else
+                {
+                   $ErrorData = true;
+                }
+            }
+        }
+        
+        //$DataCategory = $ModelCategories->DownloadCategories();
+        $DataUser = new CActiveDataProvider('CmsvideoNewuser', array(
+            'sort'=>array(
+	'defaultOrder'=>'user_id DESC',
+			),
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
+              )
+            );
+        $this->render('adduser', array(
+            'Data' => $DataUser,
+            'UserAdd' => $UserAdd,
+            'ModelUser' => $ModelUser,
+            'ErrorData' => $ErrorData
+        ));
+    }
+     public function actionAdduserDelete($id)
+    {
+        if(Yii::app()->session['zalogowany'] != 'tak')
+        {
+            $this->redirect(array('admin/login'));
+        }
+        
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        CmsvideoNewuser::model()->deleteAll('user_id=:IdUser', array(':IdUser'=>$id));
+        $this->redirect(array('admin/adduser'));
+    }
+    
+    public function actionUserUpdate($id)
+    {
+        $this->pageTitle = 'Edit User';
+        if(Yii::app()->session['zalogowany'] != 'tak')
+        {
+            $this->redirect(array('admin/login'));
+        }
+        $AddUser = FALSE;
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        
+        $UserUpdate = false;
+        $ModelUser = CmsvideoNewuser::model()->findByPk($id);
+        
+        if(isset($_POST['CmsvideoNewuser']))
+        {
+            $ModelUser->attributes = $_POST['CmsvideoNewuser'];
+            if($ModelUser->validate())
+            {
+                $ModelUser->save();
+                $UserUpdate = true;
+                $AddUser = TRUE;
+            }
+            $this->redirect(array('/admin/adduser'));
+        }
+        
+        $this->render('userupdate', array(
+            'ModelUser' => $ModelUser,
+            'UserUpdate' => $UserUpdate,
+        ));
+    }
+    
+    //user koniec
 }
 
 ?>

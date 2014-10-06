@@ -1,5 +1,41 @@
 <?php
-
+//class CmsVideoUsers extends CActiveRecord
+//{
+//    public static function model($className = __CLASS__) {
+//        parent::model($className);
+//    }
+//    public function tableName() {
+//        return 'videocms_users';
+//    }
+//    public function rules()
+//    {
+//        return array(
+//            array('user_login, user_pass', 'required'),
+//        );
+//    }
+//    public function relations() {
+//        return array();
+//    }
+//    public function attributeLabel()
+//    {
+//        return array(
+//            'user_id' => 'ID',
+//            'user_login' => 'Login',
+//            'user_pass' => 'Hasło',
+//        );
+//    }
+//    public function search()
+//    {
+//        $criteria = new CDbCriteria;
+//        $criteria->compare('user_id', $this->user_id);
+//        $criteria->compare('user_login', $this->user_login);
+//        $criteria->compare('user_pass', $this->user_pass);
+//        
+//        return new CActiveDataProvider($this, array(
+//            'criteria'=>$criteria,
+//        ));
+//    }
+//}
 class CmsvideoUsers extends CFormModel
 {
     public $user_login;
@@ -45,5 +81,6 @@ class CmsvideoUsers extends CFormModel
         return $DataUsers;
     }
 }
+
 
 ?>

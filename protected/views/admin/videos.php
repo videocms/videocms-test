@@ -7,10 +7,12 @@
 $this->widget('zii.widgets.grid.CGridView', array(
 'id' => 'videocms-videos-grid',
 'htmlOptions'=>array('class'=>'table-responsive'),
+'summaryCssClass' => 'dataTables_info',
+'template' => '<div class="alert alert-info fade in" role="alert">{summary}</div>{items}<div class="row"><div class="col-md-4"></div><div class="col-md-8">{pager}<br /></div></div>',
 'dataProvider'=>$Data,
 'pager'=>array( 
    'cssFile'=>false,   
-        // 'header'=>'testttt',           
+    'header'=>'',           
     'maxButtonCount'=>'7',
     'selectedPageCssClass'=>'active',
     'htmlOptions'=>array(
@@ -20,9 +22,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 'pagerCssClass'=>'pagination',
 'itemsCssClass'=>'table table-hover',
 'columns'=>array(
+       // 'class'=>'CCheckBoxColumn',
+        //'selectableRows' => '10',
         array(
               'type' => 'raw',
-              'value' => 'CHtml::image("/" . $data->video_thumb, $data->video_title, array("width"=>"60px" ,"height"=>"60px"))',
+              'class'=>'ImageLinkColumn',
+              'urlExpression'=>'array("admin/videoupdate/".$data->video_id)',
+              'value' => 'CHtml::image("/" . $data->video_thumb, $data->video_title, array("style"=>"width: auto; height: 60px;", "class"=>"img-thumbnail"))',
             ),
         'video_id',
         'video_title',
@@ -30,14 +36,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
 //        'video_text',
         'video_category',
         'video_date',
-        'video_480p',
-        'video_720p',
-        'video_1080p',
+        //'video_480p',
+       // 'video_720p',
+       // 'video_1080p',
         'video_published',
-        'player_type',
+       // 'player_type',
 //        'video_descriptions',
 //        'video_keywords',
-        'video_tags',
+      //  'video_tags',
         array(
             'class'=>'CButtonColumn',
             'template'=>'{delete} {update}',

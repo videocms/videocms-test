@@ -249,7 +249,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
-     
+                            <!--<li class="divider"></li> -->
                             <?php if(Yii::app()->session['zalogowany'] == 'tak')
                 {
                     $this->widget('zii.widgets.CMenu',array(
@@ -258,6 +258,8 @@
                         'encodeLabel' => false,
                         'htmlOptions'=>array('class'=>'dropdown-menu dropdown-user'),
 			'items'=>array(
+                            array('label'=>'<i class="fa fa-pencil-square-o fa-f"></i> Zmień hasło', 'url'=>array('/admin/pass')),
+                            array('label'=>'<li class="divider"></li>'),
                             array('label'=>'<i class="fa fa-sign-out fa-fw"></i> Wyloguj', 'url'=>array('/admin/logout')),
 			),
                         ));}?>
@@ -284,10 +286,10 @@
                             array('label'=>'<i class="fa fa-table fa-f"></i> Kategorie', 'url'=>array('/admin/category')),
                             array('label'=>'<i class="fa fa-desktop fa-f"></i> Reklamy', 'url'=>array('/admin/vast')),
                             array('label'=>'<i class="fa fa-picture-o fa-f"></i> Slider', 'url'=>array('/admin/slider')),
+                            array('label'=>'<i class="fa fa-users fa-f"></i> Użytkownicy', 'url'=>array('/admin/adduser')),
                             array('label'=>'<i class="fa fa-cog fa-f"></i> Ustawienia', 'url'=>array('/admin/settings')),
                             array('label'=>'<i class="fa fa-cog fa-f"></i> Seo', 'url'=>array('/admin/seo/1')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                            array('label'=>'<i class="fa fa-pencil-square-o fa-f"></i> Zmień hasło', 'url'=>array('/admin/pass')),
 			),
                 ));}
                 else
