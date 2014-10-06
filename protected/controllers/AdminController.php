@@ -60,12 +60,27 @@ public function actionIndex() {
             if($ModelVideo->validate())
             {   
                // $ModelVideo->AddNewVideo();
-                $ModelVideo->save();
-                $id = Yii::app()->db->getLastInsertID();
-                if (!empty($ModelVideo->tag_name)) {
-                    foreach($Tags as $TagValue) {
-                            $ModelTags->AddTag($TagValue);
-                            $ModelTags->AddVideoTag($TagValue, $id);
+                if($ModelVideo->save()) {
+                $id = $ModelVideo->primaryKey;
+                    if (!empty($ModelVideo->tag_name)) {
+                        $SelectVideo = CmsvideoVideo::model()->findByPk($id);
+                        foreach($Tags as $TagValue) {
+                                $ModelTags->AddTag($TagValue);
+                                $DataTags = $ModelTags->SelectTags($TagValue);
+                                $ModelTags->AddVideoTag($DataTags, $id);
+                                $VideoTags = $SelectVideo->video_tags;
+                                if(empty($VideoTags)) {
+                                    $VideoTag[] = $DataTags['tag_name'];
+                                }
+                                else {
+                                    $VideoTag = unserialize($VideoTags);
+                                }
+                                if (!in_array($DataTags['tag_name'],$VideoTag) && !empty($VideoTags)) {
+                                    array_push($VideoTag, $DataTags['tag_name']);
+                                }
+                                $SelectVideo->video_tags = serialize($VideoTag);
+                        }
+                        $SelectVideo->save();
                     }
                 }
                 if ($ImageUpload !== NULL) {
