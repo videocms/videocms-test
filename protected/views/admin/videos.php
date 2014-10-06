@@ -40,21 +40,21 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'video_tags',
         array(
             'class'=>'CButtonColumn',
-            'template'=>'{delete}{update}',
+            'template'=>'{delete} {update}',
             'buttons'=>array
             (
                 'delete' => array
                 (
                     'label'=>'',
                     //'options'=>array('class' => 'btn btn-danger', 'type' => 'button'),
-                    'options'=>array('class' => 'fa fa-times fa-lg'),
+                    'options'=>array('class' => 'fa fa-times fa-lg', 'data-toggle'=>'tooltip', 'title'=>'Usuń'),
                     'imageUrl'=>'',
                     'url' => 'Yii::app()->createUrl("admin/videodelete/".$data->video_id)',
                 ),
                 'update' => array
                 (
                     'label'=>'',
-                    'options'=>array('class' => 'fa fa-eye fa-lg'),
+                    'options'=>array('class' => 'fa fa-pencil fa-lg', 'data-toggle'=>'tooltip', 'title'=>'Edytuj'),
                     'imageUrl'=>'',
                     'url'=> 'Yii::app()->createUrl("admin/videoupdate/".$data->video_id)',
                 ),

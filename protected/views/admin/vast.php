@@ -27,20 +27,20 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'vast_link',
         array(
             'class'=>'CButtonColumn',
-            'template'=>'{delete}{update}',
+            'template'=>'{delete} {update}',
             'buttons'=>array
             (
                 'delete' => array
                 (
                     'label'=>'',
-                    'options'=>array('class' => 'fa fa-eye'),
+                    'options'=>array('class' => 'fa fa-times fa-lg', 'data-toggle'=>'tooltip', 'title'=>'Usuń'),
                     'imageUrl'=>'',
                     'url' => 'Yii::app()->createUrl("admin/vastdelete/".$data->vast_id)',
                 ),
                 'update' => array
                 (
                     'label'=>'',
-                    'options'=>array('class' => 'fa fa-eye'),
+                    'options'=>array('class' => 'fa fa-pencil fa-lg', 'data-toggle'=>'tooltip', 'title'=>'Edytuj'),
                     'imageUrl'=>'',
                     'url'=> 'Yii::app()->createUrl("admin/vastupdate/".$data->vast_id)',
                 ),

@@ -22,7 +22,22 @@ class CmsvideoVideo extends CActiveRecord
             array('video_title', 'length', 'max'=>65),
            // array('video_alias, video_description, video_keywords', 'length', 'max'=>255),
             array('video_alias, video_description, video_keywords, tag_delete, tag_name', 'length', 'max'=>255),
-            array('video_image, video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update', 'maxSize'=>'204800'),
+            array('video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
+            array('video_image', 'file',
+                'allowEmpty'=>true,
+                'types'=>'jpg, gif, png',
+                'on'=>'insert',//scenario
+                'except'=>'update',
+                'message' => 'Upload Valid Image!',  // Error message
+                'wrongType'=>'File type is Invalid',
+                'minSize'=>1,
+                'maxSize'=>912000,// 912 kilo
+                'maxFiles'=>1,
+                'tooLarge'=>'File Size Too Large',//Error Message
+                'tooSmall'=>'File Size Too Small',//Error Message
+                'tooMany'=>'Too Many Files Uploaded',//Error Message                               
+ ), 
+
             array('video_title, video_alias, video_text, video_category, video_image, video_thumb, video_published, video_description, video_keywords, player_type, video_1080p, video_480p, video_720p, video_image, video_thumb', 'safe', 'on'=>'search'),
         );
     }
