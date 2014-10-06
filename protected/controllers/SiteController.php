@@ -170,7 +170,27 @@ class SiteController extends Controller
         $DataSeo = $ModalSeo->DownloadSettings();
         $ModelCategories = CmsvideoCategories::model()->findAll();
         $Model = CmsvideoVideo::model()->findAll('video_id=:IdVideo', array(':IdVideo'=>$id));
-      
+        
+        $session = Yii::app()->getSession();
+        $video_arr = array();
+        $ses_arr = array();
+
+         if($session['video_arr']) {
+            $ses_arr=$session['video_arr']; 
+            }
+            if(!in_array($id, $ses_arr)) {
+                $video_arr = $ses_arr;
+                $video_arr[] = $id;
+                $Views = CmsvideoVideo::model()->find('video_id=:id', array(':id'=> $id));
+                if($Views->video_views) {
+                   $Views->video_views = $Views->video_views + 1;
+                }
+                else {
+                   $Views->video_views = 1;
+                }
+                $Views->save();
+                $session['video_arr']=$video_arr;
+            }
         
         foreach ($DataSeo as $Seoo)
         {
@@ -238,7 +258,7 @@ class SiteController extends Controller
         }
     /// end VAST
         //embed start
-        public function actionEmbed($id)
+    public function actionEmbed($id)
     {
         if(!is_numeric($id))
         {

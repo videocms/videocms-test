@@ -60,39 +60,7 @@ class CmsvideoVideo extends CActiveRecord
             'tag_name' => 'Tagi'
         );
     }
-    
-    public function ImageCreate($ImageUpload, $ImageUrl) 
-        {
-             $ImageUpload->saveAs($ImageUrl);
-        }
-    
-    public function ImageThumbCreate($ImageUrl, $ThumbUrl) 
-        {
-            $ImageThumb = new EasyImage($ImageUrl);
-            $ImageThumb->resize(346, 230);
-            $ImageThumb->crop(320, 180);
-            $ImageThumb->save($ThumbUrl);
-        }
-     public function DeleteVideoImage($id)
-        {
-            $Data = CmsvideoVideo::model()->find('video_id=:id', array(':id'=> $id));
-            $FileImage = $Data->video_image;
-            $FileThumb = $Data->video_thumb;
-
-            if (file_exists($FileImage)) {
-                 unlink($FileImage);
-            }
-            else {
-                echo 'Error deleting Image:'.$FileImage;
-            }
-            if (file_exists($FileThumb)) {
-                unlink($FileThumb);
-            }
-            else {
-                echo 'Error deleting Thumbnail: '.$FileThumb;
-            }    
-        }
-    
+   
     public function search()
         {
             $criteria=new CDbCriteria;
@@ -124,6 +92,40 @@ class CmsvideoVideo extends CActiveRecord
 
 		));
         }
+        
+    public function ImageCreate($ImageUpload, $ImageUrl) 
+        {
+             $ImageUpload->saveAs($ImageUrl);
+        }
+    
+    public function ImageThumbCreate($ImageUrl, $ThumbUrl) 
+        {
+            $ImageThumb = new EasyImage($ImageUrl);
+            $ImageThumb->resize(346, 230);
+            $ImageThumb->crop(320, 180);
+            $ImageThumb->save($ThumbUrl);
+        }
+        
+     public function DeleteVideoImage($id)
+        {
+            $Data = CmsvideoVideo::model()->find('video_id=:id', array(':id'=> $id));
+            $FileImage = $Data->video_image;
+            $FileThumb = $Data->video_thumb;
+
+            if (file_exists($FileImage)) {
+                 unlink($FileImage);
+            }
+            else {
+                echo 'Error deleting Image:'.$FileImage;
+            }
+            if (file_exists($FileThumb)) {
+                unlink($FileThumb);
+            }
+            else {
+                echo 'Error deleting Thumbnail: '.$FileThumb;
+            }    
+        }
+  
 }
 
 
