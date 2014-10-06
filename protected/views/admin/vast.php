@@ -6,7 +6,19 @@
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
 'id' => 'videocms-category-grid',
+'htmlOptions'=>array('class'=>'table-responsive'),
 'dataProvider'=>$Data,
+//'pager'=>array( 
+//   'cssFile'=>false,   
+        // 'header'=>'testttt',           
+//    'maxButtonCount'=>'7',
+//    'selectedPageCssClass'=>'active',
+//    'htmlOptions'=>array(
+//            'class'=>'pagination'
+//        ),
+//    ),
+'pagerCssClass'=>'pagination',
+'itemsCssClass'=>'table table-hover',   
 'columns'=>array(
         'vast_id',
         'vast_title',
