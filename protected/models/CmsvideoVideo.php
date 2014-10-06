@@ -21,7 +21,7 @@ class CmsvideoVideo extends CActiveRecord
             array('video_1080p, video_480p, video_720p', 'video_attribute'),
             array('video_title', 'length', 'max'=>65),
            // array('video_alias, video_description, video_keywords', 'length', 'max'=>255),
-            array('video_alias, video_description, video_keywords, tag_delete, tag_name, video_tags', 'length', 'max'=>255),
+            array('video_alias, video_description, video_keywords, tag_delete, tag_name', 'length', 'max'=>255),
             array('video_image, video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update', 'maxSize'=>'204800'),
             array('video_title, video_alias, video_text, video_category, video_image, video_thumb, video_published, video_description, video_keywords, player_type, video_1080p, video_480p, video_720p, video_image, video_thumb', 'safe', 'on'=>'search'),
         );
@@ -129,24 +129,6 @@ class CmsvideoVideo extends CActiveRecord
                 echo 'Error deleting Thumbnail: '.$FileThumb;
             }    
         }
-        
-     public function AddVideoTagId($id) {
-         $ModelVideo = new CmsvideoVideo;
-//        $Data = $this->SelectTags($TagValue);
-//        $Data2 = $this->DownloadOneVideo($id);
-//        
-//        $rows2 = $Data2['video_tags'];
-//        if(empty($rows2)) {
-//        $row[] = $Data['tag_name'];
-//        }
-//        else {
-//        $row = unserialize($rows2);
-//        }
-//        if (!in_array($Data['tag_name'],$row) && !empty($rows2)) {
-//        array_push($row, $Data['tag_name']);
-//        }
-        $ModelVideo::model()->updateByPk($id, array('video_tags' => 'tomektomek'));
-    }
   
 }
 
