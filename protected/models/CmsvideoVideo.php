@@ -82,6 +82,10 @@ class CmsvideoVideo extends CActiveRecord
             $criteria->compare('video_tags', $this->video_tags, true);
             return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
             'sort'=>array(
     			'defaultOrder'=>'video_id',
     			'sortVar'=>'sort',

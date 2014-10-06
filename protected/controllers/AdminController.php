@@ -96,6 +96,10 @@ public function actionIndex() {
             'sort'=>array(
 	'defaultOrder'=>'video_id DESC',
 			),
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
               )
             );
 

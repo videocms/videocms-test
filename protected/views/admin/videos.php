@@ -7,6 +7,11 @@
 $this->widget('zii.widgets.grid.CGridView', array(
 'id' => 'videocms-videos-grid',
 'dataProvider'=>$Data,
+'pager'=>array( 
+   'cssFile'=>false,   
+        // 'header'=>'testttt',           
+        'maxButtonCount'=>'7',
+    ),
 'columns'=>array(
         array(
               'type' => 'raw',
