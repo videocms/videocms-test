@@ -24,15 +24,22 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'category_name',
         array(
             'class'=>'CButtonColumn',
-            'template'=>'{delete}{update}',
+            'template'=>'{delete} {update}',
             'buttons'=>array
             (
                 'delete' => array
-                (
+                (   
+                    'label'=>'',
+                    //'options'=>array('class' => 'btn btn-danger', 'type' => 'button'),
+                    'options'=>array('class' => 'fa fa-times'),
+                    'imageUrl'=>'',
                     'url' => 'Yii::app()->createUrl("admin/categorydelete/".$data->category_id)',
                 ),
                 'update' => array
                 (
+                    'label'=>'',
+                    'options'=>array('class' => 'fa fa-eye'),
+                    'imageUrl'=>'',
                     'url'=> 'Yii::app()->createUrl("admin/categoryupdate/".$data->category_id)',
                 ),
             ),
