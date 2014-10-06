@@ -58,10 +58,14 @@ public function actionIndex() {
             }
             
             if($ModelVideo->validate())
-            {   
+            {  
+                if ($ImageUpload !== NULL) {
+                $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
+                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
+                }
                // $ModelVideo->AddNewVideo();
                 if($ModelVideo->save()) {
-                $id = $ModelVideo->primaryKey;
+                    $id = $ModelVideo->primaryKey;
                     if (!empty($ModelVideo->tag_name)) {
                         $SelectVideo = CmsvideoVideo::model()->findByPk($id);
                         foreach($Tags as $TagValue) {
@@ -82,10 +86,6 @@ public function actionIndex() {
                         }
                         $SelectVideo->save();
                     }
-                }
-                if ($ImageUpload !== NULL) {
-                $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
-                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 }
                 $VideoAdd = true;
                 $ModelVideo->video_title = '';
@@ -189,6 +189,11 @@ public function actionIndex() {
             
             if ($ModelVideo->validate())
             {
+                if ($ImageUpload !== NULL) {
+                    $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
+                  $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
+                }
+                
                 if (!empty($ModelVideo->tag_name)) {
                     foreach($Tags as $TagValue) {
                             $ModelTags->AddTag($TagValue);
@@ -211,11 +216,6 @@ public function actionIndex() {
                // $ModelVideo->UpdateVideo($id);
                 $ModelVideo->save();
                 
-                if ($ImageUpload !== NULL) {
-                    $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
-                  $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
-                }
-               
                 if($ModelVideo->tag_delete) {
                     $TagDelete = explode(',',$ModelVideo->tag_delete);
                     foreach($TagDelete as $Tag) {
