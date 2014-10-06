@@ -118,10 +118,10 @@ class CmsvideoTags extends CFormModel
     
     //Dodawanie do kolumny tag_idvideo id video w tabeli videocms_tags i do kolumny video_tags nazwy tagu w tabeli videocms_video
     public function AddVideoTag($TagValue, $id) {
-        $Data = $this->SelectTags($TagValue);
-        $Data2 = $this->DownloadOneVideo($id);
+    //    $Data = $this->SelectTags($TagValue);
+    //    $Data2 = $this->DownloadOneVideo($id);
        
-        $rows = $Data['tag_idvideo'];
+        $rows = $TagValue['tag_idvideo'];
         if(empty($rows)) {
         $row2[] = $id;
         }
@@ -131,23 +131,10 @@ class CmsvideoTags extends CFormModel
         if (!in_array($id,$row2) && !empty($rows)) {
         array_push($row2, $id);
         }
-        
-        $rows2 = $Data2['video_tags'];
-        if(empty($rows2)) {
-        $row[] = $Data['tag_name'];
-        }
-        else {
-        $row = unserialize($rows2);
-        }
-        if (!in_array($Data['tag_name'],$row) && !empty($rows2)) {
-        array_push($row, $Data['tag_name']);
-        }
-        
-        $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags, videocms_video SET videocms_tags.tag_idvideo = :VideoTag, videocms_video.video_tags = :VideoTagName WHERE videocms_tags.tag_name = :TagName AND videocms_video.video_id = :IdVideo');
+
+        $UpdateTag = Yii::app()->db->createCommand('UPDATE videocms_tags SET tag_idvideo = :VideoTag WHERE tag_name = :TagName');
         $UpdateTag->bindValue(':VideoTag', serialize($row2), PDO::PARAM_STR);
-        $UpdateTag->bindValue(':VideoTagName', serialize($row), PDO::PARAM_STR);
-        $UpdateTag->bindValue(':TagName', $Data['tag_name'], PDO::PARAM_STR);
-        $UpdateTag->bindValue(':IdVideo', $id, PDO::PARAM_INT);
+        $UpdateTag->bindValue(':TagName', $TagValue['tag_name'], PDO::PARAM_STR);
         $UpdateTag->execute();   
     }
 }

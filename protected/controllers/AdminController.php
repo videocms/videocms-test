@@ -156,7 +156,6 @@ public function actionIndex() {
         }
         
         $VideoUpdate = false;
-       //$ModelVideo = new CmsvideoVideo;
         $ModelTags = new CmsvideoTags;
         $ModelVideo = CmsvideoVideo::model()->findByPk($id);
       //  $ModelCategories = new CmsvideoCategories;
@@ -178,9 +177,22 @@ public function actionIndex() {
                 if (!empty($ModelVideo->tag_name)) {
                     foreach($Tags as $TagValue) {
                             $ModelTags->AddTag($TagValue);
-                            $ModelTags->AddVideoTag($TagValue, $id);
+                            $DataTags = $ModelTags->SelectTags($TagValue);
+                            $ModelTags->AddVideoTag($DataTags, $id);
+                            $VideoTags = $ModelVideo->video_tags;
+                            if(empty($VideoTags)) {
+                                $VideoTag[] = $DataTags['tag_name'];
+                            }
+                            else {
+                                $VideoTag = unserialize($VideoTags);
+                            }
+                            if (!in_array($DataTags['tag_name'],$VideoTag) && !empty($VideoTags)) {
+                                array_push($VideoTag, $DataTags['tag_name']);
+                            }
+                            $ModelVideo->video_tags = serialize($VideoTag);
                     }
                 }
+             
                // $ModelVideo->UpdateVideo($id);
                 $ModelVideo->save();
                 
@@ -193,7 +205,7 @@ public function actionIndex() {
                     $TagDelete = explode(',',$ModelVideo->tag_delete);
                     foreach($TagDelete as $Tag) {
                         $DataTag = $ModelTags->SelectTags($Tag);
-                        $ModelTags->DeleteVideoTag($id, $DataTag);
+                        $ModelTags->DeleteVideoTag($id, $DataTag); //do zmiany
                         $ModelTags->DeleteIdVideo($id, $DataTag);
                         $ModelTags->DeleteTag($DataTag['tag_name']);
                     }
