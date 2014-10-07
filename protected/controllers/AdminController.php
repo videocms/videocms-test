@@ -780,9 +780,13 @@ public function actionIndex() {
 			// validate user input and redirect to the previous page if valid
 			if($model->validate()) {
 			    if ($model->scenario=='login' && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+				$this->redirect('/admin');
+			    elseif ($model->scenario=='lost') {
+				//$model->lostPassword();
+			    }
 			}
 		}
+		
 		    $this->render('login',array('model'=>$model));
 	}
 

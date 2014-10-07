@@ -1,5 +1,6 @@
 <?php
-$wers = "0.2";
+echo Yii::app()->user->id;
+$wers = "0.3";
 $url = 'http://www.alexie.pl/wersja.xml'; 
 $xml = simpleXML_load_file($url,"SimpleXMLElement",LIBXML_NOCDATA);
 ?>
