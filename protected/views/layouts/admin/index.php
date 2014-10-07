@@ -1,4 +1,7 @@
-<?php /* @var $this Controller */ ?>
+<?php /* @var $this Controller */ 
+if (Yii::app()->user->isAdmin() == TRUE)
+{
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -250,7 +253,7 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                             <!--<li class="divider"></li> -->
-                            <?php if(Yii::app()->session['zalogowany'] == 'tak')
+                            <?php if(Yii::app()->user->isAdmin() == TRUE)
                 {
                     $this->widget('zii.widgets.CMenu',array(
                     // 'id'=>'side-menu',
@@ -258,7 +261,7 @@
                         'encodeLabel' => false,
                         'htmlOptions'=>array('class'=>'dropdown-menu dropdown-user'),
 			'items'=>array(
-                            array('label'=>'<i class="fa fa-pencil-square-o fa-f"></i> Zmień hasło', 'url'=>array('/admin/pass')),
+                            array('label'=>'<i class="fa fa-pencil-square-o fa-f"></i> Edytuj konto', 'url'=>array('/admin/userupdate/'.Yii::app()->user->id)),
                             array('label'=>'<li class="divider"></li>'),
                             array('label'=>'<i class="fa fa-sign-out fa-fw"></i> Wyloguj', 'url'=>array('/admin/logout')),
 			),
@@ -273,7 +276,9 @@
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
-                     <?php if(Yii::app()->session['zalogowany'] == 'tak')
+                        
+                    <pre>Witaj <?php echo Yii::app()->user->name; ?></pre>
+                    </div> <?php if(Yii::app()->user->isAdmin() == true)
                 {
                     $this->widget('zii.widgets.CMenu',array(
                      'id'=>'side-menu',
@@ -386,6 +391,8 @@
 <!--
 </body>-->
 </html>
+<?php
+}
 
         
 

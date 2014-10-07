@@ -21,12 +21,15 @@ class LoginForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			// username and password are required
-			array('username, password', 'required'),
+			// username always required
+			array('username', 'required'),
+		    
+			// use a 'login' scenario for login validation
+			array('password', 'required', 'on'=>'login'),
 			// rememberMe needs to be a boolean
-			array('rememberMe', 'boolean'),
+			array('rememberMe', 'boolean', 'on'=>'login'),
 			// password needs to be authenticated
-			array('password', 'authenticate'),
+			array('password', 'authenticate', 'on'=>'login'),
 		);
 	}
 
@@ -36,7 +39,7 @@ class LoginForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'rememberMe'=>'Remember me next time',
+			'rememberMe'=>'Zapamiętaj mnie',
 		);
 	}
 
@@ -50,10 +53,11 @@ class LoginForm extends CFormModel
 		{
 			$this->_identity=new UserIdentity($this->username,$this->password);
 			if(!$this->_identity->authenticate())
-				$this->addError('password','Incorrect username or password.');
+				$this->addError('password','Popraw wymagane pola!');
 		}
 	}
 
+        
 	/**
 	 * Logs in the user using the given username and password in the model.
 	 * @return boolean whether login is successful
@@ -73,5 +77,19 @@ class LoginForm extends CFormModel
 		}
 		else
 			return false;
+	}
+	
+	/**
+	 *  reset user activation state for lost password 
+	 */
+	public function lostPassword() {
+		$user=User::model()->find("LOWER(username) = '" . strtolower($this->username) . "'");
+		if ( $user !== null ) {
+		    $user->status=0;
+		    $user->activate = $user->hashPassword( rand(9999,999999) );
+		    if ($user->save())
+			$user->sendActivation();
+		}
+		
 	}
 }

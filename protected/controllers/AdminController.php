@@ -3,7 +3,35 @@
 class AdminController extends Controller
 {
     public $layout='admin/index';
+    public $returnLogoutUrl='/admin/login';
     
+    public function filters()
+	{
+		return array(
+			'accessControl', // perform access control for CRUD operations
+			'postOnly + delete', // we only allow deletion via POST request
+		);
+	}
+        public function accessRules()
+	{
+		return array(
+                        array('allow', // allow all users to perform 'index' and 'view' actions
+                       'actions' => array('login','thankyou'),
+                       'users' => array('*'),
+                            ),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('UserUpdate','activate','createuser'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Adduser','AdduserDelete','UserUpdate'),
+				'expression'=>'Yii::app()->user->isAdmin()',
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
+	}
     
     //Testowanie przypisanych reklam
     public function actionDownloadVast($id) {
@@ -19,23 +47,23 @@ class AdminController extends Controller
     
 public function actionIndex() {
     $this->pageTitle = 'Panel';
-    if (Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
-        $this->render('index');
+        $dataProvider=new CActiveDataProvider('User');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
 }
-
-    
-
+//public function actionAdmin() {
+//    $this->pageTitle = 'Panel';
+//    $dataProvider=new CActiveDataProvider('User');
+//        $this->render('admin',array(
+//			'dataProvider'=>$dataProvider,
+//		));
+//}
     public function actionVideos()
     {
         $this->pageTitle = 'Videos';
         
-        if (Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
+       
         
         $VideoAdd = false;
         
@@ -130,10 +158,6 @@ public function actionIndex() {
     
     public function actionVideoDelete($id)
     {
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         if(!is_numeric($id))
         {
@@ -160,10 +184,6 @@ public function actionIndex() {
     public function actionVideoUpdate($id)
     {
         $this->pageTitle = 'Edit Video';
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         if(!is_numeric($id))
         {
@@ -263,10 +283,6 @@ public function actionIndex() {
     public function actionCategory()
     {
         $this->pageTitle = 'Category';
-        if(Yii::app()->session['zalogowany'] != 'tak') 
-        {
-            $this->redirect(array('admin/login'));
-        }
         $CategoryAdd = false;
         
         $ModelCategories = new CmsvideoCategories;
@@ -303,10 +319,6 @@ public function actionIndex() {
     }
     public function actionCategoryDelete($id)
     {
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         if(!is_numeric($id))
         {
@@ -321,10 +333,6 @@ public function actionIndex() {
     public function actionCategoryUpdate($id)
     {
         $this->pageTitle = 'Edit Category';
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         if(!is_numeric($id))
         {
@@ -361,65 +369,57 @@ public function actionIndex() {
         ));
     }
     
-    public function actionPass()
-    {
-        $this->pageTitle = 'Change Pass';
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
-        $ChangePass = false;
-        $ErrorChangePass = false;
-        $ModelPass = new CmsvideoChangePass;
-        
-        if(isset($_POST['CmsvideoChangePass']))
-        {
-            $ModelPass->attributes=$_POST['CmsvideoChangePass'];
-            
-            if($ModelPass->validate())
-            {
-                $SelectPass = $ModelPass->SelectUser(Yii::app()->session['root']);
-                
-                foreach ($SelectPass as $ResultLine)
-                {
-                    $OldPass = $ResultLine['user_pass'];
-                }
-                
-                if($OldPass == md5($ModelPass->user_pass))
-                {
-                    if($ModelPass->user_newpass == $ModelPass->user_newpass2)
-                    {
-                        $ModelPass->UpdatePass(Yii::app()->session['root']);
-                        $ModelPass->user_pass = '';
-                        $ModelPass->user_newpass = '';
-                        $ModelPass->user_newpass2 = '';
-                        $ChangePass = true;
-                        $ErrorChangePass = 'no_error';
-                    }
-                    else {
-                        $ErrorChangePass = 'pass_no_match';
-                    }
-                    }
-                    else
-                    {
-                        $ErrorChangePass = 'wrong_pass';
-                }
-            }
-        }
-        $this->render('pass', array(
-            'ModelPass'=>$ModelPass,
-            'ErrorChangePass'=>$ErrorChangePass
-        ));
-    }
+//    public function actionPass()
+//    {
+//        $this->pageTitle = 'Change Pass';
+//        $ChangePass = false;
+//        $ErrorChangePass = false;
+//        $ModelPass = new CmsvideoChangePass;
+//        
+//        if(isset($_POST['CmsvideoChangePass']))
+//        {
+//            $ModelPass->attributes=$_POST['CmsvideoChangePass'];
+//            
+//            if($ModelPass->validate())
+//            {
+//                $SelectPass = $ModelPass->SelectUser(Yii::app()->session['root']);
+//                
+//                foreach ($SelectPass as $ResultLine)
+//                {
+//                    $OldPass = $ResultLine['user_pass'];
+//                }
+//                
+//                if($OldPass == md5($ModelPass->user_pass))
+//                {
+//                    if($ModelPass->user_newpass == $ModelPass->user_newpass2)
+//                    {
+//                        $ModelPass->UpdatePass(Yii::app()->session['root']);
+//                        $ModelPass->user_pass = '';
+//                        $ModelPass->user_newpass = '';
+//                        $ModelPass->user_newpass2 = '';
+//                        $ChangePass = true;
+//                        $ErrorChangePass = 'no_error';
+//                    }
+//                    else {
+//                        $ErrorChangePass = 'pass_no_match';
+//                    }
+//                    }
+//                    else
+//                    {
+//                        $ErrorChangePass = 'wrong_pass';
+//                }
+//            }
+//        }
+//        $this->render('pass', array(
+//            'ModelPass'=>$ModelPass,
+//            'ErrorChangePass'=>$ErrorChangePass
+//        ));
+//    }
     
     //VAST admin
     public function actionVast()
     {
         $this->pageTitle = 'Vast';
-        if(Yii::app()->session['zalogowany'] != 'tak') 
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         $VastAdd = false;
         $ModelVast = new VastVideo;
@@ -463,10 +463,6 @@ public function actionIndex() {
     
     public function actionVastDelete($id)
     {
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         if(!is_numeric($id))
         {
@@ -482,10 +478,6 @@ public function actionIndex() {
     public function actionVastUpdate($id)
     {
         $this->pageTitle = 'Edit Vast';
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         if(!is_numeric($id))
         {
@@ -533,10 +525,6 @@ public function actionIndex() {
     public function actionSettings()
     {
         $this->pageTitle = 'Edycja';
-        if(Yii::app()->session['zalogowany'] != 'tak') 
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         $ModelPlayer = new CmsvideoPlayer;
 
@@ -551,11 +539,7 @@ public function actionIndex() {
     public function actionSettingsPlayer($id)
     {
         $this->pageTitle = 'Edycja';
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
-        
+
         if(!is_numeric($id))
         {
             exit;
@@ -596,10 +580,6 @@ public function actionIndex() {
     public function actionSeo()
     {
         $this->pageTitle = 'Seo';
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
 
         $SettingsUpdate = false;
         $ModelSettings = new CmsvideoSettings;
@@ -646,10 +626,6 @@ public function actionIndex() {
     public function actionSlider()
     {
         $this->pageTitle = 'Slider';
-        if(Yii::app()->session['zalogowany'] != 'tak') 
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         $SliderAdd = false;
         
@@ -678,10 +654,6 @@ public function actionIndex() {
     }
     public function actionSliderDelete($id)
     {
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         if(!is_numeric($id))
         {
@@ -696,10 +668,6 @@ public function actionIndex() {
     public function actionSliderUpdate($id)
     {
         $this->pageTitle = 'Edit Slider';
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         if(!is_numeric($id))
         {
@@ -736,95 +704,240 @@ public function actionIndex() {
     }
     // end Slider
     //login
+//    public function actionLogin()
+//    {
+//         if(Yii::app()->session['zalogowany'] == 'tak')
+//        {
+//            $this->redirect(array('admin/'));
+//        }
+//        $this->layout='admin/login';
+//        $this->pageTitle = 'Login admin panel';
+//        $ErrorData = false;
+//        $ModelUsers = new CmsvideoUsers;
+//        if (isset($_POST['CmsvideoUsers']))
+//        {
+//            $ModelUsers->attributes = $_POST['CmsvideoUsers'];
+//            if($ModelUsers->validate())
+//            {
+//                $While = $ModelUsers->CountHowManyUsers();
+//                if ($While == 1)
+//                {
+//                    Yii::app()->session['zalogowany'] = 'tak';
+//                    $Results = $ModelUsers->SelectUser();
+//                    
+//                    foreach ($Results as $ResultsLine)
+//                    {
+//                        Yii::app()->session['root'] = $ResultsLine['user_id'];
+//                    }
+//                    
+//                    $this->redirect(array('/admin'));
+//                }
+//                
+//                else
+//                {
+//                    $ErrorData = true;
+//                }
+//            }
+//        }
+//        
+//        $this->render('login',
+//                array(
+//                    'ModelUsers' => $ModelUsers,
+//                    'ErrorData' => $ErrorData
+//                )
+//                );
+//    }
+//    
+//    public function actionLogout()
+//    {
+//        Yii::app()->session['zalogowany'] = '';
+//        Yii::app()->session['root'] = '';
+//        
+//        $this->redirect(array('/index'));
+//    }
+
     public function actionLogin()
-    {
-         if(Yii::app()->session['zalogowany'] == 'tak')
-        {
-            $this->redirect(array('admin/'));
-        }
-        $this->layout='admin/login';
-        $this->pageTitle = 'Login admin panel';
-        $ErrorData = false;
-        $ModelUsers = new CmsvideoUsers;
-        if (isset($_POST['CmsvideoUsers']))
-        {
-            $ModelUsers->attributes = $_POST['CmsvideoUsers'];
-            if($ModelUsers->validate())
-            {
-                $While = $ModelUsers->CountHowManyUsers();
-                if ($While == 1)
-                {
-                    Yii::app()->session['zalogowany'] = 'tak';
-                    $Results = $ModelUsers->SelectUser();
-                    
-                    foreach ($Results as $ResultsLine)
-                    {
-                        Yii::app()->session['root'] = $ResultsLine['user_id'];
-                    }
-                    
-                    $this->redirect(array('/admin'));
-                }
-                
-                else
-                {
-                    $ErrorData = true;
-                }
-            }
-        }
-        
-        $this->render('login',
-                array(
-                    'ModelUsers' => $ModelUsers,
-                    'ErrorData' => $ErrorData
-                )
-                );
-    }
-    
-    public function actionLogout()
-    {
-        Yii::app()->session['zalogowany'] = '';
-        Yii::app()->session['root'] = '';
-        
-        $this->redirect(array('/index'));
-    }
+	{
+        //$ErrorData = false;
+       $this->layout='admin/login';
+       // $this->pageTitle = 'Login admin panel';
+		if(isset($_POST['lost']) && $_POST['lost']==='1')
+		    $model=new LoginForm('lost');
+		else
+		    $model=new LoginForm('login');
+
+		// if it is ajax validation request
+		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+
+		// collect user input data
+		if(isset($_POST['LoginForm']))
+		{
+			$model->attributes=$_POST['LoginForm'];
+			// validate user input and redirect to the previous page if valid
+			if($model->validate()) {
+			    if ($model->scenario=='login' && $model->login())
+				$this->redirect(Yii::app()->user->returnUrl);
+			}
+		}
+		    $this->render('login',array('model'=>$model));
+	}
+
+	/**
+	 * Logs out the current user and redirect to homepage.
+	 */
+	public function actionLogout()
+	{
+		Yii::app()->user->logout();
+		$this->redirect(Yii::app()->homeUrl);
+	}
     //end login
+
+        public function actionUserUpdate($id)
+	{
+		if (Yii::app()->user->id!=$id && !Yii::app()->user->isAdmin())
+		    throw new CHttpException(404, "Strony nie znaleziono");
+		
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+
+		if(isset($_POST['User']))
+		{
+			$model->attributes=$_POST['User'];
+			if($model->save()) {
+			    Yii::app()->user->setFlash('saved', "Zaktualizowano!");
+                        } else {
+                            Yii::app()->user->setFlash('failure', "Błąd!");
+                        }
+		}
+
+		$this->render('userupdate',array(
+			'model'=>$model,
+		));
+	}
+        
+        public function actionActivate($a) {
+	    if ($a!='') {
+		$model=User::model()->find('activate=:a',array(':a'=>$a));
+		d2l($model->attributes);
+		if ($model) {
+//		    /$model->activate='';
+		    if ($model->status!=User::STATUS_ACTIVE) {
+			$model->status=User::STATUS_ACTIVE;
+			if ($model->update(array('status'))) {
+			    Yii::app()->user->login(UserIdentity::createAuthenticatedIdentity($model->username,$model->id),0);
+			    d2l(Yii::app()->user->model->attributes);
+			    $this->render('activate', array(
+				'model'=>$model,
+				'status'=>'success'));
+			}
+		    } else {
+				Yii::app()->user->logout();
+			    $this->render('activate', array(
+				'model'=>$model,'status'=>'already'));
+		    }
+		} else {
+		     throw new CHttpException(404, "Invalid Activation Code!");
+		}
+	    }
+	}
+        
+        public function loadModel($id)
+	{
+		$model=User::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'Dana strona nie istnieje!');
+		return $model;
+	}
+        
     //dodanie usera
+//    public function actionUser($id)
+//	{
+//		$this->render('user',array(
+//			'model'=>$this->loadModel($id),
+//		));
+//	}
+        
+        public function actionCreateUser()
+	{
+		$model=new User;
+
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+
+		if(isset($_POST['User']))
+		{
+			$model->attributes=$_POST['User'];
+			if ($model->role=='') $model->role=User::ROLE_SUBSCRIBER;
+			if($model->save()) {
+			    Yii::app()->user->setFlash('saved', "Użytkownik dodany poprawnie!");
+			    if ($model->sendActivation())
+				$this->redirect(array('thankyou','id'=>$model->id));
+			    else
+				throw new CHttpException(200, "Aktywacyjny email jest nie poprawny");
+                        } else {
+                            Yii::app()->user->setFlash('failure', "Zapis się nie powiódł!");
+                        }
+		}
+
+		$this->render('createuser',array(
+			'model'=>$model,
+		));
+	}
+        public function actionDelete($id)
+	{
+		$this->loadModel($id)->delete();
+
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+        public function actionThankYou()
+	{
+		
+		$this->render('thankyou',array(
+			'model'=>$model,
+		));
+	}
+
+    //
     public function actionAdduser()
     {
          $this->pageTitle = 'AddUser';
-        if(Yii::app()->session['zalogowany'] != 'tak') 
-        {
-            $this->redirect(array('admin/login'));
-        }
-        $ErrorData = false;
-        $UserAdd = false;
+//        $ErrorData = false;
+//        $UserAdd = false;
         
-        $ModelUser = new CmsvideoNewuser;
+        $ModelUser = new User;
         
-        if(isset($_POST['CmsvideoNewuser']))
-        {
-            $ModelUser->attributes=$_POST['CmsvideoNewuser'];
-            
-            if($ModelUser->validate())
-            {
-                if ($ModelUser->user_pass == $ModelUser->user_newpass)
-                {
-                $ModelUser->save();
-                $UserAdd = true;
-                $ModelUser->user_login = '';
-                $ModelUser->user_pass = md5($ModelUser->user_pass);
-                }
-                else
-                {
-                   $ErrorData = true;
-                }
-            }
-        }
+//        if(isset($_POST['CmsvideoNewuser']))
+//        {
+//            $ModelUser->attributes=$_POST['CmsvideoNewuser'];
+//            
+//            if($ModelUser->validate())
+//            {
+//                if ($ModelUser->user_pass == $ModelUser->user_newpass)
+//                {
+//                $ModelUser->save();
+//                $UserAdd = true;
+//                $ModelUser->user_login = '';
+//                $ModelUser->user_pass = md5($ModelUser->user_pass);
+//                }
+//                else
+//                {
+//                   $ErrorData = true;
+//                }
+//            }
+//        }
         
         //$DataCategory = $ModelCategories->DownloadCategories();
-        $DataUser = new CActiveDataProvider('CmsvideoNewuser', array(
+        $DataUser = new CActiveDataProvider('User', array(
             'sort'=>array(
-	'defaultOrder'=>'user_id DESC',
+	'defaultOrder'=>'id DESC',
 			),
             'pagination'=>array(
 				'pageSize'=>Yii::app()->params['pageSize'],
@@ -834,61 +947,61 @@ public function actionIndex() {
             );
         $this->render('adduser', array(
             'Data' => $DataUser,
-            'UserAdd' => $UserAdd,
+            //'UserAdd' => $UserAdd,
             'ModelUser' => $ModelUser,
-            'ErrorData' => $ErrorData
+            //'ErrorData' => $ErrorData
         ));
     }
      public function actionAdduserDelete($id)
     {
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
         
         if(!is_numeric($id))
         {
             exit;
         }
-        CmsvideoNewuser::model()->deleteAll('user_id=:IdUser', array(':IdUser'=>$id));
+        User::model()->deleteAll('id=:IdUser', array(':IdUser'=>$id));
         $this->redirect(array('admin/adduser'));
     }
     
-    public function actionUserUpdate($id)
-    {
-        $this->pageTitle = 'Edit User';
-        if(Yii::app()->session['zalogowany'] != 'tak')
-        {
-            $this->redirect(array('admin/login'));
-        }
-        $AddUser = FALSE;
-        if(!is_numeric($id))
-        {
-            exit;
-        }
-        
-        $UserUpdate = false;
-        $ModelUser = CmsvideoNewuser::model()->findByPk($id);
-        
-        if(isset($_POST['CmsvideoNewuser']))
-        {
-            $ModelUser->attributes = $_POST['CmsvideoNewuser'];
-            if($ModelUser->validate())
-            {
-                $ModelUser->save();
-                $UserUpdate = true;
-                $AddUser = TRUE;
-            }
-            $this->redirect(array('/admin/adduser'));
-        }
-        
-        $this->render('userupdate', array(
-            'ModelUser' => $ModelUser,
-            'UserUpdate' => $UserUpdate,
-        ));
-    }
+//    public function actionUserUpdate($id)
+//    {
+//        $this->pageTitle = 'Edit User';
+//        $AddUser = FALSE;
+//        if(!is_numeric($id))
+//        {
+//            exit;
+//        }
+//        
+//        $UserUpdate = false;
+//        $ModelUser = CmsvideoNewuser::model()->findByPk($id);
+//        
+//        if(isset($_POST['CmsvideoNewuser']))
+//        {
+//            $ModelUser->attributes = $_POST['CmsvideoNewuser'];
+//            if($ModelUser->validate())
+//            {
+//                $ModelUser->save();
+//                $UserUpdate = true;
+//                $AddUser = TRUE;
+//            }
+//            $this->redirect(array('/admin/adduser'));
+//        }
+//        
+//        $this->render('userupdate', array(
+//            'ModelUser' => $ModelUser,
+//            'UserUpdate' => $UserUpdate,
+//        ));
+//    }
     
     //user koniec
+    protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='users-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+	}
 }
 
 ?>

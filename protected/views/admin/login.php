@@ -1,43 +1,47 @@
-
 <div class="panel-body">
     <?php
-    $form=$this->beginWidget('CActiveForm', array(
-        'id'=>'cmsvideo-users-login-form',
-        'enableAjaxValidation'=>false,
-        'clientOptions'=>array(
+$this->breadcrumbs=array(
+	'admin/Login',
+);
+        $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'login-form',
+	'enableClientValidation'=>false,
+	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
-      ));
-?>
+)); ?>
+    
     <div class="alert alert-warning fade in" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
     <p class="bg-warning">Pola wypełnione <span class="required">*</span> są wymagane.</p></div>
   <?php
-  if($ErrorData)
-  {
-      echo '<div class="alert alert-danger fade in" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
-
-      echo '<p class="text-danger">Wpisałeś złe dane!</p></div>';
-  }
+  
   //echo $form->errorSummary($ModelUsers);
   ?>
     <?php
-    if (($form->error($ModelUsers,'user_login') == true) || ($form->error($ModelUsers,'user_pass') == true))
+    if (($form->error($model,'username') == true) || ($form->error($model,'password') == true))
     {
      echo '<div class="alert alert-danger fade in" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
-     echo $form->error($ModelUsers,'user_login', array('class' => 'text-danger'));
-     echo $form->error($ModelUsers,'user_pass', array('class' => 'text-danger'));
+     echo $form->error($model,'username', array('class' => 'text-danger'));
+     echo $form->error($model,'password', array('class' => 'text-danger'));
     echo '</div>';}
      ?>
     <div class="form-group">
         <?php 
-        echo $form->labelEx($ModelUsers,'user_login');
-        echo $form->textField($ModelUsers,'user_login', array('class' => 'form-control', 'placeholder'=>'Login'));
+        echo $form->labelEx($model,'username'); 
+        echo $form->textField($model,'username', array('class' => 'form-control', 'placeholder'=>'Login'));
         ?>
     </div>
     <div class="form-group">
         <?php 
-        echo $form->labelEx($ModelUsers,'user_pass');
-        echo $form->passwordField($ModelUsers,'user_pass', array('class' => 'form-control', 'placeholder'=>'Hasło'));
+        echo $form->labelEx($model,'password');
+        echo $form->passwordField($model,'password', array('class' => 'form-control', 'placeholder'=>'Hasło'));
+        ?>
+    </div>
+    <div class="form-group">
+        <?php 
+        echo $form->checkBox($model,'rememberMe', array('class' => 'checkbox-inline'));
+	echo $form->label($model,'rememberMe', array('class' => ''));
+	echo $form->error($model,'rememberMe');
         ?>
     </div>
   <div class="panel-body">
@@ -48,3 +52,4 @@
     <?php $this->endWidget(); ?>
     
 </div>
+

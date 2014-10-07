@@ -39,7 +39,10 @@ return array(
                     // 'class' => 'WebUser',
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+                            'loginUrl' => array('admin/login'),
+                              'class'=>'rWebUser',
 		),
+            
 		// uncomment the following to enable URLs in path-format
 		
 		'urlManager'=>array(
