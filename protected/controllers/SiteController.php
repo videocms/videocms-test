@@ -230,7 +230,17 @@ class SiteController extends Controller
         echo header('Content-Type: application/xml');
         echo '<?xml version="1.0" encoding="UTF-8"?>';
         $xml .= '<VAST version="2.0">';
-        $DataVast = VastVideo::model()->findAllBySQL('SELECT r.vast_id, r.vast_title, r.vast_link, r.vast_source FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo ORDER BY RAND() LIMIT 1',array(':IdVideo'=>$vid));  
+        $DataVast = VastVideo::model()->findAllBySQL(''
+                . 'SELECT r.vast_id, r.vast_title, r.vast_link, r.vast_source '
+                . 'FROM videocms_video AS v '
+                . 'INNER JOIN videocms_category AS c '
+                . 'ON v.video_category = c.category_id '
+                . 'INNER JOIN videocms_vast AS r '
+                . 'ON FIND_IN_SET(c.category_id, r.vast_video_cat) '
+                . 'WHERE v.video_id = :IdVideo '
+                . 'ORDER BY RAND() '
+                . 'LIMIT 1',
+                array(':IdVideo'=>$vid));  
         $i=0;
         $CountVast = count($DataVast);
         foreach ($DataVast as $Data)
