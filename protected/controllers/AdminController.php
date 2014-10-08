@@ -790,7 +790,7 @@ class AdminController extends Controller
 			}
 		}
 		
-		    $this->render('login',array('model'=>$model, 'ModelUsers'=>$ModelUsers));
+		    $this->render('login',array('model'=>$model));
 	}
 
 	/**
