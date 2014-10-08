@@ -82,14 +82,14 @@ class LoginForm extends CFormModel
 	/**
 	 *  reset user activation state for lost password 
 	 */
-	public function lostPassword() {
-		$user=User::model()->find("LOWER(username) = '" . strtolower($this->username) . "'");
-		if ( $user !== null ) {
-		    $user->status=0;
-		    $user->activate = $user->hashPassword( rand(9999,999999) );
-		    if ($user->save())
-			$user->sendActivation();
-		}
-		
-	}
+//	public function lostPassword() {
+//		$user=User::model()->find("LOWER(username) = '" . strtolower($this->username) . "'");
+//		if ( $user !== null ) {
+//		    $user->status=0;
+//		    $user->activate = $user->hashPassword( rand(9999,999999) );
+//		    if ($user->save())
+//			$user->sendActivation();
+//		}
+//		
+//	}
 }

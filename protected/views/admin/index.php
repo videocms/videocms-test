@@ -1,5 +1,7 @@
 <?php
-echo Yii::app()->user->id;
+//$dupa = Yii::app()->user->username;
+Yii::app()->session['var'] = Yii::app()->user->username;
+echo Yii::app()->session['var'];
 $wers = "0.3";
 $url = 'http://www.alexie.pl/wersja.xml'; 
 $xml = simpleXML_load_file($url,"SimpleXMLElement",LIBXML_NOCDATA);
