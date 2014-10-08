@@ -38,7 +38,7 @@ class User extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'users';
+		return 'videocms_users';
 	}
 
 	/**
@@ -165,7 +165,7 @@ class User extends CActiveRecord
         }
 	
 	public function checkUnique($attribute,$params) {
-	    $sql='Select count(*) from users where username=:username';
+	    $sql='Select count(*) from videocms_users where username=:username';
 	    //DATE_ADD(:end ,INTERVAL 7 DAY)
 	    $command = Yii::app()->db->createCommand($sql);
 
