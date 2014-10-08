@@ -24,7 +24,7 @@ class AdminController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Adduser','AdduserDelete','UserUpdate'),
+				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Adduser','AdduserDelete','UserUpdate','test'),
 				'expression'=>'Yii::app()->user->isAdmin()',
 			),
 			array('deny',  // deny all users
@@ -45,9 +45,13 @@ class AdminController extends Controller
         echo '</pre>';
     }
     
-public function actionIndex() {
-    $this->pageTitle = 'Panel';
-        $dataProvider=new CActiveDataProvider('User');
+    public function actionTest() {
+      
+    }
+    
+    public function actionIndex() {
+        $this->pageTitle = 'Panel';
+            $dataProvider=new CActiveDataProvider('User');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

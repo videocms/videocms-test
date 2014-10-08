@@ -4,6 +4,7 @@ class CmsvideoVideo extends CActiveRecord
     public $tag_id;
     public $tag_name;
     public $tag_delete;
+    public $category_id;
     public static function model($className=__CLASS__)
         {
             return parent::model($className);
@@ -51,8 +52,9 @@ class CmsvideoVideo extends CActiveRecord
     
     public function relations()
         {
-            return array(
-            );
+           return array(
+                'category' => array(self::BELONGS_TO, 'CmsvideoCategories', 'video_category'),    
+             );
         }
     
     public function attributeLabels() {

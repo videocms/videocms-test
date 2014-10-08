@@ -34,7 +34,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'video_title',
 //        'video_alias',
 //        'video_text',
-        'video_category',
+         array(
+        'header'=>'Kategoria',
+        'value'=> '$data->category->category_name',
+        'name'=>'video_category'
+    ),
         'video_date',
         //'video_480p',
        // 'video_720p',

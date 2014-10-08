@@ -23,7 +23,8 @@ class CmsvideoCategories extends CActiveRecord
         
     public function relations()
         {
-            return array(
+          return array(
+                'video' => array(self::HAS_MANY, 'CmsvideoVideo', 'video_category'),
             );
         }
         
