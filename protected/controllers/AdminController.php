@@ -765,9 +765,6 @@ class AdminController extends Controller
         //$ErrorData = false;
        $this->layout='admin/login';
        // $this->pageTitle = 'Login admin panel';
-		if(isset($_POST['lost']) && $_POST['lost']==='1')
-		    $model=new LoginForm('lost');
-		else
 		    $model=new LoginForm('login');
 
 		// if it is ajax validation request
@@ -784,14 +781,16 @@ class AdminController extends Controller
 			// validate user input and redirect to the previous page if valid
 			if($model->validate()) {
 			    if ($model->scenario=='login' && $model->login())
-				$this->redirect('/admin');
+                            {$this->redirect('/admin');
+                            }
+                            
 			    elseif ($model->scenario=='lost') {
 				//$model->lostPassword();
 			    }
 			}
 		}
 		
-		    $this->render('login',array('model'=>$model));
+		    $this->render('login',array('model'=>$model, 'ModelUsers'=>$ModelUsers));
 	}
 
 	/**

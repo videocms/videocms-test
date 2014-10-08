@@ -10,7 +10,7 @@ class CmsVideoUsers extends CActiveRecord
     public function rules()
     {
         return array(
-            array('username', 'required'),
+            array('username', 'length', 'max'=>255),
         );
     }
     public function relations() {
