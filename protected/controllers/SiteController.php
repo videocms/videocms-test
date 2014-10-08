@@ -226,35 +226,39 @@ class SiteController extends Controller
   
     //Wywołanie funkcji generującej dynamicznie XML - http://videocms-test.pl/cmsvideo/vastxml/?id=34
     public function actionVastXml($vid)
-    {
-        header('Content-Type: application/xml');
-        echo '<?xml version="1.0" encoding="UTF-8"?>
-              <VAST version="2.0">';
-        $ModelVast = new VastVideo;
-        $DataVast = $ModelVast::model()->findAllBySQL('SELECT r.vast_id, r.vast_link, r.vast_source FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo',array(':IdVideo'=>$vid));
-        
+    {   
+        echo header('Content-Type: application/xml');
+        echo '<?xml version="1.0" encoding="UTF-8"?>';
+        $xml .= '<VAST version="2.0">';
+        $DataVast = VastVideo::model()->findAllBySQL('SELECT r.vast_id, r.vast_title, r.vast_link, r.vast_source FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo ORDER BY RAND() LIMIT 1',array(':IdVideo'=>$vid));  
+        $i=0;
+        $CountVast = count($DataVast);
         foreach ($DataVast as $Data)
             {
-            echo '<Ad id="'.$Data->vast_id.'">
-            <InLine>
-            <Creatives>
-            <Creative sequence="1" id="7969">
-            <Linear>
-            <Duration>00:00:31</Duration>
-            <VideoClicks>
-            <ClickThrough><![CDATA[http://'.$Data->vast_link.']]></ClickThrough>
-            </VideoClicks>
-            <MediaFiles>
-            <MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['. $Data->vast_source.']]>
-            </MediaFile>
-            </MediaFiles>
-            </Linear>
-            </Creative>
-            </Creatives>
-            </InLine>
-            </Ad>';
+                $i++;
+                $xml .= '<Ad id="'.$Data->vast_id.'">
+                <InLine>
+                <Creatives>
+                <Creative sequence="'.$Data->vast_title.'" id="'.$i.'">
+                <Linear>
+                <Duration>00:00:31</Duration>
+                <VideoClicks>
+                <ClickThrough><![CDATA[http://'.$Data->vast_link.']]></ClickThrough>
+                </VideoClicks>
+                <MediaFiles>
+                <MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['. $Data->vast_source.']]>
+                </MediaFile>
+                </MediaFiles>
+                </Linear>
+                </Creative>
+                </Creatives>
+                </InLine>
+                </Ad>';
+                
             }
-            echo '</VAST>';
+            $xml .= '</VAST>';
+
+            echo $xml;
         }
     /// end VAST
         //embed start

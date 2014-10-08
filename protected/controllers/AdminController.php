@@ -46,7 +46,11 @@ class AdminController extends Controller
     }
     
     public function actionTest() {
-      
+$xml = simplexml_load_file('http://videocms-test.pl/vastxml/?vid=350.xml');
+$result = $xml->xpath('//VAST/Ad[@id="75"]');
+foreach($result as $res) {
+   echo $res;
+}
     }
     
     public function actionIndex() {

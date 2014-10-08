@@ -24,7 +24,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 'columns'=>array(
         'vast_id',
         'vast_title',
-        'vast_video_cat',
+       // 'vast_video_cat',
+//        array(
+//            'header'=>'Kategoria',
+//            'value'=> 'explode(",",$data->vast_video_cat)',
+//            'name'=>'vast_video_cat'
+//        ),
         'vast_source',
         'vast_link',
         array(
