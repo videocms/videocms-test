@@ -33,6 +33,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'vast_source',
         'vast_link',
         array(
+        'header'=>'Wyświetlenia',
+        'value'=> '$data->vast_views',
+        'name'=>'vast_views'
+        ),
+        array(
             'class'=>'CButtonColumn',
             'template'=>'{delete} {update}',
             'buttons'=>array
