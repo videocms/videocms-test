@@ -230,8 +230,9 @@ class SiteController extends Controller
         echo header('Content-Type: application/xml');
         echo '<?xml version="1.0" encoding="UTF-8"?>';
         $xml .= '<VAST version="2.0">';
+        
         $Data = VastVideo::model()->findBySQL(''
-                . 'SELECT r.vast_id, r.vast_title, r.vast_link, r.vast_source '
+                . 'SELECT r.vast_id, r.vast_title, r.vast_link, r.vast_source, r.vast_views '
                 . 'FROM videocms_video AS v '
                 . 'INNER JOIN videocms_category AS c '
                 . 'ON v.video_category = c.category_id '
@@ -240,9 +241,11 @@ class SiteController extends Controller
                 . 'WHERE v.video_id = :IdVideo '
                 . 'ORDER BY RAND() '
                 . 'LIMIT 1',
-                array(':IdVideo'=>$vid));  
-
-                $xml .= '<Ad id="'.$Data->vast_id.'">
+                array(':IdVideo'=>$vid));
+        
+        VastVideo::model()->updateByPk($Data->vast_id, array('vast_views' => $Data->vast_views + 1));
+             
+        $xml .= '<Ad id="'.$Data->vast_id.'">
                 <InLine>
                 <Creatives>
                 <Creative sequence="'.$Data->vast_title.'" id="">
