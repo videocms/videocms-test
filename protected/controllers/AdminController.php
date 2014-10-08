@@ -764,6 +764,7 @@ class AdminController extends Controller
 	{
         //$ErrorData = false;
        $this->layout='admin/login';
+       $ModelUsers = new CmsvideoUsers;
        // $this->pageTitle = 'Login admin panel';
 		    $model=new LoginForm('login');
 
@@ -781,7 +782,9 @@ class AdminController extends Controller
 			// validate user input and redirect to the previous page if valid
 			if($model->validate()) {
 			    if ($model->scenario=='login' && $model->login())
-                            {$this->redirect('/admin');
+                            {
+                                $ModelUsers->username = '';
+                                $this->redirect('/admin');
                             }
                             
 			    elseif ($model->scenario=='lost') {
@@ -789,8 +792,8 @@ class AdminController extends Controller
 			    }
 			}
 		}
-		
-		    $this->render('login',array('model'=>$model));
+                    $Data = new CActiveDataProvider('CmsvideoUsers');
+		    $this->render('login',array('model'=>$model, 'ModelUsers'=>$ModelUsers, 'Data'=> $Data));
 	}
 
 	/**
