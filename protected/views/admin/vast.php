@@ -143,9 +143,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
                             <div class="form-group">
                                     <?php echo $form->dropDownList($ModelVast, 'vast_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>            </div>
                             <div class="form-group">
-                            <p class="note">Pola oznaczone <span class="required">*</span> są wymagane.</p>
-                               </div>
-                            <div class="form-group">
                                <?php echo CHtml::submitButton('Dodaj',array('class' => 'btn btn-success')); ?>
                                </div>
                     </div>

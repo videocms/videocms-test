@@ -113,8 +113,6 @@ foreach ($Model as $ModelSite)
 	vid1.ads();
 	vid1.vast({
             url: '/vastxml/?vid=<?php echo $ModelSite->video_id; ?>.xml'
-            
-    
         });
     </script>
     <script type="text/javascript">
