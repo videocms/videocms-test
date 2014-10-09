@@ -16,7 +16,7 @@ class VastVideo extends CActiveRecord
     public function rules() 
         {
             return array(
-                array('vast_title, vast_source, vast_link, video_category', 'required'),
+                array('vast_title, vast_source, vast_link, video_category, vast_start, vast_end, vast_published', 'required'),
             );
         }
         
@@ -30,20 +30,26 @@ class VastVideo extends CActiveRecord
     {
         return array(
             'vast_id' => 'Id',
+            'vast_start' => 'Rozpocznij publikację',
+            'vast_end' => 'Zakończ publikację',
             'vast_title' => 'Nazwa reklamy',
             'vast_source' => 'Źródło',
             'vast_link' => 'Link',
             'video_category' => 'Kategoria wideo',
+            'vast_published' => 'Publikacja',
         );
     }
     public function search()
         {
             $criteria=new CDbCriteria;
             $criteria->compare('vast_id', $this->vast_id);
+            $criteria->compare('vast_start', $this->vast_start, true);
+            $criteria->compare('vast_end', $this->vast_end, true);
             $criteria->compare('vast_title', $this->vast_title, true);
             $criteria->compare('vast_video_cat', $this->vast_video_cat, true);
             $criteria->compare('vast_source', $this->vast_source, true);
             $criteria->compare('vast_link', $this->vast_link, true);
+            $criteria->compare('vast_published', $this->vast_published, true);
             return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination'=>array(

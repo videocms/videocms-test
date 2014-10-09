@@ -37,6 +37,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'value'=> '$data->vast_views',
         'name'=>'vast_views'
         ),
+        'vast_published',
         array(
             'class'=>'CButtonColumn',
             'template'=>'{delete} {update}',
@@ -105,9 +106,48 @@ $this->widget('zii.widgets.grid.CGridView', array(
                             <?php echo $form->textField($ModelVast,'vast_link', array('class' => 'form-control', 'placeholder' => 'Odlinkowanie reklamy')); ?>
                             <?php echo $form->error($ModelVast,'vast_link'); ?>
                             </div>
-                        <div class="form-group">
-                            <?php echo CHtml::submitButton('Dodaj',array('class' => 'btn btn-primary')); ?>
-                            </div>
+                         <div class="form-group">
+                                    <?php echo $form->labelEx($ModelVast,'vast_start'); ?>
+                                    <?php 
+                                    Yii::import('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker');
+                                        $this->widget('CJuiDateTimePicker',array(
+                                            'model'=>$ModelVast, //Model object
+                                            'htmlOptions' => array('class' => 'form-control'),
+                                            'attribute'=>'vast_start', //attribute name
+                                            'mode'=>'datetime', //use "time","date" or "datetime" (default)
+                                            'options'=>array(
+                                                "dateFormat"=>'yy-mm-dd',
+                                                "timeFormat"=>'hh:mm:ss',
+                                                ), // jquery plugin options
+                                        ));
+                                    ?>                
+                                    <?php echo $form->error($ModelVast,'vast_start'); ?>
+                                    </div>
+                            <div class="form-group">
+                                    <?php echo $form->labelEx($ModelVast,'vast_end'); ?>
+                                    <?php 
+                                    Yii::import('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker');
+                                        $this->widget('CJuiDateTimePicker',array(
+                                            'model'=>$ModelVast, //Model object
+                                            'htmlOptions' => array('class' => 'form-control'),
+                                            'attribute'=>'vast_end', //attribute name
+                                            'mode'=>'datetime', //use "time","date" or "datetime" (default)
+                                            'options'=>array(
+                                                "dateFormat"=>'yy-mm-dd',
+                                                "timeFormat"=>'hh:mm:ss',
+                                                ), // jquery plugin options
+                                        ));
+                                    ?>                
+                                    <?php echo $form->error($ModelVast,'vast_end'); ?>
+                                </div>
+                            <div class="form-group">
+                                    <?php echo $form->dropDownList($ModelVast, 'vast_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>            </div>
+                            <div class="form-group">
+                            <p class="note">Pola oznaczone <span class="required">*</span> są wymagane.</p>
+                               </div>
+                            <div class="form-group">
+                               <?php echo CHtml::submitButton('Dodaj',array('class' => 'btn btn-success')); ?>
+                               </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
@@ -116,7 +156,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                                     $htmlOptions = array( 
                                        'multiple' => 'true',
                                        'class'    => 'form-control',
-                                       'size'     => 10,
+                                       'size'     => 18,
                                         );
                                     echo $form->listBox($ModelVast,'video_category', CHtml::listData(CmsvideoCategories::model()->findAll(), 'category_id', 'category_name'), $htmlOptions);?>
                             <?php echo $form->error($ModelVast, 'video_category'); ?>

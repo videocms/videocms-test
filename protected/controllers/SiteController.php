@@ -238,7 +238,10 @@ class SiteController extends Controller
                 . 'ON v.video_category = c.category_id '
                 . 'INNER JOIN videocms_vast AS r '
                 . 'ON FIND_IN_SET(c.category_id, r.vast_video_cat) '
-                . 'WHERE v.video_id = :IdVideo '
+                . 'WHERE r.vast_start < NOW() '
+               // . 'AND r.vast_end > NOW() '
+                . 'AND r.vast_published = "1" '
+                . 'AND v.video_id = :IdVideo '
                 . 'ORDER BY RAND() '
                 . 'LIMIT 1',
                 array(':IdVideo'=>$vid));
