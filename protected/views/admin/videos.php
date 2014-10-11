@@ -214,7 +214,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         </div>
         </div>
     </div>
-</div>
+
 <?php $this->endWidget(); ?>
 </div>
 <script type="text/javascript">
