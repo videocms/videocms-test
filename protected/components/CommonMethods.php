@@ -8,7 +8,7 @@ public function makeDropDown($parents)
 {
 global $data;
 $data = array();
-$data['1'] = '-- Bez nadrzędnej --';
+$data['1'] = '-- Wybierz kategorię --';
 foreach($parents as $parent)
 {
 

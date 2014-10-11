@@ -41,7 +41,6 @@
                                 </div>
                                 <div class="form-group">
                                     <?php echo CHtml::submitButton('Zapisz', array('class' => 'btn btn-success')); ?>
-                                    <p class="note">Pola oznaczone <span class="required">*</span> są wymagane.</p>
                                 </div>
                         </div>
                         <div class="col-lg-6">

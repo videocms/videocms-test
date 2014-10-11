@@ -19,7 +19,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/tinymce/tinymce.min.js"></script>
 <script>tinymce.init({
-         selector: "textarea",theme: "modern",width: '100%',height: 505,
+         selector: "textarea",theme: "modern",width: '100%',height: 185,
     plugins: [
          "advlist autolink link image lists charmap print preview hr anchor pagebreak",
          "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",

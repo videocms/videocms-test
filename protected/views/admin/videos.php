@@ -33,6 +33,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
        // 'class'=>'CCheckBoxColumn',
         //'selectableRows' => '10',
         array(
+                'header' => '#',
+                'value' => '$data->video_id',
+                'name' => 'video_id',
+        ),
+        array(
                 'type' => 'raw',
                 'class'=>'ImageLinkColumn',
                 'urlExpression'=>'array("admin/videoupdate/".$data->video_id)',
@@ -41,7 +46,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
                 'type'=>'raw',
                 'header'=>'Nazwa',
-                'value'=> '"<b>".$data->video_title."</b><br />".$data->category->name',
+                'value'=> '"<b>".CHtml::link($data->video_title, array("admin/videoupdate/$data->video_id"))."</b><br /><small>Kategoria: ".$data->category->name."</small>"',
                 'name'=>'video_category',
             ),
         array(  
@@ -128,12 +133,23 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł')); ?>
                 <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
             </div>
-                
             <div class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'video_text'); ?>
                 <?php echo $form->textArea($ModelVideo, 'video_text'); ?>
                 <?php echo $form->error($ModelVideo, 'video_text', array('class' => 'text-danger')); ?> 
                 <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
+            </div>
+             <div class="form-group">
+                <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
+                <?php echo $form->textField($ModelVideo, 'video_description', array('size' => '60', 'maxlength' => '160', 'class' => 'form-control', 'placeholder' => 'Opis wideo')); ?>
+                <?php echo $form->error($ModelVideo, 'video_description'); ?>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($ModelVideo, 'video_published'); ?>
+                <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?> 
+            </div>
+            <div class="form-group">
+                <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-primary')); ?>
             </div>
             </div>
            <div class="col-lg-6">
@@ -183,11 +199,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
             </div>
             <div class="form-group">
-                <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
-                <?php echo $form->textField($ModelVideo, 'video_description', array('class' => 'form-control', 'placeholder' => 'Opis wideo')); ?>
-                <?php echo $form->error($ModelVideo, 'video_description'); ?>
-            </div>
-            <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_keywords'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_keywords', array('class' => 'form-control', 'placeholder' => 'Słowa kluczowe')); ?>
                 <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
@@ -197,12 +208,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Tagi')); ?>
                 <?php echo $form->error($ModelVideo, 'tag_name', array('class' => 'text-danger')); ?>
              </div>
-            <div class="form-group">
-                <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?> 
-            </div>
-            <div class="form-group">
-                <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-success')); ?>
-            </div>
         </div>
         </div>
         </div>
