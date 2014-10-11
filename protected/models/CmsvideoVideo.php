@@ -4,7 +4,7 @@ class CmsvideoVideo extends CActiveRecord
     public $tag_id;
     public $tag_name;
     public $tag_delete;
-    public $category_id;
+    public $id;
     public static function model($className=__CLASS__)
         {
             return parent::model($className);
@@ -70,7 +70,7 @@ class CmsvideoVideo extends CActiveRecord
             'video_1080p' => '1080p',
             'video_image' => 'Obrazek',
             'video_thumb' => 'Miniaturka',
-            'video_published' => 'Publikacja',
+            'video_published' => 'Stan',
             'player_type' => 'Typ playera',
             'video_descriptions' => 'Opis',
             'video_keywords' => 'Słowa kluczowe',

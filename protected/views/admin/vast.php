@@ -24,14 +24,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 'columns'=>array(
         'vast_id',
         'vast_title',
-       // 'vast_video_cat',
-//        array(
-//            'header'=>'Kategoria',
-//            'value'=> 'explode(",",$data->vast_video_cat)',
-//            'name'=>'vast_video_cat'
-//        ),
-        'vast_source',
-        'vast_link',
+        'vast_start',
+        'vast_end',
         array(
         'header'=>'Wyświetlenia',
         'value'=> '$data->vast_views',
@@ -64,49 +58,78 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ?>
 
 <div class="form">
-    <h2 class="admin">Dodaj nową reklame</h2>
     <?php 
     $form=$this->beginWidget('CActiveForm', array(
         'id'=>'videocms-vast-form',
         'enableAjaxValidation'=>false,
     ));
     ?>
-    <p class="note">Pola oznaczone <span class="required">*</span> są wymagane.</p>
-    <?php 
-    echo $form->errorSummary($ModelVast); 
-    if($AddVast)
-    {
-        echo '<div>Nowa reklama została dodana.</div>';
-    }
-    ?>
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-            <div class="panel-heading">Dodaj reklamę</div>
+            <div class="panel-heading">Dodaj nową reklamę</div>
                 <div class="panel-body">
                     <div class="row">
                       <div class="col-lg-12">
-                         <div class="alert alert-warning" role="alert">
-                               <p class="note">Pola oznacone <span class="required">*</span> są wymagane.</p>
-                        </div>
-                        </div>
+                         <?php 
+                                if($AddVast)
+                                {
+                                    echo '<div class="alert alert-success" role="alert"><p class="note">';
+                                    echo 'Nowa reklama została dodana!';
+                                    echo '</p></div>';
+                                }
+                                else {
+                                    echo '<div class="alert alert-warning" role="alert"><p class="note">';
+                                    echo 'Pola oznaczone <span class="required">*</span> są wymagane.';
+                                    echo '</p></div>';
+                                }
+                                if($form->errorSummary($ModelVast)) {
+                                    echo '<div class="alert alert-danger" role="alert"><p class="note">';
+                                    echo $form->errorSummary($ModelVast);
+                                    echo '</p></div>';
+                                }
+                            ?>
+                      </div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <?php echo $form->labelEx($ModelVast,'vast_title'); ?>
                             <?php echo $form->textField($ModelVast,'vast_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Nazwa reklamy')); ?>
-                            <?php echo $form->error($ModelVast,'vast_title'); ?>
+                            <?php echo $form->error($ModelVast,'vast_title', array('class' => 'text-danger')); ?>
                              </div>
                         <div class="form-group">
                             <?php echo $form->labelEx($ModelVast,'vast_source'); ?>
                             <?php echo $form->textField($ModelVast,'vast_source', array('class' => 'form-control', 'placeholder' => 'Adres URL reklamy'));?>
-                            <?php echo $form->error($ModelVast,'vast_source'); ?>
+                            <?php echo $form->error($ModelVast,'vast_source', array('class' => 'text-danger')); ?>
                             </div>
                         <div class="form-group">
                             <?php echo $form->labelEx($ModelVast,'vast_link'); ?>
                             <?php echo $form->textField($ModelVast,'vast_link', array('class' => 'form-control', 'placeholder' => 'Odlinkowanie reklamy')); ?>
-                            <?php echo $form->error($ModelVast,'vast_link'); ?>
+                            <?php echo $form->error($ModelVast,'vast_link', array('class' => 'text-danger')); ?>
                             </div>
-                         <div class="form-group">
+                        <div class="form-group">
+                            <?php   
+                            $parents = CmsvideoCategories::model()->findAll('parent_id = 1');
+                            $cm = new CommonMethods();
+                            $data = $cm->makeDropDown($parents);
+                            
+                            echo $form->labelEx($ModelVast, 'video_category');
+                         
+                                echo $form->listBox($ModelVast,'video_category', $data, array(
+                                   'size' => 6, 
+                                   'multiple' => 'true',
+                                   'class' => 'form-control',
+                                    ));
+                            ?>
+                            <?php echo $form->error($ModelVast, 'video_category', array('class' => 'text-danger')); ?>
+                        </div>
+                        <div class="form-group">
+                                    <?php echo $form->dropDownList($ModelVast, 'vast_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>         </div>
+                        <div class="form-group">
+                               <?php echo CHtml::submitButton('Dodaj',array('class' => 'btn btn-success')); ?>
+                            </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
                                     <?php echo $form->labelEx($ModelVast,'vast_start'); ?>
                                     <?php 
                                     Yii::import('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker');
@@ -121,7 +144,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                                                 ), // jquery plugin options
                                         ));
                                     ?>                
-                                    <?php echo $form->error($ModelVast,'vast_start'); ?>
+                                    <?php echo $form->error($ModelVast,'vast_start', array('class' => 'text-danger')); ?>
                                     </div>
                             <div class="form-group">
                                     <?php echo $form->labelEx($ModelVast,'vast_end'); ?>
@@ -138,26 +161,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
                                                 ), // jquery plugin options
                                         ));
                                     ?>                
-                                    <?php echo $form->error($ModelVast,'vast_end'); ?>
+                                    <?php echo $form->error($ModelVast,'vast_end', array('class' => 'text-danger')); ?>
                                 </div>
-                            <div class="form-group">
-                                    <?php echo $form->dropDownList($ModelVast, 'vast_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>            </div>
-                            <div class="form-group">
-                               <?php echo CHtml::submitButton('Dodaj',array('class' => 'btn btn-success')); ?>
-                               </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <?php echo $form->labelEx($ModelVast, 'video_category'); ?>
-                                <?php
-                                    $htmlOptions = array( 
-                                       'multiple' => 'true',
-                                       'class'    => 'form-control',
-                                       'size'     => 18,
-                                        );
-                                    echo $form->listBox($ModelVast,'video_category', CHtml::listData(CmsvideoCategories::model()->findAll(), 'category_id', 'category_name'), $htmlOptions);?>
-                            <?php echo $form->error($ModelVast, 'video_category'); ?>
-                        </div>
                     </div>
                     </div>
                 </div>

@@ -35,7 +35,7 @@ class AdminController extends Controller
     
     //Testowanie przypisanych reklam
     public function actionDownloadVast($id) {
-        $SelectVast = Yii::app()->db->createCommand('SELECT v.video_id, v.video_category, c.category_name, r.vast_id, r.vast_title, r.vast_source, r.vast_video_cat FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.category_id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.category_id, r.vast_video_cat) WHERE v.video_id = :IdVideo');
+        $SelectVast = Yii::app()->db->createCommand('SELECT v.video_id, v.video_category, c.name, r.vast_id, r.vast_title, r.vast_source, r.vast_video_cat FROM videocms_video AS v INNER JOIN videocms_category AS c ON v.video_category = c.id INNER JOIN videocms_vast AS r ON FIND_IN_SET(c.id, r.vast_video_cat) WHERE v.video_id = :IdVideo');
         $SelectVast->bindValue(':IdVideo', $id, PDO::PARAM_INT);
         $DataVast = $SelectVast->queryAll();
         echo '<pre>';
@@ -70,17 +70,11 @@ foreach($result as $res) {
     public function actionVideos()
     {
         $this->pageTitle = 'Videos';
-        
-       
-        
         $VideoAdd = false;
-        
         $ModelVideo = new CmsvideoVideo;
         $ModelCategories = new CmsvideoCategories;
         $ModelTags = new CmsvideoTags;
         //$DataCategory = $ModelCategories->DownloadCategories();
-        
-        
 
         if(isset($_POST['CmsvideoVideo']))
         {
@@ -145,7 +139,7 @@ foreach($result as $res) {
        // $Data = $ModelVideo->SelectAdminVideo($Site->pageSize, $Site->currentPage);
         $Data = new CActiveDataProvider('CmsvideoVideo', array(
             'sort'=>array(
-	'defaultOrder'=>'video_id DESC',
+            'defaultOrder'=>'video_id DESC',
 			),
             'pagination'=>array(
 				'pageSize'=>Yii::app()->params['pageSize'],
@@ -255,8 +249,8 @@ foreach($result as $res) {
                 }
                 $VideoUpdate = true;
             }
-            //$this->redirect(array('admin/videos/'));
-            $this->redirect(Yii::app()->request->urlReferrer);
+            $this->redirect(array('admin/videos/'));
+            //$this->redirect(Yii::app()->request->urlReferrer);
         }
 //        else
 //        {
@@ -304,14 +298,14 @@ foreach($result as $res) {
                 $ModelCategories->save();
                 //$ModelCategories->AddCategory();
                 $CategoryAdd = true;
-                $ModelCategories->category_name = '';
+                $ModelCategories->name = '';
             }
         }
         
         //$DataCategory = $ModelCategories->DownloadCategories();
         $DataCategory = new CActiveDataProvider('CmsvideoCategories', array(
             'sort'=>array(
-	'defaultOrder'=>'category_id DESC',
+	'defaultOrder'=>'id DESC',
 			),
             'pagination'=>array(
 				'pageSize'=>Yii::app()->params['pageSize'],
@@ -332,7 +326,7 @@ foreach($result as $res) {
         {
             exit;
         }
-        CmsvideoCategories::model()->deleteAll('category_id=:IdCategory', array(':IdCategory'=>$id));
+        CmsvideoCategories::model()->deleteAll('id=:IdCategory', array(':IdCategory'=>$id));
        // $ModelCategory = new CmsvideoCategories;
       //  $ModelCategory->DeleteCategory($id);
         $this->redirect(array('admin/category'));
@@ -367,7 +361,7 @@ foreach($result as $res) {
 //            $Data = $ModelCategory->DownloadOneCategory($id);
 //            foreach ($Data as $DataForm)
 //            {
-//                $ModelCategory->category_name = $DataForm['category_name'];
+//                $ModelCategory->name = $DataForm['name'];
 //            }
 //        }
         

@@ -13,29 +13,44 @@
     ?>
 
     <div class="row">
-        <?php echo $form->errorSummary($ModelVideo); ?>
-    
-        <?php
-        if($VideoUpdate)
-        {
-            echo '<div class="alert alert-success" role="alert">Wideo zostało zaktualizowane!</div>';
-        }
-        ?>
         <div class="col-lg-12">
              <div class="panel panel-default">
-                 <div class="panel-heading"><?php echo '<b>'.$ModelVideo->video_title.'</b>'; ?></div>
+                 <div class="panel-heading">Formularz edycji</div>
                  <div class="panel-body">
-                       <div class="col-lg-6">
-           <div class="form-group">
-            <?php echo $form->labelEx($ModelVideo, 'video_title'); ?>
-            <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł')); ?>
-            <?php echo $form->error($ModelVideo, 'video_title'); ?>
+                 <div class="row">
+                     <div class="col-lg-12">
+                            <?php 
+                                if($VideoUpdate)
+                                {
+                                    echo '<div class="alert alert-success" role="alert"><p class="note">';
+                                    echo 'Wideo zostało zaktualizowane!';
+                                    echo '</p></div>';
+                                }
+                                else {
+                                    echo '<div class="alert alert-warning" role="alert"><p class="note">';
+                                    echo 'Pola oznaczone <span class="required">*</span> są wymagane.';
+                                    echo '</p></div>';
+                                }
+                                if($form->errorSummary($ModelVideo)) {
+                                    echo '<div class="alert alert-danger" role="alert"><p class="note">';
+                                    echo $form->errorSummary($ModelVideo);
+                                    echo '</p></div>';
+                                    $fieldStat = 'has-error';
+                                    $iconStat = 'glyphicon-remove';
+                                }
+                            ?>
             </div>
-            <div class="form-group">
-                <?php echo $form->labelEx($ModelVideo, 'video_text'); ?>
-                <?php echo $form->textArea($ModelVideo, 'video_text'); ?>
-                <?php echo $form->error($ModelVideo, 'video_text'); ?>
-            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                <?php echo $form->labelEx($ModelVideo, 'video_title'); ?>
+                <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł')); ?>
+                <?php echo $form->error($ModelVideo, 'video_title'); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo $form->labelEx($ModelVideo, 'video_text'); ?>
+                    <?php echo $form->textArea($ModelVideo, 'video_text'); ?>
+                    <?php echo $form->error($ModelVideo, 'video_text'); ?>
+                </div>
             </div>
       <div class="col-lg-6">
           <div class="form-group">
@@ -59,10 +74,14 @@
                 <?php echo $form->error($ModelVideo, 'video_1080p'); ?>
             </div>
             <div class="form-group">
+                <?php   $parents = CmsvideoCategories::model()->findAll('parent_id = 1');
+                        $cm = new CommonMethods();
+                        $data = $cm->makeDropDown($parents);
+                ?>
                 <?php echo $form->labelEx($ModelVideo, 'video_category'); ?>
-                <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData(CmsvideoCategories::model()->findAll(), 'category_id', 'category_name'), array('class' => 'form-control')); ?>
+                <?php echo $form->dropDownList($ModelVideo, 'video_category',$data, array('class' => 'form-control')); ?>
                 <?php echo $form->error($ModelVideo, 'video_category'); ?>
-            </div>
+            </div> 
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'player_type'); ?>
                 <?php echo $form->dropDownList($ModelVideo, 'player_type', array('video/mp4' => 'mp4', 'video/webm' => 'webm', 'video/ogg' => 'ogg', 'rtmp/mp4' => 'rtmp'),array('class' => 'form-control'));?>

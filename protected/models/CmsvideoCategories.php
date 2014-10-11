@@ -15,9 +15,9 @@ class CmsvideoCategories extends CActiveRecord
     public function rules()
         { 
             return array(
-                array('category_name', 'required'),
-                array('category_name', 'length', 'max'=>50),
-                array('category_id, category_name', 'safe', 'on'=>'search'),
+                array('name, parent_id, published, alias', 'required'),
+                array('name', 'length', 'max'=>50),
+                array('id, name', 'safe', 'on'=>'search'),
                 );
         }
         
@@ -25,21 +25,29 @@ class CmsvideoCategories extends CActiveRecord
         {
           return array(
                 'video' => array(self::HAS_MANY, 'CmsvideoVideo', 'video_category'),
+                'parent' => array(self::BELONGS_TO, 'CmsvideoCategories', 'parent_id', 'condition' => 't.parent_id <> 0'),
+                'children' => array(self::HAS_MANY, 'CmsvideoCategories', 'parent_id'),
             );
         }
         
     public function attributeLabels() 
         {
             return array(
-            'category_id' => 'ID',
-            'category_name' => 'Name',
+            'id' => 'Id',
+            'name' => 'Nazwa',
+            'parent_id' => 'Nadrzędna',
+            'published' => 'Stan',
+            'alias' => 'Alias',
             );
         }
     public function search()
         {
             $criteria=new CDbCriteria;
-            $criteria->compare('category_id', $this->category_id);
-            $criteria->compare('category_name', $this->category_name, true);
+            $criteria->compare('id', $this->id);
+            $criteria->compare('name', $this->name, true);
+            $criteria->compare('alias', $this->alias, true);
+            $criteria->compare('parent_id', $this->parent_id, true);
+            $criteria->compare('published', $this->published, true);
             return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination'=>array(
@@ -47,10 +55,10 @@ class CmsvideoCategories extends CActiveRecord
 				'pageVar'=>'page',
 			),
             'sort'=>array(
-    			'defaultOrder'=>'category_id',
+    			'defaultOrder'=>'id',
     			'sortVar'=>'sort',
     			'attributes'=>array(
-    				'category_id',
+    				'id',
     			),
     		),
 

@@ -123,14 +123,14 @@ class SiteController extends Controller
         
         $Criteria = new CDbCriteria(
                     array(
-                        'condition' => 'category_id = :IdCategory',
+                        'condition' => 'id = :IdCategory',
                         'params' => array(':IdCategory' => $id),
                     )
                     );
         $ModelCategories = CmsvideoCategories::model()->findAll($Criteria);
         foreach ($ModelCategories as $Category)
         {
-            $this->pageTitle = 'Kategoria: '.$Category->category_name;
+            $this->pageTitle = 'Kategoria: '.$Category->name;
         }
         $Criteria = new CDbCriteria(
                     array(
@@ -235,11 +235,11 @@ class SiteController extends Controller
                 . 'SELECT r.vast_id, r.vast_title, r.vast_link, r.vast_source, r.vast_views '
                 . 'FROM videocms_video AS v '
                 . 'INNER JOIN videocms_category AS c '
-                . 'ON v.video_category = c.category_id '
+                . 'ON v.video_category = c.id '
                 . 'INNER JOIN videocms_vast AS r '
-                . 'ON FIND_IN_SET(c.category_id, r.vast_video_cat) '
+                . 'ON FIND_IN_SET(c.id, r.vast_video_cat) '
                 . 'WHERE r.vast_start < NOW() '
-               // . 'AND r.vast_end > NOW() '
+                . 'AND r.vast_end > NOW() '
                 . 'AND r.vast_published = "1" '
                 . 'AND v.video_id = :IdVideo '
                 . 'ORDER BY RAND() '

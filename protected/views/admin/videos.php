@@ -1,17 +1,22 @@
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Wideo</h1>
+        <h1 class="page-header">Biblioteka wideo</h1>
     </div>
 </div>
+<div class="row">
+<div class="col-lg-12">
+<div class="panel panel-default">
+<div class="panel-heading">Zarządzanie</div>
+<div class="panel-body">
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
 'id' => 'videocms-videos-grid',
 'htmlOptions'=>array('class'=>'table-responsive'),
 'summaryCssClass' => 'dataTables_info',
-'template' => '<div class="alert alert-info fade in" role="alert">{summary}</div>{items}<div class="row"><div class="col-md-4"></div><div class="col-md-8">{pager}<br /></div></div>',
+
 'dataProvider'=>$Data,
 'pager'=>array( 
-   'cssFile'=>false,   
+    'cssFile'=>false,   
     'header'=>'',           
     'maxButtonCount'=>'7',
     'selectedPageCssClass'=>'active',
@@ -19,35 +24,37 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'class'=>'pagination'
         ),
     ),
-'pagerCssClass'=>'pagination',
-'itemsCssClass'=>'table table-hover',
-'columns'=>array(
+   // 'template' => '<div class="alert alert-info fade in" role="alert">{summary}</div>{items}<div class="row"><div class="col-md-4"></div><div class="col-md-8">{pager}<br /></div></div>',
+    'template'=>'{items}<div class="col-sm-4">{summary}</div><div class="col-sm-8">{pager}</div>',
+    'pagerCssClass'=>'dataTables_paginate paging_simple_numbers',
+    'itemsCssClass'=>'table table-striped table-hover dataTable no-footer',
+    'columns'=>
+     array(
        // 'class'=>'CCheckBoxColumn',
         //'selectableRows' => '10',
         array(
-              'type' => 'raw',
-              'class'=>'ImageLinkColumn',
-              'urlExpression'=>'array("admin/videoupdate/".$data->video_id)',
-              'value' => 'CHtml::image("/" . $data->video_thumb, $data->video_title, array("style"=>"width: auto; height: 60px;", "class"=>"img-thumbnail"))',
+                'type' => 'raw',
+                'class'=>'ImageLinkColumn',
+                'urlExpression'=>'array("admin/videoupdate/".$data->video_id)',
+                'value' => 'CHtml::image("/" . $data->video_thumb, $data->video_title, array("style"=>"width: 80px; height: 50px;", "class"=>"table-bordered"))',
+              ),
+        array(
+                'type'=>'raw',
+                'header'=>'Nazwa',
+                'value'=> '"<b>".$data->video_title."</b><br />".$data->category->name',
+                'name'=>'video_category',
             ),
-        'video_id',
-        'video_title',
-//        'video_alias',
-//        'video_text',
-         array(
-        'header'=>'Kategoria',
-        'value'=> '$data->category->category_name',
-        'name'=>'video_category'
-    ),
+        array(  
+                'header'=>'Typ',
+                'value'=>'$data->player_type',
+                'name'=>'player_type',
+            ),
         'video_date',
-        //'video_480p',
-       // 'video_720p',
-       // 'video_1080p',
-        'video_published',
-       // 'player_type',
-//        'video_descriptions',
-//        'video_keywords',
-      //  'video_tags',
+        array(  
+                'header'=>'Stan',
+                'value'=>'$data->video_published',
+                'name'=>'video_published',
+            ),
         array(
             'class'=>'CButtonColumn',
             'template'=>'{delete} {update}',
@@ -73,75 +80,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ),
 ));
 ?>
-<?php
-//echo '<table class="table table-hover" id="lol">';
-//echo '<tr class="active">';
-//echo '<th>Thumb</th>';
-//echo '<th>Tytuł</th>';
-//echo '<th>Tagi</th>';
-//echo '<th>Wyświetlenia</th>';
-//echo '<th>Data dodania</th>';
-//echo '<th>Public</th>';
-//echo '<th>Usuń</th>';
-//echo '<tr>'; 
-//
-//foreach ($DataCategory as $ModelCategoryShow)
-//{
-//    $Category[$ModelCategoryShow['category_id']] = $ModelCategoryShow['category_name'];
-//}
-//
-//foreach($Data as $ModelVideosShow)
-//{
-//    if($Class == 0)
-//    {
-//        $Class = 1;
-//        $RowClass = 'row1';
-//    }
-//    else 
-//    {
-//        $Class = 0;
-//        $RowClass = 'row2';
-//    }
-//    echo '<tr>';
-//    echo '<td class="'.$RowClass.'">'.CHtml::link('<img src="../'.$ModelVideosShow['video_thumb'].'" style="width: 60px; height: 60px;"/>',array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'</td>';
-//    echo '<td class="'.$RowClass.'">'.CHtml::link($ModelVideosShow['video_title'],array('admin/videoupdate/'.$ModelVideosShow['video_id'])).'<br />';
-//    echo $Category[$ModelVideosShow['video_category']].'</td>';
-//    echo '<td class="'.$RowClass.'"><center>';
-//    if(!empty($ModelVideosShow['video_tags'])) {
-//    foreach(unserialize($ModelVideosShow['video_tags']) as $Tag) {echo $Tag.' ';} }
-//    echo '</center></td>';
-//    echo '<td class="'.$RowClass.'"><center>'.$ModelVideosShow['video_views'].'</center></td>';
-//    echo '<td class="'.$RowClass.'">'.$ModelVideosShow['video_date'].'</td>';
-//    if ($ModelVideosShow['video_published'] == "1")
-//    {
-//        echo '<td class="glyphicon glyphicon-ok"><input type="hidden" class="form-control" placeholder="'.$ModelVideosShow['video_published'].'"></td>';
-//    }  else {
-//        echo '<td class="glyphicon glyphicon-remove"><input type="hidden" class="form-control" placeholder="'.$ModelVideosShow['video_published'].'"></td>';
-//    }
-//    echo '<td class="'.$RowClass.'">';
-//    
-//    echo CHtml::link(
-//            'Usuń',
-//            array('admin/videodelete/'.$ModelVideosShow['video_id']),
-//            array('confirm' => 'Czy na pewno chcesz usunąć ten rekord?', 'class' => 'btn btn-danger btn-sm'));
-//   // echo CHtml::ajaxLink(
-//   // 'delete',
-//   // array('admin/videodelete/', 'id' => $ModelVideosShow['video_id']), // Yii URL
-//   // array('update' => '#lol') // jQuery selector
-////);
-//    echo '</td>';
-//    echo '<tr>';
-//}
-//
-//echo '</table>';
-//echo '<br /><br />';
-//
-//$this->widget('CLinkPager', array(
-//    'pages' => $Site,
-//))
-//        
-?>
-
+</div>
+</div>
+</div>
+</div>
 <div class="form">
     <?php 
     $form=$this->beginWidget('CActiveForm', array(
@@ -153,91 +95,92 @@ $this->widget('zii.widgets.grid.CGridView', array(
   
     
     <div class="row">
-        <?php //echo $form->errorSummary($ModelVideo); ?>
-        <?php  
-        if($VideoAdd)
-        {
-            echo '<div class="alert alert-success" role="alert">Nowe wideo zostało dodane!</div>';
-        }
-
-    if (($form->errorSummary($ModelVideo) == true))
-    {
-     echo '<div class="alert alert-danger fade in" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
-     echo $form->errorSummary($ModelVideo);
-    echo '</div>';}
-     ?>
         <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">Dodaj nowe wideo</div>
             <div class="panel-body">
             <div class="row">
             <div class="col-lg-12">
-            <div class="alert alert-warning" role="alert">
-                <p class="note">Pola oznacone <span class="required">*</span> są wymagane.</p>
-            </div>
+                            <?php 
+                                if($VideoAdd)
+                                {
+                                    echo '<div class="alert alert-success" role="alert"><p class="note">';
+                                    echo 'Nowe wideo zostało dodane!';
+                                    echo '</p></div>';
+                                }
+                                else {
+                                    echo '<div class="alert alert-warning" role="alert"><p class="note">';
+                                    echo 'Pola oznaczone <span class="required">*</span> są wymagane.';
+                                    echo '</p></div>';
+                                }
+                                if($form->errorSummary($ModelVideo)) {
+                                    echo '<div class="alert alert-danger" role="alert"><p class="note">';
+                                    echo $form->errorSummary($ModelVideo);
+                                    echo '</p></div>';
+                                    $fieldStat = 'has-error';
+                                    $iconStat = 'glyphicon-remove';
+                                }
+                            ?>
             </div>
             <div class="col-lg-6">
-                <?php
-                 if (($form->error($ModelVideo, 'video_title') != true))
-                 {
-                ?>
-                <div class="form-group">
-            <?php echo $form->labelEx($ModelVideo, 'video_title'); ?>
-            <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł')); ?>
-                </div>
-            <?php
-                 } else {
-            ?>
-            <div class="form-group has-error has-feedback">
-            <?php echo $form->labelEx($ModelVideo, 'video_title', array('class' => 'control-label', 'for' => 'inputError2')); ?>
-            <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł', 'id' => 'inputError2')); ?>
-            <?php echo $form->error($ModelVideo, 'video_title', array('class' => 'text-danger')); ?>
+            <div class="form-group <?php echo $fieldStat; ?> has-feedback">
+                <?php echo $form->labelEx($ModelVideo, 'video_title'); ?>
+                <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł')); ?>
+                <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
             </div>
-            <?php   }?> 
                 
-            <div class="form-group">
+            <div class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'video_text'); ?>
                 <?php echo $form->textArea($ModelVideo, 'video_text'); ?>
                 <?php echo $form->error($ModelVideo, 'video_text', array('class' => 'text-danger')); ?> 
+                <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
             </div>
             </div>
            <div class="col-lg-6">
-               <div class="form-group">
+             <div class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'video_alias'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_alias', array('class' => 'form-control', 'placeholder' => 'Alias', 'readonly' => true)); ?>
                 <?php echo $form->error($ModelVideo, 'video_alias'); ?>
+                <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
                </div>
-             <div class="form-group">
+             <div class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'video_480p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_480p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 480p')); ?> 
                 <?php echo $form->error($ModelVideo, 'video_480p', array('class' => 'text-danger')); ?> 
+                <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
              </div>
-            <div class="form-group">
+            <div class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'video_720p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_720p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 720p')); ?>
-                <?php echo $form->error($ModelVideo, 'video_720p', array('class' => 'text-danger')); ?> 
+                <?php echo $form->error($ModelVideo, 'video_720p', array('class' => 'text-danger')); ?>
+                <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'video_1080p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_1080p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 1080p')); ?>
                 <?php echo $form->error($ModelVideo, 'video_1080p', array('class' => 'text-danger')); ?> 
+                <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group <?php echo $fieldStat; ?> has-feedback">
+                <?php   $parents = CmsvideoCategories::model()->findAll('parent_id = 1');
+                        $cm = new CommonMethods();
+                        $data = $cm->makeDropDown($parents);
+                ?>
                 <?php echo $form->labelEx($ModelVideo, 'video_category'); ?>
-                <?php echo $form->dropDownList($ModelVideo, 'video_category', CHtml::listData(CmsvideoCategories::model()->findAll(), 'category_id', 'category_name'), array('class' => 'form-control')); ?>
-                
+                <?php echo $form->dropDownList($ModelVideo, 'video_category',$data, array('class' => 'form-control')); ?>
                 <?php echo $form->error($ModelVideo, 'video_category'); ?>
-            </div>
-            <div class="form-group">
+            </div> 
+            <div class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'player_type'); ?>
                 <?php echo $form->dropDownList($ModelVideo, 'player_type', array('video/mp4' => 'mp4', 'video/webm' => 'webm', 'video/ogg' => 'ogg', 'rtmp/mp4' => 'rtmp'),array('class' => 'form-control'));?>
                 <?php echo $form->error($ModelVideo, 'player_type'); ?>
             </div>
-            <div class="form-group">
+            <div class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php if ($ImageAdd) {echo '<div>Plik został wgrany na serwer</div>';} ?>
                 <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
                 <?php echo $form->fileField($ModelVideo, 'video_image'); ?>
-                <?php echo $form->error($ModelVideo, 'video_image', array('class' => 'text-danger')); ?> 
+                <?php echo $form->error($ModelVideo, 'video_image', array('class' => 'text-danger')); ?>
+                <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
@@ -249,13 +192,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->textField($ModelVideo, 'video_keywords', array('class' => 'form-control', 'placeholder' => 'Słowa kluczowe')); ?>
                 <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
             </div>
-             <div class="form-group">
+            <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
                 <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Tagi')); ?>
-                <?php echo $form->error($ModelVideo, 'tag_name', array('class' => 'text-danger')); ?> 
+                <?php echo $form->error($ModelVideo, 'tag_name', array('class' => 'text-danger')); ?>
              </div>
             <div class="form-group">
-                <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>            </div>
+                <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?> 
+            </div>
             <div class="form-group">
                 <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-success')); ?>
             </div>

@@ -36,7 +36,7 @@ class VastVideo extends CActiveRecord
             'vast_source' => 'Źródło',
             'vast_link' => 'Link',
             'video_category' => 'Kategoria wideo',
-            'vast_published' => 'Publikacja',
+            'vast_published' => 'Stan',
         );
     }
     public function search()

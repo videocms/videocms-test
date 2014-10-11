@@ -1,7 +1,7 @@
 <?php
 foreach ($ModelCategories as $ModelCategoryShow)
 {
-    $Category[$ModelCategoryShow->category_id] = $ModelCategoryShow->category_name;
+    $Category[$ModelCategoryShow->id] = $ModelCategoryShow->name;
 }
 
 

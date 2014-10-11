@@ -58,7 +58,7 @@ return array(
                             '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
                             
 			),
-                    'urlSuffix'=>'.html',
+                 //   'urlSuffix'=>'.html',
 		),
 		
 		'db'=>array(
