@@ -55,9 +55,23 @@ foreach($result as $res) {
     
     public function actionIndex() {
         $this->pageTitle = 'Panel';
+        
+        $ModelSess = new Session;
+        
+        $DataSess = new CActiveDataProvider('Session', array(
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
+              )
+            );
+        
+        
             $dataProvider=new CActiveDataProvider('User');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+                        'Data' => $DataSess,
+                        'ModelSess' => $ModelSess
 		));
 }
 //public function actionAdmin() {

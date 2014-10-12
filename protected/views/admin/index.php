@@ -1,7 +1,48 @@
 <?php
 //$dupa = Yii::app()->user->username;
-Yii::app()->session['var'] = Yii::app()->user->username;
-echo Yii::app()->session['var'];
+//Yii::app()->session['var'] = Yii::app()->user->username;
+//echo Yii::app()->session['var'];
+//echo '<br>Id Twojej sesji to: '.Yii::app()->getSession()->getSessionId();
+//Yii::app()->db->createCommand('UPDATE VideoCMS_sesja SET username="'.Yii::app()->user->username.'" where id="'.Yii::app()->getSession()->getSessionId().'"')->queryRow();
+Yii::app()->db->createCommand()->update(
+  'VideoCMS_sesja',
+  array('username'=>Yii::app()->user->username),
+  'id = :id',
+  array(':id'=>Yii::app()->getSession()->getSessionId())
+);
+//$users = Yii::app()->db->createCommand('select username from VideoCMS_sesja')->queryAll();
+
+//echo $users;
+//print_r($users);
+//$new = $users;
+//echo '<br>';
+//$test = implode(",",$new);
+//echo $test;
+
+$this->widget('zii.widgets.grid.CGridView', array(
+'id' => 'videocms-sess-grid',
+'htmlOptions'=>array('class'=>'table-responsive'),
+'summaryCssClass' => 'dataTables_info',
+'template' => '{items}',
+'dataProvider'=>$Data,
+'pager'=>array( 
+   'cssFile'=>false,   
+    'header'=>'',  
+    'maxButtonCount'=>'7',
+    'selectedPageCssClass'=>'active',
+   'htmlOptions'=>array(
+           'class'=>'pagination'
+       ),
+    ),
+'pagerCssClass'=>'pagination',
+'itemsCssClass'=>'table table-hover',    
+'columns'=>array(
+        'username',
+    ),
+));
+
+
+
 $wers = "0.3";
 $url = 'http://www.alexie.pl/wersja.xml'; 
 $xml = simpleXML_load_file($url,"SimpleXMLElement",LIBXML_NOCDATA);

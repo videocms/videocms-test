@@ -107,6 +107,7 @@ return array(
                     'class'=> 'CDbHttpSession',
                     'connectionID' => 'db',
                     'sessionTableName' => 'VideoCMS_sesja',
+                    'timeout' => 900, //czas w sekundach
             ), 
             
              'easyImage' => array(
