@@ -279,7 +279,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
                 <div class="sidebar-nav navbar-collapse">
                         
                     <pre>Witaj <?php echo Yii::app()->user->name; ?></pre>
-                    </div> <?php if(Yii::app()->user->isAdmin() == true)
+                    <?php if(Yii::app()->user->isAdmin() == true)
                 {
                     $this->widget('zii.widgets.CMenu',array(
                      'id'=>'side-menu',
@@ -311,7 +311,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
                     ),
                   ));
                 }
-                ?>
+                ?></div> 
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
