@@ -87,6 +87,13 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
+                             array(
+                                  'class'=>'ext.LogDb',
+                                  'autoCreateLogTable'=>true,
+                                  'connectionID'=>'db',
+                                  'enabled'=>true,
+                                  'levels'=>'error',//You can replace trace,info,warning,error
+                ),
 				// uncomment the following to show log messages on web pages
 				/*
 				array(

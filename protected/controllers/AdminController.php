@@ -24,7 +24,7 @@ class AdminController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Adduser','AdduserDelete','UserUpdate','test'),
+				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Adduser','AdduserDelete','UserUpdate','test','log','LogDelete'),
 				'expression'=>'Yii::app()->user->isAdmin()',
 			),
 			array('deny',  // deny all users
@@ -1009,6 +1009,44 @@ foreach($result as $res) {
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+        
+        public function actionLog()
+    {
+         $this->pageTitle = 'Logi';
+   
+        $ModelLog = new log;
+        
+        $DataLog = new CActiveDataProvider('log', array(
+            'sort'=>array(
+	'defaultOrder'=>'id DESC',
+			),
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
+              )
+            );
+        $this->render('log', array(
+            'Data' => $DataLog,
+            'ModelLog' => $ModelLog,
+        ));
+    }
+    
+    public function actionLogDelete($id)
+	{
+        
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        
+        $ModelLog = new log;
+       
+        log::model()->deleteByPk($id);
+ 
+        $this->redirect(array('admin/log'));
+    
 	}
 }
 
