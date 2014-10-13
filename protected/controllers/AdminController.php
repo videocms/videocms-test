@@ -24,7 +24,7 @@ class AdminController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Adduser','AdduserDelete','UserUpdate','test','log','LogDelete'),
+				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Adduser','AdduserDelete','UserUpdate','test','log','LogDelete','menu','MenuUpdate','MenuDelete'),
 				'expression'=>'Yii::app()->user->isAdmin()',
 			),
 			array('deny',  // deny all users
@@ -1062,6 +1062,84 @@ foreach($result as $res) {
         $this->redirect(array('admin/log'));
     
 	}
+        
+        public function actionMenu()
+    {
+        $this->pageTitle = 'Menu';
+        $MenuAdd = false;
+        
+        $ModelMenu = new CmsvideoMenu;
+        
+        if(isset($_POST['CmsvideoMenu']))
+        {
+            $ModelMenu->attributes=$_POST['CmsvideoMenu'];
+            
+            if($ModelMenu->validate())
+            {
+                $ModelMenu->save();
+                $MenuAdd = true;
+                $ModelMenu->menu_name = '';
+                $ModelMenu->menu_text = '';
+                $ModelMenu->menu_link = '';
+            }
+        }
+        
+        $DataMenu = new CActiveDataProvider('CmsvideoMenu', array(
+            'sort'=>array(
+	'defaultOrder'=>'id DESC',
+			),
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
+              )
+            );
+        $this->render('menu', array(
+            'Data' => $DataMenu,
+            'MenuAdd' => $MenuAdd,
+            'ModelMenu' => $ModelMenu
+        ));
+    }
+    public function actionMenuDelete($id)
+    {
+        
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        CmsvideoMenu::model()->deleteAll('id=:IdMenu', array(':IdMenu'=>$id));
+        $this->redirect(array('admin/menu'));
+    }
+    
+    public function actionMenuUpdate($id)
+    {
+        $this->pageTitle = 'Edit Menu';
+        
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        
+        $MenuUpdate = false;
+        $ModelMenu = CmsvideoMenu::model()->findByPk($id);
+        
+        if(isset($_POST['CmsvideoMenu']))
+        {
+            $ModelMenu->attributes = $_POST['CmsvideoMenu'];
+            if($ModelMenu->validate())
+            {
+                $ModelMenu->save();
+                $MenuUpdate = true;
+            }
+            $this->redirect(array('/admin/menu'));
+        }
+        
+        $this->render('menuupdate', array(
+            'ModelMenu' => $ModelMenu,
+            'MenuUpdate' => $MenuUpdate,
+        ));
+    }
+    
 }
 
 ?>

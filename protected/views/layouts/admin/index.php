@@ -290,6 +290,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
                             array('label'=>'<i class="fa fa-dashboard fa-f"></i> Panel', 'url'=>array('/admin/index')),
                             array('label'=>'<i class="fa fa-film fa-f"></i> Wideo', 'url'=>array('/admin/videos')),
                             array('label'=>'<i class="fa fa-table fa-f"></i> Kategorie', 'url'=>array('/admin/category')),
+                            array('label'=>'<i class="fa fa-list-alt fa-f"></i> Menu', 'url'=>array('/admin/menu')),
                             array('label'=>'<i class="fa fa-desktop fa-f"></i> Reklamy', 'url'=>array('/admin/vast')),
                             array('label'=>'<i class="fa fa-picture-o fa-f"></i> Slider', 'url'=>array('/admin/slider')),
                             array('label'=>'<i class="fa fa-users fa-f"></i> Użytkownicy', 'url'=>array('/admin/adduser')),

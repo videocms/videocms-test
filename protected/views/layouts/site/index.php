@@ -115,45 +115,14 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <?php if(Yii::app()->session['zalogowany'] == 'tak')
-                {
-                    $this->widget('zii.widgets.CMenu',array(
-                      //'id'=>'bs-example-navbar-collapse-1',
-                       // 'items'=>$this->myMenu,
-                        'htmlOptions'=>array('class'=>'nav navbar-nav'),
-			'items'=>array(
-                                 array('label'=>'Home', 'url'=>array('/index')),
-                                 array('label'=>'Panel', 'url'=>array('/admin/index')),
-                                 array('label'=>'Wideo', 'url'=>array('/admin/videos')),
-                                 array('label'=>'Kategorie', 'url'=>array('/admin/category')),
-                                 array('label'=>'Reklamy', 'url'=>array('/admin/vast')),
-                                 array('label'=>'Slider', 'url'=>array('/admin/slider')),
-                                 array('label'=>'Ustawienia', 'url'=>array('/admin/settings')),
-                                 array('label'=>'Seo', 'url'=>array('/admin/seo/1')),
-				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				 array('label'=>'Zmień hasło', 'url'=>array('/admin/pass')),
-                                 array('label'=>'Wyloguj', 'url'=>array('/login/logout')),
-                                ),
-                        )
-                    );
-                }
-                else
-                    {
-                        $this->widget('zii.widgets.CMenu',array(
+                    <?php 
+                        $this->widget('application.components.ActiveMenu',array(
                             //'id'=>'bs-example-navbar-collapse-1',
                            // 'items'=>$this->myMenu,
                             'htmlOptions'=>array(
                                            'class'=>'nav navbar-nav'),
-                                           'items'=>array(
-                                                    array(
-                                                         'label'=>'Strona główna', 
-                                                         'url'=>array('/index')
-                                                         ),
-                           // array('label'=>'Zaloguj', 'url'=>array('/login/index')),
-                                                     ),
                           ) 
                         );
-                    }
                 ?>
 
               
