@@ -281,19 +281,43 @@ class SiteController extends Controller
         $this->layout='site/embed';
         $ModalSeo = new CmsvideoSettings;
         $DataSeo = $ModalSeo->DownloadSettings();
+        $DataCategory = CmsvideoCategories::model()->findAll();
+        $DataVideo = CmsvideoVideo::model()->findAll('video_id=:IdVideo', array(':IdVideo'=>$id));
+        
+        
+        $session = Yii::app()->getSession();
+        $video_arr = array();
+        $ses_arr = array();
+
+         if($session['video_arr']) {
+            $ses_arr=$session['video_arr']; 
+            }
+            if(!in_array($id, $ses_arr)) {
+                $video_arr = $ses_arr;
+                $video_arr[] = $id;
+                $Views = CmsvideoVideo::model()->find('video_id=:id', array(':id'=> $id));
+                if($Views->video_views) {
+                   $Views->video_views = $Views->video_views + 1;
+                }
+                else {
+                   $Views->video_views = 1;
+                }
+                $Views->save();
+                $session['video_arr']=$video_arr;
+            }
         
         foreach ($DataSeo as $Seoo)
         {
             $this->pageMetaRobots = $Seoo['settings_robots'];
         }
         
-        $ModelCategory = new CmsvideoCategories;
-        $DataCategory = $ModelCategory->DownloadCategories();
+       // $ModelCategory = new CmsvideoCategories;
+        //$DataCategory = $ModelCategory->DownloadCategories();
         //$ModelVast = new VastVideo;
         //$DataVast = $ModelVast->DownloadVast();
-        $ModelVideo = new CmsvideoVideo;
-        $DataVideo = $ModelVideo->DownloadVideo($id);
-        $DataViews = $ModelVideo->UpdateViews($id);
+       // $ModelVideo = new CmsvideoVideo;
+       // $DataVideo = $ModelVideo->DownloadVideo($id);
+        //$DataViews = $ModelVideo->UpdateViews($id);
         
         $this->pageTitle='embed-video-site';
         foreach($DataVideo as $Video)
@@ -308,9 +332,9 @@ class SiteController extends Controller
         $this->render('embed', array(
             'DataCategory' => $DataCategory,
             'DataVideo' => $DataVideo,
-            'DataViews' => $DataViews,
+            //'DataViews' => $DataViews,
         ));
-        
+             
     }
     //embed koniec
 }
