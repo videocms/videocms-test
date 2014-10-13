@@ -15,7 +15,7 @@ class Session extends CActiveRecord
     public function rules()
         { 
             return array(
-                array('username', 'length', 'max'=>150),
+                array('username, user_ip', 'length', 'max'=>150),
                );
         }
         
@@ -23,6 +23,7 @@ class Session extends CActiveRecord
         {
             return array(
             'username' => 'Zalogowani użytkownicy:',
+            'user_ip' => 'IP',  
             );
         }
     public function search()
@@ -30,6 +31,7 @@ class Session extends CActiveRecord
             $criteria=new CDbCriteria;
             $criteria->compare('id', $this->id);
             $criteria->compare('username', $this->username, true);
+            $criteria->compare('user_ip', $this->user_ip, true);
             return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination'=>array(

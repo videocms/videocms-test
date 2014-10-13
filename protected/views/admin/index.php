@@ -6,7 +6,7 @@
 //Yii::app()->db->createCommand('UPDATE VideoCMS_sesja SET username="'.Yii::app()->user->username.'" where id="'.Yii::app()->getSession()->getSessionId().'"')->queryRow();
 Yii::app()->db->createCommand()->update(
   'VideoCMS_sesja',
-  array('username'=>Yii::app()->user->username),
+  array('username'=>Yii::app()->user->username, 'user_ip'=>Yii::app()->request->userHostAddress),
   'id = :id',
   array(':id'=>Yii::app()->getSession()->getSessionId())
 );
@@ -38,6 +38,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 'itemsCssClass'=>'table table-hover',    
 'columns'=>array(
         'username',
+        'user_ip',
     ),
 ));
 
@@ -138,3 +139,4 @@ else {
     </div>
 </div>
 </div>
+<?php echo 'Twój adres IP to: '.Yii::app()->request->userHostAddress;?> 
