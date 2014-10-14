@@ -149,6 +149,7 @@ else {
                                 if($Data->user_id != 0)
                                 echo '<a href="#" class="list-group-item">
                                     <i class="fa fa-user fa-fw"></i> '.$Data->user->firstname.'
+                                    <span class="text-muted small"><em> ('.$Data->username.')</em></span>
                                     <span class="pull-right text-muted small"><em>'.$Data->user_ip.'</em>
                                     </span>
                                     </a>';
