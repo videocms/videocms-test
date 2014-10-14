@@ -24,6 +24,38 @@ $wers = "0.3";
 $url = 'http://www.alexie.pl/wersja.xml'; 
 $xml = simpleXML_load_file($url,"SimpleXMLElement",LIBXML_NOCDATA);
 ?>
+
+
+<?php
+$this->widget('zii.widgets.grid.CGridView', array(
+'id' => 'videocms-user-grid',
+'htmlOptions'=>array('class'=>'table-responsive'),
+'summaryCssClass' => 'dataTables_info',
+
+'dataProvider'=>$Data,
+'pager'=>array( 
+    'cssFile'=>false,   
+    'header'=>'',           
+    'maxButtonCount'=>'7',
+    'selectedPageCssClass'=>'active',
+    'htmlOptions'=>array(
+            'class'=>'pagination'
+        ),
+    ),
+    'columns'=>
+     array(
+       // 'class'=>'CCheckBoxColumn',
+        //'selectableRows' => '10',
+         array(
+           'value' => '$data->user->lastname',
+
+         ),
+
+
+),
+));
+?>
+
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Pulpit</h1>

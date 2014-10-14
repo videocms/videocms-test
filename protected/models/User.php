@@ -122,7 +122,7 @@ class User extends CActiveRecord
 	public function relations()
         {
           return array(
-                'session' => array(self::HAS_MANY, 'Session', 'username'),
+                'session' => array(self::HAS_MANY, 'Session', 'username'),    
             );
         }
 
@@ -143,6 +143,23 @@ class User extends CActiveRecord
 			'role' => 'Rola'
 		);
 	}
+        
+        public function search()
+        {
+            $criteria = new CDbCriteria;
+            $criteria->compare('id', $this->id);
+            $criteria->compare('username', $this->username);
+            $criteria->compare('firstname', $this->firstname);
+            $criteria->compare('lastname', $this->lastname);
+            $criteria->compare('email', $this->email);
+            $criteria->compare('status', $this->status);
+            $criteria->compare('role', $this->role);
+
+            return new CActiveDataProvider($this, array(
+                'criteria'=>$criteria,
+            ));
+        }
+        
 	/**
 	 * Compare Expiry date and today's date
 	 * @return type - positive number equals valid user
