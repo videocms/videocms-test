@@ -51,6 +51,23 @@
                     <?php echo $form->textArea($ModelVideo, 'video_text'); ?>
                     <?php echo $form->error($ModelVideo, 'video_text'); ?>
                 </div>
+                 <div class="form-group">
+                <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
+                <?php echo $form->textField($ModelVideo, 'video_description', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiedni opis dla wideo (do 160 znaków).')); ?>
+                <?php echo $form->error($ModelVideo, 'video_description'); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo $form->labelEx($ModelVideo, 'video_keywords'); ?>
+                    <?php echo $form->textField($ModelVideo, 'video_keywords', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiednie słowa kluczowe, oddzielając je przecinkami')); ?>
+                    <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo $form->labelEx($ModelVideo, 'video_published'); ?>
+                    <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>                      </div>
+                <div class="form-group">
+                    <?php echo CHtml::submitButton('Aktualizuj', array('class' => 'btn btn-success')); ?>
+                    <?php echo CHtml::link('Anuluj',array('admin/videos'),array('class'=>'btn btn-danger')); ?>
+                </div>
             </div>
       <div class="col-lg-6">
           <div class="form-group">
@@ -58,6 +75,25 @@
                 <?php echo $form->textField($ModelVideo, 'video_alias', array('class' => 'form-control', 'placeholder' => 'Alias', 'readonly' => true)); ?>
                 <?php echo $form->error($ModelVideo, 'video_alias'); ?>
           </div>
+          <div class="form-group">
+                <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
+                <div id="upload">
+                    <div class='col-lg-4'>
+                       <img src="/../<?php echo $ModelVideo->video_thumb; ?>" class="img-thumbnail" style="height: 80px;"/>
+                    </div>
+                 <div class='col-lg-8'>
+                    <?php echo $form->textField($ModelVideo, 'video_image',array('readonly'=>true, 'class' => 'form-control')); ?>
+                    <input class="btn btn-default btn-sm" style="margin-top:14px;" name="upload1" type="button" value="zmien" onclick="changeMode()" />     
+                 </div>
+                </div>  
+                 <?php echo $form->error($ModelVideo, 'video_image'); ?>
+              <div class='clearfix'></div>
+            </div>
+           
+            <div class="form-group">
+                <?php echo $form->textField($ModelVideo, 'video_thumb',array('hidden'=>true)); ?>
+                <?php echo $form->error($ModelVideo, 'video_thumb'); ?>
+            </div>
            <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_480p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_480p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 480p')); ?>
@@ -88,50 +124,24 @@
                 <?php echo $form->error($ModelVideo, 'player_type'); ?>
             </div>
             <div class="form-group">
-                <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
-                <p id="upload">
-                <div class="col-xs-10">
-                <?php echo $form->textField($ModelVideo, 'video_image',array('readonly'=>true, 'class' => 'col-md-4 form-control')); ?>
-                </div>
-                <input class="btn btn-default btn-sm" name="upload1" type="button" value="zmien" onclick="changeMode()" /></p>       
-                 <?php echo $form->error($ModelVideo, 'video_image'); ?>
-            </div>
-            <div class="form-group">
-                <?php echo $form->textField($ModelVideo, 'video_thumb',array('hidden'=>true)); ?>
-                <?php echo $form->error($ModelVideo, 'video_thumb'); ?>
-            </div>
-            <div class="form-group">
-                <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
-                <?php echo $form->textField($ModelVideo, 'video_description', array('class' => 'form-control', 'placeholder' => 'Opis wideo')); ?>
-                <?php echo $form->error($ModelVideo, 'video_description'); ?>
-            </div>
-            <div class="form-group">
-                <?php echo $form->labelEx($ModelVideo, 'video_keywords'); ?>
-                <?php echo $form->textField($ModelVideo, 'video_keywords', array('class' => 'form-control', 'placeholder' => 'Słowa kluczowe')); ?>
-                <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
-            </div>
-            <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
-                <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Tagi')); ?>
+                <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiednie tagi, oddzielając je przecinkami')); ?>
                 <?php echo $form->error($ModelVideo, 'tag_name'); ?>
             </div>
             <div class="form-group">
                 <?php
                  $tagi = $ModelTags->DownloadTag($ModelVideo->video_id);
+                 
                 foreach($tagi as $data) { ?>
-                <div class="checkbox_wrapper" id="<?php echo $data['tag_name'];?>" style="display:block">
-                    <input type="checkbox" name="c" class="checkbox" onclick="showMe('<?php echo $data['tag_name'];?>'), deleteTag(), tagname()"/> 
-                    <label class="form-control"><?php echo $data['tag_name'];?></label></div>
+                    <li class="checkbox_wrapper" id="<?php echo $data['tag_name'];?>" style="display:block">
+                        <input type="checkbox" name="c" class="checkbox" onclick="showMe('<?php echo $data['tag_name'];?>'), deleteTag(), tagname()"/> 
+                        <label><?php echo $data['tag_name'];?></label>
+                    </li>
                 <?php } ?>
-            </div>    
+                
+            </div>           
             <div class="form-group">      
                 <?php echo $form->hiddenField($ModelVideo, 'tag_delete', array('type'=>"hidden")); ?>
-            </div>
-            <div class="form-group">
-                <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>            </div>
-            <div class="form-group">
-                <?php echo CHtml::submitButton('Aktualizuj', array('class' => 'btn btn-success')); ?>
-                <?php echo CHtml::link('Anuluj',array('admin/videos'),array('class'=>'btn btn-danger')); ?>
             </div>
     </div>
     </div>
@@ -164,12 +174,9 @@ function tagname(check) {
     $('input:checkbox:not(:checked)').each(function() {
         checked.push( $(this).next('label').text() );
     });
-	
         $('#CmsvideoVideo_tag_name').val(checked.join(","));
-
 }
-function showMe (box) {
-
+function showMe(box) {
     var chboxs = document.getElementsByName("c");
     var vis = "block";
     for(var i=0;i<chboxs.length;i++) { 
@@ -179,6 +186,9 @@ function showMe (box) {
         }
     }
     document.getElementById(box).style.display = vis;
-
 }
  </script>
+<script>tinymce.init({
+         selector: "textarea",theme: "modern",width: '100%',height: 235,
+             });
+</script>

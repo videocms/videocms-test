@@ -141,7 +141,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             </div>
              <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
-                <?php echo $form->textField($ModelVideo, 'video_description', array('size' => '60', 'maxlength' => '160', 'class' => 'form-control', 'placeholder' => 'Opis wideo')); ?>
+                <?php echo $form->textField($ModelVideo, 'video_description', array('size' => '60', 'maxlength' => '160', 'class' => 'form-control', 'placeholder' => 'Wpisz odpowiedni opis dla wideo (do 160 znaków).')); ?>
                 <?php echo $form->error($ModelVideo, 'video_description'); ?>
             </div>
             <div class="form-group">
@@ -159,6 +159,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->error($ModelVideo, 'video_alias'); ?>
                 <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
                </div>
+             <div class="form-group <?php echo $fieldStat; ?> has-feedback">
+                <?php if ($ImageAdd) {echo '<div>Plik został wgrany na serwer</div>';} ?>
+                <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
+                <?php echo $form->fileField($ModelVideo, 'video_image'); ?>
+                <?php echo $form->error($ModelVideo, 'video_image', array('class' => 'text-danger')); ?>
+                <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
+                </div>
              <div class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'video_480p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_480p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 480p')); ?> 
@@ -191,21 +198,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->dropDownList($ModelVideo, 'player_type', array('video/mp4' => 'mp4', 'video/webm' => 'webm', 'video/ogg' => 'ogg', 'rtmp/mp4' => 'rtmp'),array('class' => 'form-control'));?>
                 <?php echo $form->error($ModelVideo, 'player_type'); ?>
             </div>
-            <div class="form-group <?php echo $fieldStat; ?> has-feedback">
-                <?php if ($ImageAdd) {echo '<div>Plik został wgrany na serwer</div>';} ?>
-                <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
-                <?php echo $form->fileField($ModelVideo, 'video_image'); ?>
-                <?php echo $form->error($ModelVideo, 'video_image', array('class' => 'text-danger')); ?>
-                <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
-            </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_keywords'); ?>
-                <?php echo $form->textField($ModelVideo, 'video_keywords', array('class' => 'form-control', 'placeholder' => 'Słowa kluczowe')); ?>
+                <?php echo $form->textField($ModelVideo, 'video_keywords', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiednie słowa kluczowe, oddzielając je przecinkami.')); ?>
                 <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
-                <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Tagi')); ?>
+                <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiednie tagi, oddzielając je przecinkami.')); ?>
                 <?php echo $form->error($ModelVideo, 'tag_name', array('class' => 'text-danger')); ?>
              </div>
         </div>
@@ -236,4 +236,8 @@ tags.on('keyup', function() {
   var val = $(this).val();
   keywords.val(val);
 });
+</script>
+<script>tinymce.init({
+         selector: "textarea",theme: "modern",width: '100%',height: 251,
+             });
 </script>
