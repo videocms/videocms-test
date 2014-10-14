@@ -8,13 +8,13 @@
             {
                 echo '<div>
                             <img u="image" src="'.$ModelSite1['slider_image'].'" />
-                            <div u="caption" t="MCLIP|B" style="position: absolute; top: 250px; left: 0px;
-                                width: 600px; height: 50px;">
-                                <div style="position: absolute; top: 0px; left: 0px; width: 600px; height: 50px;
-                                    background-color: Black; opacity: 0.5; filter: alpha(opacity=50);">
+                            <div u="caption" t="MCLIP|B" style="position: absolute; top: 330px; left: 0px;
+                                width: 980px; height: 50px; transform: perspective(2000px);">
+                                <div style="position: absolute; top: 0px; left: 0px; width: 980px; height: 50px;
+                                    background-color: Black; opacity: 0.5; filter: alpha(opacity=50); transform: perspective(2000px);">
                                 </div>
-                                <div style="position: absolute; top: 0px; left: 0px; width: 600px; height: 50px;
-                                    color: White; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center;">
+                                <div style="position: absolute; top: 0px; left: 0px; width: 980px; height: 50px;
+                                    color: White; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; transform: perspective(2000px);">
                                     '.$ModelSite1['slider_text'].'
                                 </div>
                             </div>
