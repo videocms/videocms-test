@@ -1,6 +1,8 @@
-<div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 600px; height: 300px;">
+<div class="container">
+    <div class="jumbotron">
+<div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 980px; height: 380px;">
     <!-- Slides Container -->
-    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 600px; height: 300px; overflow: hidden;">
+    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 980px; height: 380px; overflow: hidden;">
     <?php
         foreach($DataSlider as $ModelSite1)
             {
@@ -52,6 +54,8 @@
         <span u="arrowright" class="jssora14r" style="width: 30px; height: 50px; top: 123px; right: 0px">
         </span>
         <!-- Arrow Navigator Skin End -->
+</div>
+</div>
 </div>
 
 <?php

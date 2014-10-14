@@ -776,7 +776,7 @@ foreach($result as $res) {
 	{
         //$ErrorData = false;
        $this->layout='admin/login';
-       $ModelUsers = new CmsvideoUsers;
+       $ModelUsers = new User;
        // $this->pageTitle = 'Login admin panel';
 		    $model=new LoginForm('login');
 
@@ -804,7 +804,7 @@ foreach($result as $res) {
 			    }
 			}
 		}
-                    $Data = new CActiveDataProvider('CmsvideoUsers');
+                    $Data = new CActiveDataProvider('User');
 		    $this->render('login',array('model'=>$model, 'ModelUsers'=>$ModelUsers, 'Data'=> $Data));
 	}
 
@@ -982,7 +982,7 @@ foreach($result as $res) {
             exit;
         }
         User::model()->deleteAll('id=:IdUser', array(':IdUser'=>$id));
-        $this->redirect(array('admin/adduser'));
+        $this->redirect(array('admin/users'));
     }
     
 //    public function actionUserUpdate($id)
