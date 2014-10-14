@@ -343,3 +343,59 @@ table.dataTable thead .sorting:after {
 .panel-yellow a:hover {
     color: #df8a13;
 }
+
+.checkbox-inline.checkbox-tag {
+    margin: 0 0 9px 5px;
+}
+.checkbox-tag {
+    color: #333;
+    padding: 0 9px 0 5px;
+    cursor: pointer;
+    height: 26px;
+    background: no-repeat url(/images/imgbin/ico-delete.gif) 7px 9px;
+    line-height: 25px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    overflow: hidden;
+    resize: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    box-shadow: 0 1px 0 white;
+    display: inline-block;
+}
+
+.checkbox-tag span {
+    padding-left: 17px;
+    vertical-align: top;
+    //line-height: 20px;
+    max-width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+
+input[type=checkbox].checkbox-tag-delete {
+    opacity:0;
+}
+input[type=checkbox].checkbox-tag-delete {
+    margin: 3px 0 0 0;
+    cursor: pointer;
+    display: inline-block;
+    background-size: auto;
+    width: 15px;
+    height: 15px;
+}
+
+input.checkbox-tag-input {
+    border: 0;
+    height: 30px;
+    padding: 0 9px;
+    width: 100%;
+}
+
+input.checkbox-tag-input:focus {
+    outline: none;
+}

@@ -125,20 +125,22 @@
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
-                <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiednie tagi, oddzielając je przecinkami')); ?>
-                <?php echo $form->error($ModelVideo, 'tag_name'); ?>
-            </div>
-            <div class="form-group">
                 <?php
-                 $tagi = $ModelTags->DownloadTag($ModelVideo->video_id);
-                 
-                foreach($tagi as $data) { ?>
-                    <li class="checkbox_wrapper" id="<?php echo $data['tag_name'];?>" style="display:block">
-                        <input type="checkbox" name="c" class="checkbox" onclick="showMe('<?php echo $data['tag_name'];?>'), deleteTag(), tagname()"/> 
-                        <label><?php echo $data['tag_name'];?></label>
-                    </li>
+                 $tagi = $ModelTags->DownloadTag($ModelVideo->video_id);?>
+
+                <div class="panel panel-default">
+                        <div class="panel-body">
+                        <?php foreach($tagi as $data) { ?>
+                    
+                        <div class="checkbox-inline checkbox-tag" id="<?php echo $data['tag_name'];?>">
+                        <input type="checkbox" name="c" class="checkbox checkbox-tag-delete" onclick="showMe('<?php echo $data['tag_name'];?>'), deleteTag(), tagname()"/>
+                        <span><?php echo $data['tag_name'];?></span>
+                        </div>
+                   
                 <?php } ?>
-                
+                            <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'checkbox-tag-input', 'placeholder' => 'Wpisz odpowiednie tagi, oddzielając je przecinkami...')); ?>
+                        </div>
+                    </div>   
             </div>           
             <div class="form-group">      
                 <?php echo $form->hiddenField($ModelVideo, 'tag_delete', array('type'=>"hidden")); ?>
@@ -165,14 +167,14 @@ function changeMode() {
 function deleteTag(check) {
     var checked = [];
     $('input:checkbox:checked').each(function() {
-        checked.push( $(this).next('label').text() );
+        checked.push( $(this).next('span').text() );
     });
         $('#CmsvideoVideo_tag_delete').val(checked.join(","));
 }
 function tagname(check) {
     var checked = [];
     $('input:checkbox:not(:checked)').each(function() {
-        checked.push( $(this).next('label').text() );
+        checked.push( $(this).next('span').text() );
     });
         $('#CmsvideoVideo_tag_name').val(checked.join(","));
 }
