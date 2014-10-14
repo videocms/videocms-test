@@ -32,13 +32,8 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/component.css" rel="stylesheet" />
          <!-- Custom CSS -->
-        <style>
-            body {
-                padding-top: 70px;
-                /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-            }
-        </style>
         <style type="text/css">
             #vid1 {
               width: 75%;
@@ -99,43 +94,59 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->      
 </head>
-<body>
+<body style="padding-top:50px">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div id="wrapper">
+        <div class="row">
+          <div class="col-xs-5 col-sm-4 col-md-2" style="padding-top:7px; padding-left: 30px;">
+           <img src="http://videotube.marstheme.com/wp-content/themes/videotube/img/logo.png" alt="tekst">
+         </div>
+        <div class="col-xs-1 col-sm-1" style="padding-top:7px;"><button id="showLeft" class="btn btn-default"><span class="glyphicon glyphicon-align-justify"></span></button></div>
+    <div class="col-xs-6 col-sm-6" style="padding-top:7px;">    
+      <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Szukaj</button>
+      </span>
+      <input type="text" class="form-control">
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+<div class="cbp-spmenu-push">
+    <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+        
     <!-- Navigation -->
-    <nav id="myNavbar" class="navbar navbar-default" role="navigation">
+
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">logo(tutej)</a>
-            </div>
+
+           
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <?php 
+          <!--  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> -->
+          <div>     <?php 
                         $this->widget('application.components.ActiveMenu',array(
                             //'id'=>'bs-example-navbar-collapse-1',
                            // 'items'=>$this->myMenu,
-                            'htmlOptions'=>array(
-                                           'class'=>'nav navbar-nav'),
+                           // 'htmlOptions'=>array(
+                           //                'class'=>'nav navbar-nav'),
                           ) 
                         );
                 ?>
 
               
             </div><!-- /.navbar-collapse -->
-        </div>
-    </nav>
 
+ </nav>
     <!-- Page Content -->
     <div class="container">
+        <div class="main">
+            <section>
        <?php echo $content; ?>
+            </section>
+        </div>
     </div>
     <!-- /.container -->
-
+</div>
     <!-- jQuery -->
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.11.1.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/js/jssor.slider.min.js"></script>
@@ -197,7 +208,18 @@
    external_plugins: { "filemanager" : "/filemanager/plugin.min.js"}
         });
     </script>
+    <script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeft = document.getElementById( 'showLeft' ),
+				body = document.body;
+
+			showLeft.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+			}			
+		</script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/classie.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/tinymce/tinymce.min.js"></script>
 </body>
 </html>

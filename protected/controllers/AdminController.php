@@ -24,7 +24,7 @@ class AdminController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Adduser','AdduserDelete','UserUpdate','test','log','LogDelete','menu','MenuUpdate','MenuDelete'),
+				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Users','AdduserDelete','UserUpdate','test','log','LogDelete','menu','MenuUpdate','MenuDelete'),
 				'expression'=>'Yii::app()->user->isAdmin()',
 			),
 			array('deny',  // deny all users
@@ -928,7 +928,7 @@ foreach($result as $res) {
 	}
 
     //
-    public function actionAdduser()
+    public function actionUsers()
     {
          $this->pageTitle = 'AddUser';
 //        $ErrorData = false;
@@ -967,7 +967,7 @@ foreach($result as $res) {
 			),
               )
             );
-        $this->render('adduser', array(
+        $this->render('users', array(
             'Data' => $DataUser,
             //'UserAdd' => $UserAdd,
             'ModelUser' => $ModelUser,
