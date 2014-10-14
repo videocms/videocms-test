@@ -1,4 +1,7 @@
 <div class="jumbotron">
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
 <div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 980px; height: 380px;">
     <!-- Slides Container -->
     <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 980px; height: 380px; overflow: hidden;">
@@ -55,6 +58,9 @@
         <!-- Arrow Navigator Skin End -->
 </div>
 </div>
+</div>
+</div>
+<div class="container">
 <div class="row">
     <div class="col-lg-12">
         <h3 class="page-header">Najnowsze</h3>
@@ -85,6 +91,15 @@
         }
 
         echo '<br /><br />';
-        $this->widget('CLinkPager', array('pages' => $Site,)) 
+        echo '</div>';
+        $this->widget('CLinkPager', array('pages' => $Site,
+    'cssFile'=>false,   
+    'header'=>'',           
+    'maxButtonCount'=>'7',
+    'selectedPageCssClass'=>'active',
+    'htmlOptions'=>array(
+            'class'=>'pagination'
+        ),
+            )) 
 ?>
 </div>
