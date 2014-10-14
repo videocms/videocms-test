@@ -190,6 +190,22 @@
                 }
             };
         var jssor_slider1 = new $JssorSlider$('slider1_container', options);
+        //responsive code begin
+        function ScaleSlider() {
+            var parentWidth = $('#slider1_container').parent().width();
+            if (parentWidth) {
+                jssor_slider1.$ScaleWidth(parentWidth);
+            }
+            else
+                window.setTimeout(ScaleSlider, 30);
+        }
+        //Scale slider after document ready
+        ScaleSlider();
+        if (!navigator.userAgent.match(/(iPhone|iPod|iPad|BlackBerry|IEMobile)/)) {
+            //Capture window resize event
+            $(window).bind('resize', ScaleSlider);
+        }
+        //responsive code end
     });
     </script>
     <script>tinymce.init({

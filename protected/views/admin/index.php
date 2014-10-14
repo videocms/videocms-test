@@ -6,7 +6,7 @@
 //Yii::app()->db->createCommand('UPDATE VideoCMS_sesja SET username="'.Yii::app()->user->username.'" where id="'.Yii::app()->getSession()->getSessionId().'"')->queryRow();
 Yii::app()->db->createCommand()->update(
   'VideoCMS_sesja',
-  array('username'=>Yii::app()->user->username, 'user_ip'=>Yii::app()->request->userHostAddress),
+  array('username'=>Yii::app()->user->username, 'user_ip'=>Yii::app()->request->userHostAddress, 'user_id'=>Yii::app()->user->id),
   'id = :id',
   array(':id'=>Yii::app()->getSession()->getSessionId())
 );
