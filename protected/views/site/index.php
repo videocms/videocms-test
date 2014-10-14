@@ -1,5 +1,4 @@
-<div class="container">
-    <div class="jumbotron">
+<div class="jumbotron">
 <div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 980px; height: 380px;">
     <!-- Slides Container -->
     <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 980px; height: 380px; overflow: hidden;">
@@ -56,8 +55,10 @@
         <!-- Arrow Navigator Skin End -->
 </div>
 </div>
-</div>
-
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header">Najnowsze</h3>
+    </div>
 <?php
     foreach ($ModelCategories as $ModelCategoryShow)
         {
@@ -66,18 +67,24 @@
 
     foreach($Model as $ModelSite)
         {
-            echo '<h2>'.CHtml::link($ModelSite->video_title, array('video/'.$ModelSite->video_id)).'</h2>';
+            echo '<div class="col-sm-3 col-xs-6 col-md-3">';
+            echo CHtml::link('<img id="image" src="/'.$ModelSite->video_thumb.'" class="img-rounded" alt="'.$ModelSite->video_title.'" style="width:100%; height: 150px;">', array('video/'.$ModelSite->video_id));
+            echo '<h3>'.CHtml::link($ModelSite->video_title, array('video/'.$ModelSite->video_id)).'</h3>';
+            echo '<h5 style="padding-bottom: 5px;"><small>';
+            echo substr($ModelSite->video_text, 0, 400);
             echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
-            echo '<img src="/'.$ModelSite->video_thumb.'">';
-            echo '<p class="tresc">'.substr($ModelSite->video_text, 0, 400).'...</p>';
+            
 
         if($Category[$ModelSite->video_category] != '')
             {
                     echo '<p class="category">Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
                             array('category/'.$ModelSite->video_category)).'</p>';
             }
+            echo '</small></h5>';
+            echo '</div>';
         }
 
         echo '<br /><br />';
         $this->widget('CLinkPager', array('pages' => $Site,)) 
 ?>
+</div>

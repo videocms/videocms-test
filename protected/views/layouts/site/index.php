@@ -38,6 +38,13 @@
             #vid1 {
               width: 75%;
             }
+            #image:hover {
+                 background: url("http://videotube.marstheme.com/wp-content/themes/videotube/img/logo.png");
+                 background-size: 80px 60px;
+                 background-repeat: no-repeat;
+                 opacity: 0.4;
+                 filter: alpha(opacity=40); /* For IE8 and earlier */
+            }
         </style>
         <style> 
             .captionOrange, .captionBlack
