@@ -22,7 +22,7 @@ class Session extends CActiveRecord
     public function relations()
         {
           return array(
-               'user' => array(self::BELONGS_TO, 'User', 'username'),
+               'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             );
         }
         

@@ -122,7 +122,7 @@ class User extends CActiveRecord
 	public function relations()
         {
           return array(
-                'session' => array(self::HAS_MANY, 'Session', 'username'),    
+                'session' => array(self::HAS_MANY, 'Session', 'user_id'),    
             );
         }
 

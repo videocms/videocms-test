@@ -24,38 +24,6 @@ $wers = "0.3";
 $url = 'http://www.alexie.pl/wersja.xml'; 
 $xml = simpleXML_load_file($url,"SimpleXMLElement",LIBXML_NOCDATA);
 ?>
-
-
-<?php
-$this->widget('zii.widgets.grid.CGridView', array(
-'id' => 'videocms-user-grid',
-'htmlOptions'=>array('class'=>'table-responsive'),
-'summaryCssClass' => 'dataTables_info',
-
-'dataProvider'=>$Data,
-'pager'=>array( 
-    'cssFile'=>false,   
-    'header'=>'',           
-    'maxButtonCount'=>'7',
-    'selectedPageCssClass'=>'active',
-    'htmlOptions'=>array(
-            'class'=>'pagination'
-        ),
-    ),
-    'columns'=>
-     array(
-       // 'class'=>'CCheckBoxColumn',
-        //'selectableRows' => '10',
-         array(
-           'value' => '$data->user->lastname',
-
-         ),
-
-
-),
-));
-?>
-
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Pulpit</h1>
@@ -119,11 +87,8 @@ else {
         </div>
     </div>';
            // echo "<font color='red'>Najnowsza wersja to: <b>".$xml->wer."</font></b>";
-    }  
-        
+    }       
 } 
-
-
 ?>
     <div class="col-lg-3 col-md-6">
                     <div class="panel panel-green">
@@ -181,15 +146,19 @@ else {
                                 <?php 
                                 $activeUsers = Session::model()->findAll();
                                 foreach($activeUsers as $Data) {
+                                if($Data->user_id != 0)
                                 echo '<a href="#" class="list-group-item">
-                                    <i class="fa fa-user fa-fw"></i> '.$Data->username.'
+                                    <i class="fa fa-user fa-fw"></i> '.$Data->user->firstname.'
                                     <span class="pull-right text-muted small"><em>'.$Data->user_ip.'</em>
                                     </span>
-                                     </a>';
+                                    </a>';
                                  }
                                 ?>
                             </div>
-                            <a href="admin/users" class="btn btn-default btn-block">Zarządzaj użytkownikami</a>
+                            <?php if(Yii::app()->user->role == 5) {
+                            echo '<a href="admin/users" class="btn btn-default btn-block">Zarządzaj użytkownikami</a>';
+                            }
+                            ?>
                         </div>
                         <!-- /.panel-body -->
                     </div>
