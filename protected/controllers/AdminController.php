@@ -20,7 +20,7 @@ class AdminController extends Controller
                        'users' => array('*'),
                             ),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Users','AdduserDelete','UserUpdate','test','log','LogDelete','menu','MenuUpdate','MenuDelete','createuser'),
+				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','AutocompleteTag','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Users','AdduserDelete','UserUpdate','test','log','LogDelete','menu','MenuUpdate','MenuDelete','createuser'),
 				'expression'=>'Yii::app()->user->isAdmin()',
 			),
 			array('deny',  // deny all users
@@ -379,6 +379,19 @@ foreach($result as $res) {
             'ModelCategory' => $ModelCategory,
             'CategoryUpdate' => $CategoryUpdate,
         ));
+    }
+    
+    function actionAutocompleteTag($term) {
+        $criteria = new CDbCriteria;
+        $criteria->compare('tag_name', $term, true);
+        $ModelTags = Tags::model()->findAll($criteria);
+
+        foreach ($ModelTags as $value) {
+            $array[] = array('value' => trim($value->tag_name));
+        }
+
+        echo CJSON::encode($array);
+        Yii::app()->end();
     }
     
 //    public function actionPass()

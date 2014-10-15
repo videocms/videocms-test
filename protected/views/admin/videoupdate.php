@@ -138,13 +138,39 @@
                         </div>
                    
                 <?php } ?>
-                            <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'checkbox-tag-input', 'placeholder' => 'Wpisz odpowiednie tagi, oddzielając je przecinkami...')); ?>
+                           <?php echo CHtml::script("
+                    function split(val) { return val.split(/,\s*/); }
+                    function extractLast(term) { return split(term).pop(); } 
+                    ")?>
+                <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                  'model'=>$ModelVideo,
+                  'attribute'=>'tag_name',
+                  'source'=>"js:function(request, response) {
+                     $.getJSON('".$this->createUrl('admin/autocompletetag')."', {
+                       term: extractLast(request.term)
+                     }, response);
+                     }",
+                  'options'=>array(
+                    'delay'=>300,
+                    'minLength'=>2,
+                    'showAnim'=>'fold',
+                    'select'=>"js:function(event, ui) {
+                        var terms = split(this.value);
+                        terms.pop();
+                        terms.push( ui.item.value );
+                        terms.push('');
+                        this.value = terms.join(', ');
+                        return false;
+                      }"
+                  ),
+                  'htmlOptions'=>array('size'=>'40', 'class' => 'checkbox-tag-input', 'placeholder' => 'Wpisz odpowiednie tagi, oddzielając je przecinkami.'),
+                 ));?>
                         </div>
                     </div>   
             </div>           
             <div class="form-group">      
                 <?php echo $form->hiddenField($ModelVideo, 'tag_delete', array('type'=>"hidden")); ?>
-            </div>
+            </div>  
     </div>
     </div>
     </div>

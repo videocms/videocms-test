@@ -132,7 +132,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->labelEx($ModelVideo, 'video_title'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_title', array('size' => 60, 'maxlength' => 65, 'class' => 'form-control', 'placeholder' => 'Tytuł')); ?>
                 <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
-            </div>
+            </div>   
             <div class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'video_text'); ?>
                 <?php echo $form->textArea($ModelVideo, 'video_text'); ?>
@@ -205,9 +205,35 @@ $this->widget('zii.widgets.grid.CGridView', array(
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
-                <?php echo $form->textField($ModelVideo, 'tag_name', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiednie tagi, oddzielając je przecinkami.')); ?>
-                <?php echo $form->error($ModelVideo, 'tag_name', array('class' => 'text-danger')); ?>
-             </div>
+                <?php echo CHtml::script("
+                    function split(val) { return val.split(/,\s*/); }
+                    function extractLast(term) { return split(term).pop(); } 
+                    ")?>
+                <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                  'model'=>$ModelVideo,
+                  'attribute'=>'tag_name',
+                  'source'=>"js:function(request, response) {
+                     $.getJSON('".$this->createUrl('admin/autocompletetag')."', {
+                       term: extractLast(request.term)
+                     }, response);
+                     }",
+                  'options'=>array(
+                    'delay'=>300,
+                    'minLength'=>2,
+                    'showAnim'=>'fold',
+                    'select'=>"js:function(event, ui) {
+                        var terms = split(this.value);
+                        terms.pop();
+                        terms.push( ui.item.value );
+                        terms.push('');
+                        this.value = terms.join(', ');
+                        return false;
+                      }"
+                  ),
+                  'htmlOptions'=>array('size'=>'40', 'class' => 'form-control', 'placeholder' => 'Wpisz odpowiednie tagi, oddzielając je przecinkami.'),
+                 ));?>
+                <?php echo $form->error($ModelVideo, 'tag_name', array('class' => 'text-danger')); ?>      
+            </div>
         </div>
         </div>
         </div>

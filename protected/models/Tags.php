@@ -31,15 +31,15 @@ class Tags extends CActiveRecord
             return array(
             'tag_id' => 'Id',
             'tag_name' => 'Nazwa',
-            'tag_idvideo' => 'Id wideo',
+            'tag_idvideo' => 'Id tag video',
             );
         }
     public function search()
         {
             $criteria=new CDbCriteria;
-            $criteria->compare('tag_id', $this->id);
-            $criteria->compare('tag_name', $this->name, true);
-            $criteria->compare('tag_idvideo', $this->alias, true);
+            $criteria->compare('tag_id', $this->tag_id);
+            $criteria->compare('tag_name', $this->tag_name, true);
+            $criteria->compare('tag_idvideo', $this->tag_idvideo, true);
             return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination'=>array(
