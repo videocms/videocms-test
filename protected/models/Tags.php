@@ -15,7 +15,8 @@ class Tags extends CActiveRecord
     public function rules()
         { 
             return array(
-                array('tag_name, tag_idvideo', 'required'),
+               // array('tag_name', 'required'),
+                array('tag_name, tag_idvideo', 'length', 'max'=>255),
                 array('tag_id, tag_idvideo, tag_name', 'safe', 'on'=>'search'),
                 );
         }
