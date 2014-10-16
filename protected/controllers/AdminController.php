@@ -41,42 +41,13 @@ class AdminController extends Controller
         echo '</pre>';
     }
     
-    public function actionTest($TagValue, $id) {
-                            $TagValue = preg_replace('~[^\\pL\d]+~u', '-', $TagValue);
-                            $TagValue = trim($TagValue, '-');
-                            setlocale(LC_CTYPE, 'pl_PL');
-                            $TagValue = iconv("UTF-8","UTF-8", $TagValue);
-                            $TagValue = strtolower($TagValue);
-                            $ModelTag = new Tags;
-                            $AddTag = Tags::model()->find('tag_name=:TagName', array(':TagName' => $TagValue));
-                                if(count($AddTag) < 1) {
-                                    $ModelTag->tag_name = $TagValue;
-                                    $row2[] = $id;
-                                    $ModelTag->tag_idvideo = serialize($row2);
-                                    $ModelTag->save();
-                                }
-                                else {
-                                    $rows = $AddTag->tag_idvideo;
-                                    $row2 = unserialize($AddTag->tag_idvideo);
-                                    
-                                    if (!in_array($id,$row2) && !empty($rows)) {
-                                        array_push($row2, $id);
-                                        $ModelTag::model()->updateByPk($AddTag->tag_id, array('tag_idvideo' => serialize($row2)));
-                                    }
-                                }
-//                             $rows = $AddTag->tag_idvideo;
-//                                if(empty($rows)) {
-//                                    $row2[] = $id;
-//                                }
-//                                else {
-//                                    $row2 = unserialize($rows);
-//                                }
-//                                if (!in_array($id,$row2) && !empty($rows)) {
-//                                    array_push($row2, $id);
-//                                }
-//                            $ModelTag->tag_idvideo = serialize($row2);
-//                            $ModelTag->save();
-                            
+    public function actionTest($id) {
+        $TagIdVideo = array();
+        array_push($TagIdVideo, $id);
+        $NewTagIdVideo = serialize($TagIdVideo);
+                                    echo '<pre>';
+                                    print_r($NewTagIdVideo);
+                                    echo '</pre>';
                            
     }
     
@@ -234,14 +205,14 @@ class AdminController extends Controller
         }
         
         $VideoUpdate = false;
-        $ModelTags = new CmsvideoTags;
         $ModelVideo = CmsvideoVideo::model()->findByPk($id);
+        $ModelTags = new Tags;
+        
       //  $ModelCategories = new CmsvideoCategories;
 
         if(isset($_POST['CmsvideoVideo']))
         {
             $ModelVideo->attributes = $_POST['CmsvideoVideo'];
-            $Tags = explode(',',$ModelVideo->tag_name);
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
             if($ImageUpload !== NULL) {
             $ModelVideo->DeleteVideoImage($id);
@@ -258,84 +229,68 @@ class AdminController extends Controller
                 }
                 
                 if (!empty($ModelVideo->tag_name)) {
+                    $Tags = explode(',',$ModelVideo->tag_name);
                     foreach($Tags as $TagValue) {
-//                            $ModelTags->AddTag($TagValue);
-//                            $DataTags = $ModelTags->SelectTags($TagValue);
-//                            $ModelTags->AddVideoTag($DataTags, $id);
-                            $TagValue = preg_replace('~[^\\pL\d]+~u', '-', $TagValue);
-                            $TagValue = trim($TagValue, '-');
-                            setlocale(LC_CTYPE, 'pl_PL');
-                            $TagValue = iconv("UTF-8","UTF-8", $TagValue);
-                            $TagValue = strtolower($TagValue);
-                            $ModelTag = new Tags;
-                            $AddTag = Tags::model()->find('tag_name=:TagName', array(':TagName' => $TagValue));
-                                if(count($AddTag) < 1) {
-                                    $ModelTag->tag_name = $TagValue;
-                                    $row2[] = $id;
-                                    $ModelTag->tag_idvideo = serialize($row2);
-                                    $ModelTag->save();
+                       
+                        $TagName = $ModelTags->ReplaceTagName($TagValue);
+                        if(!empty($TagName)) {  
+                            if(Tags::model()->exists('tag_name = :TagName', array(":TagName"=>$TagName))) {
                                 }
                                 else {
-                                    $rows = $AddTag->tag_idvideo;
-                                    $row2 = unserialize($AddTag->tag_idvideo);
-                                    
-                                    if (!in_array($id,$row2) && !empty($rows)) {
-                                        array_push($row2, $id);
-                                        $ModelTag::model()->updateByPk($AddTag->tag_id, array('tag_idvideo' => serialize($row2)));
+                                    $ModelTags = new Tags;
+                                    $ModelTags->tag_name = $TagName;
+                                    $ModelTags->save();
                                     }
-                                }
-                                 
-                            $VideoTags = $ModelVideo->video_tags;
-                                if(empty($VideoTags)) {
-                                    $VideoTag[] = $AddTag->tag_name;
-                                }
-                                else {
-                                    $VideoTag = unserialize($VideoTags);
-                                }
-                                if (!in_array($TagValue,$VideoTag) && !empty($VideoTags)) {
-                                    array_push($VideoTag, $TagValue);
-                                }
-                            $ModelVideo->video_tags = serialize($VideoTag);
+                            }
+                                
+                        $SelectTag = $ModelTags::model()->findByAttributes(array('tag_name'=>$TagName));
+                        if(empty($SelectTag->tag_idvideo)) {
+                            $TagIdVideo = array();
+                            array_push($TagIdVideo, $id);
+                            $NewTagIdVideo = serialize($TagIdVideo);
+                            $ModelTags::model()->updateByPk($SelectTag->tag_id, array('tag_idvideo' => $NewTagIdVideo));
+                            }
+                            else {
+                                $TagIdVideo = unserialize($SelectTag->tag_idvideo);
+                                    if(is_array($TagIdVideo)) {
+                                        if(!in_array($id, $TagIdVideo)) {
+                                            array_push($TagIdVideo, $id);
+                                            $NewTagIdVideo = serialize($TagIdVideo);
+                                            $ModelTags::model()->updateByPk($SelectTag->tag_id, array('tag_idvideo' => $NewTagIdVideo));
+                                        }
+                                    }
+                                }                
+                        }                        
                     }
-                }
                 
                 $ModelVideo->save();
                 
                 if($ModelVideo->tag_delete) {
                     $TagDelete = explode(',',$ModelVideo->tag_delete);
-                    foreach($TagDelete as $Tag) {
-                        $DataTag = $ModelTags->SelectTags($Tag);
-                        $ModelTags->DeleteVideoTag($id, $DataTag); //do zmiany
-                        $ModelTags->DeleteIdVideo($id, $DataTag);
-                        $ModelTags->DeleteTag($DataTag['tag_name']);
+                    foreach($TagDelete as $TagValue) {
+                        $TagName = $ModelTags->ReplaceTagName($TagValue);
+                        if(Tags::model()->exists('tag_name = :TagName', array(":TagName"=>$TagName))) {
+                            $SelectTag = $ModelTags::model()->findByAttributes(array('tag_name'=>$TagName));
+                            $array1 = unserialize($SelectTag->tag_idvideo);
+                            if(count(array_keys($array1)) <= 1) {
+                                $ModelTags::model()->deleteByPk($SelectTag->tag_id);
+                            }
+                            else {
+                                $array2[] = $id;
+                                $string =  array_diff($array1, $array2);
+                                $NewTag = serialize($string);
+                                $ModelTags::model()->updateByPk($SelectTag->tag_id, array('tag_idvideo' => $NewTag));
+                                }
+                            }
                     }
                 }
+                
                 $VideoUpdate = true;
             }
-            $this->redirect(array('admin/videos/'));
+           // $this->redirect(array('admin/videos/'));
             //$this->redirect(Yii::app()->request->urlReferrer);
         }
-//        else
-//        {
-//            $Data = $ModelVideo->DownloadVideoAdmin($id);
-//           
-//            foreach($Data as $DataVideo)
-//            {
-//                $ModelVideo->video_id = $DataVideo['video_id'];
-//                $ModelVideo->video_title = $DataVideo['video_title'];
-//                $ModelVideo->video_text = $DataVideo['video_text'];
-//                $ModelVideo->video_category = $DataVideo['video_category'];
-//                $ModelVideo->video_480p = $DataVideo['video_480p'];
-//                $ModelVideo->video_720p = $DataVideo['video_720p'];
-//                $ModelVideo->video_1080p = $DataVideo['video_1080p'];
-//                $ModelVideo->video_image = $DataVideo['video_image'];
-//                $ModelVideo->video_thumb = $DataVideo['video_thumb'];
-//                $ModelVideo->video_published = $DataVideo['video_published'];
-//                $ModelVideo->player_type = $DataVideo['player_type'];
-//                $ModelVideo->video_description = $DataVideo['video_description'];
-//                $ModelVideo->video_keywords = $DataVideo['video_keywords'];
-//            }
-//        }    
+
         
         $this->render('videoupdate', array(
             'ModelTags' => $ModelTags,

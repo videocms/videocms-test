@@ -57,5 +57,16 @@ class Tags extends CActiveRecord
 
 		));
         }
+        
+    public function ReplaceTagName($TagValue)
+    {
+        $TagValue = preg_replace('~[^\\pL\d]+~u', '-', $TagValue);
+        $TagValue = trim($TagValue, '-');
+        setlocale(LC_CTYPE, 'pl_PL');
+        $TagValue = iconv("UTF-8","UTF-8", $TagValue);
+        $TagValue = strtolower($TagValue);
+        return $TagValue;
+    }
+    
 }
 ?>

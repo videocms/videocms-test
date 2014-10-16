@@ -126,15 +126,19 @@
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
                 <?php
-                 $tagi = $ModelTags->DownloadTag($ModelVideo->video_id);?>
+                $tagi = Tags::model()->findAll(
+                    'tag_idvideo LIKE :Id',
+                    array(':Id' => '%"'.$ModelVideo->video_id.'"%')
+                );
+                ?>
 
                 <div class="panel panel-default">
                         <div class="panel-body">
                         <?php foreach($tagi as $data) { ?>
                     
-                        <div class="checkbox-inline checkbox-tag" id="<?php echo $data['tag_name'];?>">
-                        <input type="checkbox" name="c" class="checkbox checkbox-tag-delete" onclick="showMe('<?php echo $data['tag_name'];?>'), deleteTag(), tagname()"/>
-                        <span><?php echo $data['tag_name'];?></span>
+                        <div class="checkbox-inline checkbox-tag" id="<?php echo $data->tag_name;?>">
+                        <input type="checkbox" name="c" class="checkbox checkbox-tag-delete" onclick="showMe('<?php echo $data->tag_name;?>'), deleteTag(), tagname()"/>
+                        <span><?php echo $data->tag_name;?></span>
                         </div>
                    
                 <?php } ?>
@@ -159,7 +163,7 @@
                         terms.pop();
                         terms.push( ui.item.value );
                         terms.push('');
-                        this.value = terms.join(', ');
+                        this.value = terms.join(',');
                         return false;
                       }"
                   ),
