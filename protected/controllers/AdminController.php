@@ -85,7 +85,7 @@ class AdminController extends Controller
         $VideoAdd = false;
         $ModelVideo = new CmsvideoVideo;
         $ModelCategories = new CmsvideoCategories;
-        $ModelTags = new CmsvideoTags;
+        $ModelTags = new Tags;
         //$DataCategory = $ModelCategories->DownloadCategories();
 
         if(isset($_POST['CmsvideoVideo']))
@@ -105,29 +105,61 @@ class AdminController extends Controller
                 $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
                 $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 }
-               // $ModelVideo->AddNewVideo();
+  
                 if($ModelVideo->save()) {
                     $id = $ModelVideo->primaryKey;
                     if (!empty($ModelVideo->tag_name)) {
-                        $SelectVideo = CmsvideoVideo::model()->findByPk($id);
-                        foreach($Tags as $TagValue) {
-                                $ModelTags->AddTag($TagValue);
-                                $DataTags = $ModelTags->SelectTags($TagValue);
-                                $ModelTags->AddVideoTag($DataTags, $id);
-                                $VideoTags = $SelectVideo->video_tags;
-                                if(empty($VideoTags)) {
-                                    $VideoTag[] = $DataTags['tag_name'];
+                    $Tags = explode(',',$ModelVideo->tag_name);
+                    foreach($Tags as $TagValue) {
+                       
+                        $TagName = $ModelTags->ReplaceTagName($TagValue);
+                        if(!empty($TagName)) {  
+                            if(Tags::model()->exists('tag_name = :TagName', array(":TagName"=>$TagName))) {
                                 }
                                 else {
-                                    $VideoTag = unserialize($VideoTags);
+                                    $ModelTags = new Tags;
+                                    $ModelTags->tag_name = $TagName;
+                                    $ModelTags->save();
+                                    }
+                                
+                        $SelectTag = $ModelTags::model()->findByAttributes(array('tag_name'=>$TagName));
+                        if(empty($SelectTag->tag_idvideo)) {
+                            $TagIdVideo = array();
+                            array_push($TagIdVideo, $id);
+                            $NewTagIdVideo = serialize($TagIdVideo);
+                            $ModelTags::model()->updateByPk($SelectTag->tag_id, array('tag_idvideo' => $NewTagIdVideo));
+                            }
+                            else {
+                                    $TagIdVideo = unserialize($SelectTag->tag_idvideo);
+                                    if(is_array($TagIdVideo)) {
+                                        if(!in_array($id, $TagIdVideo)) {
+                                            array_push($TagIdVideo, $id);
+                                            $NewTagIdVideo = serialize($TagIdVideo);
+                                            $ModelTags::model()->updateByPk($SelectTag->tag_id, array('tag_idvideo' => $NewTagIdVideo));
+                                        }
+                                    }
                                 }
-                                if (!in_array($DataTags['tag_name'],$VideoTag) && !empty($VideoTags)) {
-                                    array_push($VideoTag, $DataTags['tag_name']);
-                                }
-                                $SelectVideo->video_tags = serialize($VideoTag);
-                        }
-                        $SelectVideo->save();
-                    }
+                        
+                        $SelectVideo = CmsvideoVideo::model()->findByPk($id);
+                        if(empty($SelectVideo->video_tags)) {
+                            $TagsVideo = array();
+                            array_push($TagsVideo, $TagName);
+                            $NewTagsVideo = serialize($TagsVideo);
+                            $ModelVideo::model()->updateByPk($id, array('video_tags' => $NewTagsVideo));
+                            }
+                            else {
+                                    $TagsVideo = unserialize($SelectVideo->video_tags);
+                                    if(is_array($TagsVideo)) {
+                                        if(!in_array($TagName, $TagsVideo)) {
+                                            array_push($TagsVideo, $TagName);
+                                            $NewTagsVideo = serialize($TagsVideo);
+                                            $ModelVideo::model()->updateByPk($id, array('video_tags' => $NewTagsVideo));
+                                        }
+                                    }
+                                } 
+                            } 
+                        }                        
+                    }     
                 }
                 $VideoAdd = true;
                 $ModelVideo->video_title = '';
@@ -144,11 +176,6 @@ class AdminController extends Controller
             }
         }
         
-   //     $AmountVideo = $ModelVideo->CountAllVideo();
-     //   $Site = new CPagination(intval($AmountVideo));
-     //   $Site->pageSize = 10;
-        
-       // $Data = $ModelVideo->SelectAdminVideo($Site->pageSize, $Site->currentPage);
         $Data = new CActiveDataProvider('CmsvideoVideo', array(
             'sort'=>array(
             'defaultOrder'=>'video_id DESC',
@@ -162,10 +189,8 @@ class AdminController extends Controller
 
         $this->render('videos', array(
             'Data' => $Data,
-            //'Site' => $Site,
             'VideoAdd' => $VideoAdd,
             'ModelVideo' => $ModelVideo,
-            //'DataCategory' =>$DataCategory,
             'ModelCategories' =>$ModelCategories,
         ));
     }
@@ -176,8 +201,7 @@ class AdminController extends Controller
         if(!is_numeric($id))
         {
             exit;
-        }
-        
+        } 
         
         $ModelVideo = new CmsvideoVideo;
         $ModelTags = new CmsvideoTags;
@@ -190,7 +214,6 @@ class AdminController extends Controller
         }
         
         CmsvideoVideo::model()->deleteByPk($id);
-      //  $ModelVideo->DeleteVideo($id);
  
         $this->redirect(array('admin/videos'));
     }
@@ -207,8 +230,7 @@ class AdminController extends Controller
         $VideoUpdate = false;
         $ModelVideo = CmsvideoVideo::model()->findByPk($id);
         $ModelTags = new Tags;
-        
-      //  $ModelCategories = new CmsvideoCategories;
+
 
         if(isset($_POST['CmsvideoVideo']))
         {
@@ -241,7 +263,6 @@ class AdminController extends Controller
                                     $ModelTags->tag_name = $TagName;
                                     $ModelTags->save();
                                     }
-                            }
                                 
                         $SelectTag = $ModelTags::model()->findByAttributes(array('tag_name'=>$TagName));
                         if(empty($SelectTag->tag_idvideo)) {
@@ -251,7 +272,7 @@ class AdminController extends Controller
                             $ModelTags::model()->updateByPk($SelectTag->tag_id, array('tag_idvideo' => $NewTagIdVideo));
                             }
                             else {
-                                $TagIdVideo = unserialize($SelectTag->tag_idvideo);
+                                    $TagIdVideo = unserialize($SelectTag->tag_idvideo);
                                     if(is_array($TagIdVideo)) {
                                         if(!in_array($id, $TagIdVideo)) {
                                             array_push($TagIdVideo, $id);
@@ -259,44 +280,68 @@ class AdminController extends Controller
                                             $ModelTags::model()->updateByPk($SelectTag->tag_id, array('tag_idvideo' => $NewTagIdVideo));
                                         }
                                     }
-                                }                
+                                }
+                               
+                        if(empty($ModelVideo->video_tags)) {
+                            $TagsVideo = array();
+                            array_push($TagsVideo, $TagName);
+                            $NewTagsVideo = serialize($TagsVideo);
+                            $ModelVideo->video_tags = $NewTagsVideo;
+                            }
+                            else {
+                                    $TagsVideo = unserialize($ModelVideo->video_tags);
+                                    if(is_array($TagsVideo)) {
+                                        if(!in_array($TagName, $TagsVideo)) {
+                                            array_push($TagsVideo, $TagName);
+                                            $NewTagsVideo = serialize($TagsVideo);
+                                            $ModelVideo->video_tags = $NewTagsVideo;
+                                        }
+                                    }
+                                } 
+                            } 
                         }                        
-                    }
-                
+                    }        
                 $ModelVideo->save();
                 
                 if($ModelVideo->tag_delete) {
                     $TagDelete = explode(',',$ModelVideo->tag_delete);
                     foreach($TagDelete as $TagValue) {
-                        $TagName = $ModelTags->ReplaceTagName($TagValue);
+                        $TagName = $ModelTags->ReplaceTagName($TagValue); 
                         if(Tags::model()->exists('tag_name = :TagName', array(":TagName"=>$TagName))) {
                             $SelectTag = $ModelTags::model()->findByAttributes(array('tag_name'=>$TagName));
-                            $array1 = unserialize($SelectTag->tag_idvideo);
-                            if(count(array_keys($array1)) <= 1) {
-                                $ModelTags::model()->deleteByPk($SelectTag->tag_id);
-                            }
-                            else {
-                                $array2[] = $id;
-                                $string =  array_diff($array1, $array2);
-                                $NewTag = serialize($string);
-                                $ModelTags::model()->updateByPk($SelectTag->tag_id, array('tag_idvideo' => $NewTag));
+                            $TagArr1 = unserialize($SelectTag->tag_idvideo);
+                                if(count(array_keys($TagArr1)) <= 1) {
+                                    $ModelTags::model()->deleteByPk($SelectTag->tag_id);
                                 }
-                            }
+                                else {
+                                    $TagArr2[] = $id;
+                                    $TagDelDiff =  array_diff($TagArr1, $TagArr2);
+                                    $NewTag = serialize($TagDelDiff);
+                                    $ModelTags::model()->updateByPk($SelectTag->tag_id, array('tag_idvideo' => $NewTag));
+                                    }
+                                }
+                            
+                         if($ModelVideo::model()->exists('video_id = :IdVideo AND video_tags LIKE :TagName', array(":TagName" => '%"'.$TagName.'"%', ":IdVideo" => $id))) {
+                            $SelectVideo = CmsvideoVideo::model()->findByPk($id);
+                            $VideoTagArr1[] = $TagName;
+                            $VideoTagArr2 = unserialize($SelectVideo->video_tags);
+                            $VideoDelDiff =  array_diff($VideoTagArr2, $VideoTagArr1);
+                            $NewTagVideo = serialize($VideoDelDiff);
+                            $ModelVideo::model()->updateByPk($id, array('video_tags' => $NewTagVideo));
+                         }
+                            
                     }
-                }
-                
+                }   
                 $VideoUpdate = true;
             }
-           // $this->redirect(array('admin/videos/'));
+            $this->redirect(array('admin/videos/'));
             //$this->redirect(Yii::app()->request->urlReferrer);
         }
-
         
         $this->render('videoupdate', array(
             'ModelTags' => $ModelTags,
             'ModelVideo' => $ModelVideo,
             'VideoUpdate' => $VideoUpdate,
-          //  'ModelCategories' => $ModelCategories,
         ));
     }
     
@@ -314,15 +359,13 @@ class AdminController extends Controller
             if($ModelCategories->validate())
             {
                 $ModelCategories->save();
-                //$ModelCategories->AddCategory();
                 $CategoryAdd = true;
                 $ModelCategories->name = '';
             }
         }
         
-        //$DataCategory = $ModelCategories->DownloadCategories();
         $DataCategory = new CActiveDataProvider('CmsvideoCategories', array(
-            'sort'=>array(
+        'sort'=>array(
 	'defaultOrder'=>'id DESC',
 			),
             'pagination'=>array(
@@ -339,14 +382,11 @@ class AdminController extends Controller
     }
     public function actionCategoryDelete($id)
     {
-        
         if(!is_numeric($id))
         {
             exit;
         }
         CmsvideoCategories::model()->deleteAll('id=:IdCategory', array(':IdCategory'=>$id));
-       // $ModelCategory = new CmsvideoCategories;
-      //  $ModelCategory->DeleteCategory($id);
         $this->redirect(array('admin/category'));
     }
     
@@ -361,7 +401,6 @@ class AdminController extends Controller
         
         $CategoryUpdate = false;
         $ModelCategory = CmsvideoCategories::model()->findByPk($id);
-        //$ModelCategory = new CmsvideoCategories;
         
         if(isset($_POST['CmsvideoCategories']))
         {
@@ -369,19 +408,10 @@ class AdminController extends Controller
             if($ModelCategory->validate())
             {
                 $ModelCategory->save();
-                //$ModelCategory->SaveCategory($id);
                 $CategoryUpdate = true;
             }
             $this->redirect(array('/admin/category'));
         }
-//        else
-//        {
-//            $Data = $ModelCategory->DownloadOneCategory($id);
-//            foreach ($Data as $DataForm)
-//            {
-//                $ModelCategory->name = $DataForm['name'];
-//            }
-//        }
         
         $this->render('categoryupdate', array(
             'ModelCategory' => $ModelCategory,
@@ -464,7 +494,6 @@ class AdminController extends Controller
             //$ModelVast->vast_source_vast ='/vast/'.$ModelVast->vast_title.'.xml'; <-- create vast .xml
              if($ModelVast->validate())
             {
-               // $ModelVast->AddVast();
                 $ModelVast->vast_video_cat = implode(',', $ModelVast->video_category);
                 $ModelVast->save();
                 //$ModelVast->VastXml();  // create file .xml
@@ -474,7 +503,6 @@ class AdminController extends Controller
                 $ModelVast->vast_link = '';     
             }
         }
-       // $DataVast = $ModelVast->DownloadVast();
         $DataVast = new CActiveDataProvider('VastVideo', array(
             'sort'=>array(
 	'defaultOrder'=>'vast_id DESC',
@@ -490,7 +518,6 @@ class AdminController extends Controller
             'Data' => $DataVast,
             'VastAdd' => $VastAdd,
             'ModelVast' => $ModelVast,
-          //  'ModelCategories' => $ModelCategories,
         ));
     }
     
@@ -503,8 +530,6 @@ class AdminController extends Controller
         }
        
         VastVideo::model()->deleteAll('vast_id=:IdVast', array(':IdVast'=>$id));
-       // $ModelCategory = new CmsvideoCategories;
-      //  $ModelCategory->DeleteCategory($id);
         $this->redirect(array('admin/vast'));
     }
     
@@ -519,8 +544,6 @@ class AdminController extends Controller
         
         $VastUpdate = false;
         $ModelVast = VastVideo::model()->findByPk($id);
-//        $ModelVast = new VastVideo();
-//        $ModelCategories = new CmsvideoCategories;
         
         if(isset($_POST['VastVideo']))
         {
@@ -528,28 +551,15 @@ class AdminController extends Controller
             if($ModelVast->validate())
             {
                 $ModelVast->vast_video_cat = implode(',', $ModelVast->video_category);
-//                $ModelVast->SaveVast;
                 $ModelVast->save();
                 $VastUpdate = true;
             }
             $this->redirect(array('/admin/vast'));
         }
-//        else
-//        {
-//            $Data = $ModelVast->DownloadOneVast($id);
-//            foreach ($Data as $DataVast)
-//            {
-//                $ModelVast->vast_title = $DataVast['vast_title'];
-//                $ModelVast->vast_source = $DataVast['vast_source'];
-//                $ModelVast->vast_link = $DataVast['vast_link'];
-//                $ModelVast->vast_video_cat = $DataVast['vast_video_cat'];
-//            }
-//        }
         
         $this->render('vastupdate', array(
             'ModelVast' => $ModelVast,
             'VastUpdate' => $VastUpdate,
-//            'ModelCategories' => $ModelCategories,
         ));
     }
     // KONIEC VAST 
@@ -1158,5 +1168,4 @@ class AdminController extends Controller
     }
     
 }
-
 ?>
