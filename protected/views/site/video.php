@@ -80,7 +80,7 @@ foreach ($Model as $ModelSite)
 //                    echo $Tag.' ';
 //                }
             ?>
-        </div>
+            </div>
     </div>
     
 <!--<div class="afs_ads">&nbsp;</div>
@@ -157,10 +157,6 @@ $(function() {
       $( ".col-md-9" ).switchClass( "col-md-9", "col-md-4", 1000 );
     });
   });
-  
-  $( "#sprawdzam" ).click(function() {
-  $( "p" ).show( "slow" );
-});
-    </script>
+</script>
     
 <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
