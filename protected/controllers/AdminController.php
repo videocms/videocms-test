@@ -41,14 +41,16 @@ class AdminController extends Controller
         echo '</pre>';
     }
     
-    public function actionTest($id) {
-        $TagIdVideo = array();
-        array_push($TagIdVideo, $id);
-        $NewTagIdVideo = serialize($TagIdVideo);
-                                    echo '<pre>';
-                                    print_r($NewTagIdVideo);
-                                    echo '</pre>';
-                           
+    public function actionTest() {
+         $ModelTags = new Tags;
+        $id = '362';
+        $TagDelete = $ModelTags::model()->findAll(
+                    'tag_idvideo LIKE :Id',
+                    array(':Id' => '%"'.$id.'"%')
+                );
+                foreach ($TagDelete as $data) {
+                    echo $data->tag_name;
+                }
     }
     
     public function actionIndex() {
@@ -204,18 +206,34 @@ class AdminController extends Controller
         } 
         
         $ModelVideo = new CmsvideoVideo;
-        $ModelTags = new CmsvideoTags;
+        $ModelTags = new Tags;
         $ModelVideo->DeleteVideoImage($id);
         
-        $TagDelete = $ModelTags->DownloadTag($id);
-        foreach($TagDelete as $DataTag) {
-             $ModelTags->DeleteIdVideo($id, $DataTag);
-             $ModelTags->DeleteTag($DataTag['tag_name']);
-        }
-        
-        CmsvideoVideo::model()->deleteByPk($id);
+        $TagDelete = $ModelTags::model()->findAll(
+                    'tag_idvideo LIKE :Id',
+                    array(':Id' => '%"'.$id.'"%')
+                );
+         
+        foreach($TagDelete as $TagValue) {
+                        $TagName = $ModelTags->ReplaceTagName($TagValue->tag_name); 
+                        if(Tags::model()->exists('tag_name = :TagName', array(":TagName"=>$TagName))) {
+                            $SelectTag = $ModelTags::model()->findByAttributes(array('tag_name'=>$TagName));
+                            $TagArr1 = unserialize($SelectTag->tag_idvideo);
+                                if(count(array_keys($TagArr1)) <= 1) {
+                                    $ModelTags::model()->deleteByPk($SelectTag->tag_id);
+                                }
+                                else {
+                                    $TagArr2[] = $id;
+                                    $TagDelDiff =  array_diff($TagArr1, $TagArr2);
+                                    $NewTag = serialize($TagDelDiff);
+                                    $ModelTags::model()->updateByPk($SelectTag->tag_id, array('tag_idvideo' => $NewTag));
+                                    }
+                        }
+                }
  
-        $this->redirect(array('admin/videos'));
+        CmsvideoVideo::model()->deleteByPk($id);
+       // $this->redirect(array('admin/videos'));
+        $this->redirect(Yii::app()->request->urlReferrer);
     }
     
     public function actionVideoUpdate($id)
