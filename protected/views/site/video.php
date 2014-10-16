@@ -1,66 +1,88 @@
-<?php
+<style type="text/css">
+	.video-js {padding-top: 56.25%;}
+    .vjs-fullscreen {padding-top: 0px}
+    .col-centered{
+    float: none;
+    margin: 0 auto;
+    }
+</style>
+
+    <?php
 foreach ($ModelCategories as $ModelCategoryShow)
 {
     $Category[$ModelCategoryShow->id] = $ModelCategoryShow->name;
 }
-
-
+?>
+<div class="container">
+<?php
 foreach ($Model as $ModelSite)
 {
-    echo '<h1>'.$ModelSite->video_title.'</h1>';
-    echo '<h1>'.$ModelSite->video_views.'</h1>';
-    echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
-    echo '<p class="tresc">'.$ModelSite->video_text.'</p>';
     ?>
-        <p class="tresc">Embed: <input type="text" value="<iframe width='560' height='315' src='http://videocms-test.pl/embed/<?php echo $ModelSite->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>"></p><?php
-    //echo '<p class="tresc">Embed: <input type="text" value"<iframe width="560" height="315" src="http://videocms-test.pl/cmsvideo/embed/'.$ModelSite->video_id.'.html" frameborder="0" allowfullscreen></iframe>"></p>';
-    if ($Category[$ModelSite->video_category] != '')
-    {
-        echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
-                array('category/'.$ModelSite->video_category)).'</p>';
-    }
-    foreach (unserialize($ModelSite->video_tags) as $Tag) {
-        echo $Tag.' ';
-    }
-?>
-    <script>
-   $.noConflict();
-   // Code that uses other library's $ can follow here.
-   </script>
-  
-   <video id="example-2" class="video-js vjs-default-skin" preload="auto" controls width="640" height="360" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $ModelSite->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
-        <?php             if (($ModelSite->video_720p == NULL) && ($ModelSite->video_1080p == NULL))
-                     {
-                          echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
-                     }
-                          elseif (($ModelSite->video_480p == NULL) && ($ModelSite->video_1080p == NULL)) {
-                                  echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />';
-                     }
-                          elseif (($ModelSite->video_480p == NULL) && ($ModelSite->video_720p == NULL)){
-                                  echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
-                     }
-                          elseif ($ModelSite->video_480p == NULL) {
-                                  echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />';
-                                  echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
-                     }
-                          elseif ($ModelSite->video_720p == NULL) {
-                                  echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
-                                  echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
-                     }
-                          elseif ($ModelSite->video_1080p == NULL) {
-                                  echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
-                                  echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />'; 
-                     }
-                     else {
-                          echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
-                          echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />';
-                          echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
-                    }
-    ?>
-        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-    </video>
+    <div class="row">
+        <div id="test" class="col-md-8">
+            <!-- VIDEO! --> 
 
-
+            <div class="wrapper">
+                <div class="videocontent">
+                     <div id="myvideo_vjs1" class="video-js">
+                <video id="example-2" class="vjs-playing vjs-default-skin" preload="auto" controls width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $ModelSite->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
+            <?php             if (($ModelSite->video_720p == NULL) && ($ModelSite->video_1080p == NULL))
+                         {
+                              echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
+                         }
+                              elseif (($ModelSite->video_480p == NULL) && ($ModelSite->video_1080p == NULL)) {
+                                      echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />';
+                         }
+                              elseif (($ModelSite->video_480p == NULL) && ($ModelSite->video_720p == NULL)){
+                                      echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
+                         }
+                              elseif ($ModelSite->video_480p == NULL) {
+                                      echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />';
+                                      echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
+                         }
+                              elseif ($ModelSite->video_720p == NULL) {
+                                      echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
+                                      echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
+                         }
+                              elseif ($ModelSite->video_1080p == NULL) {
+                                      echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
+                                      echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />'; 
+                         }
+                         else {
+                              echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
+                              echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />';
+                              echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
+                        }
+        ?>
+            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+  </div>
+ </div>
+</div>
+            <button id="sprawdzam" type="button" class="btn btn-default" style="margin-top: 10px;">Rozmiar</button>
+           <!-- VIDEO -->
+        </div>
+        <div class="col-md-4">
+            <?php
+                echo '<div class="row"><div class="col-lg-12"><h1 class="page-header">'.$ModelSite->video_title.'</h1></div></div>';
+                echo '<h1>'.$ModelSite->video_views.'</h1>';
+                echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
+                echo '<p class="tresc">'.$ModelSite->video_text.'</p>';
+                ?>
+                    <p class="tresc">Embed: <input type="text" value="<iframe width='560' height='315' src='http://videocms-test.pl/embed/<?php echo $ModelSite->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>"></p><?php
+                //echo '<p class="tresc">Embed: <input type="text" value"<iframe width="560" height="315" src="http://videocms-test.pl/cmsvideo/embed/'.$ModelSite->video_id.'.html" frameborder="0" allowfullscreen></iframe>"></p>';
+                if ($Category[$ModelSite->video_category] != '')
+                {
+                    echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
+                            array('category/'.$ModelSite->video_category)).'</p>';
+                }
+//                foreach (unserialize($ModelSite->video_tags) as $Tag) {
+//                    echo $Tag.' ';
+//                }
+            ?>
+        </div>
+    </div>
+    
 <!--<div class="afs_ads">&nbsp;</div>
 <script>
 (function() {
@@ -125,3 +147,20 @@ foreach ($Model as $ModelSite)
  
     </script>
 <?php } ?>
+</div>
+<script type="text/javascript">
+$(function() {
+    $( "#sprawdzam" ).click(function(){
+      $( ".col-md-8" ).switchClass( "col-md-8", "col-md-10 col-centered", 1000 );
+      $( ".col-md-10" ).switchClass( "col-md-10 col-centered", "col-md-8", 1000 );
+      $( ".col-md-4" ).switchClass( "col-md-4", "col-md-9", 1000 );
+      $( ".col-md-9" ).switchClass( "col-md-9", "col-md-4", 1000 );
+    });
+  });
+  
+  $( "#sprawdzam" ).click(function() {
+  $( "p" ).show( "slow" );
+});
+    </script>
+    
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>

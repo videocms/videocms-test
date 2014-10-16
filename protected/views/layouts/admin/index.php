@@ -12,6 +12,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/pace.min.js"></script>
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/sb-admin-2.css" rel="stylesheet" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/plugins/dataTables.bootstrap.css" rel="stylesheet" />
@@ -33,6 +34,27 @@ if (Yii::app()->user->isAdmin() == TRUE)
    filemanager_title:"Responsive Filemanager" ,
    external_plugins: { "filemanager" : "/filemanager/plugin.min.js"}
         });</script>
+
+                <style type="text/css">
+            .pace .pace-progress {
+              background: #29d;
+              position: fixed;
+              z-index: 2000;
+              top: 0;
+              left: 0;
+              height: 2px;
+
+              -webkit-transition: width 1s;
+              -moz-transition: width 1s;
+              -o-transition: width 1s;
+              transition: width 1s;
+            }
+
+            .pace-inactive {
+              display: none;
+            }
+        </style>
+        
          <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
