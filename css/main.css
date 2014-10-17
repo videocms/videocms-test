@@ -72,3 +72,97 @@
 .watch-medium .vjs-fullscreen .vjs-tech {
         height: auto !important;
     }   
+    
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 0;
+    }
+    
+/* Sidebar video */
+#sidebar-modules .watch-sidebar-section {
+    position: relative;
+    z-index: 2;
+    margin: 0 0 15px 0;
+    }
+.video-list-item {
+    position: relative;
+    margin-bottom: 15px;
+    }
+.video-list-item a {
+    position: relative;
+    padding: 0 5px;
+    display: block;
+    overflow: hidden;
+    color: #333;
+    zoom: 1;
+    }
+.video-list-item .title {
+    display: block;
+    margin-bottom: 2px;
+    font-weight: bold;
+    overflow: hidden;
+    cursor: pointer;
+    margin-top: 3px;
+    }
+.video-list-item .stat {
+    display: block;
+    margin: 5px 0 5px 0;
+    white-space: nowrap;
+    }
+.video-list-item .vc-thumb {
+    float: left;
+    margin: 0 0 0 0;
+    }
+.vc-thumb {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    }
+.video-thumb {
+    position: relative;
+    }
+.vc-thumb-120 {
+    width: 120px;
+    height: 68px;
+    }
+.vc-thumb {
+    overflow: hidden;
+    background: #f1f1f1;
+    font-size: 0;
+    vertical-align: middle;
+    display: inline-block;
+    }
+.vc-thumb-default {
+   // padding-bottom: 56.25%;
+    }
+.vc-thumb-default {
+    display: block;
+    height: auto;
+    }
+.vc-thumb-clip {
+    position: static;
+    _position: static;
+    bottom: -100px;
+    top: -100px;
+    left: -100px;
+    right: -100px;
+    text-align: center;
+    white-space: nowrap;
+    word-break: normal;
+    }
+.vc-thumb-clip img, .vc-thumb-clip .vertical-align {
+    display: inline-block;
+    vertical-align: middle;
+    }
+.vc-thumb .vertical-align {
+    height: 100%;
+    }
+#sidebar-modules .watch-sidebar-body .video-list-item:last-child {
+    margin-bottom: 0;
+    }

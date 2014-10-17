@@ -68,8 +68,47 @@ foreach ($Model as $ModelSite)
     <!-- VIDEO -->
     </div>
     
-    <div class="col-md-4">
-    <?php
+    <div id="sidebar-modules" class="col-md-4 float-right">
+       
+
+        
+        
+        <div class="watch-sidebar-section">
+            <div class="watch-sidebar-body">
+                
+                    <?php foreach($VideoList as $RelatedVideo) { ?>
+                    <div class="row video-list-item related-list-item">
+                        <a href="" class="">
+                            <div class="col-xs-6 col-md-4">
+                                <span class="vc-thumb  is-small">
+                                    <span class="video-thumb  vc-thumb vc-thumb-120">
+                                        <span class="vc-thumb-default">
+                                          <span class="vc-thumb-clip">
+                                            <img aria-hidden="true" alt="<?php echo $RelatedVideo->video_title; ?>" src="/../<?php echo $RelatedVideo->video_thumb; ?>" width="120">
+                                            <span class="vertical-align"></span>
+                                          </span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                            
+                            <div class="col-xs-12 col-sm-6 col-md-8">
+                                <h5 class="title"><?php echo $RelatedVideo->video_title; ?></h5>
+                                <h5 class="stat"><small>Autor</small></h5>
+                                <h5 class="stat"><small><?php echo $RelatedVideo->video_views; ?> wyświetlenia</small></h5>
+                            </div>
+                        </a>
+                    </div>
+                    <?php } ?>
+               
+            </div>   
+        </div>
+        
+        
+    </div>
+    
+    <div class="col-md-8 col-normal2">
+         <?php
     echo '<h1 class="page-header">'.$ModelSite->video_title.'</h1>';
     echo '<h1>'.$ModelSite->video_views.'</h1>';
     echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
@@ -86,9 +125,6 @@ foreach ($Model as $ModelSite)
 //                    echo $Tag.' ';
 //                }
     ?>
-    </div>
-    
-    <div class="col-md-8 col-normal2">
         <p>Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker.</p>
     </div>
     
@@ -135,7 +171,7 @@ $(function() {
       $( ".video-overlay-enabled" ).switchClass( "video-overlay-enabled", "video-overlay", 3 );
       
      $(".video-js").toggleClass("watch-medium", 3);
-     $(".col-md-4").toggleClass("float-right", 3);
+    // $(".col-md-4").toggleClass("float-right", 3);
     });
   });
 </script>

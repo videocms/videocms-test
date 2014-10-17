@@ -170,6 +170,12 @@ class SiteController extends Controller
         $DataSeo = $ModalSeo->DownloadSettings();
         $ModelCategories = CmsvideoCategories::model()->findAll();
         $Model = CmsvideoVideo::model()->findAll('video_id=:IdVideo', array(':IdVideo'=>$id));
+     // $VideoList = CmsvideoVideo::model()->findAll();
+        $VideoList = CmsvideoVideo::model()->findAll(array(
+            'select'=>'video_title, video_thumb, video_views',
+            'condition'=>'video_views > :Views ORDER BY video_views DESC LIMIT :Limit',
+            'params'=>array(':Views'=>0, ':Limit'=>10),
+        ));
         
         $session = Yii::app()->getSession();
         $video_arr = array();
@@ -196,15 +202,7 @@ class SiteController extends Controller
         {
             $this->pageMetaRobots = $Seoo['settings_robots'];
         }
-        
-        //$ModelCategory = new CmsvideoCategories;
-       // $DataCategory = $ModelCategory->DownloadCategories();
-        //$ModelVast = new VastVideo;
-        //$DataVast = $ModelVast->DownloadVast();
-       // $ModelVideo = new CmsvideoVideo;
-        //$DataVideo = $ModelVideo->DownloadVideo($id);
-        //$DataViews = $ModelVideo->UpdateViews($id);
-        
+      
         
         foreach ($Model as $Video)
         {
@@ -218,6 +216,7 @@ class SiteController extends Controller
         $this->render('video', array(
             'ModelCategories' => $ModelCategories,
             'Model' => $Model,
+            'VideoList' => $VideoList,
           //  'DataViews' => $DataViews,
         )); 
     }
