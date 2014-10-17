@@ -61,7 +61,7 @@ foreach ($Model as $ModelSite)
                 </div>
             </div>
         </div>
-        <button id="sprawdzam" type="button" class="btn btn-default" style="margin-top: 10px;">Rozmiar</button>
+        <button id="button-watch-medium" type="button" class="btn btn-default" style="margin-top: 10px;">Rozmiar</button>
     <!-- VIDEO -->
     </div>
     
@@ -124,7 +124,7 @@ foreach ($Model as $ModelSite)
 </div>
 <script type="text/javascript">
 $(function() {
- $( "#sprawdzam" ).click(function(){
+ $( "#button-watch-medium" ).click(function(){
       $( ".col-md-8.col-normal" ).switchClass( "col-md-8 col-normal", "col-centered player-width", 3 );
       $( ".col-centered" ).switchClass( "col-centered player-width", "col-md-8 col-normal", 3 );
       
