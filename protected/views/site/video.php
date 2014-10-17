@@ -5,6 +5,9 @@
     float: none;
     margin: 0 auto;
     }
+    .float-right {
+        float: right;
+    }
 </style>
 
 <?php
