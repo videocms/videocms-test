@@ -173,7 +173,7 @@ class SiteController extends Controller
         
         
         $criteria = new CDbCriteria;
-        $criteria->select='video_title, video_thumb, video_views';
+        $criteria->select='video_id, video_title, video_thumb, video_views';
         $criteria->condition='video_views > :Views ORDER BY video_views DESC';
         $criteria->params=array(':Views'=>0);
         $total = CmsvideoVideo::model()->count();

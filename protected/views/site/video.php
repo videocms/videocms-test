@@ -75,7 +75,7 @@ foreach ($Model as $ModelSite)
                 
                     <?php foreach($VideoList as $RelatedVideo) : ?>
                     <div class="row video-list-item related-list-item">
-                        <a href="" class="">
+                        <a href="<?php echo $RelatedVideo->video_id; ?>" class="">
                             <div class="col-xs-6 col-md-4">
                                 <span class="vc-thumb  is-small">
                                     <span class="video-thumb  vc-thumb vc-thumb-120">
