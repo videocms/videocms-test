@@ -1,5 +1,5 @@
 <style type="text/css">
-	.video-js {padding-top: 56.25%;}
+    .video-js {padding-top: 56.25%;}
     .vjs-fullscreen {padding-top: 0px}
     .col-centered{
     float: none;
@@ -7,29 +7,28 @@
     }
 </style>
 
-    <?php
+<?php
 foreach ($ModelCategories as $ModelCategoryShow)
 {
     $Category[$ModelCategoryShow->id] = $ModelCategoryShow->name;
 }
 ?>
 
-
+<div class="container">
 <?php
 foreach ($Model as $ModelSite)
 {
-    ?>
-    <div class="row">
-        <div class="dupa">
-        <div id="test" class="col-md-6">
-            
-            <!-- VIDEO! --> 
-            <div class="wrapper">
-                <div class="videocontent">
-                     <div id="myvideo_vjs1" class="video-js">
-                         <div class="dupa"></div>
-                <video id="example-2" class="vjs-playing vjs-default-skin" preload="auto" controls width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $ModelSite->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
-            <?php             if (($ModelSite->video_720p == NULL) && ($ModelSite->video_1080p == NULL))
+?>
+ <div class="video-overlay"></div>   
+<div class="row">
+    <div id="test" class="col-md-8 col-normal">
+     <!-- VIDEO! --> 
+        <div class="wrapper">
+            <div class="videocontent">
+                <div id="myvideo_vjs1" class="video-js">
+                    <video id="example-2" class="vjs-playing vjs-default-skin" preload="auto" controls width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $ModelSite->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
+                        <?php      
+                        if (($ModelSite->video_720p == NULL) && ($ModelSite->video_1080p == NULL))
                          {
                               echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
                          }
@@ -57,65 +56,89 @@ foreach ($Model as $ModelSite)
                               echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
                         }
         ?>
-            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-        </video>
-  </div>
- </div>
-</div>
-           
-            <!-- VIDEO -->
-        </div>
-        </div><div class="container"> <div class="col-md-5">  <?php
-                echo '<div class="row"><div class="col-lg-12"><h1 class="page-header">'.$ModelSite->video_title.'</h1></div></div>';
-                echo '<h1>'.$ModelSite->video_views.'</h1>';
-                echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
-                echo '<p class="tresc">'.$ModelSite->video_text.'</p>';
-                ?>
-                    <p class="tresc">Embed: <input type="text" value="<iframe width='560' height='315' src='http://videocms-test.pl/embed/<?php echo $ModelSite->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>"></p><?php
-                //echo '<p class="tresc">Embed: <input type="text" value"<iframe width="560" height="315" src="http://videocms-test.pl/cmsvideo/embed/'.$ModelSite->video_id.'.html" frameborder="0" allowfullscreen></iframe>"></p>';
-                if ($Category[$ModelSite->video_category] != '')
-                {
-                    echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
-                            array('category/'.$ModelSite->video_category)).'</p>';
-                }
-//                foreach (unserialize($ModelSite->video_tags) as $Tag) {
-//                    echo $Tag.' ';
-//                }
-                
-            ?>
-             <button id="sprawdzam" type="button" class="btn btn-default" style="margin-top: 10px;">Rozmiar</button></div></div></div>
-
-
-<div class="container">
-<?php
-}
-foreach ($Model as $ModelSite)
-{
-    ?>
-    <div class="row">
-       
-        <div class="col-md-4">
-            <?php
-                echo '<div class="row"><div class="col-lg-12"><h1 class="page-header">'.$ModelSite->video_title.'</h1></div></div>';
-                echo '<h1>'.$ModelSite->video_views.'</h1>';
-                echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
-                echo '<p class="tresc">'.$ModelSite->video_text.'</p>';
-                ?>
-                    <p class="tresc">Embed: <input type="text" value="<iframe width='560' height='315' src='http://videocms-test.pl/embed/<?php echo $ModelSite->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>"></p><?php
-                //echo '<p class="tresc">Embed: <input type="text" value"<iframe width="560" height="315" src="http://videocms-test.pl/cmsvideo/embed/'.$ModelSite->video_id.'.html" frameborder="0" allowfullscreen></iframe>"></p>';
-                if ($Category[$ModelSite->video_category] != '')
-                {
-                    echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
-                            array('category/'.$ModelSite->video_category)).'</p>';
-                }
-//                foreach (unserialize($ModelSite->video_tags) as $Tag) {
-//                    echo $Tag.' ';
-//                }
-            ?>
+                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                    </video>
+                </div>
             </div>
-    </div></div>
-<div class="container">
+        </div>
+        <button id="sprawdzam" type="button" class="btn btn-default" style="margin-top: 10px;">Rozmiar</button>
+    <!-- VIDEO -->
+    </div>
     
+    <div class="col-md-4">
+    <?php
+    echo '<h1 class="page-header">'.$ModelSite->video_title.'</h1>';
+    echo '<h1>'.$ModelSite->video_views.'</h1>';
+    echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
+    echo '<p class="tresc">'.$ModelSite->video_text.'</p>';
+    ?>
+    <p class="tresc">Embed: <input type="text" value="<iframe src='http://videocms-test.pl/embed/<?php echo $ModelSite->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>"></p><?php
+    //echo '<p class="tresc">Embed: <input type="text" value"<iframe width="560" height="315" src="http://videocms-test.pl/cmsvideo/embed/'.$ModelSite->video_id.'.html" frameborder="0" allowfullscreen></iframe>"></p>';
+    if ($Category[$ModelSite->video_category] != '')
+        {
+        echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
+        array('category/'.$ModelSite->video_category)).'</p>';
+        }
+//                foreach (unserialize($ModelSite->video_tags) as $Tag) {
+//                    echo $Tag.' ';
+//                }
+    ?>
+    </div>
+    
+    <div class="col-md-8 col-normal2">
+        <p>Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker.</p>
+    </div>
+    
+</div>
+    
+
+<script type="text/javascript">
+	var vid1 = videojs( 'example-2', { plugins : { resolutionSelector : {
+            // Pass any options here
+            default_res : '480'
+            // Define an on.ready function
+            } } }, function() {
+                        // "this" will be a reference to the player object
+			var player = this;
+			// Listen for the changeRes event
+			player.on( 'changeRes', function() {
+				// player.getCurrentRes() can be used to get the currently selected resolution
+				console.log( 'Current Res is: ' + player.getCurrentRes() );
+			});
+                    });
+	vid1.ads();
+	vid1.vast({
+            url: '/vastxml/?vid=<?php echo $ModelSite->video_id; ?>.xml'
+        });
+</script>
+<script type="text/javascript">
+		//var vid1 = videojs('example-2');
+
+    //vid1.ads();
+    //vid1.vast({
+    //  url: 'http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=229&LR_SCHEMA=vast2'
+   // });
+ 
+    </script>
+<?php } ?>
+</div>
+<script type="text/javascript">
+$(function() {
+ $( "#sprawdzam" ).click(function(){
+      $( ".col-md-8.col-normal" ).switchClass( "col-md-8 col-normal", "col-centered player-width", 3 );
+      $( ".col-centered" ).switchClass( "col-centered player-width", "col-md-8 col-normal", 3 );
+      
+      $( ".video-overlay" ).switchClass( "video-overlay", "video-overlay-enabled", 3 );
+      $( ".video-overlay-enabled" ).switchClass( "video-overlay-enabled", "video-overlay", 3 );
+      
+     $(".video-js").toggleClass("watch-medium", 3);
+     $(".col-md-4").toggleClass("float-right", 3);
+    });
+  });
+</script>
+    
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
 <!--<div class="afs_ads">&nbsp;</div>
 <script>
 (function() {
@@ -151,48 +174,3 @@ foreach ($Model as $ModelSite)
 })();
 </script>
 -->
-    <script type="text/javascript">
-	var vid1 = videojs( 'example-2', { plugins : { resolutionSelector : {
-            // Pass any options here
-            default_res : '480'
-            // Define an on.ready function
-            } } }, function() {
-                        // "this" will be a reference to the player object
-			var player = this;
-			// Listen for the changeRes event
-			player.on( 'changeRes', function() {
-				// player.getCurrentRes() can be used to get the currently selected resolution
-				console.log( 'Current Res is: ' + player.getCurrentRes() );
-			});
-                    });
-	vid1.ads();
-	vid1.vast({
-            url: '/vastxml/?vid=<?php echo $ModelSite->video_id; ?>.xml'
-        });
-    </script>
-    <script type="text/javascript">
-		//var vid1 = videojs('example-2');
-
-    //vid1.ads();
-    //vid1.vast({
-    //  url: 'http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=229&LR_SCHEMA=vast2'
-   // });
- 
-    </script>
-<?php } ?>
-</div>
-<script type="text/javascript">
-$(function() {
-    $( "#sprawdzam" ).click(function(){
-      $( ".col-md-6" ).switchClass( "col-md-6", "col-md-8 col-centered", 1000 );
-      $( ".col-md-8" ).switchClass( "col-md-8 col-centered", "col-md-6", 1000 );
-      $( ".col-md-4" ).switchClass( "col-md-4", "col-md-9", 1000 );
-      $( ".col-md-9" ).switchClass( "col-md-9", "col-md-4", 1000 );
-      $( ".container-costum" ).switchClass( "container-costum", "container-costum-new", 1000 );
-      $( ".container-costum-new" ).switchClass( "container-costum-new", "container-costum", 1000 );
-    });
-  });
-</script>
-   
-
-<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
