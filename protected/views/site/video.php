@@ -13,18 +13,21 @@ foreach ($ModelCategories as $ModelCategoryShow)
     $Category[$ModelCategoryShow->id] = $ModelCategoryShow->name;
 }
 ?>
-<div class="container">
+
+
 <?php
 foreach ($Model as $ModelSite)
 {
     ?>
     <div class="row">
-        <div id="test" class="col-md-8">
+        <div class="dupa">
+        <div id="test" class="col-md-6">
+            
             <!-- VIDEO! --> 
-
             <div class="wrapper">
                 <div class="videocontent">
                      <div id="myvideo_vjs1" class="video-js">
+                         <div class="dupa"></div>
                 <video id="example-2" class="vjs-playing vjs-default-skin" preload="auto" controls width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $ModelSite->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
             <?php             if (($ModelSite->video_720p == NULL) && ($ModelSite->video_1080p == NULL))
                          {
@@ -59,9 +62,38 @@ foreach ($Model as $ModelSite)
   </div>
  </div>
 </div>
-            <button id="sprawdzam" type="button" class="btn btn-default" style="margin-top: 10px;">Rozmiar</button>
-           <!-- VIDEO -->
+           
+            <!-- VIDEO -->
         </div>
+        </div><div class="container"> <div class="col-md-5">  <?php
+                echo '<div class="row"><div class="col-lg-12"><h1 class="page-header">'.$ModelSite->video_title.'</h1></div></div>';
+                echo '<h1>'.$ModelSite->video_views.'</h1>';
+                echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
+                echo '<p class="tresc">'.$ModelSite->video_text.'</p>';
+                ?>
+                    <p class="tresc">Embed: <input type="text" value="<iframe width='560' height='315' src='http://videocms-test.pl/embed/<?php echo $ModelSite->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>"></p><?php
+                //echo '<p class="tresc">Embed: <input type="text" value"<iframe width="560" height="315" src="http://videocms-test.pl/cmsvideo/embed/'.$ModelSite->video_id.'.html" frameborder="0" allowfullscreen></iframe>"></p>';
+                if ($Category[$ModelSite->video_category] != '')
+                {
+                    echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
+                            array('category/'.$ModelSite->video_category)).'</p>';
+                }
+//                foreach (unserialize($ModelSite->video_tags) as $Tag) {
+//                    echo $Tag.' ';
+//                }
+                
+            ?>
+             <button id="sprawdzam" type="button" class="btn btn-default" style="margin-top: 10px;">Rozmiar</button></div></div></div>
+
+
+<div class="container">
+<?php
+}
+foreach ($Model as $ModelSite)
+{
+    ?>
+    <div class="row">
+       
         <div class="col-md-4">
             <?php
                 echo '<div class="row"><div class="col-lg-12"><h1 class="page-header">'.$ModelSite->video_title.'</h1></div></div>';
@@ -81,7 +113,8 @@ foreach ($Model as $ModelSite)
 //                }
             ?>
             </div>
-    </div>
+    </div></div>
+<div class="container">
     
 <!--<div class="afs_ads">&nbsp;</div>
 <script>
@@ -151,12 +184,15 @@ foreach ($Model as $ModelSite)
 <script type="text/javascript">
 $(function() {
     $( "#sprawdzam" ).click(function(){
-      $( ".col-md-8" ).switchClass( "col-md-8", "col-md-10 col-centered", 1000 );
-      $( ".col-md-10" ).switchClass( "col-md-10 col-centered", "col-md-8", 1000 );
+      $( ".col-md-6" ).switchClass( "col-md-6", "col-md-8 col-centered", 1000 );
+      $( ".col-md-8" ).switchClass( "col-md-8 col-centered", "col-md-6", 1000 );
       $( ".col-md-4" ).switchClass( "col-md-4", "col-md-9", 1000 );
       $( ".col-md-9" ).switchClass( "col-md-9", "col-md-4", 1000 );
+      $( ".container-costum" ).switchClass( "container-costum", "container-costum-new", 1000 );
+      $( ".container-costum-new" ).switchClass( "container-costum-new", "container-costum", 1000 );
     });
   });
 </script>
-    
+   
+
 <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
