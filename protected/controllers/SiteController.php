@@ -170,12 +170,20 @@ class SiteController extends Controller
         $DataSeo = $ModalSeo->DownloadSettings();
         $ModelCategories = CmsvideoCategories::model()->findAll();
         $Model = CmsvideoVideo::model()->findAll('video_id=:IdVideo', array(':IdVideo'=>$id));
-     // $VideoList = CmsvideoVideo::model()->findAll();
-        $VideoList = CmsvideoVideo::model()->findAll(array(
-            'select'=>'video_title, video_thumb, video_views',
-            'condition'=>'video_views > :Views ORDER BY video_views DESC LIMIT :Limit',
-            'params'=>array(':Views'=>0, ':Limit'=>10),
-        ));
+        
+        
+        $criteria = new CDbCriteria;
+        $criteria->select='video_title, video_thumb, video_views';
+        $criteria->condition='video_views > :Views ORDER BY video_views DESC';
+        $criteria->params=array(':Views'=>0);
+        $total = CmsvideoVideo::model()->count();
+        $pages = new CPagination($total);
+        $pages->pageSize = 15;
+        $pages->applyLimit($criteria);
+        $VideoList = CmsvideoVideo::model()->findAll($criteria);
+      
+        
+      
         
         $session = Yii::app()->getSession();
         $video_arr = array();
@@ -217,6 +225,7 @@ class SiteController extends Controller
             'ModelCategories' => $ModelCategories,
             'Model' => $Model,
             'VideoList' => $VideoList,
+            'pages' => $pages,
           //  'DataViews' => $DataViews,
         )); 
     }

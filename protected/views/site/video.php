@@ -69,14 +69,11 @@ foreach ($Model as $ModelSite)
     </div>
     
     <div id="sidebar-modules" class="col-md-4 float-right">
-       
 
-        
-        
         <div class="watch-sidebar-section">
-            <div class="watch-sidebar-body">
+            <div id="relatedVideos" class="watch-sidebar-body">
                 
-                    <?php foreach($VideoList as $RelatedVideo) { ?>
+                    <?php foreach($VideoList as $RelatedVideo) : ?>
                     <div class="row video-list-item related-list-item">
                         <a href="" class="">
                             <div class="col-xs-6 col-md-4">
@@ -99,9 +96,9 @@ foreach ($Model as $ModelSite)
                             </div>
                         </a>
                     </div>
-                    <?php } ?>
-               
-            </div>   
+                    <?php endforeach; ?>
+                    <?php $this->widget("ext.yiinfinite-scroll.YiinfiniteScroller", array("itemSelector" => "div.watch-sidebar-body", "pages" => $pages)); ?>
+            </div> 
         </div>
         
         
