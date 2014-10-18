@@ -11,6 +11,15 @@
 </style>
 
 <?php
+//$cookie_name = "tryb_panoramiczny";
+//if(!isset($_COOKIE[$cookie_name])) {
+//    echo "Cookie named '" . $cookie_name . "' does not exist!";
+//    $cookie_value = "1";
+//    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+//} else {
+//    echo "Cookie is named: " . $cookie_name . "<br>Value is: " . $_COOKIE[$cookie_name];
+//}
+
 foreach ($ModelCategories as $ModelCategoryShow)
 {
     $Category[$ModelCategoryShow->id] = $ModelCategoryShow->name;
@@ -22,13 +31,31 @@ foreach ($ModelCategories as $ModelCategoryShow)
 foreach ($Model as $ModelSite)
 {
 ?>
- <div class="video-overlay"></div>   
+    <?php
+    if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
+        {
+            echo '<div class="video-overlay"></div> ';}
+                else {
+              echo '<div class="video-overlay-enabled"></div>';
+            }?>
 <div class="row">
-    <div id="test" class="col-md-8 col-normal">
+    <?php
+         if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
+            {
+                echo '<div id="test" class="col-md-8 col-normal">';}
+                    else {
+                   echo '<div id="test" class="col-centered player-width">';
+                }?>        
      <!-- VIDEO! --> 
         <div class="wrapper">
             <div class="videocontent">
-                <div id="myvideo_vjs1" class="video-js">
+                <?php
+                         if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
+                                {
+                                    echo '<div id="myvideo_vjs1" class="video-js">';}
+                                    else {
+                                       echo '<div id="myvideo_vjs1" class="video-js watch-medium">';
+                                    }?>    
                     <video id="example-2" class="vjs-playing vjs-default-skin" preload="auto" controls width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $ModelSite->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
                         <?php      
                         if (($ModelSite->video_720p == NULL) && ($ModelSite->video_1080p == NULL))
@@ -65,7 +92,8 @@ foreach ($Model as $ModelSite)
             </div>
         </div>
         <button id="button-watch-medium" type="button" class="btn btn-default" style="margin-top: 10px;">Rozmiar</button>
-    <!-- VIDEO -->
+        <input type="checkbox" name="vehicle" id="widescreen_mode" onchange="set_check();" />
+        <!-- VIDEO -->
     </div>
     
     <div id="sidebar-modules" class="col-md-4 float-right">
@@ -159,7 +187,9 @@ foreach ($Model as $ModelSite)
     </script>
 <?php } ?>
 </div>
-<script type="text/javascript">
+<!--<script type="text/javascript">
+
+    
 $(function() {
  $( "#button-watch-medium" ).click(function(){
       $( ".col-md-8.col-normal" ).switchClass( "col-md-8 col-normal", "col-centered player-width", 3 );
@@ -172,9 +202,111 @@ $(function() {
     // $(".col-md-4").toggleClass("float-right", 3);
     });
   });
-</script>
+</script>-->
+<?php
+if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
+{
+    ?>
+        <script type="text/javascript">
+        $('#widescreen_mode').change(function(){
+
+            if($(this).attr('checked')){
+                  $(this).val('TRUE');
+                  $( ".col-md-8.col-normal" ).switchClass( "col-md-8 col-normal", "col-centered player-width", 3 );
+              $( ".col-centered" ).switchClass( "col-centered player-width", "col-md-8 col-normal", 3 );
+
+              $( ".video-overlay" ).switchClass( "video-overlay", "video-overlay-enabled", 3 );
+              $( ".video-overlay-enabled" ).switchClass( "video-overlay-enabled", "video-overlay", 3 );
+
+             $(".video-js").toggleClass("watch-medium", 3);
+             }else{
+
+              $( ".col-centered" ).switchClass( "col-centered player-width", "col-md-8 col-normal", 3 );
+              $( ".col-md-8.col-normal" ).switchClass( "col-md-8 col-normal", "col-centered player-width", 3 );
+
+              $( ".video-overlay-enabled" ).switchClass( "video-overlay-enabled", "video-overlay", 3 );
+              $( ".video-overlay" ).switchClass( "video-overlay", "video-overlay-enabled", 3 );
+
+             $(".video-js").toggleClass("watch-medium", 3);
+                  $(this).val('FALSE');
+             }
+
+
+        });
+
+            </script>
+<?php
     
+} else {
+    ?>
+            <script type="text/javascript">
+        $('#widescreen_mode').change(function(){
+
+            if($(this).attr('checked')){
+                  $(this).val('TRUE');
+                  $( ".col-centered" ).switchClass( "col-centered player-width", "col-md-8 col-normal", 3 );
+                  $( ".col-md-8.col-normal" ).switchClass( "col-md-8 col-normal", "col-centered player-width", 3 );
+
+                 $( ".video-overlay-enabled" ).switchClass( "video-overlay-enabled", "video-overlay", 3 );
+                 $( ".video-overlay" ).switchClass( "video-overlay", "video-overlay-enabled", 3 );
+
+             $(".video-js").toggleClass("watch-medium", 3);
+
+             }else{
+
+              $( ".col-md-8.col-normal" ).switchClass( "col-md-8 col-normal", "col-centered player-width", 3 );
+              $( ".col-centered" ).switchClass( "col-centered player-width", "col-md-8 col-normal", 3 );
+
+              $( ".video-overlay" ).switchClass( "video-overlay", "video-overlay-enabled", 3 );
+              $( ".video-overlay-enabled" ).switchClass( "video-overlay-enabled", "video-overlay", 3 );
+
+             $(".video-js").toggleClass("watch-medium", 3);
+                  $(this).val('FALSE');
+             }
+
+
+        });
+
+            </script>
+    <?php
+    
+}
+?>
+<!--<script type="text/javascript">
+    $.cookie("test", "1", { expires: 7 });
+    </script>-->
+
+    <script type="text/javascript">
+          function setCookie(c_name,value,expiredays) {
+                var exdate=new Date()
+                exdate.setDate(exdate.getDate()+expiredays)
+                document.cookie=c_name+ "=" +escape(value)+((expiredays==null) ? "" : ";expires="+exdate)
+            }
+
+            function getCookie(c_name) {
+                if (document.cookie.length>0) {
+                    c_start=document.cookie.indexOf(c_name + "=")
+                    if (c_start!=-1) { 
+                        c_start=c_start + c_name.length+1 
+                        c_end=document.cookie.indexOf(";",c_start)
+                        if (c_end==-1) c_end=document.cookie.length
+                            return unescape(document.cookie.substring(c_start,c_end))
+                    } 
+                }
+                return null
+            }
+        onload=function(){
+        if (getCookie("widescreen_mode") == "1")
+                widescreen_mode.checked = true;
+        else
+                widescreen_mode.checked = false;	
+        }
+        function set_check(){
+        setCookie('widescreen_mode', document.getElementById('widescreen_mode').checked? 1 : 0, 360); //360 <-- rok
+        }
+</script>
 <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
 
 <!--<div class="afs_ads">&nbsp;</div>
 <script>
