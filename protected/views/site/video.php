@@ -211,6 +211,7 @@ foreach ($Model as $ModelSite)
     echo '<h1>'.$ModelSite->video_views.'</h1>';
     echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
     echo '<p class="tresc">'.$ModelSite->video_text.'</p>';
+    $this->widget('likedislike.widgets.LikeDislikeButton',array('field_id'=>$ModelSite->video_id));
     ?>
     <p class="tresc">Embed: <input type="text" value="<iframe src='http://videocms-test.pl/embed/<?php echo $ModelSite->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>"></p><?php
     //echo '<p class="tresc">Embed: <input type="text" value"<iframe width="560" height="315" src="http://videocms-test.pl/cmsvideo/embed/'.$ModelSite->video_id.'.html" frameborder="0" allowfullscreen></iframe>"></p>';

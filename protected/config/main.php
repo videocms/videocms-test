@@ -22,6 +22,9 @@ return array(
 	),
 
 	'modules'=>array(
+            
+		'likedislike',
+	
 		// uncomment the following to enable the Gii tool
 		/*
 		'gii'=>array(
