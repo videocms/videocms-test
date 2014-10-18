@@ -6,6 +6,7 @@
         <meta name="advertising" content="ask" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.11.1.min.js"></script>
         <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <?php   if (!empty($this->pageMetaDescription))
@@ -24,7 +25,6 @@
                          echo '<meta name="keywords" content="' . $this->pageMetaKeywords . '" />';
                     }
         ?>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.11.1.min.js"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/pace.min.js"></script>
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" rel="stylesheet" type="text/css">
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/video/videojs.vast.css" rel="stylesheet" type="text/css">

@@ -97,8 +97,9 @@ foreach ($Model as $ModelSite)
                         </a>
                     </div>
                     <?php endforeach; ?>
-                    <?php $this->widget("ext.yiinfinite-scroll.YiinfiniteScroller", array("itemSelector" => "div.watch-sidebar-body", "pages" => $pages)); ?>
             </div> 
+        <?php $this->widget("ext.yiinfinite-scroll.YiinfiniteScroller", array('contentSelector' => '#relatedVideos', "itemSelector" => "div.row.video-list-item.related-list-item",'loadingText' => 'Ładuję...', 'donetext' => 'Wszystko zostało wyświetlone', "pages" => $pages)); ?>
+
         </div>
         
         
