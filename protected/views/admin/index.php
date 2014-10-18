@@ -156,7 +156,7 @@ else {
                                  }
                                 ?>
                             </div>
-                            <?php if(Yii::app()->user->role == 5) {
+                            <?php if(Yii::app()->user->isAdmin()) {
                             echo '<a href="admin/users" class="btn btn-default btn-block">Zarządzaj użytkownikami</a>';
                             }
                             ?>

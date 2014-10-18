@@ -20,7 +20,7 @@ class AdminController extends Controller
                        'users' => array('*'),
                             ),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','AutocompleteTag','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Users','AdduserDelete','UserUpdate','test','log','LogDelete','menu','MenuUpdate','MenuDelete','createuser'),
+				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','AutocompleteTag','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Users','AdduserDelete','UserUpdate','test','log','LogDelete','menu','MenuUpdate','MenuDelete','createuser','MessageDelete','Message'),
 				'expression'=>'Yii::app()->user->isAdmin()',
 			),
 			array('deny',  // deny all users
@@ -1183,6 +1183,53 @@ class AdminController extends Controller
             'ModelMenu' => $ModelMenu,
             'MenuUpdate' => $MenuUpdate,
         ));
+    }
+    
+    public function actionMessage()
+    {
+        $this->pageTitle = 'Wiadomość';
+        $MessageAdd = false;
+        
+        $ModelMessage = new CmsvideoMessage;
+        
+        if(isset($_POST['CmsvideoMessage']))
+        {
+            $ModelMessage->attributes=$_POST['CmsvideoMessage'];
+            
+            if($ModelMessage->validate())
+            {
+                $ModelMessage->save();
+                $MessageAdd = true;
+                $ModelMessage->sender = '';
+                $ModelMessage->recipient = '';
+                $ModelMessage->text = '';
+            }
+        }
+        
+        $DataMessage = new CActiveDataProvider('CmsvideoMessage', array(
+        'sort'=>array(
+	'defaultOrder'=>'id DESC',
+			),
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
+              )
+            );
+        $this->render('message', array(
+            'Data' => $DataMessage,
+            'MessageAdd' => $MessageAdd,
+            'ModelMessage' => $ModelMessage
+        ));
+    }
+    public function actionMessageDelete($id)
+    {
+        if(!is_numeric($id))
+        {
+            exit;
+        }
+        CmsvideoMessage::model()->deleteAll('id=:IdMessage', array(':IdMessage'=>$id));
+        $this->redirect(array('admin/message'));
     }
     
 }

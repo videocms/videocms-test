@@ -35,6 +35,9 @@ return array(
 
 	// application components
 	'components'=>array(
+                    'cache'=>array( 
+                        'class'=>'system.caching.CDbCache'
+                     ),
 		'user'=>array(
                     // 'class' => 'WebUser',
 			// enable cookie-based authentication
