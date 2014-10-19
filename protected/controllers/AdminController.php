@@ -95,22 +95,24 @@ class AdminController extends Controller
             $ModelVideo->attributes=$_POST['CmsvideoVideo'];
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
             $Tags = explode(',',$ModelVideo->tag_name);
-            if($ImageUpload != NULL || getimagesize($ModelVideo->video_imageurl) !== false) {
+           // if($ImageUpload != NULL || !empty($ModelVideo->video_imageurl) ) {
                 $ImageNewName = date("d-m-Y-H-i-s", time())."-".$ModelVideo->video_alias.'.jpg';
                 $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
                 $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
-            }
+            //}
             
             if($ModelVideo->validate())
             {  
                 if ($ImageUpload !== NULL) {
-                    $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
-                    $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
+                    $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);         
                 }
-                elseif (getimagesize($ModelVideo->video_imageurl) !== false) {
+                elseif (!empty($ModelVideo->video_imageurl)) {
                     $ModelVideo->ImageCopy($ModelVideo->video_imageurl, $ModelVideo->video_image);
-                    $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 }
+                else {
+                    $ModelVideo->ImageCopy('images/orginal/no-image-available.jpg', $ModelVideo->video_image);
+                }
+                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
   
                 if($ModelVideo->save()) {
                     $id = $ModelVideo->primaryKey;
@@ -260,23 +262,25 @@ class AdminController extends Controller
         {
             $ModelVideo->attributes = $_POST['CmsvideoVideo'];
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
-            if($ImageUpload != NULL || getimagesize($ModelVideo->video_imageurl) !== false) {
-                $ModelVideo->DeleteVideoImage($id);
-                $ImageNewName = date("d-m-Y-H-i-s", time())."-".$ModelVideo->video_alias.'.jpg';
-                $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
-                $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
+            if($ImageUpload != NULL || !empty($ModelVideo->video_imageurl) ) {
+               $ModelVideo->DeleteVideoImage($id);
+               $ImageNewName = date("d-m-Y-H-i-s", time())."-".$ModelVideo->video_alias.'.jpg';
+               $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
+               $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
             }
          
             if ($ModelVideo->validate())
             {
                 if ($ImageUpload !== NULL) {
-                    $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
-                    $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
+                    $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);         
                 }
-                elseif (getimagesize($ModelVideo->video_imageurl) !== false) {
+                elseif (!empty($ModelVideo->video_imageurl)) {
                     $ModelVideo->ImageCopy($ModelVideo->video_imageurl, $ModelVideo->video_image);
-                    $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 }
+                else {
+                    $ModelVideo->ImageCopy('images/orginal/no-image-available.jpg', $ModelVideo->video_image);
+                }
+                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 
                 if (!empty($ModelVideo->tag_name)) {
                     $Tags = explode(',',$ModelVideo->tag_name);
