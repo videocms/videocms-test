@@ -95,19 +95,24 @@
                 <?php echo $form->error($ModelVideo, 'video_thumb'); ?>
             </div>
            <div class="form-group">
+                <?php echo $form->labelEx($ModelVideo, 'video_type'); ?>
+                <?php echo $form->dropDownList($ModelVideo, 'video_type', array('url' => 'Direct Url', 'upload' => 'General Upload'),array('class' => 'form-control', 'onchange'=>'javascript:changeType(this.options[this.selectedIndex].value);'));?>
+                <?php echo $form->error($ModelVideo, 'video_type'); ?>
+               </div>
+             <div id="url_video_480p" class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_480p'); ?>
-                <?php echo $form->textField($ModelVideo, 'video_480p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 480p')); ?>
-                <?php echo $form->error($ModelVideo, 'video_480p'); ?>  
-            </div>
-            <div class="form-group">
+                <?php echo $form->textField($ModelVideo, 'video_480p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 480p')); ?> 
+                <?php echo $form->error($ModelVideo, 'video_480p', array('class' => 'text-danger')); ?>
+             </div>
+            <div id="url_video_720p" class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_720p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_720p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 720p')); ?>
-                <?php echo $form->error($ModelVideo, 'video_720p'); ?>  
+                <?php echo $form->error($ModelVideo, 'video_720p', array('class' => 'text-danger')); ?>
             </div>
-            <div class="form-group">
+            <div id="url_video_1080p" class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_1080p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_1080p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 1080p')); ?>
-                <?php echo $form->error($ModelVideo, 'video_1080p'); ?>
+                <?php echo $form->error($ModelVideo, 'video_1080p', array('class' => 'text-danger')); ?> 
             </div>
             <div class="form-group">
                 <?php   $parents = CmsvideoCategories::model()->findAll('parent_id = 1');
@@ -189,7 +194,7 @@
      $.noConflict();
 function changeMode() {
     var mode;
-    mode='<?php echo $form->fileField($ModelVideo, 'video_image'); ?>';
+    mode='<?php echo $form->fileField($ModelVideo, 'video_image'); ?><?php echo '<br />'.$form->labelEx($ModelVideo, 'video_imageurl').$form->textField($ModelVideo, 'video_imageurl', array('class' => 'form-control', 'placeholder' => 'Url obrazka')); ?>';
 	document.getElementById('upload').innerHTML = mode;
 }
  </script>
@@ -220,7 +225,31 @@ function showMe(box) {
     document.getElementById(box).style.display = vis;
 }
  </script>
+ 
 <script>tinymce.init({
          selector: "textarea",theme: "modern",width: '100%',height: 235,
              });
+</script>
+
+<script type="text/javascript">
+var type            = document.getElementById("CmsvideoVideo_video_type");
+changeType('url');
+
+function changeType(typ) {
+	document.getElementById('url_video_480p').style.display              = "none";
+	document.getElementById('url_video_720p').style.display                 = "none";
+	document.getElementById('url_video_1080p').style.display              = "none";
+    switch(typ) {
+		case 'url' :
+			document.getElementById('url_video_480p').style.display      = "";
+			document.getElementById('url_video_720p').style.display         = "";
+			document.getElementById('url_video_1080p').style.display      = "";
+			break;
+		case 'upload':
+//			document.getElementById('url_video_480p').style.display      = "";
+//			document.getElementById('url_video_720p').style.display         = "";
+//			document.getElementById('url_video_1080p').style.display      = "";
+			break;
+	}	
+}
 </script>

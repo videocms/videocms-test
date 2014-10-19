@@ -224,12 +224,10 @@ foreach ($Model as $ModelSite)
 //                    echo $Tag.' ';
 //                }
     ?>
-        <p>Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker.</p>
     </div>
     
 </div>
     
-
 <script type="text/javascript">
 	var vid1 = videojs( 'example-2', { plugins : { resolutionSelector : {
             // Pass any options here
@@ -249,15 +247,6 @@ foreach ($Model as $ModelSite)
             url: '/vastxml/?vid=<?php echo $ModelSite->video_id; ?>.xml'
         });
 </script>
-<script type="text/javascript">
-		//var vid1 = videojs('example-2');
-
-    //vid1.ads();
-    //vid1.vast({
-    //  url: 'http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=229&LR_SCHEMA=vast2'
-   // });
- 
-    </script>
 <?php } ?>
 </div>
 <!--<script type="text/javascript">
@@ -307,12 +296,12 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
 
         });
 
-            </script>
+        </script>
 <?php
     
 } else {
     ?>
-            <script type="text/javascript">
+    <script type="text/javascript">
         $('#widescreen_mode').change(function(){
 
             if($(this).attr('checked')){
@@ -416,6 +405,3 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
 })();
 </script>
 -->
-<script type="text/javascript">
-    
-    </script>

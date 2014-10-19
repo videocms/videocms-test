@@ -5,6 +5,7 @@ class CmsvideoVideo extends CActiveRecord
     public $tag_name;
     public $tag_delete;
     public $id;
+    public $video_imageurl;
     public static function model($className=__CLASS__)
         {
             return parent::model($className);
@@ -17,12 +18,12 @@ class CmsvideoVideo extends CActiveRecord
         
         public function rules() {
         return array(
-            array('video_title, video_text, video_category, video_image, video_thumb, video_published, player_type', 'required'),
+            array('video_title, video_text, video_category, video_published, player_type, video_type', 'required'),
             array('video_category', 'numerical', 'integerOnly'=>true),
             array('video_1080p, video_480p, video_720p', 'video_attribute'),
             array('video_title', 'length', 'max'=>65),
            // array('video_alias, video_description, video_keywords', 'length', 'max'=>255),
-            array('video_alias, video_description', 'length', 'max'=>255),
+            array('video_alias, video_description, video_imageurl', 'length', 'max'=>255),
             array('video_keywords, tag_delete, tag_name', 'length', 'max'=>500),
             array('video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
             array('video_image', 'file',
@@ -64,12 +65,14 @@ class CmsvideoVideo extends CActiveRecord
             'video_title' => 'Tytuł',
             'video_alias' => 'Alias',
             'video_text' => 'Tekst',
+            'video_type' => 'Typ',
             'video_category' => 'Kategoria',
             'video_date' => 'Data',
             'video_480p' => 'Rozdzielczość 480p',
             'video_720p' => 'Rozdzielczość 720p',
             'video_1080p' => 'Rozdzielczość 1080p',
-            'video_image' => 'Obrazek',
+            'video_imageurl' => 'Zdalny adres Url zdjęcia',
+            'video_image' => 'Upload zdjęcia',
             'video_thumb' => 'Miniaturka',
             'video_published' => 'Stan',
             'player_type' => 'Typ playera',
@@ -88,6 +91,7 @@ class CmsvideoVideo extends CActiveRecord
             $criteria->compare('video_text', $this->video_text, true);
             $criteria->compare('video_category', $this->video_category);
             $criteria->compare('video_date', $this->video_date, true);
+            $criteria->compare('video_type', $this->video_type, true);
             $criteria->compare('video_480p', $this->video_480p, true);
             $criteria->compare('video_720p', $this->video_720p, true);
             $criteria->compare('video_1080p', $this->video_1080p, true);
@@ -118,6 +122,11 @@ class CmsvideoVideo extends CActiveRecord
     public function ImageCreate($ImageUpload, $ImageUrl) 
         {
              $ImageUpload->saveAs($ImageUrl);
+        }
+    
+    public function ImageCopy($ImageUpload, $ImageUrl) 
+        {
+             copy($ImageUpload, $ImageUrl);
         }
     
     public function ImageThumbCreate($ImageUrl, $ThumbUrl) 

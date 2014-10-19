@@ -95,17 +95,21 @@ class AdminController extends Controller
             $ModelVideo->attributes=$_POST['CmsvideoVideo'];
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
             $Tags = explode(',',$ModelVideo->tag_name);
-            if ($ImageUpload !== NULL) {
-            $ImageNewName = date("d-m-Y-H-i-s", time())."-".$ImageUpload->getName();
-            $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
-            $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
+            if($ImageUpload != NULL || getimagesize($ModelVideo->video_imageurl) !== false) {
+                $ImageNewName = date("d-m-Y-H-i-s", time())."-".$ModelVideo->video_alias.'.jpg';
+                $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
+                $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
             }
             
             if($ModelVideo->validate())
             {  
                 if ($ImageUpload !== NULL) {
-                $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
-                $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
+                    $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
+                    $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
+                }
+                elseif (getimagesize($ModelVideo->video_imageurl) !== false) {
+                    $ModelVideo->ImageCopy($ModelVideo->video_imageurl, $ModelVideo->video_image);
+                    $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 }
   
                 if($ModelVideo->save()) {
@@ -205,9 +209,11 @@ class AdminController extends Controller
             exit;
         } 
         
-        $ModelVideo = new CmsvideoVideo;
+        $ModelVideo = CmsvideoVideo::model()->findByPk($id);
         $ModelTags = new Tags;
+        if(!empty($ModelVideo->video_image) || !empty($ModelVideo->video_thumb)) {
         $ModelVideo->DeleteVideoImage($id);
+        }
         
         $TagDelete = $ModelTags::model()->findAll(
                     'tag_idvideo LIKE :Id',
@@ -254,18 +260,22 @@ class AdminController extends Controller
         {
             $ModelVideo->attributes = $_POST['CmsvideoVideo'];
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
-            if($ImageUpload !== NULL) {
-            $ModelVideo->DeleteVideoImage($id);
-            $ImageNewName = date("d-m-Y-H-i-s", time())."-".$ImageUpload->getName();
-            $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
-            $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
+            if($ImageUpload != NULL || getimagesize($ModelVideo->video_imageurl) !== false) {
+                $ModelVideo->DeleteVideoImage($id);
+                $ImageNewName = date("d-m-Y-H-i-s", time())."-".$ModelVideo->video_alias.'.jpg';
+                $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
+                $ModelVideo->video_thumb = 'images/thumbs/'.$ImageNewName;
             }
-            
+         
             if ($ModelVideo->validate())
             {
                 if ($ImageUpload !== NULL) {
-                  $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
-                  $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
+                    $ModelVideo->ImageCreate($ImageUpload, $ModelVideo->video_image);
+                    $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
+                }
+                elseif (getimagesize($ModelVideo->video_imageurl) !== false) {
+                    $ModelVideo->ImageCopy($ModelVideo->video_imageurl, $ModelVideo->video_image);
+                    $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 }
                 
                 if (!empty($ModelVideo->tag_name)) {

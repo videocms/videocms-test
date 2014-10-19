@@ -159,26 +159,42 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->error($ModelVideo, 'video_alias'); ?>
                 <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
                </div>
-             <div class="form-group <?php echo $fieldStat; ?> has-feedback">
+              <div class="form-group">
+                <label class="required">Wgraj zdjęcie poprzez<span class="required">*</span></label>             
+                <select class="form-control" onchange="javascript:changeImageType(this.options[this.selectedIndex].value);" id="CmsvideoVideo_video_imagetype">
+                <option value="url">Zdalny adres Url</option>
+                <option value="upload">Upload zdjęcia</option>
+                </select>                               
+              </div>
+             <div id="url_video_image" class="form-group">
+                <?php echo $form->labelEx($ModelVideo, 'video_imageurl'); ?>
+                <?php echo $form->textField($ModelVideo, 'video_imageurl', array('class' => 'form-control', 'placeholder' => 'Url obrazka')); ?>
+                <?php echo $form->error($ModelVideo, 'video_imageurl'); ?> 
+                </div>
+             <div id="upload_video_image" class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php if ($ImageAdd) {echo '<div>Plik został wgrany na serwer</div>';} ?>
                 <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
                 <?php echo $form->fileField($ModelVideo, 'video_image'); ?>
                 <?php echo $form->error($ModelVideo, 'video_image', array('class' => 'text-danger')); ?>
-                <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
                 </div>
-             <div class="form-group <?php echo $fieldStat; ?> has-feedback">
+               <div class="form-group">
+                <?php echo $form->labelEx($ModelVideo, 'video_type'); ?>
+                <?php echo $form->dropDownList($ModelVideo, 'video_type', array('url' => 'Direct Url', 'upload' => 'General Upload'),array('class' => 'form-control', 'onchange'=>'javascript:changeType(this.options[this.selectedIndex].value);'));?>
+                <?php echo $form->error($ModelVideo, 'video_type'); ?>
+               </div>
+             <div id="url_video_480p" class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'video_480p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_480p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 480p')); ?> 
                 <?php echo $form->error($ModelVideo, 'video_480p', array('class' => 'text-danger')); ?> 
                 <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
              </div>
-            <div class="form-group <?php echo $fieldStat; ?> has-feedback">
+            <div id="url_video_720p" class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'video_720p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_720p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 720p')); ?>
                 <?php echo $form->error($ModelVideo, 'video_720p', array('class' => 'text-danger')); ?>
                 <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
             </div>
-            <div class="form-group <?php echo $fieldStat; ?> has-feedback">
+            <div id="url_video_1080p" class="form-group <?php echo $fieldStat; ?> has-feedback">
                 <?php echo $form->labelEx($ModelVideo, 'video_1080p'); ?>
                 <?php echo $form->textField($ModelVideo, 'video_1080p', array('class' => 'form-control', 'placeholder' => 'Link do rozdzielczości 1080p')); ?>
                 <?php echo $form->error($ModelVideo, 'video_1080p', array('class' => 'text-danger')); ?> 
@@ -266,4 +282,42 @@ tags.on('keyup', function() {
 <script>tinymce.init({
          selector: "textarea",theme: "modern",width: '100%',height: 251,
              });
+</script>
+<script type="text/javascript">
+var type            = document.getElementById("CmsvideoVideo_video_type");
+changeType('url');
+
+function changeType(typ) {
+	document.getElementById('url_video_480p').style.display              = "none";
+	document.getElementById('url_video_720p').style.display                 = "none";
+	document.getElementById('url_video_1080p').style.display              = "none";
+    switch(typ) {
+		case 'url' :
+			document.getElementById('url_video_480p').style.display      = "";
+			document.getElementById('url_video_720p').style.display         = "";
+			document.getElementById('url_video_1080p').style.display      = "";
+			break;
+		case 'upload':
+//			document.getElementById('url_video_480p').style.display      = "";
+//			document.getElementById('url_video_720p').style.display         = "";
+//			document.getElementById('url_video_1080p').style.display      = "";
+			break;
+	}	
+}
+
+var imagetype            = document.getElementById("CmsvideoVideo_video_imagetype");
+changeImageType('url');
+
+function changeImageType(typ) {
+	document.getElementById('url_video_image').style.display              = "none";
+	document.getElementById('upload_video_image').style.display                 = "none";
+    switch(typ) {
+		case 'url' :
+			document.getElementById('url_video_image').style.display      = "";
+			break;
+		case 'upload':
+			document.getElementById('upload_video_image').style.display      = "";
+			break;
+	}	
+}
 </script>

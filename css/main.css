@@ -56,7 +56,8 @@
         position: relative;
     }  
 .video-overlay-enabled{
-        background: #1b1b1b;
+        //background: #1b1b1b;
+        background: #000;
         width:100%;
         position:absolute;
         left:0;
