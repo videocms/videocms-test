@@ -70,7 +70,7 @@
         padding-top:0;
     }   
 .watch-medium .vjs-fullscreen .vjs-tech {
-        height: auto !important;
+      //  height: auto !important;
     }   
     
 ul, menu, dir {

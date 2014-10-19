@@ -19,6 +19,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
                 'ext.easyimage.EasyImage',
+                'application.modules.likedislike.models.*',
 	),
 
 	'modules'=>array(
