@@ -144,18 +144,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->error($ModelVideo, 'video_text', array('class' => 'text-danger')); ?> 
                 <span class="glyphicon <?php echo $iconStat; ?> form-control-feedback"></span>
             </div>
-             <div class="form-group">
-                <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
-                <?php echo $form->textField($ModelVideo, 'video_description', array('size' => '60', 'maxlength' => '160', 'class' => 'form-control', 'placeholder' => 'Wpisz odpowiedni opis dla wideo (do 160 znaków).')); ?>
-                <?php echo $form->error($ModelVideo, 'video_description'); ?>
-            </div>
-            <div class="form-group">
-                <?php echo $form->labelEx($ModelVideo, 'video_published'); ?>
-                <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?> 
-            </div>
-            <div class="form-group">
-                <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-primary')); ?>
-            </div>
             </div>
            <div class="col-lg-6">
              <div class="form-group <?php echo $fieldStat; ?> has-feedback">
@@ -255,6 +243,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
                  ));?>
                 <?php echo $form->error($ModelVideo, 'tag_name', array('class' => 'text-danger')); ?>      
             </div>
+             <div class="form-group">
+                <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
+                <?php echo $form->textField($ModelVideo, 'video_description', array('size' => '60', 'maxlength' => '160', 'class' => 'form-control', 'placeholder' => 'Wpisz odpowiedni opis dla wideo (do 160 znaków).')); ?>
+                <?php echo $form->error($ModelVideo, 'video_description'); ?>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($ModelVideo, 'video_published'); ?>
+                <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?> 
+            </div>
+            <div class="form-group">
+                <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-primary')); ?>
+            </div>
         </div>
         </div>
         </div>
@@ -285,7 +285,7 @@ tags.on('keyup', function() {
 });
 </script>
 <script>tinymce.init({
-         selector: "textarea",theme: "modern",width: '100%',height: 251,
+         selector: "textarea",theme: "modern",width: '100%',height: 410,
              });
 </script>
 <script type="text/javascript">

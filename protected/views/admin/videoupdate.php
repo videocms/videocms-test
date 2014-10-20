@@ -51,23 +51,6 @@
                     <?php echo $form->textArea($ModelVideo, 'video_text'); ?>
                     <?php echo $form->error($ModelVideo, 'video_text'); ?>
                 </div>
-                 <div class="form-group">
-                <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
-                <?php echo $form->textField($ModelVideo, 'video_description', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiedni opis dla wideo (do 160 znaków).')); ?>
-                <?php echo $form->error($ModelVideo, 'video_description'); ?>
-                </div>
-                <div class="form-group">
-                    <?php echo $form->labelEx($ModelVideo, 'video_keywords'); ?>
-                    <?php echo $form->textField($ModelVideo, 'video_keywords', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiednie słowa kluczowe, oddzielając je przecinkami')); ?>
-                    <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
-                </div>
-                <div class="form-group">
-                    <?php echo $form->labelEx($ModelVideo, 'video_published'); ?>
-                    <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>                      </div>
-                <div class="form-group">
-                    <?php echo CHtml::submitButton('Aktualizuj', array('class' => 'btn btn-success')); ?>
-                    <?php echo CHtml::link('Anuluj',array('admin/videos'),array('class'=>'btn btn-danger')); ?>
-                </div>
             </div>
       <div class="col-lg-6">
           <div class="form-group">
@@ -179,7 +162,24 @@
             </div>           
             <div class="form-group">      
                 <?php echo $form->hiddenField($ModelVideo, 'tag_delete', array('type'=>"hidden")); ?>
-            </div>  
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
+                <?php echo $form->textField($ModelVideo, 'video_description', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiedni opis dla wideo (do 160 znaków).')); ?>
+                <?php echo $form->error($ModelVideo, 'video_description'); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo $form->labelEx($ModelVideo, 'video_keywords'); ?>
+                    <?php echo $form->textField($ModelVideo, 'video_keywords', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiednie słowa kluczowe, oddzielając je przecinkami')); ?>
+                    <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo $form->labelEx($ModelVideo, 'video_published'); ?>
+                    <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>                      </div>
+                <div class="form-group">
+                    <?php echo CHtml::submitButton('Aktualizuj', array('class' => 'btn btn-success')); ?>
+                    <?php echo CHtml::link('Anuluj',array('admin/videos'),array('class'=>'btn btn-danger')); ?>
+                </div>
     </div>
     </div>
     </div>
@@ -227,7 +227,7 @@ function showMe(box) {
  </script>
  
 <script>tinymce.init({
-         selector: "textarea",theme: "modern",width: '100%',height: 235,
+         selector: "textarea",theme: "modern",width: '100%',height: 380,
              });
 </script>
 
