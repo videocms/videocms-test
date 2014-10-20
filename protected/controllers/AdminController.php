@@ -262,7 +262,7 @@ class AdminController extends Controller
         {
             $ModelVideo->attributes = $_POST['CmsvideoVideo'];
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
-            if($ImageUpload != NULL || !empty($ModelVideo->video_imageurl) ) {
+            if($ImageUpload !== NULL || !empty($ModelVideo->video_imageurl) ) {
                $ModelVideo->DeleteVideoImage($id);
                $ImageNewName = date("d-m-Y-H-i-s", time())."-".$ModelVideo->video_alias.'.jpg';
                $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
@@ -276,9 +276,6 @@ class AdminController extends Controller
                 }
                 elseif (!empty($ModelVideo->video_imageurl)) {
                     $ModelVideo->ImageCopy($ModelVideo->video_imageurl, $ModelVideo->video_image);
-                }
-                else {
-                    $ModelVideo->ImageCopy('images/orginal/no-image-available.jpg', $ModelVideo->video_image);
                 }
                 $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 
