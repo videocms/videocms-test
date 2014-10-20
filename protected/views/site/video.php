@@ -206,12 +206,23 @@ foreach ($Model as $ModelSite)
     <div class="col-md-8 col-normal2">
     <label><input type="checkbox" name="widescreen" class="ios-switch green  bigswitch" id="widescreen_mode" onchange="set_check();" /><div><div></div></div></label>
 
+    <div class="tab-tr" id="t1">
+            <div class="like-btn"><?php $this->widget('likedislike.widgets.LikeDislikeButton',array('field_id'=>$ModelSite->video_id)); ?></div>
+            <div class="dislike-btn"><?php $this->widget('likedislikedis.widgets.LikeDislikedisButton',array('field_iddis'=>$ModelSite->video_id)); ?></div>
+     <div class="stat-cnt">
+                <div class="rate-count"><?php echo $ModelSite->video_views; ?></div>
+                <div class="stat-bar">
+                    <div class="bg-green" style="width:<?php $this->widget('likedislike.widgets.LikeDislikeView',array('field_id'=>$ModelSite->video_id)); ?>%"></div>
+                    <div class="bg-red" style="width:<?php $this->widget('likedislikedis.widgets.LikeDislikedisView',array('field_iddis'=>$ModelSite->video_id)); ?>%"></div>
+                </div><!-- stat-bar -->
+                <div class="dislike-count"><?php $this->widget('likedislikedis.widgets.LikeDislikedisLike',array('field_iddis'=>$ModelSite->video_id)); ?></div>
+                <div class="like-count"><?php $this->widget('likedislike.widgets.LikeDislikeLike',array('field_id'=>$ModelSite->video_id)); ?></div>
+     </div></div>
          <?php
     echo '<h1 class="page-header">'.$ModelSite->video_title.'</h1>';
-    echo '<h1>'.$ModelSite->video_views.'</h1>';
+    //echo '<h1>'.$ModelSite->video_views.'</h1>';
     echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
     echo '<p class="tresc">'.$ModelSite->video_text.'</p>';
-    $this->widget('likedislike.widgets.LikeDislikeButton',array('field_id'=>$ModelSite->video_id));
     ?>
     <p class="tresc">Embed: <input type="text" value="<iframe src='http://videocms-test.pl/embed/<?php echo $ModelSite->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>"></p><?php
     //echo '<p class="tresc">Embed: <input type="text" value"<iframe width="560" height="315" src="http://videocms-test.pl/cmsvideo/embed/'.$ModelSite->video_id.'.html" frameborder="0" allowfullscreen></iframe>"></p>';
@@ -367,6 +378,7 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
         setCookie('widescreen_mode', document.getElementById('widescreen_mode').checked? 1 : 0, 360); //360 <-- rok
         }
 </script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/likedislikedis.js"></script>
 <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 
 

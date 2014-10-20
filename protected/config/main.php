@@ -19,12 +19,13 @@ return array(
 		'application.models.*',
 		'application.components.*',
                 'ext.easyimage.EasyImage',
-                'application.modules.likedislike.models.*',
+                //'application.modules.likedislike.models.*',
 	),
 
 	'modules'=>array(
             
 		'likedislike',
+                 'likedislikedis',
 	
 		// uncomment the following to enable the Gii tool
 		/*
