@@ -56,6 +56,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
             ),
         'video_date',
         array(  
+                'header'=>'Odsłony',
+                'value'=>'$data->video_views',
+                'name'=>'video_views',
+            ),
+        array(  
                 'header'=>'Stan',
                 'value'=>'$data->video_published',
                 'name'=>'video_published',

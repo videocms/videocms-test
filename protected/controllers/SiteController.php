@@ -174,7 +174,7 @@ class SiteController extends Controller
         
         $criteria = new CDbCriteria;
         $criteria->select='video_id, video_title, video_thumb, video_views';
-        $criteria->condition='video_views > :Views AND video_id != :IdVideo ORDER BY video_views DESC';
+        $criteria->condition='video_views >= :Views AND video_id != :IdVideo ORDER BY video_views DESC';
         $criteria->params=array(':Views'=>0, ':IdVideo'=>$id);
         $total = CmsvideoVideo::model()->count();
         $pages = new CPagination($total);
