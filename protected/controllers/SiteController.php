@@ -222,6 +222,7 @@ class SiteController extends Controller
             $this->pageMetaOgImage = $Video->video_thumb;
            // $this->pageMetaDescription = $Video['video_description'];
         }
+       
         
         $this->render('video', array(
             'ModelCategories' => $ModelCategories,
@@ -229,6 +230,7 @@ class SiteController extends Controller
             'Model' => $Model,
             'VideoList' => $VideoList,
             'pages' => $pages,
+            //'DataVast' => $Datavast,
           //  'DataViews' => $DataViews,
         )); 
     }
@@ -258,8 +260,13 @@ class SiteController extends Controller
                 array(':IdVideo'=>$vid));
         
         VastVideo::model()->updateByPk($Data->vast_id, array('vast_views' => $Data->vast_views + 1));
-             
+        if (!$Data->vast_id == NULL)
+        {
+            $xmlok = '<MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['. $Data->vast_source.']]></MediaFile>';
+        }
+        
         $xml .= '<Ad id="'.$Data->vast_id.'">
+                <id>'.$Data->vast_id.'</id>
                 <InLine>
                 <Creatives>
                 <Creative sequence="'.$Data->vast_title.'" id="">
@@ -269,8 +276,7 @@ class SiteController extends Controller
                 <ClickThrough><![CDATA[http://'.$Data->vast_link.']]></ClickThrough>
                 </VideoClicks>
                 <MediaFiles>
-                <MediaFile delivery="progressive" bitrate="400" width="320" height="180" type="video/mp4"><![CDATA['. $Data->vast_source.']]>
-                </MediaFile>
+                '.$xmlok.'
                 </MediaFiles>
                 </Linear>
                 </Creative>
@@ -280,6 +286,7 @@ class SiteController extends Controller
                 $xml .= '</VAST>';
 
             echo $xml;
+          
         }
     /// end VAST
         //embed start

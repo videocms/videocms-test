@@ -279,10 +279,15 @@ foreach ($ModelCategories as $ModelCategoryShow)
 				console.log( 'Current Res is: ' + player.getCurrentRes() );
 			});
                     });
+                    xmlDoc=loadXMLDoc('/vastxml/?vid=<?php echo $Model->video_id; ?>.xml');
+                    x=xmlDoc.getElementsByTagName("id");
+                    if (x !== NULL)
+                    {
 	vid1.ads();
 	vid1.vast({
             url: '/vastxml/?vid=<?php echo $Model->video_id; ?>.xml'
         });
+        }
 </script>
 <?php  ?>
 </div>
@@ -440,10 +445,11 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
         });
     });
     </script>
-<!--<div class="afs_ads">&nbsp;</div>
+    <!--
+<div class="afs_ads">&nbsp;</div>
 <script>
 (function() {
-    var message = "Wyłącz AdBlocka.";
+    var message = "Proszę wyłączyć AdBlocka na tej stronie!";
 
         // Define a function for showing the message.
         // Set a timeout of 2 seconds to give adblocker
