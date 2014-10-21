@@ -410,7 +410,7 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
                 $('.like').show();
             setTimeout(function() {
         $('.like').hide();
-    }, 1000);
+    }, 2500);
         });
     });
     $(document).ready(function() {
@@ -418,7 +418,7 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
                 $('.dis-like').show();
             setTimeout(function() {
         $('.dis-like').hide();
-    }, 1000);
+    }, 2500);
         });
     });
  $(document).ready(function() {
@@ -426,7 +426,7 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
                 $('.like-dis').show();
             setTimeout(function() {
         $('.like-dis').hide();
-    }, 1000);
+    }, 2500);
         });
     });
  $(document).ready(function() {
@@ -434,7 +434,7 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
                 $('.dis-like-dis').show();
             setTimeout(function() {
         $('.dis-like-dis').hide();
-    }, 1000);
+    }, 2500);
         });
     });
     </script>
