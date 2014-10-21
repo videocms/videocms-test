@@ -226,7 +226,10 @@ foreach ($ModelCategories as $ModelCategoryShow)
                            </div>   
                        </div>
                     </label>
-
+                    <!--udostepnianie tutaj przycisk -->
+                    <dic class="embedclass">
+                        <button type="button" class="btn btn-info" style="float: left; margin: 11px 1.2em 11px 2.5em;" data-toggle="modal" data-target="#myModal">embed</button>
+                        </dic>
                     <div class="stat-cnt">
                         <div class="rate-count">
                             <?php echo $Model->video_views; ?>
@@ -249,7 +252,6 @@ foreach ($ModelCategories as $ModelCategoryShow)
           
         <p class="data">Data publikacji: <?php echo $Model->video_date; ?></p>
         <p class="tresc"><?php echo $Model->video_text; ?></p>
-        <p class="tresc">Embed: <input type="text" value="<iframe src='http://videocms-test.pl/embed/<?php echo $Model->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>">
         </p>
         <?php
         if (!empty($Category[$Model->video_category]))
@@ -473,3 +475,22 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
 })();
 </script>
 -->
+<!-- modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Embed</h4>
+      </div>
+      <div class="modal-body">
+                <p class="tresc">Embed: <input type="text" class="form-control" size="45" value="<iframe src='http://videocms-test.pl/embed/<?php echo $Model->video_id; ?>' frameborder='0' allowfullscreen></iframe>">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- koniec modal -->
