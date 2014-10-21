@@ -170,8 +170,7 @@ class SiteController extends Controller
         $DataSeo = $ModalSeo->DownloadSettings();
         $ModelCategories = CmsvideoCategories::model()->findAll();
         $Model = CmsvideoVideo::model()->findAll('video_id=:IdVideo', array(':IdVideo'=>$id));
-        
-        
+           
         $criteria = new CDbCriteria;
         $criteria->select='video_id, video_title, video_thumb, video_views';
         $criteria->condition='video_views >= :Views AND video_id != :IdVideo ORDER BY video_views DESC';
@@ -181,13 +180,17 @@ class SiteController extends Controller
         $pages->pageSize = 10;
         $pages->applyLimit($criteria);
         $VideoList = CmsvideoVideo::model()->findAll($criteria);
-            
         
+        $TagsId = unserialize($Model->video_tags);
+        if(is_array($TagsId)) {
+            $ModelTags = Tags::model()->findAllBySQL('SELECT tag_name FROM videocms_tags WHERE tag_id IN (' . implode(',', array_map('intval', $TagsId)) . ')');
+        }
+                   
         $session = Yii::app()->getSession();
         $video_arr = array();
         $ses_arr = array();
 
-         if($session['video_arr']) {
+        if($session['video_arr']) {
             $ses_arr=$session['video_arr']; 
             }
             if(!in_array($id, $ses_arr)) {
@@ -204,6 +207,7 @@ class SiteController extends Controller
                 $session['video_arr']=$video_arr;
             }
         
+            
         foreach ($DataSeo as $Seoo)
         {
             $this->pageMetaRobots = $Seoo['settings_robots'];
@@ -221,6 +225,7 @@ class SiteController extends Controller
         
         $this->render('video', array(
             'ModelCategories' => $ModelCategories,
+            'ModelTags' => $ModelTags,
             'Model' => $Model,
             'VideoList' => $VideoList,
             'pages' => $pages,
