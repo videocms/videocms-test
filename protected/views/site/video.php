@@ -105,6 +105,11 @@ foreach ($ModelCategories as $ModelCategoryShow)
 
 <div class="container">
 <?php
+//foreach ($ModelTags as $ModelTagShow)
+//    {
+//       // $Tag[$ModelTagShow->tag_id] = $ModelTagShow->tag_name;
+//    echo 'tomek'.$ModelTagShow->tag_name;
+//    }
 foreach ($Model as $ModelSite)
     {
 ?>

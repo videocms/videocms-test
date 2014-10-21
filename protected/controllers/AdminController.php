@@ -42,6 +42,16 @@ class AdminController extends Controller
     }
     
     public function actionTest() {
+         $Model = CmsvideoVideo::model()->find('video_id=:IdVideo', array(':IdVideo'=>'4649'));
+       
+          $TagsId = unserialize($Model->video_tags);
+          print_r($TagsId);
+          
+
+//            $ModelTags = Tags::model()->findAllBySQL('SELECT tag_name FROM videocms_tags WHERE tag_id IN (' . implode(',', array_map('intval', $TagsId)) . ')');
+//            foreach($ModelTags as $Data) {
+//                echo $Data->tag_name;
+//            }
     }
     
     public function actionIndex() {

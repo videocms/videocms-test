@@ -181,10 +181,10 @@ class SiteController extends Controller
         $pages->applyLimit($criteria);
         $VideoList = CmsvideoVideo::model()->findAll($criteria);
         
-        $TagsId = unserialize($Model->video_tags);
-        if(is_array($TagsId)) {
-            $ModelTags = Tags::model()->findAllBySQL('SELECT tag_name FROM videocms_tags WHERE tag_id IN (' . implode(',', array_map('intval', $TagsId)) . ')');
-        }
+   //     $TagsId = unserialize($Model->video_tags);
+      //  if(is_array($TagsId)) {
+  //          $ModelTags = Tags::model()->findAllBySQL('SELECT tag_name FROM videocms_tags WHERE tag_id IN (' . implode(',', array_map('intval', $TagsId)) . ')');
+        //}
                    
         $session = Yii::app()->getSession();
         $video_arr = array();
@@ -217,9 +217,9 @@ class SiteController extends Controller
         foreach ($Model as $Video)
         {
             $this->pageTitle = $Video->video_title;
-            $this->pageMetaKeywords = $Video['video_keywords'];
-            $this->pageMetaDescription = $Video['video_description'];
-            $this->pageMetaOgImage = $Video['video_thumb'];
+            $this->pageMetaKeywords = $Video->video_keywords;
+            $this->pageMetaDescription = $Video->video_description;
+            $this->pageMetaOgImage = $Video->video_thumb;
            // $this->pageMetaDescription = $Video['video_description'];
         }
         
@@ -334,9 +334,9 @@ class SiteController extends Controller
         foreach($DataVideo as $Video)
         {
             
-            $this->pageMetaKeywords = $Video['video_keywords'];
-            $this->pageMetaDescription = $Video['video_description'];
-            $this->pageMetaOgImage = $Video['video_thumb'];
+            $this->pageMetaKeywords = $Video->video_keywords;
+            $this->pageMetaDescription = $Video->video_description;
+            $this->pageMetaOgImage = $Video->video_thumb;
            // $this->pageMetaDescription = $Video['video_description'];
         }
         
