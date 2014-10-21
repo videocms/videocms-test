@@ -38,13 +38,13 @@ class LikedislikeModule extends CWebModule
                 $model = Likedislike::model()->find($criteria);
                 		
 		if(count($model)==0){
-			return 'like';
+			return '<img src="/css/img/like-ico.png">';
 		}
 		elseif($model->status==0){
-			return 'like';
+			return '<img src="/css/img/like-ico.png">';
 		}
 		else{
-			return 'like';
+			return '<img src="/css/img/like-ico-h.png">';
 		}
 	}
         	
