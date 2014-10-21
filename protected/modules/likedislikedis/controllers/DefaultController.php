@@ -31,7 +31,7 @@ class DefaultController extends Controller
 			$modeldis->add_timestamp = time();
 			$displaynowdis = '<img src="/css/img/dislike-ico-h.png">';
 		}
-		else if($modeldis->status==0){
+		else if(($modeldis->status==0) ||($modeldis->status==1)){
 			$modeldis->status = 2;
 			$modeldis->edit_timestamp = time();
 			$displaynowdis = '<img src="/css/img/dislike-ico-h.png">';

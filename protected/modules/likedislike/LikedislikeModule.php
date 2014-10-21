@@ -40,7 +40,7 @@ class LikedislikeModule extends CWebModule
 		if(count($model)==0){
 			return '<img src="/css/img/like-ico.png">';
 		}
-		elseif($model->status==0){
+		elseif(($model->status==0) || ($model->status==2)){
 			return '<img src="/css/img/like-ico.png">';
 		}
 		else{

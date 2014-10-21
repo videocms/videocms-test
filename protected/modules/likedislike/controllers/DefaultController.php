@@ -31,7 +31,7 @@ class DefaultController extends Controller
 			$model->add_timestamp = time();
 			$displaynow = '<img src="/css/img/like-ico-h.png">';
 		}
-		else if($model->status==0){
+		else if(($model->status==0) || ($model->status==2)){
 			$model->status = 1;
 			$model->edit_timestamp = time();
 			$displaynow = '<img src="/css/img/like-ico-h.png">';
