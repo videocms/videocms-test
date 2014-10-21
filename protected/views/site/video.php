@@ -1,85 +1,90 @@
 <style type="text/css">
-    .video-js {padding-top: 56.25%;}
-    .vjs-fullscreen {padding-top: 0px}
-    .col-centered{
+.video-js {
+    padding-top: 56.25%;
+    }
+.vjs-fullscreen {
+    padding-top: 0px;
+    }
+.col-centered {
     float: none;
     margin: 0 auto;
     }
-    .float-right {
-        float: right;
+.float-right {
+    float: right;
     }
-    input[type="checkbox"] { 
-	position: absolute;
-	opacity: 0;
-}
-
 input[type="checkbox"] { 
-	position: absolute;
-	opacity: 0;
-}
+    position: absolute;
+    opacity: 0;
+    }
+input[type="checkbox"] { 
+    position: absolute;
+    opacity: 0;
+    }
 
 /* Normal Track */
 input[type="checkbox"].ios-switch + div {
-	vertical-align: middle;
-	width: 40px;	height: 20px;
-	border: 1px solid rgba(0,0,0,.4);
-	border-radius: 999px;
-	background-color: rgba(0, 0, 0, 0.1);
-	-webkit-transition-duration: .4s;
-	-webkit-transition-property: background-color, box-shadow;
-	box-shadow: inset 0 0 0 0px rgba(0,0,0,0.4);
-	margin: 15px 1.2em 15px 2.5em;
-}
+    vertical-align: middle;
+    width: 40px;	
+    height: 20px;
+    border: 1px solid rgba(0,0,0,.4);
+    border-radius: 999px;
+    background-color: rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: .4s;
+    -webkit-transition-property: background-color, box-shadow;
+    box-shadow: inset 0 0 0 0px rgba(0,0,0,0.4);
+    margin: 15px 1.2em 15px 2.5em;
+    }
 
 
 /* Big Track */
 input[type="checkbox"].bigswitch.ios-switch + div {
-	width: 50px;	height: 25px;
-}
+    width: 50px;	
+    height: 25px;
+    }
 
 /* Green Track */
 input[type="checkbox"].green.ios-switch:checked + div {
-	background-color: #00e359;
-	border: 1px solid rgba(0, 162, 63,1);
-	box-shadow: inset 0 0 0 10px rgba(0,227,89,1);
-}
+    background-color: #00e359;
+    border: 1px solid rgba(0, 162, 63,1);
+    box-shadow: inset 0 0 0 10px rgba(0,227,89,1);
+    }
 
 /* Normal Knob */
 input[type="checkbox"].ios-switch + div > div {
-	float: left;
-	width: 18px; height: 18px;
-	border-radius: inherit;
-	background: #ffffff;
-	-webkit-transition-timing-function: cubic-bezier(.54,1.85,.5,1);
-	-webkit-transition-duration: 0.4s;
-	-webkit-transition-property: transform, background-color, box-shadow;
-	-moz-transition-timing-function: cubic-bezier(.54,1.85,.5,1);
-	-moz-transition-duration: 0.4s;
-	-moz-transition-property: transform, background-color;
-	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(0, 0, 0, 0.4);
-	pointer-events: none;
-	margin-top: 1px;
-	margin-left: 1px;
-}
+    float: left;
+    width: 18px; height: 18px;
+    border-radius: inherit;
+    background: #ffffff;
+    -webkit-transition-timing-function: cubic-bezier(.54,1.85,.5,1);
+    -webkit-transition-duration: 0.4s;
+    -webkit-transition-property: transform, background-color, box-shadow;
+    -moz-transition-timing-function: cubic-bezier(.54,1.85,.5,1);
+    -moz-transition-duration: 0.4s;
+    -moz-transition-property: transform, background-color;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    margin-top: 1px;
+    margin-left: 1px;
+    }
 
 /* Big Knob */
 input[type="checkbox"].bigswitch.ios-switch + div > div {
-	width: 23px; height: 23px;
-	margin-top: 1px;
-}
+    width: 23px; 
+    height: 23px;
+    margin-top: 1px;
+    }
 
 /* Checked Big Knob (Blue Style) */
 input[type="checkbox"].bigswitch.ios-switch:checked + div > div {
-	-webkit-transform: translate3d(25px, 0, 0);
-	-moz-transform: translate3d(16px, 0, 0);
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(8, 80, 172,1);
-}
+    -webkit-transform: translate3d(25px, 0, 0);
+    -moz-transform: translate3d(16px, 0, 0);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(8, 80, 172,1);
+    }
 
 /* Green Knob */
 input[type="checkbox"].green.ios-switch:checked + div > div {
-	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 162, 63,1);
-}
-
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 162, 63,1);
+    }
 </style>
 
 <?php
@@ -93,15 +98,15 @@ input[type="checkbox"].green.ios-switch:checked + div > div {
 //}
 
 foreach ($ModelCategories as $ModelCategoryShow)
-{
-    $Category[$ModelCategoryShow->id] = $ModelCategoryShow->name;
-}
+    {
+        $Category[$ModelCategoryShow->id] = $ModelCategoryShow->name;
+    }
 ?>
 
 <div class="container">
 <?php
 foreach ($Model as $ModelSite)
-{
+    {
 ?>
     <?php
     if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
@@ -119,15 +124,20 @@ foreach ($Model as $ModelSite)
                    echo '<div id="test" class="col-centered player-width">';
                 }?>        
      <!-- VIDEO! --> 
+     
         <div class="wrapper">
             <div class="videocontent">
                 <?php
-                         if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
-                                {
-                                    echo '<div id="myvideo_vjs1" class="video-js">';}
-                                    else {
-                                       echo '<div id="myvideo_vjs1" class="video-js watch-medium">';
-                                    }?>    
+                    if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
+                        {
+                           echo '<div id="myvideo_vjs1" class="video-js">';
+                        }
+                        else
+                            {
+                                echo '<div id="myvideo_vjs1" class="video-js watch-medium">';
+                            }
+                            ?> 
+                
                     <video id="example-2" class="vjs-playing vjs-default-skin" preload="auto" controls width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $ModelSite->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
                         <?php      
                         if (($ModelSite->video_720p == NULL) && ($ModelSite->video_1080p == NULL))
@@ -196,44 +206,54 @@ foreach ($Model as $ModelSite)
                     </div>
                     <?php endforeach; ?>
             </div> 
-        <?php $this->widget("ext.yiinfinite-scroll.YiinfiniteScroller", array('contentSelector' => '#relatedVideos', "itemSelector" => "div.row.video-list-item.related-list-item",'loadingText' => 'Ładuję...', 'donetext' => 'Wszystko zostało wyświetlone', "pages" => $pages)); ?>
-
-        </div>
-        
-        
+              <?php $this->widget("ext.yiinfinite-scroll.YiinfiniteScroller", array('contentSelector' => '#relatedVideos', "itemSelector" => "div.row.video-list-item.related-list-item",'loadingText' => 'Ładuję...', 'donetext' => 'Wszystko zostało wyświetlone', "pages" => $pages)); ?>
+        </div>     
     </div>
     
     <div class="col-md-8 col-normal2">
-    <div class="tab-cnt">
-        <?php echo '<h1 class="page-header">'.$ModelSite->video_title.'</h1>'; ?>
-    <div class="tab-tr" id="t1">
-       <label><input type="checkbox" name="widescreen" class="ios-switch green  bigswitch" id="widescreen_mode" onchange="set_check();" /><div><div></div></div></label>
+        <div class="tab-cnt">
+            <?php echo '<h1 class="page-header">'.$ModelSite->video_title.'</h1>'; ?>
+                <div class="tab-tr" id="t1">
+                    <label>
+                       <input type="checkbox" name="widescreen" class="ios-switch green  bigswitch" id="widescreen_mode" onchange="set_check();" />
+                       <div>
+                           <div>     
+                           </div>   
+                       </div>
+                    </label>
 
-     <div class="stat-cnt">
-                <div class="rate-count"><?php echo $ModelSite->video_views; ?></div>
-                <div class="stat-bar">
-                    <div class="bg-green" style="width:<?php $this->widget('likedislike.widgets.LikeDislikeView',array('field_id'=>$ModelSite->video_id)); ?>%"></div>
-                    <div class="bg-red" style="width:<?php $this->widget('likedislikedis.widgets.LikeDislikedisView',array('field_iddis'=>$ModelSite->video_id)); ?>%"></div>
-                </div><!-- stat-bar -->
-                <div class="dislike-count"><?php $this->widget('likedislikedis.widgets.LikeDislikedisButton',array('field_iddis'=>$ModelSite->video_id)); ?><?php $this->widget('likedislikedis.widgets.LikeDislikedisLike',array('field_iddis'=>$ModelSite->video_id)); ?></div>
-                <div class="like-count"><?php $this->widget('likedislike.widgets.LikeDislikeButton',array('field_id'=>$ModelSite->video_id)); ?><?php $this->widget('likedislike.widgets.LikeDislikeLike',array('field_id'=>$ModelSite->video_id)); ?></div>
-     </div></div></div>
-         <?php
-    //echo '<h1>'.$ModelSite->video_views.'</h1>';
-    echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
-    echo '<p class="tresc">'.$ModelSite->video_text.'</p>';
-    ?>
-    <p class="tresc">Embed: <input type="text" value="<iframe src='http://videocms-test.pl/embed/<?php echo $ModelSite->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>"></p><?php
-    //echo '<p class="tresc">Embed: <input type="text" value"<iframe width="560" height="315" src="http://videocms-test.pl/cmsvideo/embed/'.$ModelSite->video_id.'.html" frameborder="0" allowfullscreen></iframe>"></p>';
-    if ($Category[$ModelSite->video_category] != '')
-        {
-        echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
-        array('category/'.$ModelSite->video_category)).'</p>';
-        }
-//                foreach (unserialize($ModelSite->video_tags) as $Tag) {
-//                    echo $Tag.' ';
-//                }
-    ?>
+                    <div class="stat-cnt">
+                        <div class="rate-count">
+                            <?php echo $ModelSite->video_views; ?>
+                        </div>
+                        <div class="stat-bar">
+                            <div class="bg-green" style="width:<?php $this->widget('likedislike.widgets.LikeDislikeView',array('field_id'=>$ModelSite->video_id)); ?>%">
+                            </div>
+                            <div class="bg-red" style="width:<?php $this->widget('likedislikedis.widgets.LikeDislikedisView',array('field_iddis'=>$ModelSite->video_id)); ?>%">
+                            </div>
+                        </div>
+                        <div class="dislike-count">
+                            <?php $this->widget('likedislikedis.widgets.LikeDislikedisButton',array('field_iddis'=>$ModelSite->video_id)); ?><?php $this->widget('likedislikedis.widgets.LikeDislikedisLike',array('field_iddis'=>$ModelSite->video_id)); ?>
+                        </div>
+                        <div class="like-count">
+                            <?php $this->widget('likedislike.widgets.LikeDislikeButton',array('field_id'=>$ModelSite->video_id)); ?><?php $this->widget('likedislike.widgets.LikeDislikeLike',array('field_id'=>$ModelSite->video_id)); ?>
+                        </div>
+                    </div>
+                </div>
+        </div>
+          
+        <p class="data">Data publikacji: <?php echo $ModelSite->video_date; ?></p>
+        <p class="tresc"><?php echo $ModelSite->video_text; ?></p>
+        <p class="tresc">Embed: <input type="text" value="<iframe src='http://videocms-test.pl/embed/<?php echo $ModelSite->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>">
+        </p>
+        <?php
+        if (!empty($Category[$ModelSite->video_category]))
+            {
+            echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
+            array('category/'.$ModelSite->video_category)).'</p>';
+            }
+        
+        ?>
     </div>
     
 <script type="text/javascript">
