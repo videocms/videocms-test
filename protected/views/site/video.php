@@ -207,16 +207,14 @@ foreach ($Model as $ModelSite)
     <label><input type="checkbox" name="widescreen" class="ios-switch green  bigswitch" id="widescreen_mode" onchange="set_check();" /><div><div></div></div></label>
 
     <div class="tab-tr" id="t1">
-            <div class="like-btn"><?php $this->widget('likedislike.widgets.LikeDislikeButton',array('field_id'=>$ModelSite->video_id)); ?></div>
-            <div class="dislike-btn"><?php $this->widget('likedislikedis.widgets.LikeDislikedisButton',array('field_iddis'=>$ModelSite->video_id)); ?></div>
      <div class="stat-cnt">
                 <div class="rate-count"><?php echo $ModelSite->video_views; ?></div>
                 <div class="stat-bar">
                     <div class="bg-green" style="width:<?php $this->widget('likedislike.widgets.LikeDislikeView',array('field_id'=>$ModelSite->video_id)); ?>%"></div>
                     <div class="bg-red" style="width:<?php $this->widget('likedislikedis.widgets.LikeDislikedisView',array('field_iddis'=>$ModelSite->video_id)); ?>%"></div>
                 </div><!-- stat-bar -->
-                <div class="dislike-count"><?php $this->widget('likedislikedis.widgets.LikeDislikedisLike',array('field_iddis'=>$ModelSite->video_id)); ?></div>
-                <div class="like-count"><?php $this->widget('likedislike.widgets.LikeDislikeLike',array('field_id'=>$ModelSite->video_id)); ?></div>
+                <div class="dislike-count"><?php $this->widget('likedislikedis.widgets.LikeDislikedisButton',array('field_iddis'=>$ModelSite->video_id)); ?><?php $this->widget('likedislikedis.widgets.LikeDislikedisLike',array('field_iddis'=>$ModelSite->video_id)); ?></div>
+                <div class="like-count"><?php $this->widget('likedislike.widgets.LikeDislikeButton',array('field_id'=>$ModelSite->video_id)); ?><?php $this->widget('likedislike.widgets.LikeDislikeLike',array('field_id'=>$ModelSite->video_id)); ?></div>
      </div></div>
          <?php
     echo '<h1 class="page-header">'.$ModelSite->video_title.'</h1>';

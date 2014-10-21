@@ -29,17 +29,17 @@ class DefaultController extends Controller
                         //$model->user_id = $user_id;
 			$modeldis->status = 2;
 			$modeldis->add_timestamp = time();
-			$displaynowdis = 'Unlike';
+			$displaynowdis = '<img src="/css/img/dislike-ico-h.png">';
 		}
 		else if($modeldis->status==0){
 			$modeldis->status = 2;
 			$modeldis->edit_timestamp = time();
-			$displaynowdis = 'Unlike';
+			$displaynowdis = '<img src="/css/img/dislike-ico-h.png">';
 		}
 		else{
 			$modeldis->status = 0;
 			$modeldis->edit_timestamp = time();
-			$displaynowdis = 'Unlike';
+			$displaynowdis = '<img src="/css/img/dislike-ico.png">';
 		}
 		
 		if($modeldis->save()){
