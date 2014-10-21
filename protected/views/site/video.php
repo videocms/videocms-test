@@ -235,8 +235,6 @@ foreach ($Model as $ModelSite)
 //                }
     ?>
     </div>
-    <div class="menu" style="display: none;">like</div>
-    <div class="menu1" style="display: none;">dis</div>
     
 <script type="text/javascript">
 	var vid1 = videojs( 'example-2', { plugins : { resolutionSelector : {

@@ -129,6 +129,8 @@
               <a href="/"><img src="http://alexie.pl/logo.png" alt="tekst"></a>
          </div>
         <div class="col-xs-1 col-sm-1" style="padding-top:7px;"><button id="showLeft" class="btn btn-default"><span class="glyphicon glyphicon-align-justify"></span></button></div>
+         <div class="menu" style="display: none;">be</div>
+    <div class="menu1" style="display: none;">ok</div>
     <div class="col-xs-6 col-sm-6" style="padding-top:7px;">    
       <div class="input-group">
       <span class="input-group-btn">
