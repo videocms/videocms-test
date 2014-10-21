@@ -204,9 +204,11 @@ foreach ($Model as $ModelSite)
     </div>
     
     <div class="col-md-8 col-normal2">
-    <label><input type="checkbox" name="widescreen" class="ios-switch green  bigswitch" id="widescreen_mode" onchange="set_check();" /><div><div></div></div></label>
-
+    <div class="tab-cnt">
+        <?php echo '<h1 class="page-header">'.$ModelSite->video_title.'</h1>'; ?>
     <div class="tab-tr" id="t1">
+       <label><input type="checkbox" name="widescreen" class="ios-switch green  bigswitch" id="widescreen_mode" onchange="set_check();" /><div><div></div></div></label>
+
      <div class="stat-cnt">
                 <div class="rate-count"><?php echo $ModelSite->video_views; ?></div>
                 <div class="stat-bar">
@@ -215,9 +217,8 @@ foreach ($Model as $ModelSite)
                 </div><!-- stat-bar -->
                 <div class="dislike-count"><?php $this->widget('likedislikedis.widgets.LikeDislikedisButton',array('field_iddis'=>$ModelSite->video_id)); ?><?php $this->widget('likedislikedis.widgets.LikeDislikedisLike',array('field_iddis'=>$ModelSite->video_id)); ?></div>
                 <div class="like-count"><?php $this->widget('likedislike.widgets.LikeDislikeButton',array('field_id'=>$ModelSite->video_id)); ?><?php $this->widget('likedislike.widgets.LikeDislikeLike',array('field_id'=>$ModelSite->video_id)); ?></div>
-     </div></div>
+     </div></div></div>
          <?php
-    echo '<h1 class="page-header">'.$ModelSite->video_title.'</h1>';
     //echo '<h1>'.$ModelSite->video_views.'</h1>';
     echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
     echo '<p class="tresc">'.$ModelSite->video_text.'</p>';
