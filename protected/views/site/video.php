@@ -235,7 +235,8 @@ foreach ($Model as $ModelSite)
 //                }
     ?>
     </div>
-    
+    <div class="menu" style="display: none;">like</div>
+    <div class="menu1" style="display: none;">dis</div>
     
 <script type="text/javascript">
 	var vid1 = videojs( 'example-2', { plugins : { resolutionSelector : {
@@ -378,8 +379,24 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
 </script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/likedislikedis.js"></script>
 <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-
-
+<script type="text/javascript">
+  $(document).ready(function() {
+        $('#like').click(function() {
+                $('.menu').show();
+            setTimeout(function() {
+        $('.menu').hide();
+    }, 1000);
+        });
+    });
+    $(document).ready(function() {
+        $('#dis-like').click(function() {
+                $('.menu1').show();
+            setTimeout(function() {
+        $('.menu1').hide();
+    }, 1000);
+        });
+    });
+    </script>
 <!--<div class="afs_ads">&nbsp;</div>
 <script>
 (function() {
