@@ -181,9 +181,7 @@ class SiteController extends Controller
         $pages->pageSize = 10;
         $pages->applyLimit($criteria);
         $VideoList = CmsvideoVideo::model()->findAll($criteria);
-      
-        
-      
+            
         
         $session = Yii::app()->getSession();
         $video_arr = array();
