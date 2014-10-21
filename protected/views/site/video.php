@@ -400,17 +400,33 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
 <script type="text/javascript">
   $(document).ready(function() {
         $('#like').click(function() {
-                $('.menu').show();
+                $('.like').show();
             setTimeout(function() {
-        $('.menu').hide();
+        $('.like').hide();
     }, 1000);
         });
     });
     $(document).ready(function() {
         $('#dis-like').click(function() {
-                $('.menu1').show();
+                $('.dis-like').show();
             setTimeout(function() {
-        $('.menu1').hide();
+        $('.dis-like').hide();
+    }, 1000);
+        });
+    });
+ $(document).ready(function() {
+        $('#like-dis').click(function() {
+                $('.like-dis').show();
+            setTimeout(function() {
+        $('.like-dis').hide();
+    }, 1000);
+        });
+    });
+ $(document).ready(function() {
+        $('#dis-like-dis').click(function() {
+                $('.dis-like-dis').show();
+            setTimeout(function() {
+        $('.dis-like-dis').hide();
     }, 1000);
         });
     });
