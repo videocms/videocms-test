@@ -237,7 +237,6 @@ foreach ($Model as $ModelSite)
     ?>
     </div>
     
-</div>
     
 <script type="text/javascript">
 	var vid1 = videojs( 'example-2', { plugins : { resolutionSelector : {
