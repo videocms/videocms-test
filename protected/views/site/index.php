@@ -74,7 +74,7 @@
     foreach($Model as $ModelSite)
         {
             echo '<div class="col-sm-3 col-xs-6 col-md-3">';
-            echo CHtml::link('<img id="image" src="/'.$ModelSite->video_thumb.'" class="img-rounded" alt="'.$ModelSite->video_title.'" style="width:100%; height: 150px;">', array('video/'.$ModelSite->video_id));
+            echo CHtml::link('<img id="image" src="/'.$ModelSite->video_thumb.'" class="img-rounded" alt="'.$ModelSite->video_title.'" style="height: 150px;">', array('video/'.$ModelSite->video_id));
             echo '<h3>'.CHtml::link($ModelSite->video_title, array('video/'.$ModelSite->video_id)).'</h3>';
             echo '<h5 style="padding-bottom: 5px;"><small>';
             echo substr($ModelSite->video_text, 0, 400);
