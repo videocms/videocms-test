@@ -169,7 +169,7 @@ class SiteController extends Controller
         $ModalSeo = new CmsvideoSettings;
         $DataSeo = $ModalSeo->DownloadSettings();
         $ModelCategories = CmsvideoCategories::model()->findAll();
-        $Model = CmsvideoVideo::model()->findAll('video_id=:IdVideo', array(':IdVideo'=>$id));
+        $Model = CmsvideoVideo::model()->find('video_id=:IdVideo', array(':IdVideo'=>$id));
            
         $criteria = new CDbCriteria;
         $criteria->select='video_id, video_title, video_thumb, video_views';
@@ -181,10 +181,10 @@ class SiteController extends Controller
         $pages->applyLimit($criteria);
         $VideoList = CmsvideoVideo::model()->findAll($criteria);
         
-   //     $TagsId = unserialize($Model->video_tags);
-      //  if(is_array($TagsId)) {
-  //          $ModelTags = Tags::model()->findAllBySQL('SELECT tag_name FROM videocms_tags WHERE tag_id IN (' . implode(',', array_map('intval', $TagsId)) . ')');
-        //}
+        $TagsId = unserialize($Model->video_tags);
+        if(is_array($TagsId)) {
+            $ModelTags = Tags::model()->findAllBySQL('SELECT tag_name FROM videocms_tags WHERE tag_id IN (' . implode(',', array_map('intval', $TagsId)) . ')');
+        }
                    
         $session = Yii::app()->getSession();
         $video_arr = array();

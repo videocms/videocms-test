@@ -110,8 +110,8 @@ foreach ($ModelCategories as $ModelCategoryShow)
 //       // $Tag[$ModelTagShow->tag_id] = $ModelTagShow->tag_name;
 //    echo 'tomek'.$ModelTagShow->tag_name;
 //    }
-foreach ($Model as $ModelSite)
-    {
+
+    
 ?>
     <?php
     if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
@@ -143,34 +143,34 @@ foreach ($Model as $ModelSite)
                             }
                             ?> 
                 
-                    <video id="example-2" class="vjs-playing vjs-default-skin" preload="auto" controls width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $ModelSite->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
+                    <video id="example-2" class="vjs-playing vjs-default-skin" preload="auto" controls width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $Model->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
                         <?php      
-                        if (($ModelSite->video_720p == NULL) && ($ModelSite->video_1080p == NULL))
+                        if (($Model->video_720p == NULL) && ($Model->video_1080p == NULL))
                          {
-                              echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
+                              echo'<source src="'.$Model->video_480p.'" type="'.$Model->player_type.'" data-res="480" />';
                          }
-                              elseif (($ModelSite->video_480p == NULL) && ($ModelSite->video_1080p == NULL)) {
-                                      echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />';
+                              elseif (($Model->video_480p == NULL) && ($Model->video_1080p == NULL)) {
+                                      echo'<source src="'.$Model->video_720p.'" type="'.$Model->player_type.'" data-res="720" />';
                          }
-                              elseif (($ModelSite->video_480p == NULL) && ($ModelSite->video_720p == NULL)){
-                                      echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
+                              elseif (($Model->video_480p == NULL) && ($Model->video_720p == NULL)){
+                                      echo'<source src="'.$Model->video_1080p.'" type="'.$Model->player_type.'" data-res="1080" />';
                          }
-                              elseif ($ModelSite->video_480p == NULL) {
-                                      echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />';
-                                      echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
+                              elseif ($Model->video_480p == NULL) {
+                                      echo'<source src="'.$Model->video_720p.'" type="'.$Model->player_type.'" data-res="720" />';
+                                      echo'<source src="'.$Model->video_1080p.'" type="'.$Model->player_type.'" data-res="1080" />';
                          }
-                              elseif ($ModelSite->video_720p == NULL) {
-                                      echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
-                                      echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
+                              elseif ($Model->video_720p == NULL) {
+                                      echo'<source src="'.$Model->video_480p.'" type="'.$Model->player_type.'" data-res="480" />';
+                                      echo'<source src="'.$Model->video_1080p.'" type="'.$Model->player_type.'" data-res="1080" />';
                          }
-                              elseif ($ModelSite->video_1080p == NULL) {
-                                      echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
-                                      echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />'; 
+                              elseif ($Model->video_1080p == NULL) {
+                                      echo'<source src="'.$Model->video_480p.'" type="'.$Model->player_type.'" data-res="480" />';
+                                      echo'<source src="'.$Model->video_720p.'" type="'.$Model->player_type.'" data-res="720" />'; 
                          }
                          else {
-                              echo'<source src="'.$ModelSite->video_480p.'" type="'.$ModelSite->player_type.'" data-res="480" />';
-                              echo'<source src="'.$ModelSite->video_720p.'" type="'.$ModelSite->player_type.'" data-res="720" />';
-                              echo'<source src="'.$ModelSite->video_1080p.'" type="'.$ModelSite->player_type.'" data-res="1080" />';
+                              echo'<source src="'.$Model->video_480p.'" type="'.$Model->player_type.'" data-res="480" />';
+                              echo'<source src="'.$Model->video_720p.'" type="'.$Model->player_type.'" data-res="720" />';
+                              echo'<source src="'.$Model->video_1080p.'" type="'.$Model->player_type.'" data-res="1080" />';
                         }
         ?>
                     <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
@@ -217,7 +217,7 @@ foreach ($Model as $ModelSite)
     
     <div class="col-md-8 col-normal2">
         <div class="tab-cnt">
-            <?php echo '<h1 class="page-header">'.$ModelSite->video_title.'</h1>'; ?>
+            <?php echo '<h1 class="page-header">'.$Model->video_title.'</h1>'; ?>
                 <div class="tab-tr" id="t1">
                     <label>
                        <input type="checkbox" name="widescreen" class="ios-switch green  bigswitch" id="widescreen_mode" onchange="set_check();" />
@@ -229,35 +229,37 @@ foreach ($Model as $ModelSite)
 
                     <div class="stat-cnt">
                         <div class="rate-count">
-                            <?php echo $ModelSite->video_views; ?>
+                            <?php echo $Model->video_views; ?>
                         </div>
                         <div class="stat-bar">
-                            <div class="bg-green" style="width:<?php $this->widget('likedislike.widgets.LikeDislikeView',array('field_id'=>$ModelSite->video_id)); ?>%">
+                            <div class="bg-green" style="width:<?php $this->widget('likedislike.widgets.LikeDislikeView',array('field_id'=>$Model->video_id)); ?>%">
                             </div>
-                            <div class="bg-red" style="width:<?php $this->widget('likedislikedis.widgets.LikeDislikedisView',array('field_iddis'=>$ModelSite->video_id)); ?>%">
+                            <div class="bg-red" style="width:<?php $this->widget('likedislikedis.widgets.LikeDislikedisView',array('field_iddis'=>$Model->video_id)); ?>%">
                             </div>
                         </div>
                         <div class="dislike-count">
-                            <?php $this->widget('likedislikedis.widgets.LikeDislikedisButton',array('field_iddis'=>$ModelSite->video_id)); ?><?php $this->widget('likedislikedis.widgets.LikeDislikedisLike',array('field_iddis'=>$ModelSite->video_id)); ?>
+                            <?php $this->widget('likedislikedis.widgets.LikeDislikedisButton',array('field_iddis'=>$Model->video_id)); ?><?php $this->widget('likedislikedis.widgets.LikeDislikedisLike',array('field_iddis'=>$Model->video_id)); ?>
                         </div>
                         <div class="like-count">
-                            <?php $this->widget('likedislike.widgets.LikeDislikeButton',array('field_id'=>$ModelSite->video_id)); ?><?php $this->widget('likedislike.widgets.LikeDislikeLike',array('field_id'=>$ModelSite->video_id)); ?>
+                            <?php $this->widget('likedislike.widgets.LikeDislikeButton',array('field_id'=>$Model->video_id)); ?><?php $this->widget('likedislike.widgets.LikeDislikeLike',array('field_id'=>$Model->video_id)); ?>
                         </div>
                     </div>
                 </div>
         </div>
           
-        <p class="data">Data publikacji: <?php echo $ModelSite->video_date; ?></p>
-        <p class="tresc"><?php echo $ModelSite->video_text; ?></p>
-        <p class="tresc">Embed: <input type="text" value="<iframe src='http://videocms-test.pl/embed/<?php echo $ModelSite->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>">
+        <p class="data">Data publikacji: <?php echo $Model->video_date; ?></p>
+        <p class="tresc"><?php echo $Model->video_text; ?></p>
+        <p class="tresc">Embed: <input type="text" value="<iframe src='http://videocms-test.pl/embed/<?php echo $Model->video_id; ?>.html' frameborder='0' allowfullscreen></iframe>">
         </p>
         <?php
-        if (!empty($Category[$ModelSite->video_category]))
+        if (!empty($Category[$Model->video_category]))
             {
-            echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
-            array('category/'.$ModelSite->video_category)).'</p>';
+            echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$Model->video_category], 
+            array('category/'.$Model->video_category)).'</p>';
             }
-        
+//            foreach ($ModelTags as $Tag) {
+//                echo $Tag->tag_name;
+//            }
         ?>
     </div>
     
@@ -277,10 +279,10 @@ foreach ($Model as $ModelSite)
                     });
 	vid1.ads();
 	vid1.vast({
-            url: '/vastxml/?vid=<?php echo $ModelSite->video_id; ?>.xml'
+            url: '/vastxml/?vid=<?php echo $Model->video_id; ?>.xml'
         });
 </script>
-<?php } ?>
+<?php  ?>
 </div>
 <!--<script type="text/javascript">
 
