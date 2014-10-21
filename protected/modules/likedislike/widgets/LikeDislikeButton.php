@@ -23,12 +23,12 @@ class LikeDislikeButton extends CWidget
 	{
 
 		//if(!Yii::app()->user->isGuest){
-		$assetsurl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('likedislikelik.assets') );
+		$assetsurl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('likedislike.assets') );
 		Yii::app()->clientScript->registerScriptFile($assetsurl.'/js/likedislike.js', CClientScript::POS_HEAD);
 		?>
 		<span>
 			<a href="javascript:void(0);" onclick="likedislike('<?php echo $this->field_id;?>')"><span id="displaytext_<?php echo $this->field_id;?>"><?php echo Yii::app()->getModule('likedislike')->defaultOnload($this->field_id);?></span></a><small>(<span id="likedislikecount_<?php echo $this->field_id;?>"><?php echo Yii::app()->getModule('likedislike')->countlikes($this->field_id);?></span>)</small>
-			<input type="hidden" id="mybaseurl" value="<?php echo Yii::app()->baseUrl;?>/likedislikelik/default/likedislike">
+			<input type="hidden" id="mybaseurl" value="<?php echo Yii::app()->baseUrl;?>/likedislike/default/likedislike">
 		</span>
                 
 		<?php
