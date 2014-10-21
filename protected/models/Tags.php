@@ -15,9 +15,9 @@ class Tags extends CActiveRecord
     public function rules()
         { 
             return array(
-               // array('tag_name', 'required'),
-                array('tag_name, tag_idvideo', 'length', 'max'=>255),
-                array('tag_id, tag_idvideo, tag_name', 'safe', 'on'=>'search'),
+               // array('tag_slug', 'required'),
+                array('tag_name, tag_slug, tag_idvideo', 'length', 'max'=>255),
+                array('tag_id, tag_idvideo, tag_name tag_slug', 'safe', 'on'=>'search'),
                 );
         }
         
@@ -31,6 +31,7 @@ class Tags extends CActiveRecord
         {
             return array(
             'tag_id' => 'Id',
+            'tag_slug' => 'Nazwa',
             'tag_name' => 'Nazwa',
             'tag_idvideo' => 'Id tag video',
             );
@@ -40,6 +41,7 @@ class Tags extends CActiveRecord
             $criteria=new CDbCriteria;
             $criteria->compare('tag_id', $this->tag_id);
             $criteria->compare('tag_name', $this->tag_name, true);
+            $criteria->compare('tag_slug', $this->tag_slug, true);
             $criteria->compare('tag_idvideo', $this->tag_idvideo, true);
             return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

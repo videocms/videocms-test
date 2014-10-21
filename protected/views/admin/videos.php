@@ -213,14 +213,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
             </div>
             <div class="form-group">
-                <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
+                <?php echo $form->labelEx($ModelVideo, 'tag_slug'); ?>
                 <?php echo CHtml::script("
                     function split(val) { return val.split(/,\s*/); }
                     function extractLast(term) { return split(term).pop(); } 
                     ")?>
                 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                   'model'=>$ModelVideo,
-                  'attribute'=>'tag_name',
+                  'attribute'=>'tag_slug',
                   'source'=>"js:function(request, response) {
                      $.getJSON('".$this->createUrl('admin/autocompletetag')."', {
                        term: extractLast(request.term)
@@ -241,7 +241,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                   ),
                   'htmlOptions'=>array('size'=>'40', 'class' => 'form-control', 'placeholder' => 'Wpisz odpowiednie tagi, oddzielając je przecinkami.'),
                  ));?>
-                <?php echo $form->error($ModelVideo, 'tag_name', array('class' => 'text-danger')); ?>      
+                <?php echo $form->error($ModelVideo, 'tag_slug', array('class' => 'text-danger')); ?>      
             </div>
              <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
@@ -276,7 +276,7 @@ title.on('keyup', function() {
 });
 </script>
 <script type="text/javascript">
- var tags = $('#CmsvideoVideo_tag_name'),
+ var tags = $('#CmsvideoVideo_tag_slug'),
     keywords = $('#CmsvideoVideo_video_keywords');
 
 tags.on('keyup', function() {

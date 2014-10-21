@@ -112,7 +112,7 @@
                 <?php echo $form->error($ModelVideo, 'player_type'); ?>
             </div>
             <div class="form-group">
-                <?php echo $form->labelEx($ModelVideo, 'tag_name'); ?>
+                <?php echo $form->labelEx($ModelVideo, 'tag_slug'); ?>
                 <?php
                 $tagi = Tags::model()->findAll(
                     'tag_idvideo LIKE :Id',
@@ -124,8 +124,8 @@
                         <div class="panel-body">
                         <?php foreach($tagi as $data) { ?>
                     
-                        <div class="checkbox-inline checkbox-tag" id="<?php echo $data->tag_name;?>">
-                        <input type="checkbox" name="c" class="checkbox checkbox-tag-delete" onclick="showMe('<?php echo $data->tag_name;?>'), deleteTag(), tagname()"/>
+                        <div class="checkbox-inline checkbox-tag" id="<?php echo $data->tag_slug;?>">
+                        <input type="checkbox" name="c" class="checkbox checkbox-tag-delete" onclick="showMe('<?php echo $data->tag_slug;?>'), deleteTag(), tagname()"/>
                         <span><?php echo $data->tag_name;?></span>
                         </div>
                    
@@ -136,7 +136,7 @@
                     ")?>
                 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                   'model'=>$ModelVideo,
-                  'attribute'=>'tag_name',
+                  'attribute'=>'tag_slug',
                   'source'=>"js:function(request, response) {
                      $.getJSON('".$this->createUrl('admin/autocompletetag')."', {
                        term: extractLast(request.term)
@@ -211,7 +211,7 @@ function tagname(check) {
     $('input:checkbox:not(:checked)').each(function() {
         checked.push( $(this).next('span').text() );
     });
-        $('#CmsvideoVideo_tag_name').val(checked.join(","));
+        $('#CmsvideoVideo_tag_slug').val(checked.join(","));
 }
 function showMe(box) {
     var chboxs = document.getElementsByName("c");

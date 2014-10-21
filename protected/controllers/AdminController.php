@@ -85,7 +85,7 @@ class AdminController extends Controller
         {
             $ModelVideo->attributes=$_POST['CmsvideoVideo'];
             $ImageUpload = CUploadedFile::getInstance($ModelVideo,'video_image');
-            $Tags = explode(',',$ModelVideo->tag_name);
+            $Tags = explode(',',$ModelVideo->tag_slug);
            // if($ImageUpload != NULL || !empty($ModelVideo->video_imageurl) ) {
                 $ImageNewName = date("d-m-Y-H-i-s", time())."-".$ModelVideo->video_alias.'.jpg';
                 $ModelVideo->video_image = 'images/orginal/'.$ImageNewName;
@@ -107,21 +107,22 @@ class AdminController extends Controller
   
                 if($ModelVideo->save()) {
                     $id = $ModelVideo->primaryKey;
-                    if (!empty($ModelVideo->tag_name)) {
-                    $Tags = explode(',',$ModelVideo->tag_name);
+                    if (!empty($ModelVideo->tag_slug)) {
+                    $Tags = explode(',',$ModelVideo->tag_slug);
                     foreach($Tags as $TagValue) {
                        
                         $TagName = $ModelTags->ReplaceTagName($TagValue);
                         if(!empty($TagName)) {  
-                            if(Tags::model()->exists('tag_name = :TagName', array(":TagName"=>$TagName))) {
+                            if(Tags::model()->exists('tag_slug = :TagName', array(":TagName"=>$TagName))) {
                                 }
                                 else {
                                     $ModelTags = new Tags;
-                                    $ModelTags->tag_name = $TagName;
+                                    $ModelTags->tag_name = $TagValue;
+                                    $ModelTags->tag_slug = $TagName;
                                     $ModelTags->save();
                                     }
                                 
-                        $SelectTag = $ModelTags::model()->findByAttributes(array('tag_name'=>$TagName));
+                        $SelectTag = $ModelTags::model()->findByAttributes(array('tag_slug'=>$TagName));
                         if(empty($SelectTag->tag_idvideo)) {
                             $TagIdVideo = array();
                             array_push($TagIdVideo, $id);
@@ -142,15 +143,15 @@ class AdminController extends Controller
                         $SelectVideo = CmsvideoVideo::model()->findByPk($id);
                         if(empty($SelectVideo->video_tags)) {
                             $TagsVideo = array();
-                            array_push($TagsVideo, $TagName);
+                            array_push($TagsVideo, $SelectTag->tag_id);
                             $NewTagsVideo = serialize($TagsVideo);
                             $ModelVideo::model()->updateByPk($id, array('video_tags' => $NewTagsVideo));
                             }
                             else {
                                     $TagsVideo = unserialize($SelectVideo->video_tags);
                                     if(is_array($TagsVideo)) {
-                                        if(!in_array($TagName, $TagsVideo)) {
-                                            array_push($TagsVideo, $TagName);
+                                        if(!in_array($SelectTag->tag_id, $TagsVideo)) {
+                                            array_push($TagsVideo, $SelectTag->tag_id);
                                             $NewTagsVideo = serialize($TagsVideo);
                                             $ModelVideo::model()->updateByPk($id, array('video_tags' => $NewTagsVideo));
                                         }
@@ -214,9 +215,9 @@ class AdminController extends Controller
                 );
          
         foreach($TagDelete as $TagValue) {
-                        $TagName = $ModelTags->ReplaceTagName($TagValue->tag_name); 
-                        if(Tags::model()->exists('tag_name = :TagName', array(":TagName"=>$TagName))) {
-                            $SelectTag = $ModelTags::model()->findByAttributes(array('tag_name'=>$TagName));
+                        $TagName = $ModelTags->ReplaceTagName($TagValue->tag_slug); 
+                        if(Tags::model()->exists('tag_slug = :TagName', array(":TagName"=>$TagName))) {
+                            $SelectTag = $ModelTags::model()->findByAttributes(array('tag_slug'=>$TagName));
                             $TagArr1 = unserialize($SelectTag->tag_idvideo);
                                 if(count(array_keys($TagArr1)) <= 1) {
                                     $ModelTags::model()->deleteByPk($SelectTag->tag_id);
@@ -270,21 +271,22 @@ class AdminController extends Controller
                 }
                 $ModelVideo->ImageThumbCreate($ModelVideo->video_image, $ModelVideo->video_thumb);
                 
-                if (!empty($ModelVideo->tag_name)) {
-                    $Tags = explode(',',$ModelVideo->tag_name);
+                if (!empty($ModelVideo->tag_slug)) {
+                    $Tags = explode(',',$ModelVideo->tag_slug);
                     foreach($Tags as $TagValue) {
                        
                         $TagName = $ModelTags->ReplaceTagName($TagValue);
                         if(!empty($TagName)) {  
-                            if(Tags::model()->exists('tag_name = :TagName', array(":TagName"=>$TagName))) {
+                            if(Tags::model()->exists('tag_slug = :TagName', array(":TagName"=>$TagName))) {
                                 }
                                 else {
                                     $ModelTags = new Tags;
-                                    $ModelTags->tag_name = $TagName;
+                                    $ModelTags->tag_slug = $TagName;
+                                    $ModelTags->tag_name = $TagValue;
                                     $ModelTags->save();
                                     }
                                 
-                        $SelectTag = $ModelTags::model()->findByAttributes(array('tag_name'=>$TagName));
+                        $SelectTag = $ModelTags::model()->findByAttributes(array('tag_slug'=>$TagName));
                         if(empty($SelectTag->tag_idvideo)) {
                             $TagIdVideo = array();
                             array_push($TagIdVideo, $id);
@@ -304,15 +306,15 @@ class AdminController extends Controller
                                
                         if(empty($ModelVideo->video_tags)) {
                             $TagsVideo = array();
-                            array_push($TagsVideo, $TagName);
+                            array_push($TagsVideo, $SelectTag->tag_id);
                             $NewTagsVideo = serialize($TagsVideo);
                             $ModelVideo->video_tags = $NewTagsVideo;
                             }
                             else {
                                     $TagsVideo = unserialize($ModelVideo->video_tags);
                                     if(is_array($TagsVideo)) {
-                                        if(!in_array($TagName, $TagsVideo)) {
-                                            array_push($TagsVideo, $TagName);
+                                        if(!in_array($SelectTag->tag_id, $TagsVideo)) {
+                                            array_push($TagsVideo, $SelectTag->tag_id);
                                             $NewTagsVideo = serialize($TagsVideo);
                                             $ModelVideo->video_tags = $NewTagsVideo;
                                         }
@@ -327,8 +329,8 @@ class AdminController extends Controller
                     $TagDelete = explode(',',$ModelVideo->tag_delete);
                     foreach($TagDelete as $TagValue) {
                         $TagName = $ModelTags->ReplaceTagName($TagValue); 
-                        if(Tags::model()->exists('tag_name = :TagName', array(":TagName"=>$TagName))) {
-                            $SelectTag = $ModelTags::model()->findByAttributes(array('tag_name'=>$TagName));
+                        $SelectTag = $ModelTags::model()->findByAttributes(array('tag_slug'=>$TagName));
+                        if(Tags::model()->exists('tag_slug = :TagName', array(":TagName"=>$TagName))) {
                             $TagArr1 = unserialize($SelectTag->tag_idvideo);
                                 if(count(array_keys($TagArr1)) <= 1) {
                                     $ModelTags::model()->deleteByPk($SelectTag->tag_id);
@@ -341,15 +343,14 @@ class AdminController extends Controller
                                     }
                                 }
                             
-                         if($ModelVideo::model()->exists('video_id = :IdVideo AND video_tags LIKE :TagName', array(":TagName" => '%"'.$TagName.'"%', ":IdVideo" => $id))) {
+                         if($ModelVideo::model()->exists('video_id = :IdVideo AND video_tags LIKE :TagName', array(":TagName" => '%"'.$SelectTag->tag_id.'"%', ":IdVideo" => $id))) {
                             $SelectVideo = CmsvideoVideo::model()->findByPk($id);
-                            $VideoTagArr1[] = $TagName;
+                            $VideoTagArr1[] = $SelectTag->tag_id;
                             $VideoTagArr2 = unserialize($SelectVideo->video_tags);
                             $VideoDelDiff =  array_diff($VideoTagArr2, $VideoTagArr1);
                             $NewTagVideo = serialize($VideoDelDiff);
                             $ModelVideo::model()->updateByPk($id, array('video_tags' => $NewTagVideo));
-                         }
-                            
+                         }                           
                     }
                 }   
                 $VideoUpdate = true;

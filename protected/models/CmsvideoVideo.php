@@ -2,7 +2,7 @@
 class CmsvideoVideo extends CActiveRecord
 {
     public $tag_id;
-    public $tag_name;
+    public $tag_slug;
     public $tag_delete;
     public $id;
     public $video_imageurl;
@@ -24,7 +24,7 @@ class CmsvideoVideo extends CActiveRecord
             array('video_title', 'length', 'max'=>65),
            // array('video_alias, video_description, video_keywords', 'length', 'max'=>255),
             array('video_alias, video_description, video_imageurl', 'length', 'max'=>255),
-            array('video_keywords, tag_delete, tag_name', 'length', 'max'=>500),
+            array('video_keywords, tag_delete, tag_slug', 'length', 'max'=>500),
             array('video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
             array('video_image', 'file',
                 'allowEmpty'=>true,
@@ -78,7 +78,7 @@ class CmsvideoVideo extends CActiveRecord
             'player_type' => 'Typ playera',
             'video_descriptions' => 'Opis',
             'video_keywords' => 'Słowa kluczowe',
-            'tag_name' => 'Tagi'
+            'tag_slug' => 'Tagi'
         );
     }
    
@@ -180,7 +180,7 @@ class CmsvideoVideo extends CActiveRecord
 //    public $video_keywords;
 //    public $video_tags;
 //    public $tag_id;
-//    public $tag_name;
+//    public $tag_slug;
 //    public $tag_delete;
 //
 //    public function rules() {
@@ -189,7 +189,7 @@ class CmsvideoVideo extends CActiveRecord
 //            array('video_category', 'numerical', 'integerOnly'=>true),
 //            array('video_1080p, video_480p, video_720p', 'video_attribute'),
 //            array('video_title', 'length', 'max'=>65),
-//            array('video_alias, video_description, video_keywords, tag_delete, tag_name', 'length', 'max'=>255),
+//            array('video_alias, video_description, video_keywords, tag_delete, tag_slug', 'length', 'max'=>255),
 //            array('video_image, video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update', 'maxSize'=>'204800'),
 //        );
 //    }
@@ -226,7 +226,7 @@ class CmsvideoVideo extends CActiveRecord
 //            'player_type' => 'Typ playera',
 //            'video_descriptions' => 'Opis',
 //            'video_keywords' => 'Słowa kluczowe',
-//            'tag_name' => 'Tagi'
+//            'tag_slug' => 'Tagi'
 //        );
 //    }
 //    
@@ -360,7 +360,7 @@ class CmsvideoVideo extends CActiveRecord
 //        $AddVideo->bindValue(':PlayerType', $this->player_type, PDO::PARAM_STR);
 //        $AddVideo->bindValue(':VideoDescription', $this->video_description, PDO::PARAM_STR);
 //        $AddVideo->bindValue(':VideoKeywords', $this->video_keywords, PDO::PARAM_STR);
-//       /* if (empty($this->tag_name) )
+//       /* if (empty($this->tag_slug) )
 //        { $AddVideo->bindValue(':TagName', serialize(array()), PDO::PARAM_STR);}
 //        * 
 //        */
