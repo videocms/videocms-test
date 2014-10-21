@@ -42,15 +42,6 @@ class AdminController extends Controller
     }
     
     public function actionTest() {
-         $ModelTags = new Tags;
-        $id = '362';
-        $TagDelete = $ModelTags::model()->findAll(
-                    'tag_idvideo LIKE :Id',
-                    array(':Id' => '%"'.$id.'"%')
-                );
-                foreach ($TagDelete as $data) {
-                    echo $data->tag_name;
-                }
     }
     
     public function actionIndex() {
