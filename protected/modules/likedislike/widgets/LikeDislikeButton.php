@@ -23,7 +23,7 @@ class LikeDislikeButton extends CWidget
 	{
 
 		//if(!Yii::app()->user->isGuest){
-		$assetsurl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('likedislike.assets') );
+		$assetsurl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('likedislikelik.assets') );
 		Yii::app()->clientScript->registerScriptFile($assetsurl.'/js/likedislike.js', CClientScript::POS_HEAD);
 		?>
 		<span>
