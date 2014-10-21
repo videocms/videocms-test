@@ -129,12 +129,15 @@
               <a href="/"><img src="http://alexie.pl/logo.png" alt="tekst"></a>
          </div>
         <div class="col-xs-1 col-sm-1" style="padding-top:7px;"><button id="showLeft" class="btn btn-default"><span class="glyphicon glyphicon-align-justify"></span></button></div>
-    <div class="col-xs-6 col-sm-6" style="padding-top:7px;">    
-      <div class="input-group">
-          
-              <div class="like" style="display: none;"><img src="/css/img/dislike-ico-h.png"></div>
-                  <div class="dis-like" style="display: none;"><img src="/css/img/dislike-ico.png"></div>
-          
+    <div class="col-xs-6 col-sm-6" style="padding-top:7px;">
+        
+        <div class="like" style="display: none;"><div class="col-xs-1" style="padding-top: 6px;"><img src="/css/img/dislike-ico-h.png"></div></div>
+        <div class="dis-like" style="display: none;"><div class="col-xs-1" style="padding-top: 6px;"><img src="/css/img/dislike-ico.png"></div></div>
+        <div class="dis-like-dis" style="display: none;"><div class="col-xs-1" style="padding-top: 6px;"><img src="/css/img/like-ico.png"></div></div>
+        <div class="like-dis" style="display: none;"><div class="col-xs-1" style="padding-top: 6px;"><img src="/css/img/like-ico-h.png"></div></div>
+      
+        
+      <div class="input-group"> 
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Szukaj</button>
       </span>
