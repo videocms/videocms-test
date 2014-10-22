@@ -182,8 +182,10 @@ class SiteController extends Controller
         $VideoList = CmsvideoVideo::model()->findAll($criteria);
         
         $TagsId = unserialize($Model->video_tags);
-        if(is_array($TagsId)) {
-            $ModelTags = Tags::model()->findAllBySQL('SELECT tag_name FROM videocms_tags WHERE tag_id IN (' . implode(',', array_map('intval', $TagsId)) . ')');
+        $ModelTags = array();
+        if (is_array($TagsId)) {
+        $TagsIdArr = join(',',$TagsId);  
+            $ModelTags = Tags::model()->findAllBySQL('SELECT tag_name FROM videocms_tags WHERE tag_id IN (' .$TagsIdArr. ')');
         }
                    
         $session = Yii::app()->getSession();

@@ -57,18 +57,25 @@
     }  
 .video-overlay-enabled{
         //background: #1b1b1b;
-        background: #000;
+        background: rgba(0, 0, 0, 1);
         width:100%;
         position:absolute;
         left:0;
         z-index:1;
-        -moz-transition: background-color .3s ease;
-        -webkit-transition: background-color .3s ease;
-        transition: background-color .3s ease;
-    }  
+        -moz-transition: background-color .3s ease-in-out,background-image .3s ease-in-out;
+        -webkit-transition: background-color .3s ease-in-out,background-image .3s ease-in-out;
+        transition: background-color .3s ease-in-out,background-image .3s ease-in-out;
+    } 
+    .video-overlay {
+        background: rgba(0, 0, 0, 0) !important;
+        -moz-transition: background-color .3s ease-in-out,background-image .3s ease-in-out;
+        -webkit-transition: background-color .3s ease-in-out,background-image .3s ease-in-out;
+        transition: background-color .3s ease-in-out,background-image .3s ease-in-out;
+    }
 .watch-medium, .watch-medium .vjs-tech {
         width: 100%;
         padding-top:0;
+        
     }   
 .watch-medium .vjs-fullscreen .vjs-tech {
       //  height: auto !important;
@@ -85,6 +92,9 @@ ul, menu, dir {
     }
     
 /* Sidebar video */
+#sidebar-modules, .col-normal, .col-normal2 {
+    margin-top: 10px;
+    }
 #sidebar-modules .watch-sidebar-section {
     position: relative;
     z-index: 2;

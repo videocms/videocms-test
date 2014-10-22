@@ -259,13 +259,15 @@ foreach ($ModelCategories as $ModelCategoryShow)
             echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$Model->video_category], 
             array('category/'.$Model->video_category)).'</p>';
             }
-//            foreach ($ModelTags as $Tag) {
-//                echo $Tag->tag_name;
-//            }
+            echo 'Tagi';
+            foreach ($ModelTags as $Tag) {
+                echo $Tag->tag_name;
+            }
         ?>
     </div>
     
 <script type="text/javascript">
+   
 	var vid1 = videojs( 'example-2', { plugins : { resolutionSelector : {
             // Pass any options here
             default_res : '480'
@@ -279,17 +281,42 @@ foreach ($ModelCategories as $ModelCategoryShow)
 				console.log( 'Current Res is: ' + player.getCurrentRes() );
 			});
                     });
-                    xmlDoc=loadXMLDoc('/vastxml/?vid=<?php echo $Model->video_id; ?>.xml');
-                    x=xmlDoc.getElementsByTagName("id");
-                    if (x !== NULL)
+                     function loadXMLDoc(dname) 
                     {
-	vid1.ads();
-	vid1.vast({
-            url: '/vastxml/?vid=<?php echo $Model->video_id; ?>.xml'
-        });
-        }
+                    if (window.XMLHttpRequest)
+                      {
+                      xhttp=new XMLHttpRequest();
+                      }
+                    else
+                      {
+                      xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                      }
+                    xhttp.open("GET",dname,false);
+                    xhttp.send();
+                    return xhttp.responseXML;
+                    }
+                    
+                    xmlDoc=loadXMLDoc('/vastxml/?vid=<?php echo $Model->video_id; ?>.xml');
+                    x=xmlDoc.getElementsByTagName("Ad")[0].getAttributeNode("id");
+                    IdVast=x.nodeValue;
+                    if (IdVast)
+                    {
+                        vid1.ads();
+                        vid1.vast({
+                            url: '/vastxml/?vid=<?php echo $Model->video_id; ?>.xml'
+                        });
+                    }
 </script>
-<?php  ?>
+<?php
+?>
+<script>
+
+//xmlDoc=loadXMLDoc("/vastxml/?vid=4649.xml");
+//
+//
+//txt=x.nodeValue;
+//document.write(txt);
+</script>
 </div>
 <!--<script type="text/javascript">
 
