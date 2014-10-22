@@ -72,7 +72,7 @@
         <h4>Najnowsze</h4>
     </div>
     <?php foreach ($Model as $ModelSite) : ?>
-	<div class="col-md-2">
+	<div class="col-xs-6 col-sm-3 col-md-2">
 		<div class="vc-lockup-video">
 		
 				  <div class="vc-lockup-thumbnail">

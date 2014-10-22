@@ -202,7 +202,7 @@ foreach ($ModelCategories as $ModelCategoryShow)
                                 </span>
                             </div>
                             
-                            <div class="">
+                            <div class="content-stat">
                                 <h5 class="title"><?php echo $RelatedVideo->video_title; ?></h5>
                                 <h5 class="stat"><small>Autor</small></h5>
                                 <h5 class="stat"><small><?php echo $RelatedVideo->video_views; ?> wyświetlenia</small></h5>

@@ -121,6 +121,9 @@ ul, menu, dir {
     position: relative;
     margin-bottom: 15px;
     }
+    .video-list-item .content-stat {
+    overflow: hidden;
+    }
 .video-list-item a {
     position: relative;
     display: block;
@@ -237,6 +240,7 @@ ul, menu, dir {
 .vc-thumb-clip img, .vc-thumb-clip .vertical-align {
     display: inline-block;
     vertical-align: middle;
+    min-height: 65px;
     }
 .vc-thumb .vertical-align {
     height: 100%;
