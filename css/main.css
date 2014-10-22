@@ -11,6 +11,7 @@
     background: #FFFFFF;
     padding-bottom: 5px;
     margin-bottom: 15px;
+    padding-top: 1px;
     }
 @media (min-width: 320px) {
   .video-overlay-enabled, .watch-medium, .watch-medium .vjs-tech {
@@ -101,10 +102,12 @@ ul, menu, dir {
     
 /* Sidebar video */
 #sidebar-modules {
-    padding: 15px 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
     }
 #sidebar-modules, .col-normal, .col-normal2 {
     margin-top: 10px;
+    margin-bottom: 5px;
     }
 #sidebar-modules .watch-sidebar-section {
     position: relative;
@@ -120,7 +123,6 @@ ul, menu, dir {
     }
 .video-list-item a {
     position: relative;
-    padding: 0 5px;
     display: block;
     overflow: hidden;
     color: #333;
@@ -129,13 +131,14 @@ ul, menu, dir {
 .video-list-item .title {
     display: block;
     margin-top: 0px;
-    font-size: 12px;
+    padding-right: 15px;
+    font-size: 13px;
     font-weight: bold;
     line-height: 1.2;
     color: #000;
     text-transform: lowercase;
     max-height: 2.4em;
-    margin-bottom: 0px;
+    margin-bottom: 3px;
     overflow: hidden;
     cursor: pointer;
     cursor: hand;
@@ -145,7 +148,7 @@ ul, menu, dir {
 }
 .video-list-item .stat {
     display: block;
-    margin: 5px 0 0 0;
+    margin: 0 0 0 0;
     white-space: nowrap;
     }
 .video-list-item .vc-thumb {

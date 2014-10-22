@@ -181,7 +181,7 @@ foreach ($ModelCategories as $ModelCategoryShow)
         <!-- VIDEO -->
     </div>
     
-    <div id="sidebar-modules" class="col-md-4 column float-right">
+    <div id="sidebar-modules" class="col-xs-5 col-md-4 column float-right">
 
         <div class="watch-sidebar-section">
             <div id="relatedVideos" class="watch-sidebar-body">
@@ -189,8 +189,8 @@ foreach ($ModelCategories as $ModelCategoryShow)
                     <?php foreach($VideoList as $RelatedVideo) : ?>
                     <div class="row video-list-item related-list-item">
                         <a href="<?php echo $RelatedVideo->video_id; ?>" class="">
-                            <div class="col-md-5">
-                                <span class="vc-thumb  is-small">
+                            <div class="col-xs-7 col-md-5">
+                                <span class="vc-thumb">
                                     <span class="video-thumb  vc-thumb">
                                         <span class="vc-thumb-default">
                                           <span class="vc-thumb-clip">
@@ -202,7 +202,7 @@ foreach ($ModelCategories as $ModelCategoryShow)
                                 </span>
                             </div>
                             
-                            <div class="col-md-7">
+                            <div class="">
                                 <h5 class="title"><?php echo $RelatedVideo->video_title; ?></h5>
                                 <h5 class="stat"><small>Autor</small></h5>
                                 <h5 class="stat"><small><?php echo $RelatedVideo->video_views; ?> wyświetlenia</small></h5>
@@ -214,8 +214,8 @@ foreach ($ModelCategories as $ModelCategoryShow)
               <?php $this->widget("ext.yiinfinite-scroll.YiinfiniteScroller", array('contentSelector' => '#relatedVideos', "itemSelector" => "div.row.video-list-item.related-list-item",'loadingText' => 'Ładuję...', 'donetext' => 'Wszystko zostało wyświetlone', "pages" => $pages)); ?>
         </div>     
     </div>
-    
-    <div class="col-md-8 col-normal2">
+     
+    <div class="col-xs-7 col-md-8 col-normal2">
         <div class="column">
         <div class="col-md-12">
             <?php echo '<h1 class="page-video">'.$Model->video_title.'</h1>'; ?>

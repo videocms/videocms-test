@@ -23,6 +23,7 @@ class YiinfiniteScroller extends CBasePager {
         'donetext'              => null,
         'itemSelector'          => null,
         'errorCallback'         => null,
+      //  'localMode'             => true,
     );
 
     private $_default_options = array(

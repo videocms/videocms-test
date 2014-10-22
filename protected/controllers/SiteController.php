@@ -178,9 +178,9 @@ class SiteController extends Controller
         $criteria->params=array(':Views'=>0, ':IdVideo'=>$id);
         $total = CmsvideoVideo::model()->count();
         $pages = new CPagination($total);
-        $pages->pageSize = 10;
+        $pages->pageSize = 7;
         $pages->applyLimit($criteria);
-        $VideoList = CmsvideoVideo::model()->findAll($criteria);
+        $VideoList = CmsvideoVideo::model()->findAll($criteria);  
         
         $TagsId = unserialize($Model->video_tags);
         $ModelTags = array();
