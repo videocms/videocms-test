@@ -189,12 +189,12 @@ foreach ($ModelCategories as $ModelCategoryShow)
                     <?php foreach($VideoList as $RelatedVideo) : ?>
                     <div class="row video-list-item related-list-item">
                         <a href="<?php echo $RelatedVideo->video_id; ?>" class="">
-                            <div class="col-xs-6 col-md-4">
+                            <div class="col-md-5">
                                 <span class="vc-thumb  is-small">
-                                    <span class="video-thumb  vc-thumb vc-thumb-120">
+                                    <span class="video-thumb  vc-thumb">
                                         <span class="vc-thumb-default">
                                           <span class="vc-thumb-clip">
-                                            <img aria-hidden="true" alt="<?php echo $RelatedVideo->video_title; ?>" src="/../<?php echo $RelatedVideo->video_thumb; ?>" width="120">
+                                            <img class="img-responsive" alt="<?php echo $RelatedVideo->video_title; ?>" src="/../<?php echo $RelatedVideo->video_thumb; ?>">
                                             <span class="vertical-align"></span>
                                           </span>
                                         </span>
@@ -202,13 +202,13 @@ foreach ($ModelCategories as $ModelCategoryShow)
                                 </span>
                             </div>
                             
-                            <div class="col-xs-12 col-sm-6 col-md-8">
+                            <div class="col-md-7">
                                 <h5 class="title"><?php echo $RelatedVideo->video_title; ?></h5>
                                 <h5 class="stat"><small>Autor</small></h5>
                                 <h5 class="stat"><small><?php echo $RelatedVideo->video_views; ?> wyświetlenia</small></h5>
                             </div>
                         </a>
-                    </div>
+                    </div>  
                     <?php endforeach; ?>
             </div> 
               <?php $this->widget("ext.yiinfinite-scroll.YiinfiniteScroller", array('contentSelector' => '#relatedVideos', "itemSelector" => "div.row.video-list-item.related-list-item",'loadingText' => 'Ładuję...', 'donetext' => 'Wszystko zostało wyświetlone', "pages" => $pages)); ?>
@@ -216,8 +216,9 @@ foreach ($ModelCategories as $ModelCategoryShow)
     </div>
     
     <div class="col-md-8 col-normal2">
-        <div class="tab-cnt">
-            <?php echo '<h1 class="page-header">'.$Model->video_title.'</h1>'; ?>
+        <div class="column">
+        <div class="col-md-12">
+            <?php echo '<h1 class="page-video">'.$Model->video_title.'</h1>'; ?>
                 <div class="tab-tr" id="t1">
                     <label>
                        <input type="checkbox" name="widescreen" class="ios-switch green  bigswitch" id="widescreen_mode" onchange="set_check();" />
@@ -248,22 +249,29 @@ foreach ($ModelCategories as $ModelCategoryShow)
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="clearfix"></div>
         </div>
-          
-        <p class="data">Data publikacji: <?php echo $Model->video_date; ?></p>
-        <p class="tresc"><?php echo $Model->video_text; ?></p>
-        </p>
-        <?php
-        if (!empty($Category[$Model->video_category]))
-            {
-            echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$Model->video_category], 
-            array('category/'.$Model->video_category)).'</p>';
-            }
-            echo 'Tagi';
-            foreach ($ModelTags as $Tag) {
-                echo $Tag->tag_name;
-            }
-        ?>
+        
+        <div class="column">
+            <div class="col-md-12">
+                <h5 class="data">Data publikacji: <?php echo $Model->video_date; ?></h5>
+                <p class="tresc"><?php echo $Model->video_text; ?></p>
+                
+                <?php
+                if (!empty($Category[$Model->video_category]))
+                    {
+                    echo '<p class="kategoria"> Kategoria: '.CHtml::link($Category[$Model->video_category], 
+                    array('category/'.$Model->video_category)).'</p>';
+                    }
+                    echo 'Tagi';
+                    foreach ($ModelTags as $Tag) {
+                        echo $Tag->tag_name;
+                    }
+                ?>
+            </div>
+            <div class="clearfix"></div>
+        </div>
     </div>
     
 <script type="text/javascript">
