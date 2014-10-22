@@ -183,7 +183,7 @@ class SiteController extends Controller
         
         $TagsId = unserialize($Model->video_tags);
         $ModelTags = array();
-        if (is_array($TagsId)) {
+        if (is_array($TagsId) && !empty($TagsId)) {
         $TagsIdArr = join(',',$TagsId);  
             $ModelTags = Tags::model()->findAllBySQL('SELECT tag_name FROM videocms_tags WHERE tag_id IN (' .$TagsIdArr. ')');
         }
