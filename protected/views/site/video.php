@@ -181,7 +181,7 @@ foreach ($ModelCategories as $ModelCategoryShow)
         <!-- VIDEO -->
     </div>
     
-    <div id="sidebar-modules" class="col-md-4 float-right">
+    <div id="sidebar-modules" class="col-md-4 column float-right">
 
         <div class="watch-sidebar-section">
             <div id="relatedVideos" class="watch-sidebar-body">

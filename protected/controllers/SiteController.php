@@ -65,14 +65,15 @@ class SiteController extends Controller
         $ModelCategories = CmsvideoCategories::model()->findAll();
         $Criteria = new CDbCriteria(
                     array(
-                        'order' => 'video_id DESC'
+                        'order' => 'video_id DESC',
+                        'limit' => '12',
                     )
                     );
-        $Count = CmsvideoVideo::model()->count($Criteria);
-        $Site = new CPagination($Count);
-        $Site->pageSize = 10;
-        $Site->applyLimit($Criteria);
-        
+//        $Count = CmsvideoVideo::model()->count($Criteria);
+//        $Site = new CPagination($Count);
+//        $Site->pageSize = 10;
+//        $Site->applyLimit($Criteria);
+//        
         $Model = CmsvideoVideo::model()->findAll($Criteria);
         
         $DataSlider = $ModelSlider->DownloadSlider();

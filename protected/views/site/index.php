@@ -61,34 +61,64 @@
 </div>
 </div>
 <div class="container">
-<div class="row">
-    <div class="col-lg-12">
-        <h3 class="page-header">Najnowsze</h3>
-    </div>
+<div class="row column">
 <?php
     foreach ($ModelCategories as $ModelCategoryShow)
         {
           $Category[$ModelCategoryShow->id] = $ModelCategoryShow->name;  
         }
-
-    foreach($Model as $ModelSite)
-        {
-            echo '<div class="col-sm-3 col-xs-6 col-md-3">';
-            echo CHtml::link('<img id="image" src="/'.$ModelSite->video_thumb.'" class="img-rounded" alt="'.$ModelSite->video_title.'" style="height: 150px;">', array('video/'.$ModelSite->video_id));
-            echo '<h3>'.CHtml::link($ModelSite->video_title, array('video/'.$ModelSite->video_id)).'</h3>';
-            echo '<h5 style="padding-bottom: 5px;"><small>';
-            echo substr($ModelSite->video_text, 0, 400);
-            echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
-            
-
-        if($Category[$ModelSite->video_category] != '')
-            {
-                    echo '<p class="category">Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
-                            array('category/'.$ModelSite->video_category)).'</p>';
-            }
-            echo '</small></h5>';
-            echo '</div>';
-        }
+?>
+    <div class="col-md-12">
+        <h4>Najnowsze</h4>
+    </div>
+    <?php foreach ($Model as $ModelSite) : ?>
+	<div class="col-md-2">
+		<div class="vc-lockup-video">
+		
+				  <div class="vc-lockup-thumbnail">
+                                      <a href="video/<?php echo $ModelSite->video_id; ?>" title="<?php echo $ModelSite->video_title; ?>">   
+						<span class="video-thumb  vc-thumb vc-thumb-196 vc-thumb-fluid">
+						  <span class="vc-thumb-default">
+							<span class="vc-thumb-clip">
+							  <img class="img-responsive" src="/<?php echo $ModelSite->video_thumb; ?>" alt="">
+								<span class="vertical-align"></span>
+							</span>
+						  </span>
+						</span> 
+						</a>
+					</div>
+				<div class="vc-lockup-content">
+					<h3 class="title">
+                                        <?php echo CHtml::link($ModelSite->video_title, array('video/'.$ModelSite->video_id), array('class'=>'vc-lockup-link vc-ui-ellipsis', 'title'=>$ModelSite->video_title));?>
+					</h3>
+                                        <h5 class="stat"><small>Autor</small></h5>
+                                        <h5 class="stat"><small><?php echo $ModelSite->video_views; ?> wyświetlenia</small></h5>
+				</div>
+		
+		</div>
+            </div>
+    <?php endforeach; ?>
+    
+        
+<?php       
+//    foreach($Model as $ModelSite)
+//        {
+//            echo '<div class="col-sm-3 col-xs-6 col-md-3">';
+//            echo CHtml::link('<img id="image" src="/'.$ModelSite->video_thumb.'" class="img-rounded" alt="'.$ModelSite->video_title.'" style="height: 150px;">', array('video/'.$ModelSite->video_id));
+//            echo '<h3>'.CHtml::link($ModelSite->video_title, array('video/'.$ModelSite->video_id)).'</h3>';
+//            echo '<h5 style="padding-bottom: 5px;"><small>';
+//            echo substr($ModelSite->video_text, 0, 400);
+//            echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
+//            
+//
+//        if($Category[$ModelSite->video_category] != '')
+//            {
+//                    echo '<p class="category">Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
+//                            array('category/'.$ModelSite->video_category)).'</p>';
+//            }
+//            echo '</small></h5>';
+//            echo '</div>';
+//        }
 
         echo '<br /><br />';
         echo '</div>';
@@ -102,6 +132,7 @@
         ),
             )) 
 ?>
+</div>
 </div>
      <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/js/jssor.slider.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/js/jssor.js"></script>

@@ -4,6 +4,12 @@
   margin-right: auto;
   margin-left: auto;
 }
+.column {
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.25);
+    background: #FFFFFF;
+    }
 @media (min-width: 320px) {
   .video-overlay-enabled, .watch-medium, .watch-medium .vjs-tech {
       height: 203px;
@@ -94,11 +100,15 @@ ul, menu, dir {
 /* Sidebar video */
 #sidebar-modules, .col-normal, .col-normal2 {
     margin-top: 10px;
+    padding: 15px 0;
     }
 #sidebar-modules .watch-sidebar-section {
     position: relative;
     z-index: 2;
     margin: 0 0 15px 0;
+    }
+#sidebar-modules .watch-sidebar-body .video-list-item:last-child {
+    margin-bottom: 0;
     }
 .video-list-item {
     position: relative;
@@ -138,6 +148,47 @@ ul, menu, dir {
     float: left;
     margin: 0 0 0 0;
     }
+.vc-lockup-video {
+    margin-bottom: 15px;
+    }
+.vc-lockup-content {
+    overflow: hidden;
+    position: relative;
+    }
+.vc-lockup-content .title {
+    font-size: 13px;
+    margin-top: 5px;
+    margin-bottom: 0;
+    text-transform: lowercase;
+    }
+.vc-lockup-content .title::first-letter {
+    text-transform: uppercase;
+    }
+.vc-lockup-content .stat {
+    display: block;
+    margin: 0 0 0 0;
+    white-space: nowrap;
+    }
+    .vc-lockup-content .stat small {
+    color: #000;  
+    }
+.vc-lockup-link {
+    background-color: #fff;
+    display: block;
+    line-height: 1.3em;
+    max-height: 2.4em;
+    -webkit-line-clamp: 2;
+    position: relative;
+    word-wrap: break-word;
+    font-weight: bold;
+    }
+.vc-ui-ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    white-space: normal; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .vc-thumb {
     position: relative;
     display: inline-block;
@@ -183,10 +234,20 @@ ul, menu, dir {
 .vc-thumb .vertical-align {
     height: 100%;
     }
-#sidebar-modules .watch-sidebar-body .video-list-item:last-child {
-    margin-bottom: 0;
-    }
+
     
+.vc-shelf-grid-item {
+    width: 196px !important;
+    margin-right: 10px;
+    vertical-align: top;
+    word-wrap: break-word;
+    display: inline-block;
+    }
+   
+    
+    
+    
+/* Like, DiskLike */
 .tab-cnt{width: auto; height:auto; padding: 5px; background-color: #fafafa; overflow: auto; }
 .bg-green{ background-color: #559900;}
 .bg-red{background-color: #c9231a;}
