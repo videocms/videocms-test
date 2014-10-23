@@ -6,6 +6,7 @@
    $.noConflict();
    // Code that uses other library's $ can follow here.
    </script>
+   <div id="context" data-toggle="context" data-target="#context-menu">
    <div class="container">
    <video id="example-2" class="video-js vjs-default-skin vjs-playing vjs-fullscreen" preload="auto" controls width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $Model->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
        <?php      
@@ -40,7 +41,7 @@
         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
     </video>
 
-   </div>
+   </div></div>
 <!--<div class="afs_ads">&nbsp;</div>
 <script>
 (function() {
@@ -124,5 +125,19 @@
     //vid1.vast({
     //  url: 'http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=229&LR_SCHEMA=vast2'
    // });
- 
+ $('.context').contextmenu();
     </script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-contextmenu.js"></script>
+<div id="context-menu">
+  <ul class="dropdown-menu" role="menu">
+    <li><a tabindex="-1" href="http://<?php echo Yii::app()->request->getBaseUrl(true); ?>/video/<?php echo $Model->video_id; ?>" onclick="clickone()">Video</a></li>
+    <li><a tabindex="-1" href="#">VideoCMS</a></li>
+  </ul>
+</div>
+<script>
+function clickone() {
+    window.open("<?php echo Yii::app()->request->getBaseUrl(true); ?>/video/<?php echo $Model->video_id; ?>");
+}
+</script>
+
+

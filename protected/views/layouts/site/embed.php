@@ -28,6 +28,7 @@
             width: 75%;
           }
         </style>
+                <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
   <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
   <!--
 <script>
