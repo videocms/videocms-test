@@ -20,6 +20,8 @@ class SiteController extends Controller
     public $slider_arrowkeynavigation;
     public $slider_lazyloading;
     public $disqus_shortname;
+    public $ogtype;
+    public $videoID;
     public $layout='site/index';
     //public $defaultAction = 'cmsvideo';
     
@@ -151,7 +153,8 @@ class SiteController extends Controller
         {
             exit;
         }
-       
+        $this->ogtype = "yes";
+        $this->videoID = $id;
         $ModalSeo = new CmsvideoSettings;
         $DataSeo = $ModalSeo->DownloadSettings();
         $ModelCategories = CmsvideoCategories::model()->findAll();
@@ -210,14 +213,14 @@ class SiteController extends Controller
         }
       
         
-        foreach ($Model as $Video)
-        {
-            $this->pageTitle = $Video->video_title;
-            $this->pageMetaKeywords = $Video->video_keywords;
-            $this->pageMetaDescription = $Video->video_description;
-            $this->pageMetaOgImage = $Video->video_thumb;
+       // foreach ($Model as $Video)
+      //  {
+            $this->pageTitle = $Model->video_title;
+            $this->pageMetaKeywords = $Model->video_keywords;
+            $this->pageMetaDescription = $Model->video_description;
+            $this->pageMetaOgImage = $Model->video_image;
            // $this->pageMetaDescription = $Video['video_description'];
-        }
+        //}
        
         
         $this->render('video', array(
@@ -295,15 +298,15 @@ class SiteController extends Controller
         $this->layout='site/embed';
         $ModalSeo = new CmsvideoSettings;
         $DataSeo = $ModalSeo->DownloadSettings();
-        $DataCategory = CmsvideoCategories::model()->findAll();
-        $DataVideo = CmsvideoVideo::model()->findAll('video_id=:IdVideo', array(':IdVideo'=>$id));
+       // $ModelCategories = CmsvideoCategories::model()->findAll();
+        $Model = CmsvideoVideo::model()->find('video_id=:IdVideo', array(':IdVideo'=>$id));
         
         
-        $session = Yii::app()->getSession();
+       $session = Yii::app()->getSession();
         $video_arr = array();
         $ses_arr = array();
 
-         if($session['video_arr']) {
+        if($session['video_arr']) {
             $ses_arr=$session['video_arr']; 
             }
             if(!in_array($id, $ses_arr)) {
@@ -320,32 +323,34 @@ class SiteController extends Controller
                 $session['video_arr']=$video_arr;
             }
         
+            
         foreach ($DataSeo as $Seoo)
         {
             $this->pageMetaRobots = $Seoo['settings_robots'];
+            $this->disqus_shortname = $Seoo['disqus_shortname'];
         }
+      
         
-       // $ModelCategory = new CmsvideoCategories;
-        //$DataCategory = $ModelCategory->DownloadCategories();
-        //$ModelVast = new VastVideo;
-        //$DataVast = $ModelVast->DownloadVast();
-       // $ModelVideo = new CmsvideoVideo;
-       // $DataVideo = $ModelVideo->DownloadVideo($id);
-        //$DataViews = $ModelVideo->UpdateViews($id);
-        
-        $this->pageTitle='embed-video-site';
-        foreach($DataVideo as $Video)
-        {
-            
-            $this->pageMetaKeywords = $Video->video_keywords;
-            $this->pageMetaDescription = $Video->video_description;
-            $this->pageMetaOgImage = $Video->video_thumb;
+       // foreach ($Model as $Video)
+      //  {
+            $this->pageTitle = $Model->video_title;
+            $this->pageMetaKeywords = $Model->video_keywords;
+            $this->pageMetaDescription = $Model->video_description;
+            $this->pageMetaOgImage = $Model->video_image;
            // $this->pageMetaDescription = $Video['video_description'];
-        }
+        //}
+        $this->pageTitle='embed-video-site';
+        
+            
+           // $this->pageMetaKeywords = $Model->video_keywords;
+           // $this->pageMetaDescription = $Model->video_description;
+          //  $this->pageMetaOgImage = $Model->video_thumb;
+           // $this->pageMetaDescription = $Video['video_description'];
+       
         
         $this->render('embed', array(
-            'DataCategory' => $DataCategory,
-            'DataVideo' => $DataVideo,
+            //'DataCategory' => $DataCategory,
+            'Model' => $Model,
             //'DataViews' => $DataViews,
         ));
              
