@@ -214,7 +214,6 @@ foreach ($ModelCategories as $ModelCategoryShow)
               <?php $this->widget("ext.yiinfinite-scroll.YiinfiniteScroller", array('contentSelector' => '#relatedVideos', "itemSelector" => "div.row.video-list-item.related-list-item",'loadingText' => 'Ładuję...', 'donetext' => 'Wszystko zostało wyświetlone', "pages" => $pages)); ?>
         </div>     
     </div>
-     <?php var_dump(Yii::app()->getBaseUrl(true)); ?>
     <div class="col-xs-7 col-md-8 col-normal2">
         <div class="column">
         <div class="col-md-12" itemscope itemid="" itemtype="http://schema.org/VideoObject">
