@@ -45,48 +45,32 @@ class SiteController extends Controller
             $this->slider_arrowkeynavigation = $Seoo['slider_arrowkeynavigation'];
             $this->slider_lazyloading = $Seoo['slider_lazyloading'];
         }
-        //$this->pageTitle='Strona główna';
-         
-//        $ModelCategories = new CmsvideoCategories;
-//        $DataCategory = $ModelCategories->DownloadCategories();
-        
-//        $ModelVideo = new CmsvideoVideo;
-//        $AmountVideo = $ModelVideo->CountAllVideo();
-        
-        //$AmountSlider = $ModelSlider->CountAllSlider();
-        
-//        $Site = new CPagination(intval($AmountVideo));
-//        $Site->pageSize = 10;
-        
-        //$SiteSlider = new CPagination(intval($AmountSlider));
-        //$SiteSlider->pageSize = 10;
-        
-//        $DataVideo = $ModelVideo->SelectVideo($Site->pageSize, $Site->currentPage);
+      
         $ModelCategories = CmsvideoCategories::model()->findAll();
-        $Criteria = new CDbCriteria(
-                    array(
-                        'order' => 'video_id DESC',
-                        'limit' => '12',
-                    )
-                    );
-//        $Count = CmsvideoVideo::model()->count($Criteria);
-//        $Site = new CPagination($Count);
-//        $Site->pageSize = 10;
-//        $Site->applyLimit($Criteria);
-//        
-        $Model = CmsvideoVideo::model()->findAll($Criteria);
+        
+        $VideoLatest = CmsvideoVideo::model()->findAll(array(
+            'select'=>'video_id, video_title, video_thumb, video_views',
+            'order' => 'video_id DESC',
+            'limit' => '12',
+        ));
+        
+        $VideoPopular = CmsvideoVideo::model()->findAll(array(
+            'select'=>'video_id, video_title, video_thumb, video_views',
+            'order' => 'video_views DESC',
+            'limit' => '6',
+        ));
+        
+        
         
         $DataSlider = $ModelSlider->DownloadSlider();
        
         $this->render('index',
                     array(
                           'ModelCategories' => $ModelCategories,
-                          'Model' => $Model,
-                         // 'DataCategory' => $DataCategory,
+                          'VideoLatest' => $VideoLatest,
+                          'VideoPopular' => $VideoPopular,
                           'DataSlider' => $DataSlider,
                           'DataSeo' => $DataSeo,
-                       //   'DataVideo' => $DataVideo,
-                          'Site' => $Site,
                           )
                   );
     }
@@ -172,10 +156,17 @@ class SiteController extends Controller
         $ModelCategories = CmsvideoCategories::model()->findAll();
         $Model = CmsvideoVideo::model()->find('video_id=:IdVideo', array(':IdVideo'=>$id));
            
-        $criteria = new CDbCriteria;
-        $criteria->select='video_id, video_title, video_thumb, video_views';
-        $criteria->condition='video_views >= :Views AND video_id != :IdVideo ORDER BY video_views DESC';
-        $criteria->params=array(':Views'=>0, ':IdVideo'=>$id);
+      
+        $criteria = new CDbCriteria(
+                    array(
+                        'select'=>'video_id, video_title, video_thumb, video_views',
+                        'condition'=>'video_views >= 0 AND video_id != :IdVideo',
+                        'order' => 'video_views DESC',
+                        //'limit' => '10',
+                        'params'=> array(':IdVideo'=>$id),
+                    ));
+        
+        
         $total = CmsvideoVideo::model()->count();
         $pages = new CPagination($total);
         $pages->pageSize = 7;

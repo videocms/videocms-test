@@ -6,10 +6,10 @@
     <!-- Slides Container -->
     <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 980px; height: 380px; overflow: hidden;">
     <?php
-        foreach($DataSlider as $ModelSite1)
+        foreach($DataSlider as $Latest1)
             {
                 echo '<div>
-                            <img u="image" src="'.$ModelSite1['slider_image'].'" />
+                            <img u="image" src="'.$Latest1['slider_image'].'" />
                             <div u="caption" t="MCLIP|B" style="position: absolute; top: 330px; left: 0px;
                                 width: 980px; height: 50px; transform: perspective(2000px);">
                                 <div style="position: absolute; top: 0px; left: 0px; width: 980px; height: 50px;
@@ -17,7 +17,7 @@
                                 </div>
                                 <div style="position: absolute; top: 0px; left: 0px; width: 980px; height: 50px;
                                     color: White; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; transform: perspective(2000px);">
-                                    '.$ModelSite1['slider_text'].'
+                                    '.$Latest1['slider_text'].'
                                 </div>
                             </div>
                       </div>';
@@ -71,16 +71,16 @@
     <div class="col-md-12">
         <h4>Najnowsze</h4>
     </div>
-    <?php foreach ($Model as $ModelSite) : ?>
+    <?php foreach ($VideoLatest as $Video) : ?>
 	<div class="col-xs-6 col-sm-3 col-md-2">
 		<div class="vc-lockup-video">
 		
 				  <div class="vc-lockup-thumbnail">
-                                      <a href="video/<?php echo $ModelSite->video_id; ?>" title="<?php echo $ModelSite->video_title; ?>">   
+                                      <a href="video/<?php echo $Video->video_id; ?>" title="<?php echo $Video->video_title; ?>">   
 						<span class="video-thumb  vc-thumb vc-thumb-196 vc-thumb-fluid">
 						  <span class="vc-thumb-default">
 							<span class="vc-thumb-clip">
-							  <img class="img-responsive" src="/<?php echo $ModelSite->video_thumb; ?>" alt="">
+							  <img class="img-responsive" src="/<?php echo $Video->video_thumb; ?>" alt="">
 								<span class="vertical-align"></span>
 							</span>
 						  </span>
@@ -89,10 +89,42 @@
 					</div>
 				<div class="vc-lockup-content">
 					<h3 class="title">
-                                        <?php echo CHtml::link($ModelSite->video_title, array('video/'.$ModelSite->video_id), array('class'=>'vc-lockup-link vc-ui-ellipsis', 'title'=>$ModelSite->video_title));?>
+                                        <?php echo CHtml::link($Video->video_title, array('video/'.$Video->video_id), array('class'=>'vc-lockup-link vc-ui-ellipsis', 'title'=>$Video->video_title));?>
 					</h3>
                                         <h5 class="stat"><small>Autor</small></h5>
-                                        <h5 class="stat"><small><?php echo $ModelSite->video_views; ?> wyświetlenia</small></h5>
+                                        <h5 class="stat"><small><?php echo $Video->video_views; ?> wyświetlenia</small></h5>
+				</div>
+		
+		</div>
+            </div>
+    <?php endforeach; ?>
+    <div class="clearfix"></div>
+    <hr>
+    <div class="col-md-12">
+        <h4>Popularne</h4>
+    </div>
+    <?php foreach ($VideoPopular as $Video) : ?>
+	<div class="col-xs-6 col-sm-3 col-md-2">
+		<div class="vc-lockup-video">
+		
+				  <div class="vc-lockup-thumbnail">
+                                      <a href="video/<?php echo $Video->video_id; ?>" title="<?php echo $Video->video_title; ?>">   
+						<span class="video-thumb  vc-thumb vc-thumb-196 vc-thumb-fluid">
+						  <span class="vc-thumb-default">
+							<span class="vc-thumb-clip">
+							  <img class="img-responsive" src="/<?php echo $Video->video_thumb; ?>" alt="">
+								<span class="vertical-align"></span>
+							</span>
+						  </span>
+						</span> 
+						</a>
+					</div>
+				<div class="vc-lockup-content">
+					<h3 class="title">
+                                        <?php echo CHtml::link($Video->video_title, array('video/'.$Video->video_id), array('class'=>'vc-lockup-link vc-ui-ellipsis', 'title'=>$Video->video_title));?>
+					</h3>
+                                        <h5 class="stat"><small>Autor</small></h5>
+                                        <h5 class="stat"><small><?php echo $Video->video_views; ?> wyświetlenia</small></h5>
 				</div>
 		
 		</div>
@@ -100,38 +132,6 @@
     <?php endforeach; ?>
     
         
-<?php       
-//    foreach($Model as $ModelSite)
-//        {
-//            echo '<div class="col-sm-3 col-xs-6 col-md-3">';
-//            echo CHtml::link('<img id="image" src="/'.$ModelSite->video_thumb.'" class="img-rounded" alt="'.$ModelSite->video_title.'" style="height: 150px;">', array('video/'.$ModelSite->video_id));
-//            echo '<h3>'.CHtml::link($ModelSite->video_title, array('video/'.$ModelSite->video_id)).'</h3>';
-//            echo '<h5 style="padding-bottom: 5px;"><small>';
-//            echo substr($ModelSite->video_text, 0, 400);
-//            echo '<p class="data">Data publikacji: '.$ModelSite->video_date.'</p>';
-//            
-//
-//        if($Category[$ModelSite->video_category] != '')
-//            {
-//                    echo '<p class="category">Kategoria: '.CHtml::link($Category[$ModelSite->video_category], 
-//                            array('category/'.$ModelSite->video_category)).'</p>';
-//            }
-//            echo '</small></h5>';
-//            echo '</div>';
-//        }
-
-        echo '<br /><br />';
-        echo '</div>';
-        $this->widget('CLinkPager', array('pages' => $Site,
-    'cssFile'=>false,   
-    'header'=>'',           
-    'maxButtonCount'=>'7',
-    'selectedPageCssClass'=>'active',
-    'htmlOptions'=>array(
-            'class'=>'pagination'
-        ),
-            )) 
-?>
 </div>
 </div>
      <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/js/jssor.slider.min.js"></script>
