@@ -29,7 +29,7 @@
         { ?>
         <meta property="og:type" content="video">
         <meta property="og:video" content="http://videocms-test.pl/embed/<?php echo $this->videoID; ?>">
-        <meta property="og:video:secure_url" content="http://videocms-test.pl/embed/<?php echo $this->videoID; ?>">
+       <!-- <meta property="og:video:secure_url" content="http://videocms-test.pl/embed/<?php //echo $this->videoID; ?>">-->
         <meta property="og:video:type" content="video/mp4">
         <meta property="og:video:width" content="1280">
         <meta property="og:video:height" content="720">

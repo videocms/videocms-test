@@ -214,11 +214,32 @@ foreach ($ModelCategories as $ModelCategoryShow)
               <?php $this->widget("ext.yiinfinite-scroll.YiinfiniteScroller", array('contentSelector' => '#relatedVideos', "itemSelector" => "div.row.video-list-item.related-list-item",'loadingText' => 'Ładuję...', 'donetext' => 'Wszystko zostało wyświetlone', "pages" => $pages)); ?>
         </div>     
     </div>
-     
+     <?php var_dump(Yii::app()->getBaseUrl(true)); ?>
     <div class="col-xs-7 col-md-8 col-normal2">
         <div class="column">
-        <div class="col-md-12">
+        <div class="col-md-12" itemscope itemid="" itemtype="http://schema.org/VideoObject">
             <?php echo '<h1 class="page-video">'.$Model->video_title.'</h1>'; ?>
+            <link itemprop="url" href="<?php echo Yii::app()->request->getBaseUrl(true); ?>/<?php echo $Model->video_id; ?>">
+            <meta itemprop="name" content="<?php echo $Model->video_title; ?>">
+            <meta itemprop="description" content="<?php echo $Model->video_text; ?>">
+           <!-- <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <link itemprop="url" href="autor">
+            </span> -->
+          <!--  <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <link itemprop="url" href="https://plus.google.com/103696814831605329975">
+            </span> -->
+            <link itemprop="thumbnailUrl" href="<?php echo Yii::app()->request->getBaseUrl(true); ?>/<?php echo $Model->video_image; ?>">
+            <span itemprop="thumbnail" itemscope itemtype="http://schema.org/ImageObject">
+                <link itemprop="url" href="<?php echo Yii::app()->request->getBaseUrl(true); ?>/<?php echo $Model->video_image; ?>">
+                <meta itemprop="width" content="1440">
+                <meta itemprop="height" content="900">
+            </span>
+            <link itemprop="embedURL" href="<?php echo Yii::app()->request->getBaseUrl(true); ?>/embed/<?php echo $Model->video_id; ?>">
+            <meta itemprop="playerType" content="HTML5 Flash">
+            <meta itemprop="width" content="1920">
+            <meta itemprop="height" content="1080">
+            <meta itemprop="isFamilyFriendly" content="True">
+            <meta itemprop="regionsAllowed" content="AD,AE,AF,AG,AI,AL,AM,AO,AQ,AR,AS,AT,AU,AW,AX,AZ,BA,BB,BD,BE,BF,BG,BH,BI,BJ,BL,BM,BN,BO,BQ,BR,BS,BT,BV,BW,BY,BZ,CA,CC,CD,CF,CG,CH,CI,CK,CL,CM,CN,CO,CR,CU,CV,CW,CX,CY,CZ,DE,DJ,DK,DM,DO,DZ,EC,EE,EG,EH,ER,ES,ET,FI,FJ,FK,FM,FO,FR,GA,GB,GD,GE,GF,GG,GH,GI,GL,GM,GN,GP,GQ,GR,GS,GT,GU,GW,GY,HK,HM,HN,HR,HT,HU,ID,IE,IL,IM,IN,IO,IQ,IR,IS,IT,JE,JM,JO,JP,KE,KG,KH,KI,KM,KN,KP,KR,KW,KY,KZ,LA,LB,LC,LI,LK,LR,LS,LT,LU,LV,LY,MA,MC,MD,ME,MF,MG,MH,MK,ML,MM,MN,MO,MP,MQ,MR,MS,MT,MU,MV,MW,MX,MY,MZ,NA,NC,NE,NF,NG,NI,NL,NO,NP,NR,NU,NZ,OM,PA,PE,PF,PG,PH,PK,PL,PM,PN,PR,PS,PT,PW,PY,QA,RE,RO,RS,RU,RW,SA,SB,SC,SD,SE,SG,SH,SI,SJ,SK,SL,SM,SN,SO,SR,SS,ST,SV,SX,SY,SZ,TC,TD,TF,TG,TH,TJ,TK,TL,TM,TN,TO,TR,TT,TV,TW,TZ,UA,UG,UM,US,UY,UZ,VA,VC,VE,VG,VI,VN,VU,WF,WS,YE,YT,ZA,ZM,ZW">
                 <div class="tab-tr" id="t1">
                     <label>
                        <input type="checkbox" name="widescreen" class="ios-switch green  bigswitch" id="widescreen_mode" onchange="set_check();" />
