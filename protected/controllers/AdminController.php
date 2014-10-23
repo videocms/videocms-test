@@ -20,7 +20,7 @@ class AdminController extends Controller
                        'users' => array('*'),
                             ),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','AutocompleteTag','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','Seo','Slider','SliderDelete','SliderUpdate','Users','AdduserDelete','UserUpdate','test','log','LogDelete','menu','MenuUpdate','MenuDelete','createuser','MessageDelete','Message'),
+				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','AutocompleteTag','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','SettingsPlayer','SettingsPlay','Seo','Slider','SliderDelete','SliderUpdate','Users','AdduserDelete','UserUpdate','test','log','LogDelete','menu','MenuUpdate','MenuDelete','createuser','MessageDelete','Message'),
 				'expression'=>'Yii::app()->user->isAdmin()',
 			),
 			array('deny',  // deny all users
@@ -596,7 +596,7 @@ class AdminController extends Controller
     // KONIEC VAST 
     
     // player
-    public function actionSettings()
+    public function actionSettingsPlay()
     {
         $this->pageTitle = 'Edycja';
         
@@ -604,7 +604,7 @@ class AdminController extends Controller
 
         $DataPlayer = $ModelPlayer->DownloadPlayer();
         
-        $this->render('settings', array(
+        $this->render('settingsplay', array(
             'Data' => $DataPlayer,
             'ModelPlayer' => $ModelPlayer,
         ));
@@ -651,7 +651,7 @@ class AdminController extends Controller
     // koniec player 
     
     // SEO
-    public function actionSeo()
+    public function actionSettings()
     {
         $this->pageTitle = 'Seo';
 
@@ -691,7 +691,7 @@ class AdminController extends Controller
             }
         }
         
-        $this->render('seo', array(
+        $this->render('settings', array(
             'ModelSettings' => $ModelSettings,
             'SettingsUpdate' => $SettingsUpdate,
         ));
