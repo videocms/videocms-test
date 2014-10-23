@@ -89,6 +89,12 @@
         <?php echo $form->dropDownList($ModelSettings, 'slider_lazyloading', array('0' => '0', '1' => '1', '2' => '2')); ?>
         <?php echo $form->error($ModelSettings, 'slider_lazyloading'); ?>
     </div>
+    komentarze:
+    <div class="row">
+        <?php echo $form->labelEx($ModelSettings, 'disqus_shortname'); ?>
+        <?php echo $form->textField($ModelSettings, 'disqus_shortname'); ?>
+        <?php echo $form->error($ModelSettings, 'disqus_shortname'); ?>
+    </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton('Zapisz', array('class' => 'btn btn-success')); ?>
     </div>

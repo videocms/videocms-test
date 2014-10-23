@@ -687,6 +687,7 @@ class AdminController extends Controller
                 $ModelSettings->slider_hwa = $DataForm['slider_hwa'];
                 $ModelSettings->slider_arrowkeynavigation = $DataForm['slider_arrowkeynavigation'];
                 $ModelSettings->slider_lazyloading = $DataForm['slider_lazyloading'];
+                $ModelSettings->disqus_shortname = $DataForm['disqus_shortname'];
             }
         }
         

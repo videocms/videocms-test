@@ -19,6 +19,7 @@ class SiteController extends Controller
     public $slider_hwa;
     public $slider_arrowkeynavigation;
     public $slider_lazyloading;
+    public $disqus_shortname;
     public $layout='site/index';
     //public $defaultAction = 'cmsvideo';
     
@@ -205,6 +206,7 @@ class SiteController extends Controller
         foreach ($DataSeo as $Seoo)
         {
             $this->pageMetaRobots = $Seoo['settings_robots'];
+            $this->disqus_shortname = $Seoo['disqus_shortname'];
         }
       
         

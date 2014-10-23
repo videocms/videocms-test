@@ -29,7 +29,7 @@ class Likedislikedis extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tbl_likedislike';
+		return 'videocms_likedislike';
 	}
 
 	/**

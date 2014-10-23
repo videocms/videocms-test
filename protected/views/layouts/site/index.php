@@ -202,14 +202,11 @@
     <br />
 <?php 
 
-// Insert this block of code at the very top of your page: 
-
 $time = microtime(); 
 $time = explode(" ", $time); 
 $time = $time[1] + $time[0]; 
 $start = $time; 
 
-// Place this part at the very end of your page 
 
 $time = microtime(); 
 $time = explode(" ", $time); 
