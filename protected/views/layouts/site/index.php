@@ -199,5 +199,25 @@
 		</script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/classie.js"></script>
+    <br />
+<?php 
+
+// Insert this block of code at the very top of your page: 
+
+$time = microtime(); 
+$time = explode(" ", $time); 
+$time = $time[1] + $time[0]; 
+$start = $time; 
+
+// Place this part at the very end of your page 
+
+$time = microtime(); 
+$time = explode(" ", $time); 
+$time = $time[1] + $time[0]; 
+$finish = $time; 
+$totaltime = ($finish - $start); 
+printf ("<small><center>Załadowanie strony trwało %f sekund.</center></small>", $totaltime); 
+
+?> 
 </body>
 </html>
