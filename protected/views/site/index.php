@@ -134,6 +134,19 @@
         
 </div>
 </div>
+<!--    wyszukiwanie po stronie google   https://developers.google.com/webmasters/richsnippets/sitelinkssearch
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org",
+   "@type": "WebSite",
+   "url": "https://www.example-petstore.com/",
+   "potentialAction": {
+     "@type": "SearchAction",
+     "target": "https://query.example-petstore.com/search?q={search_term_string}",
+     "query-input": "required name=search_term_string"
+   }
+}
+</script> -->
      <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/js/jssor.slider.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/js/jssor.js"></script>
     <script>
