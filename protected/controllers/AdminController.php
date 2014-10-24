@@ -222,7 +222,7 @@ class AdminController extends Controller
         $TagDelete = $ModelTags::model()->findAll(
                     'tag_idvideo LIKE :Id',
                     array(':Id' => '%"'.$id.'"%')
-                );
+                ); 
          
         foreach($TagDelete as $TagValue) {
                         $TagName = $ModelTags->ReplaceTagName($TagValue->tag_slug); 
@@ -242,6 +242,7 @@ class AdminController extends Controller
                 }
  
         CmsvideoVideo::model()->deleteByPk($id);
+     //   Likedislikedis::model()->deleteByAttributes(array('field_id'=>$id));
        // $this->redirect(array('admin/videos'));
         $this->redirect(Yii::app()->request->urlReferrer);
     }
