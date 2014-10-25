@@ -36,7 +36,7 @@ $.noConflict();
 // Code that uses other library's $ can follow here.
 </script> -->
         <script>
-    videojs.options.flash.swf = "video-js.swf";
+             videojs.options.flash.swf = "<?php echo Yii::app()->request->baseUrl; ?>/js/video/video-js.swf";
   </script>
 <?php echo $content; ?>
 </body>

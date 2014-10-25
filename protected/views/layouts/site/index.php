@@ -120,7 +120,7 @@
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/lib/vast-client.js"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/video/videojs.vast.js"></script>
         <script>
-             videojs.options.flash.swf = "video-js.swf";
+             videojs.options.flash.swf = "<?php echo Yii::app()->request->baseUrl; ?>/js/video/video-js.swf";
         </script>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
