@@ -183,6 +183,7 @@
 
       skipButton.onclick = function(e) {
         if((' ' + player.vast.skipButton.className + ' ').indexOf(' enabled ') >= 0) {
+          player.vastTracker.skip();
           player.vast.tearDown();
         }
         if(Event.prototype.stopPropagation !== undefined) {
@@ -264,6 +265,11 @@
       return sources;
     };
 
+    // make an ads request immediately so we're ready when the viewer
+    // hits "play"
+    if (player.currentSrc()) {
+      player.vast.getContent(settings.url);
+    }
   };
 
   vjs.plugin('vast', vastPlugin);
