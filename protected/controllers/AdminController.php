@@ -704,7 +704,7 @@ class AdminController extends Controller
         }
         
         $SliderUpdate = false;
-        $ModelSlider = VastVideo::model()->findByPk($id);
+        $ModelSlider = Slider::model()->findByPk($id);
         
         if(isset($_POST['Slider']))
         {

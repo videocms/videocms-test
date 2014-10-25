@@ -17,7 +17,7 @@ class Slider extends CActiveRecord
         
     public function rules() {
         return array(
-            array('slider_image', 'required'),
+            array('slider_image, slider_published', 'required'),
           //  array('video_category', 'numerical', 'integerOnly'=>true),
        
             array('slider_text', 'length', 'max'=>255),

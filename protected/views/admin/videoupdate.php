@@ -175,7 +175,8 @@
                 </div>
                 <div class="form-group">
                     <?php echo $form->labelEx($ModelVideo, 'video_published'); ?>
-                    <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>                      </div>
+                    <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?>                      
+                </div>
                 <div class="form-group">
                     <?php echo CHtml::submitButton('Aktualizuj', array('class' => 'btn btn-success')); ?>
                     <?php echo CHtml::link('Anuluj',array('admin/videos'),array('class'=>'btn btn-danger')); ?>

@@ -46,6 +46,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'value'=>'$data->slider_image',
                 'name'=>'slider_image',
             ),
+        array(  
+                'header'=>'Stan',
+                'value'=>'$data->slider_published',
+                'name'=>'slider_published',
+            ),
         array(
             'class'=>'CButtonColumn',
             'template'=>'{delete} {update}',
@@ -123,9 +128,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->labelEx($ModelSlider, 'slider_published'); ?>
                 <?php echo $form->dropDownList($ModelSlider, 'slider_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?> 
             </div>
-            <div class="form-group">
-                <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-primary')); ?>
-            </div>
         </div>
         
         <div class="col-lg-6">         
@@ -133,6 +135,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->labelEx($ModelSlider, 'slider_text'); ?>
                 <?php echo $form->textArea($ModelSlider, 'slider_text', array('rows'=>'5', 'class' => 'form-control')); ?>
                 <?php echo $form->error($ModelSlider, 'slider_text'); ?> 
+            </div>
+            <div class="form-group">
+                <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-primary')); ?>
             </div>
         </div>
                 
