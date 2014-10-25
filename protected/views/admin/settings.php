@@ -121,6 +121,27 @@
         <?php echo $form->error($ModelSettings, 'disqus_shortname'); ?>
     </div>
             </div></div></div></div>
+            <div class="panel panel-default">
+        <div class="panel-heading">Ustawienia Player</div>
+        <div class="panel-body">
+        <div class="row">
+        <div class="col-lg-12">
+    <div class="form-group">
+        <?php echo $form->labelEx($ModelSettings, 'player_autoplay'); ?>
+        <?php echo $form->dropDownList($ModelSettings, 'player_autoplay', array('autoplay' => 'autoplay', '' => 'manual'), array('class' => 'form-control')); ?>
+        <?php echo $form->error($ModelSettings, 'player_autoplay'); ?>
+    </div>
+    <div class="form-group">
+        <?php echo $form->labelEx($ModelSettings, 'player_preload'); ?>
+        <?php echo $form->dropDownList($ModelSettings, 'player_preload', array('auto' => 'Auto', 'true' => 'True', 'metadata' => 'Metadata', 'none' => 'None'), array('class' => 'form-control')); ?>
+        <?php echo $form->error($ModelSettings, 'player_preload'); ?>
+    </div>
+    <div class="form-group">
+        <?php echo $form->labelEx($ModelSettings, 'player_loop'); ?>
+        <?php echo $form->dropDownList($ModelSettings, 'player_loop', array('loop' => 'true', '' => 'false'), array('class' => 'form-control')); ?>
+        <?php echo $form->error($ModelSettings, 'player_loop'); ?>
+    </div>
+            </div></div></div></div>
         <div class="panel panel-default">
         <div class="panel-body">
         <div class="row">

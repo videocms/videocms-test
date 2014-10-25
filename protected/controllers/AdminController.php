@@ -667,7 +667,7 @@ class AdminController extends Controller
                 $ModelSettings->SaveSettings();
                 $SettingsUpdate = true;
             }
-            $this->redirect(array('/admin/seo/'));
+            $this->redirect(array('/admin/settings/'));
         }
         else
         {
@@ -689,6 +689,9 @@ class AdminController extends Controller
                 $ModelSettings->slider_arrowkeynavigation = $DataForm['slider_arrowkeynavigation'];
                 $ModelSettings->slider_lazyloading = $DataForm['slider_lazyloading'];
                 $ModelSettings->disqus_shortname = $DataForm['disqus_shortname'];
+                $ModelSettings->player_autoplay = $DataForm['player_autoplay'];
+                $ModelSettings->player_preload = $DataForm['player_preload'];
+                $ModelSettings->player_loop = $DataForm['player_loop'];
             }
         }
         

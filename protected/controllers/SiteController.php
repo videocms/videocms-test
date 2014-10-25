@@ -20,6 +20,9 @@ class SiteController extends Controller
     public $slider_arrowkeynavigation;
     public $slider_lazyloading;
     public $disqus_shortname;
+    public $player_autoplay;
+    public $player_preload;
+    public $player_loop;
     public $ogtype;
     public $videoID;
     public $layout='site/index';
@@ -210,6 +213,9 @@ class SiteController extends Controller
         {
             $this->pageMetaRobots = $Seoo['settings_robots'];
             $this->disqus_shortname = $Seoo['disqus_shortname'];
+            $this->player_autoplay = $Seoo['player_autoplay'];
+            $this->player_preload = $Seoo['player_preload'];
+            $this->player_loop = $Seoo['player_loop'];
         }
       
         
