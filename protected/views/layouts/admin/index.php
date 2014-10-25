@@ -13,6 +13,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
         <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/pace.min.js"></script>
+        <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/google/main.css" rel="stylesheet" type="text/css">
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/sb-admin-2.css" rel="stylesheet" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/plugins/dataTables.bootstrap.css" rel="stylesheet" />

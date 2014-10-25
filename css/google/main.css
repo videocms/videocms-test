@@ -1,0 +1,229 @@
+    
+    
+    ///// GOOGLE
+
+/**
+ * Banner Component
+ */
+
+.Banner {
+  background-color: #333;
+  box-sizing: border-box;
+  color: #eee;
+  display: table;
+  margin-bottom: 1.5em;
+  padding: 1.2em 1.5em;
+  width: 100%;
+}
+.Banner-title {
+  display: table-cell;
+  font-size: 1.667em;
+  font-weight: 400;
+  margin: 0;
+  vertical-align: middle;
+  width: 100%;
+}
+.Banner-title a {
+  color: inherit;
+}
+.Banner-title em {
+  font-weight: 300;
+  font-size: .8em;
+  font-style: normal;
+  margin-left: .5em;
+  opacity: .6;
+}
+.Banner-auth {
+  color: #ccc;
+  display: table-cell;
+  font-size: 1.1em;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/**
+ * Base Component
+ */
+
+.Component {
+  background: #fff;
+  border: 1px solid #ccc;
+  display: none;
+  float: left;
+  margin: 0 0 1.5em 1.5em;
+  padding: 1.5em;
+}
+.is-authorized .Component {
+  display: block;
+}
+
+/**
+ * Chart Component
+ */
+
+.Chart {}
+.Chart-title {
+  font: 300 1.4em/1.2 sans-serif;
+  margin: 0;
+}
+.Chart-subtitle {
+  font: 700 1.17em/1.2 sans-serif;
+  margin: 0.5em 0 0;
+}
+.Chart-controls {
+  border-top: 1px solid #ccc;
+  margin: 0 -1.5em -1.5em;
+  padding: 1.5em;
+  text-align: center;
+}
+.Chart--chartjs {
+  padding: 2em;
+}
+.Chart--chartjs .Chart-title {
+  font: 700 1.17em/1.2 sans-serif;
+  margin-bottom: 1.7em;
+  text-align: center;
+}
+
+/**
+ * Legend Component
+ */
+
+.Legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.Legend > li {
+  display: inline-block;
+  padding: 1em 1em 0 0;
+}
+.Legend > li > i {
+  display: inline-block;
+  height: 1em;
+  margin-right: .5em;
+  vertical-align: -.1em;
+  width: 1em;
+}
+
+/**
+ * Viewpicker Component
+ */
+
+.Viewpicker {}
+.Viewpicker-item  {
+  display: inline-block;
+  margin-right: 1em;
+}
+.Viewpicker-item:last-child {
+  margin-right: 0;
+}
+.Viewpicker-item > label {
+  font-weight: bold;
+  margin-right: 0.25em;
+}
+.Viewpicker-item select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 34px;
+  line-height: 20px;
+  padding: 6px 12px;
+}
+.Viewpicker-item select:focus {
+  border-color: #4d90fe;
+  outline: 0;
+}
+
+/**
+ * Datepicker Component
+ */
+
+.Datepicker {}
+.Datepicker-item {
+  display: inline-block;
+  margin-right: 1em;
+}
+.Datepicker-item:last-child {
+  margin-right: 0;
+}
+.Datepicker-item label {
+  font-weight: bold;
+}
+.Datepicker-item input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font: inherit;
+  font-weight: 400;
+  height: 34px;
+  line-height: 20px;
+  margin-right: 1em;
+  padding: 6px;
+
+}
+.Datepicker-item input:focus {
+  border-color: #4d90fe;
+  outline: 0;
+}
+
+/**
+ * Realtime Component
+ */
+
+.Realtime {
+}
+.Realtime-content {
+  font-size: 20px;
+  font-weight: 100;
+  line-height: 34px;
+  margin: 0 .25em;
+}
+.Realtime-value {
+  font-weight: 700;
+}
+.Realtime.increase {
+  -webkit-animation: increase 3s;
+  animation: increase 3s;
+}
+.Realtime.decrease {
+  -webkit-animation: decrease 3s;
+  animation: decrease 3s;
+}
+@-webkit-keyframes increase {
+  0% {}
+  10% {
+    background-color: hsl(120, 100%, 96%);
+    border-color: hsla(120, 100%, 25%, .5);
+    color: hsla(120, 100%, 25%, 1);
+  }
+  100% {}
+}
+@keyframes increase {
+  0% {}
+  10% {
+    background-color: hsl(120, 100%, 96%);
+    border-color: hsla(120, 100%, 25%, .5);
+    color: hsla(120, 100%, 25%, 1);
+  }
+  100% {}
+}
+@-webkit-keyframes decrease {
+  0% {}
+  10% {
+    background-color: hsl(0, 100%, 96%);
+    border-color: hsla(0, 100%, 50%, .5);
+    color: hsl(0, 100%, 50%);
+  }
+  100% {}
+}
+@keyframes decrease {
+  0% {}
+  10% {
+    background-color: hsl(0, 100%, 96%);
+    border-color: hsla(0, 100%, 50%, .5);
+    color: hsl(0, 100%, 50%);
+  }
+  100% {}
+}
