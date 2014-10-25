@@ -23,6 +23,7 @@ class SiteController extends Controller
     public $player_autoplay;
     public $player_preload;
     public $player_loop;
+    public $player_controls;
     public $ogtype;
     public $videoID;
     public $layout='site/index';
@@ -216,6 +217,7 @@ class SiteController extends Controller
             $this->player_autoplay = $Seoo['player_autoplay'];
             $this->player_preload = $Seoo['player_preload'];
             $this->player_loop = $Seoo['player_loop'];
+            $this->player_controls = $Seoo['player_controls'];
         }
       
         
@@ -333,7 +335,8 @@ class SiteController extends Controller
         foreach ($DataSeo as $Seoo)
         {
             $this->pageMetaRobots = $Seoo['settings_robots'];
-            $this->disqus_shortname = $Seoo['disqus_shortname'];
+            //$this->disqus_shortname = $Seoo['disqus_shortname'];
+            $this->player_controls = $Seoo['player_controls'];
         }
       
         

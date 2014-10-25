@@ -141,6 +141,11 @@
         <?php echo $form->dropDownList($ModelSettings, 'player_loop', array('loop' => 'true', '' => 'false'), array('class' => 'form-control')); ?>
         <?php echo $form->error($ModelSettings, 'player_loop'); ?>
     </div>
+    <div class="form-group">
+        <?php echo $form->labelEx($ModelSettings, 'player_controls'); ?>
+        <?php echo $form->dropDownList($ModelSettings, 'player_controls', array('true' => 'True', 'false' => 'False'), array('class' => 'form-control')); ?>
+        <?php echo $form->error($ModelSettings, 'player_controls'); ?>
+    </div>
             </div></div></div></div>
         <div class="panel panel-default">
         <div class="panel-body">

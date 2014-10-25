@@ -637,6 +637,7 @@ class AdminController extends Controller
                 $ModelSettings->player_autoplay = $DataForm['player_autoplay'];
                 $ModelSettings->player_preload = $DataForm['player_preload'];
                 $ModelSettings->player_loop = $DataForm['player_loop'];
+                $ModelSettings->player_controls = $DataForm['player_controls'];
             }
         }
         

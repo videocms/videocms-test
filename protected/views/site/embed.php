@@ -8,7 +8,7 @@
    </script>
    <div id="context" data-toggle="context" data-target="#context-menu">
    <div class="container">
-   <video id="example-2" class="video-js vjs-default-skin vjs-playing vjs-fullscreen" preload="auto" controls width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $Model->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
+   <video id="example-2" class="video-js vjs-default-skin vjs-playing vjs-fullscreen" preload="auto" controls width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $Model->video_image; ?>" data-setup='{ "nativeControlsForTouch": <?php echo $this->player_controls; ?>, "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
        <?php      
                         if (($Model->video_720p == NULL) && ($Model->video_1080p == NULL))
                          {
