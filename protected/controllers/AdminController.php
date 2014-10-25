@@ -242,7 +242,7 @@ class AdminController extends Controller
                 }
  
         CmsvideoVideo::model()->deleteByPk($id);
-     //   Likedislikedis::model()->deleteByAttributes(array('field_id'=>$id));
+        Likedislikedis::model()->deleteAll('field_id = :IdVideo' , array(':IdVideo'=>$id));
        // $this->redirect(array('admin/videos'));
         $this->redirect(Yii::app()->request->urlReferrer);
     }
