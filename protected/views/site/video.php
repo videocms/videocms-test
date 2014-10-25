@@ -143,7 +143,7 @@ foreach ($ModelCategories as $ModelCategoryShow)
                             }
                             ?> 
                 
-                    <video id="example-2" class="vjs-playing vjs-default-skin" <?php echo $this->player_loop; ?> preload="<?php echo $this->player_preload; ?>" controls <?php echo $this->player_autoplay; ?> width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $Model->video_image; ?>" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
+                    <video id="example-2" class="vjs-playing vjs-default-skin" <?php echo $this->player_loop; ?> preload="<?php echo $this->player_preload; ?>" controls <?php echo $this->player_autoplay; ?> width="auto" height="auto" poster="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $Model->video_image; ?>" data-setup='{ "customControlsOnMobile" : true, "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>		
                         <?php      
                         if (($Model->video_720p == NULL) && ($Model->video_1080p == NULL))
                          {

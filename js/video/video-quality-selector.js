@@ -18,38 +18,6 @@
 	var methods = {
 		
 		/**
-		 * Utility function for merging 2 objects recursively. It treats
-		 * arrays like plain objects and it relies on a for...in loop which will
-		 * break if the Object prototype is messed with.
-		 *
-		 * @param	(object)	destination	The object to modify and return
-		 * @param	(object)	source		The object to use to overwrite the first
-		 * 									object
-		 *
-		 * @returns	(object)	The modified first object is returned
-		 */
-		extend : function( destination, source ) {
-			
-			for ( var prop in source ) {
-				
-				// Sanity check
-				if ( ! source.hasOwnProperty( prop ) ) { continue; }
-				
-				// Enable recursive (deep) object extension
-				if ( typeof source[prop] == 'object' && null !== source[prop] ) {
-					
-					destination[prop] = methods.extend( destination[prop] || {}, source[prop] );
-					
-				} else {
-					
-					destination[prop] = source[prop];
-				}
-			}
-			
-			return destination;
-		},
-		
-		/**
 		 * In a future version, this can be made more intelligent,
 		 * but for now, we'll just add a "p" at the end if we are passed
 		 * numbers.
@@ -69,8 +37,13 @@
 	 ***********************************************************************************/
 	_V_.ResolutionMenuItem = _V_.MenuItem.extend({
 		
+		// Call variable to prevent the resolution change from being called twice
+		call_count : 0,
+		
 		/** @constructor */
 		init : function( player, options ){
+			
+			var touchstart = false;
 			
 			// Modify options for parent MenuItem class's init.
 			options.label = methods.res_label( options.res );
@@ -79,11 +52,11 @@
 			// Call the parent constructor
 			_V_.MenuItem.call( this, player, options );
 			
-			// Store the resolution as a call property
+			// Store the resolution as a property
 			this.resolution = options.res;
 			
-			// Register our click handler
-			this.on( 'click', this.onClick );
+			// Register our click and tap handlers
+			this.on( ['click', 'tap'], this.onClick );
 			
 			// Toggle the selected class whenever the resolution changes
 			player.on( 'changeRes', _V_.bind( this, function() {
@@ -96,6 +69,9 @@
 					
 					this.selected( false );
 				}
+				
+				// Reset the call count
+				this.call_count = 0;
 			}));
 		}
 	});
@@ -103,44 +79,14 @@
 	// Handle clicks on the menu items
 	_V_.ResolutionMenuItem.prototype.onClick = function() {
 		
-		var player = this.player(),
-			video_el = player.el().firstChild,
-			current_time = player.currentTime(),
-			is_paused = player.paused(),
-			button_nodes = player.controlBar.resolutionSelector.el().firstChild.children,
-			button_node_count = button_nodes.length;
+		// Check if this has already been called
+		if ( this.call_count > 0 ) { return; }
 		
-		// Do nothing if we aren't changing resolutions
-		if ( player.getCurrentRes() == this.resolution ) { return; }
+		// Call the player.changeRes method
+		this.player().changeRes( this.resolution );
 		
-		// Make sure the loadedmetadata event will fire
-		if ( 'none' == video_el.preload ) { video_el.preload = 'metadata'; }
-		
-		// Change the source and make sure we don't start the video over		
-		player.src( player.availableRes[this.resolution] ).one( 'loadedmetadata', function() {
-			
-			player.currentTime( current_time );
-			
-			if ( ! is_paused ) { player.play(); }
-		});
-		
-		// Save the newly selected resolution in our player options property
-		player.currentRes = this.resolution;
-		
-		// Update the button text
-		while ( button_node_count > 0 ) {
-			
-			button_node_count--;
-			
-			if ( 'vjs-current-res' == button_nodes[button_node_count].className ) {
-				
-				button_nodes[button_node_count].innerHTML = methods.res_label( this.resolution );
-				break;
-			}
-		}
-		
-		// Update the classes to reflect the currently selected resolution
-		player.trigger( 'changeRes' );
+		// Increment the call counter
+		this.call_count++;
 	};
 	
 	/***********************************************************************************
@@ -171,11 +117,17 @@
 			
 			// Call the parent constructor
 			_V_.MenuButton.call( this, player, options );
+			
+			// Set the button text based on the option provided
+			this.el().firstChild.firstChild.innerHTML = options.buttonText;
 		}
 	});
 	
+	// Set class for resolution selector button
+	_V_.ResolutionSelector.prototype.className = 'vjs-res-button';
+	
 	// Create a menu item for each available resolution
-	_V_.ResolutionSelector.prototype.createItems = function() {		
+	_V_.ResolutionSelector.prototype.createItems = function() {
 		
 		var player = this.player(),
 			items = [],
@@ -224,8 +176,11 @@
 	_V_.plugin( 'resolutionSelector', function( options ) {
 		
 		// Only enable the plugin on HTML5 videos
-		if ( ! this.el().firstChild.canPlayType  ) { return; }
+		if ( ! this.el().firstChild.canPlayType  ) { return; }	
 		
+		/*******************************************************************
+		 * Setup variables, parse settings
+		 *******************************************************************/
 		var player = this,
 			sources	= player.options().sources,
 			i = sources.length,
@@ -233,7 +188,7 @@
 			found_type,
 			
 			// Override default options with those provided
-			settings = methods.extend({
+			settings = _V_.util.mergeOptions({
 				
 				default_res	: '',		// (string)	The resolution that should be selected by default ( '480' or  '480,1080,240' )
 				force_types	: false		// (array)	List of media types. If passed, we need to have source for each type in each resolution or that resolution will not be an option
@@ -276,34 +231,36 @@
 				if ( 'length' == current_res ) { continue; }
 				
 				i = settings.force_types.length;
+				found_types = 0;
 				
-				// For each resolution loop through the required types
+				// Loop through all required types
 				while ( i > 0 ) {
 					
 					i--;
 					
 					j = available_res[current_res].length;
-					found_types = 0;
 					
-					// For each required type loop through the available sources to check if its there
+					// Loop through all available sources in current resolution
 					while ( j > 0 ) {
 						
 						j--;
 						
+						// Check if the current source matches the current type we're checking
 						if ( settings.force_types[i] === available_res[current_res][j].type ) {
 							
 							found_types++;
+							break;
 						}
-					} // End loop through current resolution sources
-					
-					if ( found_types < settings.force_types.length ) {
-						
-						delete available_res[current_res];
-						available_res.length--;
-						break;
 					}
-				} // End loop through required types
-			} // End loop through resolutions
+				}
+				
+				// If we didn't find sources for all of the required types in the current res, remove it
+				if ( found_types < settings.force_types.length ) {
+					
+					delete available_res[current_res];
+					available_res.length--;
+				}
+			}
 		}
 		
 		// Make sure we have at least 2 available resolutions before we add the button
@@ -320,6 +277,10 @@
 				break;
 			}
 		}
+		
+		/*******************************************************************
+		 * Add methods to player object
+		 *******************************************************************/
 		
 		// Helper function to get the current resolution
 		player.getCurrentRes = function() {
@@ -341,23 +302,72 @@
 			}
 		};
 		
-		// Get the started resolution
+		// Define the change res method
+		player.changeRes = function( target_resolution ) {
+			
+			var video_el = player.el().firstChild,
+				is_paused = player.paused(),
+				current_time = player.currentTime(),
+				button_nodes,
+				button_node_count;
+			
+			// Do nothing if we aren't changing resolutions or if the resolution isn't defined
+			if ( player.getCurrentRes() == target_resolution
+				|| ! player.availableRes
+				|| ! player.availableRes[target_resolution] ) { return; }
+			
+			// Make sure the loadedmetadata event will fire
+			if ( 'none' == video_el.preload ) { video_el.preload = 'metadata'; }
+			
+			// Change the source and make sure we don't start the video over		
+			player.src( player.availableRes[target_resolution] ).one( 'loadedmetadata', function() {
+				
+				player.currentTime( current_time );
+				
+				// If the video was paused, don't show the poster image again
+				player.addClass( 'vjs-has-started' );
+				
+				if ( ! is_paused ) { player.play(); }
+			});
+			
+			// Save the newly selected resolution in our player options property
+			player.currentRes = target_resolution;
+			
+			// Make sure the button has been added to the control bar
+			if ( player.controlBar.resolutionSelector ) {
+				
+				button_nodes = player.controlBar.resolutionSelector.el().firstChild.children;
+				button_node_count = button_nodes.length;
+				
+				// Update the button text
+				while ( button_node_count > 0 ) {
+					
+					button_node_count--;
+					
+					if ( 'vjs-control-text' == button_nodes[button_node_count].className ) {
+						
+						button_nodes[button_node_count].innerHTML = methods.res_label( target_resolution );
+						break;
+					}
+				}
+			}
+			
+			// Update the classes to reflect the currently selected resolution
+			player.trigger( 'changeRes' );
+		};
+		
+		/*******************************************************************
+		 * Add the resolution selector button
+		 *******************************************************************/
+		
+		// Get the starting resolution
 		current_res = player.getCurrentRes();
 		
 		if ( current_res ) { current_res = methods.res_label( current_res ); }
 		
 		// Add the resolution selector button
 		resolutionSelector = new _V_.ResolutionSelector( player, {
-			
-			el : _V_.Component.prototype.createEl( null, {
-				
-				className	: 'vjs-res-button vjs-menu-button vjs-control',
-				innerHTML	: '<div class="vjs-control-content"><span class="vjs-current-res">' + ( current_res || 'Quality' ) + '</span></div>',
-				role		: 'button',
-				'aria-live'	: 'polite', // let the screen reader user know that the text of the button may change
-				tabIndex	: 0
-				
-			}),
+			buttonText		: ( current_res || 'Quality' ),
 			available_res	: available_res
 		});
 		
