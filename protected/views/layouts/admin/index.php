@@ -318,7 +318,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
                             array('label'=>'<i class="fa fa-users fa-f"></i> Użytkownicy', 'url'=>array('/admin/users')),
                             array('label'=>'<i class="fa fa-envelope fa-f"></i> Skrzynka', 'url'=>array('/admin/message')),
                             array('label'=>'<i class="fa fa-cog fa-f"></i> Ustawienia', 'url'=>array('/admin/settings/1')),
-                            array('label'=>'<i class="fa fa-cog fa-f"></i> Ust', 'url'=>array('/admin/settingsplay')),
+                            //array('label'=>'<i class="fa fa-cog fa-f"></i> Ust', 'url'=>array('/admin/settingsplay')),
                             array('label'=>'<i class="fa fa-medkit fa-f"></i> Logi', 'url'=>array('/admin/log')),
 				//array('label'=>'komentarze', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 			),

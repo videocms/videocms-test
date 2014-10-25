@@ -595,63 +595,8 @@ class AdminController extends Controller
         ));
     }
     // KONIEC VAST 
-    
-    // player
-    public function actionSettingsPlay()
-    {
-        $this->pageTitle = 'Edycja';
-        
-        $ModelPlayer = new CmsvideoPlayer;
 
-        $DataPlayer = $ModelPlayer->DownloadPlayer();
-        
-        $this->render('settingsplay', array(
-            'Data' => $DataPlayer,
-            'ModelPlayer' => $ModelPlayer,
-        ));
-    }
-    
-    public function actionSettingsPlayer($id)
-    {
-        $this->pageTitle = 'Edycja';
-
-        if(!is_numeric($id))
-        {
-            exit;
-        }
-        
-        $PlayerUpdate = false;
-        $ModelPlayer = new CmsvideoPlayer;
-        
-        if(isset($_POST['CmsvideoPlayer']))
-        {
-            $ModelPlayer->attributes = $_POST['CmsvideoPlayer'];
-            if($ModelPlayer->validate())
-            {
-                $ModelPlayer->SavePlayer($id);
-                $PlayerUpdate = true;
-            }
-            $this->redirect(array('/admin/settings'));
-        }
-        else
-        {
-            $Data = $ModelPlayer->DownloadOnePlayer($id);
-            foreach ($Data as $DataForm)
-            {
-                $ModelPlayer->player_type = $DataForm['player_type'];
-                $ModelPlayer->player_autoplay = $DataForm['player_autoplay'];
-            }
-        }
-        
-        $this->render('settingsplayer', array(
-            'ModelPlayer' => $ModelPlayer,
-            'PlayerUpdate' => $PlayerUpdate,
-        ));
-    }
-    
-    // koniec player 
-    
-    // SEO
+    // SEO & ALL SETTINGS
     public function actionSettings()
     {
         $this->pageTitle = 'Seo';
