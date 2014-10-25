@@ -6,10 +6,10 @@
     <!-- Slides Container -->
     <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 980px; height: 380px; overflow: hidden;">
     <?php
-        foreach($DataSlider as $Latest1)
+        foreach($DataSlider as $Data)
             {
                 echo '<div>
-                            <img u="image" src="'.$Latest1['slider_image'].'" />
+                            <img u="image" src="'.$Data->slider_image.'" />
                             <div u="caption" t="MCLIP|B" style="position: absolute; top: 330px; left: 0px;
                                 width: 980px; height: 50px; transform: perspective(2000px);">
                                 <div style="position: absolute; top: 0px; left: 0px; width: 980px; height: 50px;
@@ -17,7 +17,7 @@
                                 </div>
                                 <div style="position: absolute; top: 0px; left: 0px; width: 980px; height: 50px;
                                     color: White; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; transform: perspective(2000px);">
-                                    '.$Latest1['slider_text'].'
+                                    '.$Data->slider_text.'
                                 </div>
                             </div>
                       </div>';

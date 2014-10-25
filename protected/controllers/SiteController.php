@@ -33,7 +33,22 @@ class SiteController extends Controller
     {
         $ModelSeo = new CmsvideoSettings;
         $DataSeo = $ModelSeo->DownloadSettings();
-        $ModelSlider = new CmsvideoSlider;
+        $ModelSlider = Slider::model()->findAll();
+        $ModelCategories = CmsvideoCategories::model()->findAll();
+        
+        $VideoLatest = CmsvideoVideo::model()->findAll(array(
+            'select'=>'video_id, video_title, video_thumb, video_views',
+            'order' => 'video_id DESC',
+            'limit' => '12',
+        ));
+        
+        $VideoPopular = CmsvideoVideo::model()->findAll(array(
+            'select'=>'video_id, video_title, video_thumb, video_views',
+            'order' => 'video_views DESC',
+            'limit' => '6',
+        ));
+        
+        
         foreach ($DataSeo as $Seoo)
         {
             $this->pageMetaRobots = $Seoo['settings_robots'];
@@ -52,31 +67,14 @@ class SiteController extends Controller
             $this->slider_arrowkeynavigation = $Seoo['slider_arrowkeynavigation'];
             $this->slider_lazyloading = $Seoo['slider_lazyloading'];
         }
-      
-        $ModelCategories = CmsvideoCategories::model()->findAll();
-        
-        $VideoLatest = CmsvideoVideo::model()->findAll(array(
-            'select'=>'video_id, video_title, video_thumb, video_views',
-            'order' => 'video_id DESC',
-            'limit' => '12',
-        ));
-        
-        $VideoPopular = CmsvideoVideo::model()->findAll(array(
-            'select'=>'video_id, video_title, video_thumb, video_views',
-            'order' => 'video_views DESC',
-            'limit' => '6',
-        ));
         
         
-        
-        $DataSlider = $ModelSlider->DownloadSlider();
-       
         $this->render('index',
                     array(
                           'ModelCategories' => $ModelCategories,
                           'VideoLatest' => $VideoLatest,
                           'VideoPopular' => $VideoPopular,
-                          'DataSlider' => $DataSlider,
+                          'DataSlider' => $ModelSlider,
                           'DataSeo' => $DataSeo,
                           )
                   );

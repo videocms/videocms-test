@@ -651,48 +651,52 @@ class AdminController extends Controller
     public function actionSlider()
     {
         $this->pageTitle = 'Slider';
-        
         $SliderAdd = false;
         
-        $ModelSlider = new CmsvideoSlider;
+        $ModelSlider = new Slider;
         
-        if(isset($_POST['CmsvideoSlider']))
+        if(isset($_POST['Slider']))
         {
-            $ModelSlider->attributes=$_POST['CmsvideoSlider'];
+            $ModelSlider->attributes=$_POST['Slider'];
             
             if($ModelSlider->validate())
             {
-                $ModelSlider->AddSlider();
+                $ModelSlider->save();
                 $SliderAdd = true;
-                $ModelSlider->slider_image = '';
                 $ModelSlider->slider_text = '';
+                $ModelSlider->slider_image = '';
             }
         }
         
-        $DataSlider = $ModelSlider->DownloadSlider();
-        
+        $DataSlider = new CActiveDataProvider('Slider', array(
+        'sort'=>array(
+	'defaultOrder'=>'slider_id DESC',
+			),
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
+              )
+            );
         $this->render('slider', array(
             'Data' => $DataSlider,
             'SliderAdd' => $SliderAdd,
-            'ModelSlider' => $ModelSlider,
+            'ModelSlider' => $ModelSlider
         ));
     }
     public function actionSliderDelete($id)
     {
-        
         if(!is_numeric($id))
         {
             exit;
         }
-        
-        $ModelSlider = new CmsvideoSlider();
-        $ModelSlider->DeleteSlider($id);
+        Slider::model()->deleteByPk($id);
         $this->redirect(array('admin/slider'));
     }
     
     public function actionSliderUpdate($id)
     {
-        $this->pageTitle = 'Edit Slider';
+         $this->pageTitle = 'Edycja Slidera';
         
         if(!is_numeric($id))
         {
@@ -700,26 +704,17 @@ class AdminController extends Controller
         }
         
         $SliderUpdate = false;
-        $ModelSlider = new CmsvideoSlider;
+        $ModelSlider = VastVideo::model()->findByPk($id);
         
-        if(isset($_POST['CmsvideoSlider']))
+        if(isset($_POST['Slider']))
         {
-            $ModelSlider->attributes = $_POST['CmsvideoSlider'];
+            $ModelSlider->attributes = $_POST['Slider'];
             if($ModelSlider->validate())
             {
-                $ModelSlider->SaveSlider($id);
+                $ModelSlider->save();
                 $SliderUpdate = true;
             }
             $this->redirect(array('/admin/slider'));
-        }
-        else
-        {
-            $Data = $ModelSlider->DownloadOneSlider($id);
-            foreach ($Data as $DataForm)
-            {
-                $ModelSlider->slider_image = $DataForm['slider_image'];
-                $ModelSlider->slider_text = $DataForm['slider_text'];
-            }
         }
         
         $this->render('sliderupdate', array(
