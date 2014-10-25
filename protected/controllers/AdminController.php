@@ -363,10 +363,21 @@ class AdminController extends Controller
                             $ModelVideo::model()->updateByPk($id, array('video_tags' => $NewTagVideo));
                          }                           
                     }
-                }   
+                }
+                
+                if($ModelVideo->video_slider) {
+                    $Slider = new Slider;
+                    $Slider->slider_idvideo = $id;
+                    $Slider->slider_title = $ModelVideo->video_title;
+                    $Slider->slider_image = $ModelVideo->video_image;
+                    $Slider->slider_thumb = $ModelVideo->video_thumb;
+                    $Slider->slider_published = '1';
+                    $Slider->save();
+                }
+                
                 $VideoUpdate = true;
             }
-            $this->redirect(array('admin/videos/'));
+         //   $this->redirect(array('admin/videos/'));
             //$this->redirect(Yii::app()->request->urlReferrer);
         }
         

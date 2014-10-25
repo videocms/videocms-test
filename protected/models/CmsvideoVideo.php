@@ -6,6 +6,7 @@ class CmsvideoVideo extends CActiveRecord
     public $tag_delete;
     public $id;
     public $video_imageurl;
+    public $video_slider;
     public static function model($className=__CLASS__)
         {
             return parent::model($className);
@@ -19,11 +20,12 @@ class CmsvideoVideo extends CActiveRecord
         public function rules() {
         return array(
             array('video_title, video_text, video_category, video_published, player_type, video_type', 'required'),
-            array('video_category', 'numerical', 'integerOnly'=>true),
+            array('video_category, video_slider', 'numerical', 'integerOnly'=>true),
             array('video_1080p, video_480p, video_720p', 'video_attribute'),
             array('video_title', 'length', 'max'=>65),
+            array('video_description', 'length', 'max'=>160),
            // array('video_alias, video_description, video_keywords', 'length', 'max'=>255),
-            array('video_alias, video_description, video_imageurl', 'length', 'max'=>255),
+            array('video_alias, video_imageurl', 'length', 'max'=>255),
             array('video_keywords, tag_delete, tag_slug', 'length', 'max'=>500),
             array('video_thumb', 'file','types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
             array('video_image', 'file',
@@ -78,7 +80,8 @@ class CmsvideoVideo extends CActiveRecord
             'player_type' => 'Typ playera',
             'video_descriptions' => 'Opis',
             'video_keywords' => 'Słowa kluczowe',
-            'tag_slug' => 'Tagi'
+            'tag_slug' => 'Tagi',
+            'video_slider' => 'Dodaj do slidera',
         );
     }
    

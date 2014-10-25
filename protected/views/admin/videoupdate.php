@@ -165,13 +165,18 @@
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($ModelVideo, 'video_description'); ?>
-                <?php echo $form->textField($ModelVideo, 'video_description', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiedni opis dla wideo (do 160 znaków).')); ?>
+                <?php echo $form->textField($ModelVideo, 'video_description', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiedni opis dla wideo (do 160 znaków).', 'maxlength'=>160)); ?>
                 <?php echo $form->error($ModelVideo, 'video_description'); ?>
                 </div>
                 <div class="form-group">
                     <?php echo $form->labelEx($ModelVideo, 'video_keywords'); ?>
                     <?php echo $form->textField($ModelVideo, 'video_keywords', array('class' => 'form-control', 'placeholder' => 'Wpisz odpowiednie słowa kluczowe, oddzielając je przecinkami')); ?>
                     <?php echo $form->error($ModelVideo, 'video_keywords'); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo $form->labelEx($ModelVideo,'video_slider'); ?>
+                    <?php echo $form->checkBox($ModelVideo,'video_slider', array('value'=>1, 'uncheckValue'=>0)); ?>
+                    <?php echo $form->error($ModelVideo,'video_slider'); ?>              
                 </div>
                 <div class="form-group">
                     <?php echo $form->labelEx($ModelVideo, 'video_published'); ?>

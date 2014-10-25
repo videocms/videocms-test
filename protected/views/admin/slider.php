@@ -36,11 +36,17 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'value' => '$data->slider_id',
                 'name' => 'slider_id',
         ),
-        array(  
-                'header'=>'Opis',
-                'value'=>'$data->slider_text',
-                'name'=>'slider_text',
-            ),
+        array(
+                'type' => 'raw',
+                'class'=>'ImageLinkColumn',
+                'urlExpression'=>'array("admin/sliderupdate/".$data->slider_id)',
+                'value' => 'CHtml::image("/" . $data->slider_thumb, $data->slider_title, array("style"=>"width: 80px; height: 50px;", "class"=>"table-bordered"))',
+              ),
+        array(
+                'header' => 'Video',
+                'value' => '$data->slider_idvideo',
+                'name' => 'slider_idvideo',
+        ),
         array(  
                 'header'=>'Zdjęcie',
                 'value'=>'$data->slider_image',
@@ -132,9 +138,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
         
         <div class="col-lg-6">         
             <div class="form-group">
-                <?php echo $form->labelEx($ModelSlider, 'slider_text'); ?>
-                <?php echo $form->textArea($ModelSlider, 'slider_text', array('rows'=>'5', 'class' => 'form-control')); ?>
-                <?php echo $form->error($ModelSlider, 'slider_text'); ?> 
+                <?php echo $form->labelEx($ModelSlider, 'slider_title'); ?>
+                <?php echo $form->textField($ModelSlider, 'slider_title', array('rows'=>'5', 'class' => 'form-control')); ?>
+                <?php echo $form->error($ModelSlider, 'slider_title'); ?> 
             </div>
             <div class="form-group">
                 <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-primary')); ?>
