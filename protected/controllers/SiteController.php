@@ -36,7 +36,7 @@ class SiteController extends Controller
         $ModelCategories = CmsvideoCategories::model()->findAll();
         
         $ModelSlider = Slider::model()->findAll(array(
-            'order' => 'slider_idvideo DESC',
+            'order' => 'slider_id DESC',
         ));
         
         $VideoLatest = CmsvideoVideo::model()->findAll(array(
