@@ -169,9 +169,19 @@ class AdminController extends Controller
                                 } 
                             } 
                         }                        
-                    }     
+                    }
+                    if($ModelVideo->video_slider) {
+                        $Slider = new Slider;
+                        $Slider->slider_idvideo = $id;
+                        $Slider->slider_title = $ModelVideo->video_title;
+                        $Slider->slider_image = $ModelVideo->video_image;
+                        $Slider->slider_thumb = $ModelVideo->video_thumb;
+                        $Slider->slider_published = '1';
+                        $Slider->save();
+                    }
                 }
                 $VideoAdd = true;
+                 
                 $ModelVideo->video_title = '';
                 $ModelVideo->video_text = '';
                 $ModelVideo->video_category = '';
@@ -243,6 +253,7 @@ class AdminController extends Controller
  
         CmsvideoVideo::model()->deleteByPk($id);
         Likedislikedis::model()->deleteAll('field_id = :IdVideo' , array(':IdVideo'=>$id));
+        Slider::model()->deleteAll('slider_idvideo = :IdVideo' , array(':IdVideo'=>$id));
        // $this->redirect(array('admin/videos'));
         $this->redirect(Yii::app()->request->urlReferrer);
     }

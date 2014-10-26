@@ -26,6 +26,7 @@ class Slider extends CActiveRecord
     public function relations()
         {
            return array(
+            'video' => array(self::BELONGS_TO, 'CmsvideoVideo', 'slider_idvideo'),    
              );
         }
     

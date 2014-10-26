@@ -58,6 +58,7 @@ class CmsvideoVideo extends CActiveRecord
         {
            return array(
                 'category' => array(self::BELONGS_TO, 'CmsvideoCategories', 'video_category'),    
+                'slider' => array(self::HAS_MANY, 'Slider', 'slider_idvideo'),    
              );
         }
     
@@ -81,7 +82,7 @@ class CmsvideoVideo extends CActiveRecord
             'video_descriptions' => 'Opis',
             'video_keywords' => 'Słowa kluczowe',
             'tag_slug' => 'Tagi',
-            'video_slider' => 'Dodaj do slidera',
+            'video_slider' => 'Slider',
         );
     }
    

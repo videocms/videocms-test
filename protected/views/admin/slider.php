@@ -38,20 +38,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
         array(
                 'type' => 'raw',
+                'header'=>'Slide',
+                'name'=>'slider_id',
                 'class'=>'ImageLinkColumn',
                 'urlExpression'=>'array("admin/sliderupdate/".$data->slider_id)',
                 'value' => 'CHtml::image("/" . $data->slider_thumb, $data->slider_title, array("style"=>"width: 80px; height: 50px;", "class"=>"table-bordered"))',
               ),
         array(
+                'type'=>'raw',
                 'header' => 'Video',
-                'value' => '$data->slider_idvideo',
+                'value' => '"<b>".CHtml::link($data->video->video_title, array("video/$data->slider_idvideo"))."</b>"',
                 'name' => 'slider_idvideo',
         ),
-        array(  
-                'header'=>'Zdjęcie',
-                'value'=>'$data->slider_image',
-                'name'=>'slider_image',
-            ),
         array(  
                 'header'=>'Stan',
                 'value'=>'$data->slider_published',

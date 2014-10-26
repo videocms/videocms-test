@@ -33,8 +33,11 @@ class SiteController extends Controller
     {
         $ModelSeo = new CmsvideoSettings;
         $DataSeo = $ModelSeo->DownloadSettings();
-        $ModelSlider = Slider::model()->findAll();
         $ModelCategories = CmsvideoCategories::model()->findAll();
+        
+        $ModelSlider = Slider::model()->findAll(array(
+            'order' => 'slider_idvideo DESC',
+        ));
         
         $VideoLatest = CmsvideoVideo::model()->findAll(array(
             'select'=>'video_id, video_title, video_thumb, video_views',

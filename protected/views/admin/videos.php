@@ -253,6 +253,15 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 <?php echo $form->dropDownList($ModelVideo, 'video_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?> 
             </div>
             <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <?php echo $form->checkBox($ModelVideo,'video_slider', array('value'=>1, 'uncheckValue'=>0)); ?>
+                        <?php echo 'Dodaj video do slidera'; ?>
+                    </label>
+                </div>
+                <?php echo $form->error($ModelVideo,'video_slider'); ?>              
+            </div>
+            <div class="form-group">
                 <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-primary')); ?>
             </div>
         </div>
