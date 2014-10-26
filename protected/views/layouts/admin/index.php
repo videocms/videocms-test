@@ -14,7 +14,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/pace.min.js"></script>
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/google/main.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/sb-admin-2.css" rel="stylesheet" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/plugins/dataTables.bootstrap.css" rel="stylesheet" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet" />
