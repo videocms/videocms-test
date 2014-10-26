@@ -122,23 +122,47 @@ $this->widget('zii.widgets.grid.CGridView', array(
                                 }
                             ?>
             </div>
-       <div class="col-lg-6">
+       <div class="col-lg-5">
+             <div class="form-group input-group">
+                <?php
+                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                    'model' => $ModelSlider,
+                    'attribute' => 'slider_title',
+                    'sourceUrl' => Yii::app()->createUrl('admin/autocompletevideo'),
+                    'options' => array(
+                        'minLength' => '1',
+                        'select' => 'js:function(event, ui) {
+                            $("#Slider_slider_idvideo").val(ui.item.idvideo);
+                            $("#Slider_slider_image").val(ui.item.image);
+                            $("#Slider_slider_thumb").val(ui.item.thumb);
+                            $("#Slider_slider_title").val(ui.item.label);
+                            return false;
+                        }'
+                    ),
+                    'htmlOptions' => array('size' => 60, 'class'=>'form-control', 'placeholder'=>'Nagłówek'),
+                ));
+                ?>
+                <span class="input-group-btn">
+                    <div class="btn btn-default disabled"><i class="fa fa-search"></i></div>
+                </span>
+                <?php echo $form->error($ModelSlider, 'slider_title', array('class' => 'text-danger')); ?>
+            </div>
+        <div class="form-inline">   
             <div class="form-group">
-                <?php echo $form->labelEx($ModelSlider, 'slider_image'); ?>
-                <?php echo $form->textField($ModelSlider, 'slider_image', array('class' => 'form-control')); ?>
+                <?php echo $form->textField($ModelSlider, 'slider_idvideo', array('type'=>'number', 'class' => 'form-control', 'placeholder'=>'Id video')); ?>
+                <?php echo $form->error($ModelSlider, 'slider_idvideo'); ?> 
+            </div>
+            <div class="form-group">
+                <?php echo $form->textField($ModelSlider, 'slider_image', array('class' => 'form-control', 'placeholder'=>'URL obrazka')); ?>
                 <?php echo $form->error($ModelSlider, 'slider_image'); ?> 
+                <?php echo $form->hiddenField($ModelSlider, 'slider_thumb'); ?>
             </div>
-            <div class="form-group">
-                <?php echo $form->labelEx($ModelSlider, 'slider_published'); ?>
-                <?php echo $form->dropDownList($ModelSlider, 'slider_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?> 
-            </div>
+       </div>
         </div>
         
-        <div class="col-lg-6">         
-            <div class="form-group">
-                <?php echo $form->labelEx($ModelSlider, 'slider_title'); ?>
-                <?php echo $form->textField($ModelSlider, 'slider_title', array('rows'=>'5', 'class' => 'form-control')); ?>
-                <?php echo $form->error($ModelSlider, 'slider_title'); ?> 
+        <div class="col-lg-7">
+             <div class="form-group">
+                <?php echo $form->dropDownList($ModelSlider, 'slider_published',array('1' => 'Opublikowano', '0' => 'Nie opublikowano'),array('options' => array('1' => array('selected' => 'selected')), 'class' => 'form-control')); ?> 
             </div>
             <div class="form-group">
                 <?php echo CHtml::submitButton('Dodaj', array('class' => 'btn btn-primary')); ?>

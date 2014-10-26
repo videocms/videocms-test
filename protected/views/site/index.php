@@ -65,10 +65,10 @@
         }
 ?>
     <div class="col-md-12">
-        <h4>Najnowsze</h4>
+        <h3>Najnowsze</h3>
     </div>
     <?php foreach ($VideoLatest as $Video) : ?>
-	<div class="col-xs-6 col-sm-3 col-md-2">
+	<div class="col-xs-6 col-sm-6 col-md-3">
 		<div class="vc-lockup-video">
 		
 				  <div class="vc-lockup-thumbnail">
@@ -97,10 +97,10 @@
     <div class="clearfix"></div>
     <hr>
     <div class="col-md-12">
-        <h4>Popularne</h4>
+        <h3>Popularne</h3>
     </div>
     <?php foreach ($VideoPopular as $Video) : ?>
-	<div class="col-xs-6 col-sm-3 col-md-2">
+	<div class="col-xs-6 col-sm-6 col-md-3">
 		<div class="vc-lockup-video">
 		
 				  <div class="vc-lockup-thumbnail">

@@ -20,7 +20,7 @@ class AdminController extends Controller
                        'users' => array('*'),
                             ),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','AutocompleteTag','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','Seo','Slider','SliderDelete','SliderUpdate','Users','AdduserDelete','UserUpdate','test','log','LogDelete','menu','MenuUpdate','MenuDelete','createuser','MessageDelete','Message'),
+				'actions'=>array('admin','delete','index','user','Logout','Videos','VideoDelete','VideoUpdate','AutocompleteTag','AutocompleteVideo','Category','CategoryDelete','CategoryUpdate','Pass','Vast','VastDelete','VastUpdate','Settings','Seo','Slider','SliderDelete','SliderUpdate','Users','AdduserDelete','UserUpdate','test','log','LogDelete','menu','MenuUpdate','MenuDelete','createuser','MessageDelete','Message'),
 				'expression'=>'Yii::app()->user->isAdmin()',
 			),
 			array('deny',  // deny all users
@@ -486,6 +486,22 @@ class AdminController extends Controller
         Yii::app()->end();
     }
     
+    function actionAutocompleteVideo($term) {
+        $criteria = new CDbCriteria;
+        $criteria->compare('video_title', $term, true);
+        $ModelVideo = CmsvideoVideo::model()->findAll($criteria);
+
+        foreach ($ModelVideo as $value) {
+           // $array[] = array('value' => trim($value->video_title));
+            $array[] = array('idvideo' => trim($value->video_id), 'label' => trim($value->video_title), 'image' => trim($value->video_image), 'thumb' => trim($value->video_thumb));
+        }
+
+        echo CJSON::encode($array);
+        Yii::app()->end();
+    }
+
+   
+    
 //    public function actionPass()
 //    {
 //        $this->pageTitle = 'Change Pass';
@@ -685,8 +701,10 @@ class AdminController extends Controller
             {
                 $ModelSlider->save();
                 $SliderAdd = true;
-                $ModelSlider->slider_text = '';
+                $ModelSlider->slider_idvideo = '';
+                $ModelSlider->slider_title = '';
                 $ModelSlider->slider_image = '';
+                $ModelSlider->slider_thumb = '';
             }
         }
         
@@ -745,59 +763,7 @@ class AdminController extends Controller
         ));
     }
     // end Slider
-    //login
-//    public function actionLogin()
-//    {
-//         if(Yii::app()->session['zalogowany'] == 'tak')
-//        {
-//            $this->redirect(array('admin/'));
-//        }
-//        $this->layout='admin/login';
-//        $this->pageTitle = 'Login admin panel';
-//        $ErrorData = false;
-//        $ModelUsers = new CmsvideoUsers;
-//        if (isset($_POST['CmsvideoUsers']))
-//        {
-//            $ModelUsers->attributes = $_POST['CmsvideoUsers'];
-//            if($ModelUsers->validate())
-//            {
-//                $While = $ModelUsers->CountHowManyUsers();
-//                if ($While == 1)
-//                {
-//                    Yii::app()->session['zalogowany'] = 'tak';
-//                    $Results = $ModelUsers->SelectUser();
-//                    
-//                    foreach ($Results as $ResultsLine)
-//                    {
-//                        Yii::app()->session['root'] = $ResultsLine['user_id'];
-//                    }
-//                    
-//                    $this->redirect(array('/admin'));
-//                }
-//                
-//                else
-//                {
-//                    $ErrorData = true;
-//                }
-//            }
-//        }
-//        
-//        $this->render('login',
-//                array(
-//                    'ModelUsers' => $ModelUsers,
-//                    'ErrorData' => $ErrorData
-//                )
-//                );
-//    }
-//    
-//    public function actionLogout()
-//    {
-//        Yii::app()->session['zalogowany'] = '';
-//        Yii::app()->session['root'] = '';
-//        
-//        $this->redirect(array('/index'));
-//    }
-
+   
     public function actionLogin()
 	{
         //$ErrorData = false;
