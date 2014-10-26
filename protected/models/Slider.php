@@ -1,6 +1,7 @@
 <?php
 class Slider extends CActiveRecord
 {
+    public $slider_updateimg;
 
     
     public static function model($className=__CLASS__)
@@ -15,9 +16,9 @@ class Slider extends CActiveRecord
         
     public function rules() {
         return array(
-            array('slider_title, slider_idvideo, slider_image, slider_thumb, slider_published', 'required'),
+            array('slider_title, slider_idvideo, slider_image, slider_published', 'required'),
             array('slider_idvideo', 'numerical', 'integerOnly'=>true),
-            array('slider_title, slider_image, slider_thumb', 'length', 'max'=>255),
+            array('slider_title, slider_image, slider_thumb, slider_updateimg', 'length', 'max'=>255),
             array('slider_id, slider_idvideo, slider_title, slider_image, slider_published', 'safe', 'on'=>'search'),
         );
     }
@@ -66,6 +67,38 @@ class Slider extends CActiveRecord
     		),
 
 		));
+        }
+        
+    public function ImageCopy($ImageUpload, $ImageUrl) 
+        {
+             copy($ImageUpload, $ImageUrl);
+        }
+    
+    public function ImageThumbCreate($ImageUrl, $ThumbUrl) 
+        {
+            $ImageThumb = new EasyImage($ImageUrl);
+            $ImageThumb->resize(346, 230);
+            $ImageThumb->crop(320, 180);
+            $ImageThumb->save($ThumbUrl);
+        }
+    public function DeleteSliderImage($id)
+        {
+            $Data = Slider::model()->find('slider_id=:id', array(':id'=> $id));
+            $FileImage = $Data->slider_image;
+            $FileThumb = $Data->slider_thumb;
+
+            if (file_exists($FileImage)) {
+                 unlink($FileImage);
+            }
+            else {
+                echo 'Error deleting Image:'.$FileImage;
+            }
+            if (file_exists($FileThumb)) {
+                unlink($FileThumb);
+            }
+            else {
+                echo 'Error deleting Thumbnail: '.$FileThumb;
+            }    
         }
   
 }

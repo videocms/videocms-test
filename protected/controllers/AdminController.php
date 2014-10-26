@@ -493,7 +493,7 @@ class AdminController extends Controller
 
         foreach ($ModelVideo as $value) {
            // $array[] = array('value' => trim($value->video_title));
-            $array[] = array('idvideo' => trim($value->video_id), 'label' => trim($value->video_title), 'image' => trim($value->video_image), 'thumb' => trim($value->video_thumb));
+            $array[] = array('idvideo' => trim($value->video_id), 'label' => trim($value->video_title), 'image' => trim($value->video_image));
         }
 
         echo CJSON::encode($array);
@@ -696,9 +696,16 @@ class AdminController extends Controller
         if(isset($_POST['Slider']))
         {
             $ModelSlider->attributes=$_POST['Slider'];
+            $ImageNewName = date("d-m-Y-H-i-s", time())."-slider-".$ModelSlider->slider_idvideo.'.jpg';
+            $ImageUrl = 'images/orginal/'.$ImageNewName;
+            $ThumbUrl = 'images/thumbs/'.$ImageNewName;
             
             if($ModelSlider->validate())
-            {
+            {   
+                $ModelSlider->ImageCopy($ModelSlider->slider_image, $ImageUrl);
+                $ModelSlider->ImageThumbCreate($ImageUrl, $ThumbUrl);
+                $ModelSlider->slider_image = $ImageUrl;
+                $ModelSlider->slider_thumb = $ThumbUrl;
                 $ModelSlider->save();
                 $SliderAdd = true;
                 $ModelSlider->slider_idvideo = '';
@@ -730,7 +737,9 @@ class AdminController extends Controller
         {
             exit;
         }
-        Slider::model()->deleteByPk($id);
+        $ModelSlider = new Slider;
+        $ModelSlider->DeleteSliderImage($id);
+        $ModelSlider::model()->deleteByPk($id);
         $this->redirect(array('admin/slider'));
     }
     
@@ -750,7 +759,17 @@ class AdminController extends Controller
         {
             $ModelSlider->attributes = $_POST['Slider'];
             if($ModelSlider->validate())
-            {
+            {   
+                if(!empty($ModelSlider->slider_updateimg)) {
+                    $ModelSlider->DeleteSliderImage($id);
+                    $ImageNewName = date("d-m-Y-H-i-s", time())."-slider-".$ModelSlider->slider_idvideo.'.jpg';
+                    $ImageUrl = 'images/orginal/'.$ImageNewName;
+                    $ThumbUrl = 'images/thumbs/'.$ImageNewName;
+                    $ModelSlider->ImageCopy($ModelSlider->slider_updateimg, $ImageUrl);
+                    $ModelSlider->ImageThumbCreate($ImageUrl, $ThumbUrl);
+                    $ModelSlider->slider_image = $ImageUrl;
+                    $ModelSlider->slider_thumb = $ThumbUrl;
+                }
                 $ModelSlider->save();
                 $SliderUpdate = true;
             }

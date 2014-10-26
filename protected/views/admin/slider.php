@@ -134,7 +134,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
                         'select' => 'js:function(event, ui) {
                             $("#Slider_slider_idvideo").val(ui.item.idvideo);
                             $("#Slider_slider_image").val(ui.item.image);
-                            $("#Slider_slider_thumb").val(ui.item.thumb);
                             $("#Slider_slider_title").val(ui.item.label);
                             return false;
                         }'
@@ -155,7 +154,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
             <div class="form-group">
                 <?php echo $form->textField($ModelSlider, 'slider_image', array('class' => 'form-control', 'placeholder'=>'URL obrazka')); ?>
                 <?php echo $form->error($ModelSlider, 'slider_image'); ?> 
-                <?php echo $form->hiddenField($ModelSlider, 'slider_thumb'); ?>
             </div>
        </div>
         </div>
