@@ -171,11 +171,16 @@ class AdminController extends Controller
                         }                        
                     }
                     if($ModelVideo->video_slider) {
+                        $ImageNewName = date("d-m-Y-H-i-s", time())."-slider-".$id.'.jpg';
+                        $ImageUrl = 'images/orginal/'.$ImageNewName;
+                        $ThumbUrl = 'images/thumbs/'.$ImageNewName;
                         $Slider = new Slider;
+                        $Slider->ImageCopy($ModelVideo->video_image, $ImageUrl);
+                        $Slider->ImageThumbCreate($ImageUrl, $ThumbUrl);
                         $Slider->slider_idvideo = $id;
                         $Slider->slider_title = $ModelVideo->video_title;
-                        $Slider->slider_image = $ModelVideo->video_image;
-                        $Slider->slider_thumb = $ModelVideo->video_thumb;
+                        $Slider->slider_image = $ImageUrl;
+                        $Slider->slider_thumb = $ThumbUrl;
                         $Slider->slider_published = '1';
                         $Slider->save();
                     }
@@ -375,16 +380,21 @@ class AdminController extends Controller
                          }                           
                     }
                 }
-                
+
                 if($ModelVideo->video_slider) {
-                    $Slider = new Slider;
-                    $Slider->slider_idvideo = $id;
-                    $Slider->slider_title = $ModelVideo->video_title;
-                    $Slider->slider_image = $ModelVideo->video_image;
-                    $Slider->slider_thumb = $ModelVideo->video_thumb;
-                    $Slider->slider_published = '1';
-                    $Slider->save();
-                }
+                        $ImageNewName = date("d-m-Y-H-i-s", time())."-slider-".$id.'.jpg';
+                        $ImageUrl = 'images/orginal/'.$ImageNewName;
+                        $ThumbUrl = 'images/thumbs/'.$ImageNewName;
+                        $Slider = new Slider;
+                        $Slider->ImageCopy($ModelVideo->video_image, $ImageUrl);
+                        $Slider->ImageThumbCreate($ImageUrl, $ThumbUrl);
+                        $Slider->slider_idvideo = $id;
+                        $Slider->slider_title = $ModelVideo->video_title;
+                        $Slider->slider_image = $ImageUrl;
+                        $Slider->slider_thumb = $ThumbUrl;
+                        $Slider->slider_published = '1';
+                        $Slider->save();
+                    }
                 
                 $VideoUpdate = true;
             }
