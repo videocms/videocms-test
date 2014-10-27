@@ -8,7 +8,11 @@
     <?php foreach($DataSlider as $Data) : ?>
         
              <div>
-                <a href="video/<?php echo $Data->slider_idvideo; ?>">
+                <a href="video/<?php echo $Data->slider_idvideo; ?>-<?php echo implode(",",Yii::app()->db->createCommand()
+    ->select('video_alias')
+    ->from('videocms_video')
+    ->where('video_id=:video_id', array(':video_id'=>$Data->slider_idvideo))
+    ->queryRow());?>">
                     <img u="image" src="<?php echo $Data->slider_image; ?>" style="width: 980px; height: auto;top: 0px;left: 0px;position: absolute;" />
                     <div u="caption" t="MCLIP|B" style="position: absolute; top: 330px; left: 0px; width: 980px; height: 50px; transform: perspective(2000px);">
                         <div style="position: absolute; top: 0px; left: 0px; width: 980px; height: 50px; background-color: Black; opacity: 0.5; filter: alpha(opacity=50); transform: perspective(2000px);"></div>
@@ -18,6 +22,7 @@
                     </div>
                 </a>
             </div>
+        
      <?php endforeach; ?>      
     </div>
      <style>

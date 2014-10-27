@@ -39,6 +39,8 @@ class SiteController extends Controller
             'order' => 'slider_id DESC',
         ));
         
+        $VideoWhere1 = CmsvideoVideo::model()->findAll();
+        
         $VideoLatest = CmsvideoVideo::model()->findAll(array(
             'select'=>'video_id, video_title, video_thumb, video_views, video_alias',
             'order' => 'video_id DESC',
@@ -77,6 +79,7 @@ class SiteController extends Controller
                           'ModelCategories' => $ModelCategories,
                           'VideoLatest' => $VideoLatest,
                           'VideoPopular' => $VideoPopular,
+                            'vvideo' => $VideoWhere1,
                           'DataSlider' => $ModelSlider,
                           'DataSeo' => $DataSeo,
                           //'page' => Page::model()->findByPk($id),
