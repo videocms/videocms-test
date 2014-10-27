@@ -138,7 +138,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                             return false;
                         }'
                     ),
-                    'htmlOptions' => array('size' => 60, 'class'=>'form-control', 'placeholder'=>'Nagłówek'),
+                    'htmlOptions' => array('size' => 60, 'class'=>'form-control', 'placeholder'=>'Tytuł'),
                 ));
                 ?>
                 <span class="input-group-btn">
