@@ -26,6 +26,7 @@ class SiteController extends Controller
     public $player_controls;
     public $ogtype;
     public $videoID;
+    public $pageAlias;
     public $layout='site/index';
     //public $defaultAction = 'cmsvideo';
     
@@ -34,7 +35,7 @@ class SiteController extends Controller
         $ModelSeo = new CmsvideoSettings;
         $DataSeo = $ModelSeo->DownloadSettings();
         $ModelCategories = CmsvideoCategories::model()->findAll();
-        
+
         $ModelSlider = Slider::model()->findAll(array(
             'order' => 'slider_id DESC',
         ));
@@ -229,6 +230,7 @@ class SiteController extends Controller
             $this->pageMetaKeywords = $Model->video_keywords;
             $this->pageMetaDescription = $Model->video_description;
             $this->pageMetaOgImage = $Model->video_image;
+            $this->pageAlias = $Model->video_alias;
            // $this->pageMetaDescription = $Video['video_description'];
         //}
        

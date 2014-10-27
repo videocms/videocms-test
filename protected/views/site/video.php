@@ -233,7 +233,7 @@ foreach ($ModelCategories as $ModelCategoryShow)
                 <meta itemprop="width" content="1440">
                 <meta itemprop="height" content="900">
             </span>
-            <link itemprop="embedURL" href="<?php echo Yii::app()->request->getBaseUrl(true); ?>/embed/<?php echo $Model->video_id; ?>">
+            <link itemprop="embedURL" href="<?php echo Yii::app()->request->getBaseUrl(true); ?>/embed/<?php echo $Model->video_id; ?>-<?php echo $Model->video_alias; ?>">
             <meta itemprop="playerType" content="HTML5 Flash">
             <meta itemprop="width" content="1920">
             <meta itemprop="height" content="1080">
