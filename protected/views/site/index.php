@@ -72,7 +72,7 @@
 		<div class="vc-lockup-video">
 		
 				  <div class="vc-lockup-thumbnail">
-                                      <a href="video/<?php echo $Video->video_id; ?>" title="<?php echo $Video->video_title; ?>">   
+                                      <a href="video/<?php echo $Video->video_id; ?>-<?php echo $Video->video_alias; ?>" title="<?php echo $Video->video_title; ?>">   
 						<span class="video-thumb  vc-thumb vc-thumb-196 vc-thumb-fluid">
 						  <span class="vc-thumb-default">
 							<span class="vc-thumb-clip">
@@ -85,7 +85,7 @@
 					</div>
 				<div class="vc-lockup-content">
 					<h3 class="title">
-                                        <?php echo CHtml::link($Video->video_title, array('video/'.$Video->video_id), array('class'=>'vc-lockup-link vc-ui-ellipsis', 'title'=>$Video->video_title));?>
+                                        <?php echo CHtml::link($Video->video_title, array('video/'.$Video->video_id.'-'.$Video->video_alias), array('class'=>'vc-lockup-link vc-ui-ellipsis', 'title'=>$Video->video_title));?>
 					</h3>
                                         <h5 class="stat"><small>Autor</small></h5>
                                         <h5 class="stat"><small><?php echo $Video->video_views; ?> wyświetlenia</small></h5>
@@ -104,7 +104,7 @@
 		<div class="vc-lockup-video">
 		
 				  <div class="vc-lockup-thumbnail">
-                                      <a href="video/<?php echo $Video->video_id; ?>" title="<?php echo $Video->video_title; ?>">   
+                                      <a href="video/<?php echo $Video->video_id; ?>-<?php echo $Video->video_alias; ?>" title="<?php echo $Video->video_title; ?>">   
 						<span class="video-thumb  vc-thumb vc-thumb-196 vc-thumb-fluid">
 						  <span class="vc-thumb-default">
 							<span class="vc-thumb-clip">
@@ -117,7 +117,7 @@
 					</div>
 				<div class="vc-lockup-content">
 					<h3 class="title">
-                                        <?php echo CHtml::link($Video->video_title, array('video/'.$Video->video_id), array('class'=>'vc-lockup-link vc-ui-ellipsis', 'title'=>$Video->video_title));?>
+                                        <?php echo CHtml::link($Video->video_title.'-'.$Video->video_alias, array('video/'.$Video->video_id), array('class'=>'vc-lockup-link vc-ui-ellipsis', 'title'=>$Video->video_title));?>
 					</h3>
                                         <h5 class="stat"><small>Autor</small></h5>
                                         <h5 class="stat"><small><?php echo $Video->video_views; ?> wyświetlenia</small></h5>

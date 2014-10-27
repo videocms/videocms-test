@@ -40,13 +40,13 @@ class SiteController extends Controller
         ));
         
         $VideoLatest = CmsvideoVideo::model()->findAll(array(
-            'select'=>'video_id, video_title, video_thumb, video_views',
+            'select'=>'video_id, video_title, video_thumb, video_views, video_alias',
             'order' => 'video_id DESC',
             'limit' => '4',
         ));
         
         $VideoPopular = CmsvideoVideo::model()->findAll(array(
-            'select'=>'video_id, video_title, video_thumb, video_views',
+            'select'=>'video_id, video_title, video_thumb, video_views, video_alias',
             'order' => 'video_views DESC',
             'limit' => '4',
         ));
@@ -71,7 +71,7 @@ class SiteController extends Controller
             $this->slider_lazyloading = $Seoo['slider_lazyloading'];
         }
         
-        
+        //$id = 'page';
         $this->render('index',
                     array(
                           'ModelCategories' => $ModelCategories,
@@ -79,6 +79,7 @@ class SiteController extends Controller
                           'VideoPopular' => $VideoPopular,
                           'DataSlider' => $ModelSlider,
                           'DataSeo' => $DataSeo,
+                          //'page' => Page::model()->findByPk($id),
                           )
                   );
     }
@@ -168,7 +169,7 @@ class SiteController extends Controller
       
         $criteria = new CDbCriteria(
                     array(
-                        'select'=>'video_id, video_title, video_thumb, video_views',
+                        'select'=>'video_id, video_title, video_thumb, video_views, video_alias',
                         'condition'=>'video_views >= 0 AND video_id != :IdVideo',
                         'order' => 'video_views DESC',
                         //'limit' => '10',

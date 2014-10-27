@@ -60,7 +60,7 @@ return array(
                                'index/'         =>'/',
                                'admin/'         =>'admin/index',
                                '<action:\w+>' => 'site/<action>',
-                               '<action:\w+>/<id:\d+>' => 'site/<action>',
+                               '<action:\w+>/<id:\d+>-<video_alias:[a-zA-Z0-9-]+>' => 'site/<action>', ///tutaj
                             '<controller:\w+>/<id:\d+>'=>'<controller>/view',
                             '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
                             '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

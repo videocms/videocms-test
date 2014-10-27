@@ -188,7 +188,7 @@ foreach ($ModelCategories as $ModelCategoryShow)
                 
                     <?php foreach($VideoList as $RelatedVideo) : ?>
                     <div class="row video-list-item related-list-item">
-                        <a href="<?php echo $RelatedVideo->video_id; ?>" class="">
+                        <a href="<?php echo $RelatedVideo->video_id; ?>-<?php echo $RelatedVideo->video_alias; ?>" class="">
                             <div class="col-xs-7 col-md-5">
                                 <span class="vc-thumb">
                                     <span class="video-thumb  vc-thumb">
@@ -218,7 +218,7 @@ foreach ($ModelCategories as $ModelCategoryShow)
         <div class="column">
         <div class="col-md-12" itemscope itemid="" itemtype="http://schema.org/VideoObject">
             <?php echo '<h1 class="page-video">'.$Model->video_title.'</h1>'; ?>
-            <link itemprop="url" href="<?php echo Yii::app()->request->getBaseUrl(true); ?>/<?php echo $Model->video_id; ?>">
+            <link itemprop="url" href="<?php echo Yii::app()->request->getBaseUrl(true); ?>/video/<?php echo $Model->video_id; ?>-<?php echo $Model->video_alias; ?>">
             <meta itemprop="name" content="<?php echo $Model->video_title; ?>">
             <meta itemprop="description" content="<?php echo $Model->video_text; ?>">
            <!-- <span itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -563,7 +563,7 @@ if ($_COOKIE[widescreen_mode] == "0" || $_COOKIE[widescreen_mode] == NULL)
         <h4 class="modal-title" id="myModalLabel">Embed</h4>
       </div>
       <div class="modal-body">
-                <p class="tresc">Embed: <input type="text" class="form-control" size="45" value="<iframe src='http://videocms-test.pl/embed/<?php echo $Model->video_id; ?>' frameborder='0' allowfullscreen></iframe>">
+                <p class="tresc">Embed: <input type="text" class="form-control" size="45" value="<iframe src='http://videocms-test.pl/embed/<?php echo $Model->video_id; ?>-<?php echo $Model->video_alias; ?>' frameborder='0' allowfullscreen></iframe>">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>

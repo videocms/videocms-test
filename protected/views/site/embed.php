@@ -130,13 +130,13 @@
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-contextmenu.js"></script>
 <div id="context-menu">
   <ul class="dropdown-menu" role="menu">
-    <li><a tabindex="-1" href="http://<?php echo Yii::app()->request->getBaseUrl(true); ?>/video/<?php echo $Model->video_id; ?>" onclick="clickone()">Video</a></li>
+    <li><a tabindex="-1" href="http://<?php echo Yii::app()->request->getBaseUrl(true); ?>/video/<?php echo $Model->video_id; ?>-<?php echo $Model->video_alias; ?>" onclick="clickone()">Video</a></li>
     <li><a tabindex="-1" href="#">VideoCMS</a></li>
   </ul>
 </div>
 <script>
 function clickone() {
-    window.open("<?php echo Yii::app()->request->getBaseUrl(true); ?>/video/<?php echo $Model->video_id; ?>");
+    window.open("<?php echo Yii::app()->request->getBaseUrl(true); ?>/video/<?php echo $Model->video_id; ?>-<?php echo $Model->video_alias; ?>");
 }
 </script>
 
