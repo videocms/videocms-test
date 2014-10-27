@@ -229,7 +229,7 @@ class AdminController extends Controller
         } 
         
         $ModelVideo = CmsvideoVideo::model()->findByPk($id);
-        $ModelSlider = new Slider;
+      //  $ModelSlider = new Slider;
         $ModelTags = new Tags;
         if(!empty($ModelVideo->video_image) || !empty($ModelVideo->video_thumb)) {
         $ModelVideo->DeleteVideoImage($id);
