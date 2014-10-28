@@ -34,7 +34,8 @@ $this->widget('zii.widgets.CListView', array(
     'pagerCssClass'=>'dataTables_paginate paging_simple_numbers',
     'itemsCssClass'=>'table table-striped table-hover dataTable no-footer',
     'sortableAttributes'=>array(
-        'video_title',
+        'video_views',
+        'video_date',
     ),
 ));
     ?>

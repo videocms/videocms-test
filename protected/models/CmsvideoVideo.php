@@ -83,6 +83,7 @@ class CmsvideoVideo extends CActiveRecord
             'video_keywords' => 'Słowa kluczowe',
             'tag_slug' => 'Tagi',
             'video_slider' => 'Slider',
+            'video_views' => 'Wyświetlenia',
         );
     }
    
@@ -174,12 +175,19 @@ class CmsvideoVideo extends CActiveRecord
 				'pageVar'=>'page',
 			),
             'sort'=>array(
-    			'defaultOrder'=>'video_title',
-    			'sortVar'=>'sort',
-    			'attributes'=>array(
-    				'video_title',
-    			),
-    		),
+			    'attributes'=>array(
+				    'video_views'=>array(
+					    'asc'=>'CONCAT(video_views) ASC',
+					    'desc'=>'CONCAT(video_views) DESC',
+				    ),
+                                    'video_date'=>array(
+                                            'desc'=>'CONCAT(video_date) DESC',
+					    'asc'=>'CONCAT(video_date) ASC',
+				    ),
+				    '*',
+			    ),
+			    'defaultOrder' => 'video_title',
+		    ),
 
 		));
         }
