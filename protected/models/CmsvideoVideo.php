@@ -160,6 +160,29 @@ class CmsvideoVideo extends CActiveRecord
                 echo 'Error deleting Thumbnail: '.$FileThumb;
             }    
         }
+        
+      public function search_model()
+        {
+            $criteria=new CDbCriteria;
+            $criteria->compare('video_title',$this->video_title,true, 'OR');
+            $criteria->compare('video_text', $this->video_text, true, 'OR');
+            //$criteria->compare('video_tags', $this->video_tags, true);
+            return new CActiveDataProvider($this, array(
+                'criteria'=>$criteria,
+            'pagination'=>array(
+				'pageSize'=>Yii::app()->params['pageSize'],
+				'pageVar'=>'page',
+			),
+            'sort'=>array(
+    			'defaultOrder'=>'video_title',
+    			'sortVar'=>'sort',
+    			'attributes'=>array(
+    				'video_title',
+    			),
+    		),
+
+		));
+        }
   
 }
 

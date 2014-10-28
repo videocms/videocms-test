@@ -369,5 +369,47 @@ class SiteController extends Controller
              
     }
     //embed koniec
+    
+        public function actionSearch()
+    {
+        $ModalSeo = new CmsvideoSettings;
+        $DataSeo = $ModalSeo->DownloadSettings();
+        foreach ($DataSeo as $Seoo)
+        {
+            $this->pageMetaRobots = $Seoo['settings_robots'];
+        }
+            
+        $model = new CmsvideoVideo('search_model');
+        $model->unsetAttributes();
+        if(isset($_GET['search_key'])) 
+            {  if (!$_GET['search_key'] == '')
+            {
+        $model->video_title = $_GET['search_key'];
+        $model->video_text = $_GET['search_key'];
+       // $dataProvider= $model->search();
+            }
+        else
+            {
+                    echo 'podano puste wartości!';
+                    $this->redirect(array('/'));
+            }
+        }   
+        
+        $this -> render('search', array(
+            'model' => $model,
+           // 'dataProvider' => $dataProvider,
+        ));
+    }
+//      public function action_Search()
+//    {
+//        $model = new CmsvideoVideo('search_model');
+//        $model->unsetAttributes();
+//        if(isset($_GET['search_key'])) 
+//            $model->video_title = $_GET['search_key'];     
+//
+//        $this -> render('_search', array(
+//            'model' => $model,
+//        ));
+//    }
 }
 ?>

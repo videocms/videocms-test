@@ -146,12 +146,19 @@
         <div class="like-dis" style="display: none;"><div class="col-xs-1" style="padding-top: 3px;"><img src="/css/img/OK-button.png"></div></div>
       
         
-      <div class="input-group"> 
+<!--      <div class="input-group"> 
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Szukaj</button>
       </span>
+          
       <input type="text" class="form-control">
-    </div>
+    </div>-->
+
+ <?php echo CHtml::form(Yii::app()->createUrl('search'),'get',array('class' => 'input-group')); ?>
+            <?php echo CHtml::textField('search_key', '', array('class' => 'form-control')); ?>
+    <span class="input-group-btn"><?php echo CHtml::submitButton('Szukaj',array('class' => 'btn btn-default', 'name' => 'search')); ?></span>
+        <?php echo CHtml::endForm() ?>
+
   </div>
   </div>
   </div>
