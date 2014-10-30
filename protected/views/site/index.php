@@ -4,7 +4,7 @@
             <div u="slides" class="slides">
             <?php foreach($DataSlider as $Data) : ?>
                 <div>
-                    <a class="shadow" href="video/<?php echo $Data->slider_idvideo; ?>-<?php echo implode(",",Yii::app()->db->createCommand()
+                    <a href="video/<?php echo $Data->slider_idvideo; ?>-<?php echo implode(",",Yii::app()->db->createCommand()
                     ->select('video_alias')
                     ->from('videocms_video')
                     ->where('video_id=:video_id', array(':video_id'=>$Data->slider_idvideo))
