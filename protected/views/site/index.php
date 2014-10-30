@@ -159,7 +159,7 @@
             _CaptionTransitions["MCLIP|B"] = { $Duration: 600, $Clip: 8, $Move: true, $Easing: $JssorEasing$.$EaseOutExpo };
 
             var _SlideshowTransitions = [{
-                    $Duration:1000,$Opacity:2
+                    $Duration:1000,$Opacity:2                  
         }];
             
         var options = { 
