@@ -158,6 +158,10 @@
             _CaptionTransitions["WAVE|L"] = { $Duration: 1500, x: 0.6, y: 0.3, $Easing: { $Left: $JssorEasing$.$EaseLinear, $Top: $JssorEasing$.$EaseInWave }, $Opacity: 2, $Round: { $Top: 2.5} };
             _CaptionTransitions["MCLIP|B"] = { $Duration: 600, $Clip: 8, $Move: true, $Easing: $JssorEasing$.$EaseOutExpo };
 
+            var _SlideshowTransitions = [{
+                    $Duration:1000,$Opacity:2
+        }];
+            
         var options = { 
             $AutoPlay: true,
             $SlideDuration: <?php echo $this->slider_duration; ?>,
@@ -179,7 +183,11 @@
                     $CaptionTransitions: _CaptionTransitions,       //[Required] An array of caption transitions to play caption, see caption transition section at jssor slideshow transition builder
                     $PlayInMode: 1,                                 //[Optional] 0 None (no play), 1 Chain (goes after main slide), 3 Chain Flatten (goes after main slide and flatten all caption animations), default value is 1
                     $PlayOutMode: 3                                 //[Optional] 0 None (no play), 1 Chain (goes before main slide), 3 Chain Flatten (goes before main slide and flatten all caption animations), default value is 1
-                }
+                },
+            $SlideshowOptions: {                                //Options which specifies enable slideshow or not
+                $Class: $JssorSlideshowRunner$,                 //Class to create instance of slideshow
+                $Transitions: _SlideshowTransitions            //Transitions to play slide, see jssor slideshow transition builder
+            }
             };
         var jssor_slider1 = new $JssorSlider$('slider1_container', options);
         //responsive code begin
