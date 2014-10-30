@@ -1,3 +1,10 @@
+img {
+    -webkit-filter: contrast(120%);
+    -moz-filter: contrast(120%);
+    -o-filter: contrast(120%);
+    -ms-filter: contrast(120%);
+    filter: contrast(120%);
+    }
 .container-costum {
   padding-right: 15px;
   padding-left: 15px;
@@ -309,3 +316,67 @@ h1.page-video {
 .navbar-default {
     background-color: #FFFFFF !important;
     }
+    
+#slider1_container {
+    position: relative; 
+    top: 0px; 
+    left: 0px; 
+    width: 980px; 
+    height: 346px;
+    -webkit-box-shadow: 0 0 4px rgba(0,0,0,1);
+    -moz-box-shadow: 0 0 4px rgba(0,0,0,1);
+    box-shadow: 0 0 4px rgba(0,0,0,1);
+    }
+    #slider1_container .slides {
+        cursor: move; 
+        position: absolute; 
+        left: 0px; 
+        top: 0px; 
+        width: 100%; 
+        height: 346px; 
+        overflow: hidden;
+        }
+        #slider1_container .slides img {
+            width: 100%; 
+            height: auto;
+            max-height: 475px;
+            top: 0px;
+            left: 0px;
+            position: relative;
+            z-index: -1;
+            }
+            #slider1_container .slides .caption {
+                position: absolute; 
+                top: 297px; 
+                left: 0px; 
+                width: 100%; 
+                height: 50px;
+                }
+            #slider1_container .slides .caption .cap {
+                position: absolute; 
+                top: 0px; 
+                left: 0px; 
+                width: 100%; 
+                height: 50px; 
+                background-color: rgba(0, 0, 0, 0.40);
+                }
+                #slider1_container .slides .caption .caption1 {
+                    
+                    }
+                #slider1_container .slides .caption .caption2 {     
+                    color: White; 
+                    font-size: 16px; 
+                    font-weight: bold; 
+                    line-height: 50px; 
+                    text-align: center; 
+                    opacity: 0.8;
+                    }
+                .shadow {
+                    height: 100%;
+                    display:block;
+                    position:relative;
+                    background-image: linear-gradient(-300deg, rgba(0,0,0,0.3) 20%,rgba(0,0,0,0) 60%);
+                    -webkit-box-shadow: inset 0 -30px 100px rgba(0,0,0,0.8);
+                    -moz-box-shadow: inset 0 -30px 100px rgba(0,0,0,0.8);
+                    box-shadow: inset 0 -30px 100px rgba(0,0,0,0.8);
+                }

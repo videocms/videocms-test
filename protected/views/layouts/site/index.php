@@ -130,7 +130,7 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->      
 </head>
-<body style="padding-top:50px">
+<body class="<?php echo $this->getBodyClasses(); ?>" style="padding-top:50px">
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div id="wrapper">
         <div class="row">
