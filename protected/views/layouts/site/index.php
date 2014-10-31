@@ -7,6 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.11.1.min.js"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/js/bootstrap.min.js"></script>
         <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <?php   if (!empty($this->pageMetaDescription))
@@ -213,7 +214,6 @@
 				classie.toggle( menuLeft, 'cbp-spmenu-open' );
 			}			
 		</script>
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/classie.js"></script>
     <br />
 <?php 

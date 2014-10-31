@@ -66,7 +66,7 @@
         <h3>Najnowsze</h3>
     </div>
     <?php foreach ($VideoLatest as $Video) : ?>
-	<div class="col-xs-6 col-sm-6 col-md-3">
+	<div id="<?php echo $Video->video_id; ?>" class="col-xs-6 col-sm-6 col-md-3" data-toggle="popover" data-placement="top" data-trigger="hover" title="Więcej informacji" data-content="<?php echo $Video->video_title; ?>">
 		<div class="vc-lockup-video">
 		
 				  <div class="vc-lockup-thumbnail">
@@ -91,7 +91,22 @@
 		
 		</div>
             </div>
-    <?php endforeach; ?>
+     <script type="text/javascript">
+$('#<?php echo $Video->video_id; ?>').popover({
+    placement : 'top',
+    //html : true,
+    trigger : 'hover', 
+    delay: { 
+       show: "500", 
+       hide: "300"
+    }
+//    content: function() {
+//        return $('#1-<?php echo $Video->video_id; ?>').html();
+//    }
+});
+       </script>
+    <?php endforeach; ?> 
+   
     <div class="clearfix"></div>
     <hr>
     <div class="col-md-12">
