@@ -23,7 +23,7 @@ class LoginForm extends CFormModel
 		return array(
 			// username always required
 			array('username', 'required'),
-		    
+                        array('username', 'match' ,'pattern'=>'/^[A-Za-z0-9_]+$/u','message'=> 'Username can contain only alphanumeric characters and hyphens(-).'),
 			// use a 'login' scenario for login validation
 			array('password', 'required', 'on'=>'login'),
 			// rememberMe needs to be a boolean

@@ -111,8 +111,7 @@ class User extends CActiveRecord
 			array('email','email'),
 			array('last_login_time', 'safe','on'=>'validation'),
 			array('username', 'compare', 'compareAttribute'=>'usernameLegal', 'message'=>'Hasło zawiera niedozwolone znaki!','on'=>'validation'),
-			
-		    
+			array('username', 'match' ,'pattern'=>'/^[A-Za-z0-9_]+$/u','message'=> 'Username can contain only alphanumeric characters and hyphens(-).'),
 			array('role', 'numerical',  'integerOnly'=>true),
 			
 			array('profile', 'safe'),
