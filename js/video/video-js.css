@@ -1,6 +1,6 @@
 /*!
 Video.js Default Styles (http://videojs.com)
-Version 4.9.1
+Version 4.10.2
 Create your own skin at http://designer.videojs.com
 */
 /* SKIN
@@ -448,10 +448,10 @@ easily in the skin designer. http://designer.videojs.com/
 .vjs-default-skin .vjs-big-play-button {
   /* Center it horizontally */
   left: 50%;
-  margin-left: -1.55em;
+  margin-left: -1.6em;
   /* Center it vertically */
   top: 50%;
-  margin-top: -1.35em;
+  margin-top: -1.4000000000000001em;
   font-size: 2em;
   display: block;
   z-index: 2;
@@ -466,11 +466,11 @@ easily in the skin designer. http://designer.videojs.com/
   /* background-color-with-alpha */
   background-color: #07141e;
   background-color: rgba(7, 20, 30, 0.7);
-  border: 0.05em solid #3b4249;
+  border: 0.1em solid #3b4249;
   /* border-radius */
-  -webkit-border-radius: 0.6em;
-  -moz-border-radius: 0.6em;
-  border-radius: 0.6em;
+  -webkit-border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  border-radius: 0.8em;
   /* box-shadow */
   -webkit-box-shadow: 0px 0px 1em rgba(255, 255, 255, 0.25);
   -moz-box-shadow: 0px 0px 1em rgba(255, 255, 255, 0.25);
@@ -485,10 +485,10 @@ easily in the skin designer. http://designer.videojs.com/
 .vjs-default-skin.vjs-big-play-centered .vjs-big-play-button {
   /* Center it horizontally */
   left: 50%;
-  margin-left: -1.55em;
+  margin-left: -1.6em;
   /* Center it vertically */
   top: 50%;
-  margin-top: -1.35em;
+  margin-top: -1.4000000000000001em;
 }
 /* Hide if controls are disabled */
 .vjs-default-skin.vjs-controls-disabled .vjs-big-play-button {
@@ -883,6 +883,19 @@ body.vjs-full-window {
   max-height: 100%;
   padding: 0;
   width: 100%;
+}
+/* Hide the poster after the video has started playing */
+.video-js.vjs-has-started .vjs-poster {
+  display: none;
+}
+/* Don't hide the poster if we're playing audio */
+.video-js.vjs-audio.vjs-has-started .vjs-poster {
+  display: block;
+}
+/* Hide the poster when controls are disabled because it's clickable
+    and the native poster can take over */
+.video-js.vjs-controls-disabled .vjs-poster {
+  display: none;
 }
 /* Hide the poster when native controls are used otherwise it covers them */
 .video-js.vjs-using-native-controls .vjs-poster {
