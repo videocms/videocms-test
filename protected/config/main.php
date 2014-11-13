@@ -1,4 +1,5 @@
 <?php
+                    include 'db.php';
 //
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
@@ -75,11 +76,12 @@ return array(
 		),
 		// uncomment the following to use a MySQL database
 		
+               
 		'db'=>array(
-			'connectionString' => 'mysql:host=22389.m.tld.pl;dbname=baza89_cmsvideo',
+			'connectionString' => 'mysql:host='.$host.';dbname='.$dbname.'',
 			'emulatePrepare' => true,
-			'username' => 'admin89_cmsvideo',
-			'password' => 'hasl0d)bAzy1!',
+			'username' => $username,
+			'password' => $password,
 			'charset' => 'utf8',
                         'enableProfiling' => true,
                         'enableParamLogging' => true,
