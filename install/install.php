@@ -72,7 +72,7 @@ if (substr(trim($line), -1, 1) == ';')
     $templine = '';
 }
 }
- echo '<div class="alert alert-success" role="alert"><h2><strong>Proces instalacji przebiegł poprawnie</strong></h2><br /><br /><br /> Proszę usunąć katalog "<i><b>install</b></i> z serwera! <br /><br /> Domyślne dane do logowania: <b>login:</b> <strong>admin</strong>, <b>hasło:</b> <strong>god</strong></div>';
+ echo '<div class="alert alert-success" role="alert"><h2><strong>Proces instalacji przebiegł poprawnie</strong></h2><br /><br /><br /> Proszę usunąć katalog "<i><b>install</b></i>" z serwera! <br /><br /> Domyślne dane do logowania: <b>login:</b> <strong><i>admin</i></strong>, <b>hasło:</b> <strong><i>god</i></strong></div>';
  
  $myfile = fopen("../protected/config/db.php", "w") or die("<h2>Błąd pliku!</h2>");
  $txt = '<?php ';
