@@ -229,7 +229,7 @@ class AdminController extends Controller
         } 
         
         $ModelVideo = CmsvideoVideo::model()->findByPk($id);
-      //  $ModelSlider = new Slider;
+        $ModelSlider = Slider::model()->findByAttributes(array('slider_idvideo'=>$id));
         $ModelTags = new Tags;
         if(!empty($ModelVideo->video_image) || !empty($ModelVideo->video_thumb)) {
         $ModelVideo->DeleteVideoImage($id);
@@ -259,8 +259,10 @@ class AdminController extends Controller
  
         CmsvideoVideo::model()->deleteByPk($id);
         Likedislikedis::model()->deleteAll('field_id = :IdVideo' , array(':IdVideo'=>$id));
-     //   $ModelSlider::model()->deleteAll('slider_idvideo = :IdVideo' , array(':IdVideo'=>$id));
-        
+        if(count($ModelSlider) > 0) {
+            $ModelSlider->DeleteSliderImage($ModelSlider->slider_id);
+            $ModelSlider::model()->deleteByPk($ModelSlider->slider_id);
+        }
        // $this->redirect(array('admin/videos'));
         $this->redirect(Yii::app()->request->urlReferrer);
     }
