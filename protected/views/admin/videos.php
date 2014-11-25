@@ -274,15 +274,16 @@ $this->widget('zii.widgets.grid.CGridView', array(
 <?php $this->endWidget(); ?>
 </div>
 <script type="text/javascript">
- var title = $('#CmsvideoVideo_video_title'),
-    slug = $('#CmsvideoVideo_video_alias');
-
-title.on('keyup', function() {
-  var val = $(this).val();
-  val = val.toLowerCase()
-    .replace(/ /g, '-');
-  slug.val(val);
-});
+// var title = $('#CmsvideoVideo_video_title'),
+//    slug = $('#CmsvideoVideo_video_alias');
+//
+//title.on('keyup', function() {
+//  var val = $(this).val();
+//  val = val.toLowerCase()
+//    .replace(/ /g, '-');
+//  slug.val(val);
+//});
+$('#CmsvideoVideo_video_alias').slugify('#CmsvideoVideo_video_title');
 </script>
 <script type="text/javascript">
  var tags = $('#CmsvideoVideo_tag_slug'),

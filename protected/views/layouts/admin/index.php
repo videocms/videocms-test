@@ -12,6 +12,9 @@ if (Yii::app()->user->isAdmin() == TRUE)
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+            <!-- jQuery Version 1.11.0 -->
+         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.11.1.min.js"></script>
+         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.slugify.js"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/pace.min.js"></script>
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/google/main.css" rel="stylesheet" type="text/css">
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -358,8 +361,6 @@ if (Yii::app()->user->isAdmin() == TRUE)
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery Version 1.11.0 -->
- <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.11.1.min.js"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
