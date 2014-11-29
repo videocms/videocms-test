@@ -821,7 +821,7 @@ class AdminController extends Controller
 			    if ($model->scenario=='login' && $model->login())
                             {
                                 $ModelUsers->username = '';
-                                $this->redirect('/admin');
+                                $this->redirect(Yii::app()->request->baseUrl.'/admin');
                             }
                             
 			    elseif ($model->scenario=='lost') {
