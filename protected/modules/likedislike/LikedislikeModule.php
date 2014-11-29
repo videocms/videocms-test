@@ -38,13 +38,13 @@ class LikedislikeModule extends CWebModule
                 $model = Likedislike::model()->find($criteria);
                 		
 		if(count($model)==0){
-			return '<img id="like-dis" src="/css/img/like-ico.png">';
+			return '<img id="like-dis" src="'.Yii::app()->request->baseUrl.'/css/img/like-ico.png">';
 		}
 		elseif(($model->status==0) || ($model->status==2)){
-			return '<img id="like-dis" src="/css/img/like-ico.png">';
+			return '<img id="like-dis" src="'.Yii::app()->request->baseUrl.'/css/img/like-ico.png">';
 		}
 		else{
-			return '<img id="dis-like-dis" src="/css/img/like-ico-h.png">';
+			return '<img id="dis-like-dis" src="'.Yii::app()->request->baseUrl.'/css/img/like-ico-h.png">';
 		}
 	}
         	

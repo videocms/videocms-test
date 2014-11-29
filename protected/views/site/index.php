@@ -74,7 +74,7 @@
 						<span class="video-thumb  vc-thumb vc-thumb-196 vc-thumb-fluid">
 						  <span class="vc-thumb-default">
 							<span class="vc-thumb-clip">
-							  <img class="img-responsive" src="/<?php echo $Video->video_thumb; ?>" alt="">
+							  <img class="img-responsive" src="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $Video->video_thumb; ?>" alt="">
 								<span class="vertical-align"></span>
 							</span>
 						  </span>
@@ -121,7 +121,7 @@ $('#<?php echo $Video->video_id; ?>').popover({
 						<span class="video-thumb  vc-thumb vc-thumb-196 vc-thumb-fluid">
 						  <span class="vc-thumb-default">
 							<span class="vc-thumb-clip">
-							  <img class="img-responsive" src="/<?php echo $Video->video_thumb; ?>" alt="">
+							  <img class="img-responsive" src="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $Video->video_thumb; ?>" alt="">
 								<span class="vertical-align"></span>
 							</span>
 						  </span>
@@ -130,7 +130,7 @@ $('#<?php echo $Video->video_id; ?>').popover({
 					</div>
 				<div class="vc-lockup-content">
 					<h3 class="title">
-                                        <?php echo CHtml::link($Video->video_title.'-'.$Video->video_alias, array('video/'.$Video->video_id), array('class'=>'vc-lockup-link vc-ui-ellipsis', 'title'=>$Video->video_title));?>
+                                        <?php echo CHtml::link($Video->video_title, array('video/'.$Video->video_id.'-'.$Video->video_alias), array('class'=>'vc-lockup-link vc-ui-ellipsis', 'title'=>$Video->video_title));?>
 					</h3>
                                         <h5 class="stat"><small>Autor</small></h5>
                                         <h5 class="stat"><small><?php echo $Video->video_views; ?> wyświetlenia</small></h5>

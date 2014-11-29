@@ -29,17 +29,17 @@ class DefaultController extends Controller
                         //$model->user_id = $user_id;
 			$model->status = 1;
 			$model->add_timestamp = time();
-			$displaynow = '<img id="dis-like-dis" src="/css/img/like-ico-h.png">';
+			$displaynow = '<img id="dis-like-dis" src="'.Yii::app()->request->baseUrl.'/css/img/like-ico-h.png">';
 		}
 		else if(($model->status==0) || ($model->status==2)){
 			$model->status = 1;
 			$model->edit_timestamp = time();
-			$displaynow = '<img id="dis-like-dis" src="/css/img/like-ico-h.png">';
+			$displaynow = '<img id="dis-like-dis" src="'.Yii::app()->request->baseUrl.'/css/img/like-ico-h.png">';
 		}
 		else{
 			$model->status = 0;
 			$model->edit_timestamp = time();
-			$displaynow = '<img id="like-dis" src="/css/img/like-ico.png">';
+			$displaynow = '<img id="like-dis" src="'.Yii::app()->request->baseUrl.'/css/img/like-ico.png">';
 		}
 		
 		if($model->save()){

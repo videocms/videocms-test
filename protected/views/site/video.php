@@ -194,7 +194,7 @@ foreach ($ModelCategories as $ModelCategoryShow)
                                     <span class="video-thumb  vc-thumb">
                                         <span class="vc-thumb-default">
                                           <span class="vc-thumb-clip">
-                                            <img class="img-responsive" alt="<?php echo $RelatedVideo->video_title; ?>" src="/../<?php echo $RelatedVideo->video_thumb; ?>">
+                                            <img class="img-responsive" alt="<?php echo $RelatedVideo->video_title; ?>" src="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $RelatedVideo->video_thumb; ?>">
                                             <span class="vertical-align"></span>
                                           </span>
                                         </span>
@@ -342,14 +342,14 @@ foreach ($ModelCategories as $ModelCategoryShow)
                     return xhttp.responseXML;
                     }
                     
-                    xmlDoc=loadXMLDoc('/vastxml/?vid=<?php echo $Model->video_id; ?>.xml');
+                    xmlDoc=loadXMLDoc('<?php echo Yii::app()->request->baseUrl; ?>/vastxml/?vid=<?php echo $Model->video_id; ?>.xml');
                     x=xmlDoc.getElementsByTagName("Ad")[0].getAttributeNode("id");
                     IdVast=x.nodeValue;
                     if (IdVast)
                     {
                         vid1.ads();
                         vid1.vast({
-                            url: '/vastxml/?vid=<?php echo $Model->video_id; ?>.xml'
+                            url: '<?php echo Yii::app()->request->baseUrl; ?>/vastxml/?vid=<?php echo $Model->video_id; ?>.xml'
                         });
                     }
 </script>
