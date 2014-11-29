@@ -42,7 +42,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'name'=>'slider_id',
                 'class'=>'ImageLinkColumn',
                 'urlExpression'=>'array("admin/sliderupdate/".$data->slider_id)',
-                'value' => 'CHtml::image("/" . $data->slider_thumb, $data->slider_title, array("style"=>"width: 80px; height: 50px;", "class"=>"table-bordered"))',
+                'value' => 'CHtml::image("'.Yii::app()->request->baseUrl.'/" . $data->slider_thumb, $data->slider_title, array("style"=>"width: 80px; height: 50px;", "class"=>"table-bordered"))',
               ),
         array(
                 'type'=>'raw',

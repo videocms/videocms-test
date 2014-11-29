@@ -62,7 +62,7 @@
                 <?php echo $form->labelEx($ModelVideo, 'video_image'); ?>
                 <div id="upload">
                     <div class='col-lg-4'>
-                       <img src="/../<?php echo $ModelVideo->video_thumb; ?>" class="img-thumbnail" style="height: 80px;"/>
+                       <img src="<?php echo Yii::app()->request->baseUrl; ?>/<?php echo $ModelVideo->video_thumb; ?>" class="img-thumbnail" style="height: 80px;"/>
                     </div>
                  <div class='col-lg-8'>
                     <?php echo $form->textField($ModelVideo, 'video_image',array('readonly'=>true, 'class' => 'form-control')); ?>

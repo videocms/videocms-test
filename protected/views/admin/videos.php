@@ -41,7 +41,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'type' => 'raw',
                 'class'=>'ImageLinkColumn',
                 'urlExpression'=>'array("admin/videoupdate/".$data->video_id)',
-                'value' => 'CHtml::image("/" . $data->video_thumb, $data->video_title, array("style"=>"width: 80px; height: 50px;", "class"=>"table-bordered"))',
+                'value' => 'CHtml::image("'.Yii::app()->request->baseUrl.'/" . $data->video_thumb, $data->video_title, array("style"=>"width: 80px; height: 50px;", "class"=>"table-bordered"))',
               ),
         array(
                 'type'=>'raw',
