@@ -11,9 +11,11 @@
                     ->queryRow());?>">
                         <img u="image" src="<?php echo $Data->slider_image; ?>"/>
                         <div class="caption" u="caption" t="MCLIP|B">
-                            <div class="cap caption1"></div>
+                            <div class="cap caption1">
+                                <h2><?php echo $Data->slider_title; ?></h2>
+                            </div>
                             <div class="cap caption2">
-                                <?php echo $Data->slider_title; ?>
+                                <h4><?php echo $Data->slider_text.'...'; ?></h4>
                             </div>
                         </div>
                     </a>
@@ -66,7 +68,7 @@
         <h3>Najnowsze</h3>
     </div>
     <?php foreach ($VideoLatest as $Video) : ?>
-	<div id="<?php echo $Video->video_id; ?>" class="col-xs-6 col-sm-6 col-md-3" data-toggle="popover" data-placement="top" data-trigger="hover" title="Więcej informacji" data-content="<?php echo $Video->video_title; ?>">
+	<div id="<?php echo $Video->video_id; ?>" class="col-xs-6 col-sm-6 col-md-3" data-toggle="popover" data-placement="top" data-trigger="hover" title="Więcej informacji" data-content="<?php echo $Video->video_description.'...'; ?>">
 		<div class="vc-lockup-video">
 		
 				  <div class="vc-lockup-thumbnail">
@@ -160,67 +162,88 @@ $('#<?php echo $Video->video_id; ?>').popover({
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/slider-jquery/js/jssor.js"></script>
     <script>
     jQuery(document).ready(function ($) {
-        var _CaptionTransitions = [];
-            _CaptionTransitions["L"] = { $Duration: 800, x: 0.6, $Easing: { $Left: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
-            _CaptionTransitions["R"] = { $Duration: 800, x: -0.6, $Easing: { $Left: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
-            _CaptionTransitions["T"] = { $Duration: 800, y: 0.6, $Easing: { $Top: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
-            _CaptionTransitions["B"] = { $Duration: 800, y: -0.6, $Easing: { $Top: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
-            _CaptionTransitions["TL"] = { $Duration: 800, x: 0.6, y: 0.6, $Easing: { $Left: $JssorEasing$.$EaseInOutSine, $Top: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
-            _CaptionTransitions["TR"] = { $Duration: 800, x: -0.6, y: 0.6, $Easing: { $Left: $JssorEasing$.$EaseInOutSine, $Top: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
-            _CaptionTransitions["BL"] = { $Duration: 800, x: 0.6, y: -0.6, $Easing: { $Left: $JssorEasing$.$EaseInOutSine, $Top: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
-            _CaptionTransitions["BR"] = { $Duration: 800, x: -0.6, y: -0.6, $Easing: { $Left: $JssorEasing$.$EaseInOutSine, $Top: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
-
-            _CaptionTransitions["WAVE|L"] = { $Duration: 1500, x: 0.6, y: 0.3, $Easing: { $Left: $JssorEasing$.$EaseLinear, $Top: $JssorEasing$.$EaseInWave }, $Opacity: 2, $Round: { $Top: 2.5} };
-            _CaptionTransitions["MCLIP|B"] = { $Duration: 600, $Clip: 8, $Move: true, $Easing: $JssorEasing$.$EaseOutExpo };
+var _CaptionTransitions = [];
+            _CaptionTransitions["L"] = { $Duration: 900, x: 0.6, $Easing: { $Left: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
+            _CaptionTransitions["R"] = { $Duration: 900, x: -0.6, $Easing: { $Left: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
+            _CaptionTransitions["T"] = { $Duration: 900, y: 0.6, $Easing: { $Top: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
+            _CaptionTransitions["B"] = { $Duration: 900, y: -0.6, $Easing: { $Top: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
+            _CaptionTransitions["ZMF|10"] = { $Duration: 900, $Zoom: 11, $Easing: { $Zoom: $JssorEasing$.$EaseOutQuad, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 };
+            _CaptionTransitions["RTT|10"] = { $Duration: 900, $Zoom: 11, $Rotate: 1, $Easing: { $Zoom: $JssorEasing$.$EaseOutQuad, $Opacity: $JssorEasing$.$EaseLinear, $Rotate: $JssorEasing$.$EaseInExpo }, $Opacity: 2, $Round: { $Rotate: 0.8} };
+            _CaptionTransitions["RTT|2"] = { $Duration: 900, $Zoom: 3, $Rotate: 1, $Easing: { $Zoom: $JssorEasing$.$EaseInQuad, $Opacity: $JssorEasing$.$EaseLinear, $Rotate: $JssorEasing$.$EaseInQuad }, $Opacity: 2, $Round: { $Rotate: 0.5} };
+            _CaptionTransitions["RTTL|BR"] = { $Duration: 900, x: -0.6, y: -0.6, $Zoom: 11, $Rotate: 1, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Top: $JssorEasing$.$EaseInCubic, $Zoom: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear, $Rotate: $JssorEasing$.$EaseInCubic }, $Opacity: 2, $Round: { $Rotate: 0.8} };
+            _CaptionTransitions["CLIP|LR"] = { $Duration: 900, $Clip: 15, $Easing: { $Clip: $JssorEasing$.$EaseInOutCubic }, $Opacity: 2 };
+            _CaptionTransitions["MCLIP|L"] = { $Duration: 900, $Clip: 1, $Move: true, $Easing: { $Clip: $JssorEasing$.$EaseInOutCubic} };
+            _CaptionTransitions["MCLIP|R"] = { $Duration: 900, $Clip: 2, $Move: true, $Easing: { $Clip: $JssorEasing$.$EaseInOutCubic} };
 
             var _SlideshowTransitions = [{
                     $Duration:1000,$Opacity:2                  
         }];
             
         var options = { 
+            $FillMode: 2,
             $AutoPlay: true,
+            $AutoPlayInterval: 4000,
+            $PauseOnHover: 1,
+            $ArrowKeyNavigation: <?php echo $this->slider_arrowkeynavigation; ?>,
+            $SlideEasing: $JssorEasing$.$EaseOutQuint,
             $SlideDuration: <?php echo $this->slider_duration; ?>,
-            $DragOrientation: <?php echo $this->slider_dragorientation; ?>,
-            $SlideSpacing: <?php echo $this->slider_slidespacing; ?>,
             $MinDragOffsetToSlide: <?php echo $this->slider_mindragoffsettoslide; ?>,
+            $SlideSpacing: <?php echo $this->slider_slidespacing; ?>,
+            $DisplayPieces: 1,
+            $ParkingPosition: 0,
+            $UISearchMode: 1,   
+            $PlayOrientation: 1,
+            $DragOrientation: <?php echo $this->slider_dragorientation; ?>,
             $Loop: <?php echo $this->slider_loop; ?>,
             $HWA: <?php echo $this->slider_hwa; ?>,
-            $ArrowKeyNavigation: <?php echo $this->slider_arrowkeynavigation; ?>,
+            
             $LazyLoading: <?php echo $this->slider_lazyloading; ?>,
-            $ArrowNavigatorOptions: {                       //[Optional] Options to specify and enable arrow navigator or not
-                    $Class: $JssorArrowNavigator$,              //[Requried] Class to create arrow navigator instance
-                    $ChanceToShow: <?php echo $this->slider_arrow; ?>,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
-                    $AutoCenter: 0,                                 //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
-                    $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
+            
+            $CaptionSliderOptions: {
+                    $Class: $JssorCaptionSlider$,     
+                    $CaptionTransitions: _CaptionTransitions,
+                    $PlayInMode: 1,
+                    $PlayOutMode: 3
                 },
-            $CaptionSliderOptions: {                            //[Optional] Options which specifies how to animate caption
-                    $Class: $JssorCaptionSlider$,                   //[Required] Class to create instance to animate caption
-                    $CaptionTransitions: _CaptionTransitions,       //[Required] An array of caption transitions to play caption, see caption transition section at jssor slideshow transition builder
-                    $PlayInMode: 1,                                 //[Optional] 0 None (no play), 1 Chain (goes after main slide), 3 Chain Flatten (goes after main slide and flatten all caption animations), default value is 1
-                    $PlayOutMode: 3                                 //[Optional] 0 None (no play), 1 Chain (goes before main slide), 3 Chain Flatten (goes before main slide and flatten all caption animations), default value is 1
+            $BulletNavigatorOptions: {                          //[Optional] Options to specify and enable navigator or not
+                    $Class: $JssorBulletNavigator$,                 //[Required] Class to create navigator instance
+                    $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+                    $AutoCenter: 1,                                 //[Optional] Auto center navigator in parent container, 0 None, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+                    $Steps: 1,                                      //[Optional] Steps to go for each navigation request, default value is 1
+                    $Lanes: 1,                                      //[Optional] Specify lanes to arrange items, default value is 1
+                    $SpacingX: 8,                                   //[Optional] Horizontal space between each item in pixel, default value is 0
+                    $SpacingY: 8,                                   //[Optional] Vertical space between each item in pixel, default value is 0
+                    $Orientation: 1,                                //[Optional] The orientation of the navigator, 1 horizontal, 2 vertical, default value is 1
+                    $Scale: false,                                  //Scales bullets navigator or not while slider scale
+                },           
+            $ArrowNavigatorOptions: {                           //[Optional] Options to specify and enable arrow navigator or not
+                    $Class: $JssorArrowNavigator$,                  //[Requried] Class to create arrow navigator instance
+                    $ChanceToShow: <?php echo $this->slider_arrow; ?>,                                //[Required] 0 Never, 1 Mouse Over, 2 Always
+                    $AutoCenter: 2,                                 //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+                    $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
                 },
             $SlideshowOptions: {                                //Options which specifies enable slideshow or not
                 $Class: $JssorSlideshowRunner$,                 //Class to create instance of slideshow
                 $Transitions: _SlideshowTransitions            //Transitions to play slide, see jssor slideshow transition builder
             }
             };
-        var jssor_slider1 = new $JssorSlider$('slider1_container', options);
-        //responsive code begin
-        function ScaleSlider() {
-            var parentWidth = $('#slider1_container').parent().width();
-            if (parentWidth) {
-                jssor_slider1.$ScaleWidth(parentWidth);
+            var jssor_slider1 = new $JssorSlider$("slider1_container", options);
+
+            //responsive code begin
+            //you can remove responsive code if you don't want the slider scales while window resizes
+            function ScaleSlider() {
+                var bodyWidth = document.body.clientWidth;
+                if (bodyWidth)
+                    jssor_slider1.$ScaleWidth(Math.min(bodyWidth, 1920));
+                else
+                    window.setTimeout(ScaleSlider, 30);
             }
-            else
-                window.setTimeout(ScaleSlider, 30);
-        }
-        //Scale slider after document ready
-        ScaleSlider();
-        if (!navigator.userAgent.match(/(iPhone|iPod|iPad|BlackBerry|IEMobile)/)) {
-            //Capture window resize event
-            $(window).bind('resize', ScaleSlider);
-        }
-        //responsive code end
+            ScaleSlider();
+
+            $(window).bind("load", ScaleSlider);
+            $(window).bind("resize", ScaleSlider);
+            $(window).bind("orientationchange", ScaleSlider);
+            //responsive code end
     });
     </script>
     <script>tinymce.init({

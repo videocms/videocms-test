@@ -41,13 +41,13 @@ class SiteController extends Controller
         ));
         
         $VideoLatest = CmsvideoVideo::model()->findAll(array(
-            'select'=>'video_id, video_title, video_thumb, video_views, video_alias',
+            'select'=>'video_id, video_title, video_description, video_thumb, video_views, video_alias',
             'order' => 'video_id DESC',
             'limit' => '4',
         ));
         
         $VideoPopular = CmsvideoVideo::model()->findAll(array(
-            'select'=>'video_id, video_title, video_thumb, video_views, video_alias',
+            'select'=>'video_id, video_title, video_description, video_thumb, video_views, video_alias',
             'order' => 'video_views DESC',
             'limit' => '4',
         ));

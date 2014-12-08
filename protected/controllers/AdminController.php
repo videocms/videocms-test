@@ -179,6 +179,7 @@ class AdminController extends Controller
                         $Slider->ImageThumbCreate($ImageUrl, $ThumbUrl);
                         $Slider->slider_idvideo = $id;
                         $Slider->slider_title = $ModelVideo->video_title;
+                        $Slider->slider_text = $ModelVideo->video_description;
                         $Slider->slider_image = $ImageUrl;
                         $Slider->slider_thumb = $ThumbUrl;
                         $Slider->slider_published = '1';
@@ -394,6 +395,7 @@ class AdminController extends Controller
                         $Slider->ImageThumbCreate($ImageUrl, $ThumbUrl);
                         $Slider->slider_idvideo = $id;
                         $Slider->slider_title = $ModelVideo->video_title;
+                        $Slider->slider_text = $ModelVideo->video_description;
                         $Slider->slider_image = $ImageUrl;
                         $Slider->slider_thumb = $ThumbUrl;
                         $Slider->slider_published = '1';
@@ -724,6 +726,7 @@ class AdminController extends Controller
                 $SliderAdd = true;
                 $ModelSlider->slider_idvideo = '';
                 $ModelSlider->slider_title = '';
+                $ModelSlider->slider_text = '';
                 $ModelSlider->slider_image = '';
                 $ModelSlider->slider_thumb = '';
             }

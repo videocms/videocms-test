@@ -304,7 +304,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                         
-                    <pre>Witaj <?php echo Yii::app()->user->name; ?></pre>
+      
                     <?php if(Yii::app()->user->isAdmin() == true)
                 {
                     $this->widget('zii.widgets.CMenu',array(
@@ -368,7 +368,6 @@ if (Yii::app()->user->isAdmin() == TRUE)
 
     <!-- Custom Theme JavaScript -->
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/twitter-bootstrap/js/sb-admin-2.js"></script>
-
 </body>    
     
     

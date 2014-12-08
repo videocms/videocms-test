@@ -219,8 +219,7 @@ foreach ($ModelCategories as $ModelCategoryShow)
         <div class="col-md-12" itemscope itemid="" itemtype="http://schema.org/VideoObject">
             <?php echo '<h1 class="page-video">'.$Model->video_title.'</h1>'; ?>
             <link itemprop="url" href="<?php echo Yii::app()->request->getBaseUrl(true); ?>/video/<?php echo $Model->video_id; ?>-<?php echo $Model->video_alias; ?>">
-            <meta itemprop="name" content="<?php echo $Model->video_title; ?>">
-            <meta itemprop="description" content="<?php echo $Model->video_text; ?>">
+           
            <!-- <span itemprop="author" itemscope itemtype="http://schema.org/Person">
                 <link itemprop="url" href="autor">
             </span> -->
@@ -277,7 +276,10 @@ foreach ($ModelCategories as $ModelCategoryShow)
             <div class="col-md-12">
                 <h5 class="data">Data publikacji: <?php echo $Model->video_date; ?></h5>
                 <p class="tresc"><?php echo $Model->video_text; ?></p>
-                
+                <div style="display: none;">
+                <meta itemprop="name" content="<?php echo $Model->video_title; ?>">
+                <meta itemprop="description" content="<?php echo $Model->video_text; ?>">
+                </div>
                 <?php
                 if (!empty($Category[$Model->video_category]))
                     {

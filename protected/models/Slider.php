@@ -18,8 +18,8 @@ class Slider extends CActiveRecord
         return array(
             array('slider_title, slider_idvideo, slider_image, slider_published', 'required'),
             array('slider_idvideo', 'numerical', 'integerOnly'=>true),
-            array('slider_title, slider_image, slider_thumb, slider_updateimg', 'length', 'max'=>255),
-            array('slider_id, slider_idvideo, slider_title, slider_image, slider_published', 'safe', 'on'=>'search'),
+            array('slider_title, slider_text, slider_image, slider_thumb, slider_updateimg', 'length', 'max'=>255),
+            array('slider_id, slider_idvideo, slider_title, slider_text, slider_image, slider_published', 'safe', 'on'=>'search'),
         );
     }
    
@@ -35,6 +35,7 @@ class Slider extends CActiveRecord
         return array(
             'slider_id' => 'ID',
             'slider_title' => 'Nagłówek',
+            'slider_text' => 'Tekst',
             'slider_idvideo' => 'Video',
             'slider_thumb' => 'Miniaturka',
             'slider_image' => 'Zdjęcie',
@@ -50,6 +51,7 @@ class Slider extends CActiveRecord
             $criteria->compare('slider_image', $this->slider_image, true);
             $criteria->compare('slider_thumb', $this->slider_thumb, true);
             $criteria->compare('slider_title', $this->slider_title, true);
+            $criteria->compare('slider_text', $this->slider_text, true);
             $criteria->compare('slider_published', $this->slider_published, true);
 
             return new CActiveDataProvider($this, array(
