@@ -85,7 +85,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
+<!--                <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
@@ -133,10 +133,10 @@ if (Yii::app()->user->isAdmin() == TRUE)
                             </a>
                         </li>
                     </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
+                     /.dropdown-messages 
+                </li>-->
                 <!-- /.dropdown -->
-                <li class="dropdown">
+<!--                <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
@@ -212,10 +212,10 @@ if (Yii::app()->user->isAdmin() == TRUE)
                             </a>
                         </li>
                     </ul>
-                    <!-- /.dropdown-tasks -->
-                </li>
+                     /.dropdown-tasks 
+                </li>-->
                 <!-- /.dropdown -->
-                <li class="dropdown">
+<!--                <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
@@ -272,8 +272,8 @@ if (Yii::app()->user->isAdmin() == TRUE)
                             </a>
                         </li>
                     </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
+                     /.dropdown-alerts 
+                </li>-->
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -320,7 +320,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
                             array('label'=>'<i class="fa fa-desktop fa-f"></i> Reklamy', 'url'=>array('/admin/vast')),
                             array('label'=>'<i class="fa fa-picture-o fa-f"></i> Slider', 'url'=>array('/admin/slider')),
                             array('label'=>'<i class="fa fa-users fa-f"></i> Użytkownicy', 'url'=>array('/admin/users')),
-                            array('label'=>'<i class="fa fa-envelope fa-f"></i> Skrzynka', 'url'=>array('/admin/message')),
+//                            array('label'=>'<i class="fa fa-envelope fa-f"></i> Skrzynka', 'url'=>array('/admin/message')),
                             array('label'=>'<i class="fa fa-cog fa-f"></i> Ustawienia', 'url'=>array('/admin/settings/1')),
                             //array('label'=>'<i class="fa fa-cog fa-f"></i> Ust', 'url'=>array('/admin/settingsplay')),
                             array('label'=>'<i class="fa fa-medkit fa-f"></i> Logi', 'url'=>array('/admin/log')),
@@ -342,7 +342,7 @@ if (Yii::app()->user->isAdmin() == TRUE)
                 ?></div> 
                 </div>
                 <!-- /.sidebar-collapse -->
-            </div>
+<!--            </div>-->
             <!-- /.navbar-static-side -->
         </nav>
 
