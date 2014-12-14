@@ -136,7 +136,7 @@
     <div id="wrapper">
         <div class="row">
           <div class="col-xs-5 col-sm-4 col-md-2" style="padding-top:7px; padding-left: 30px;">
-              <a href="/"><img src="http://alexie.pl/logo.png" alt="tekst"></a>
+              <a href="<?php echo Yii::app()->request->baseUrl; ?>/"><img src="http://alexie.pl/logo.png" alt="tekst"></a>
          </div>
         <div class="col-xs-1 col-sm-1" style="padding-top:7px;"><button id="showLeft" class="btn btn-default"><span class="glyphicon glyphicon-align-justify"></span></button></div>
     <div class="col-xs-6 col-sm-6" style="padding-top:7px;">
